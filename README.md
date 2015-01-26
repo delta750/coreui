@@ -8,59 +8,59 @@ Core UI is a HTML, CSS and JavaScript front-end framework for easier development
     * [Required tools](#required-tools)
     * [What's included](#whats-included)
 * [Documentation](#documentation)
-    * [What's Core UI](#whats-coreui)
+    * [What's Core UI](#what-is-core-ui)
     * [Features](#features)
     * [API](#api)
 * [Contributing](#contributing)
 * [Versioning](#versioning)
-* [Reporting bugs and known issues](#bugs-and-issues)
+* [Reporting bugs and known issues](#reporting-bugs-and-known-issues)
 * [Feature requests](#feature-requests)
 * [Copyright and licensing](#copyright-and-licensing)
 
-## <a id="quick-start"></a>Quick start
+## Quick start
 
 Todo.
 
-### <a id="required-tools"></a>Required tools
+### Required tools
 
 Todo.
 
-### <a id="whats-included"></a>What's included
+### What's included
 
 Todo.
 
-## <a id="documentation"></a>Documentation
+## Documentation
 
 Todo.
 
-### <a id="whats-coreui"></a>What is Core UI?
+### What is Core UI?
 
 Todo.
 
-### <a id="features"></a>Features
+### Features
 
 Todo.
 
-### <a id="api"></a>API
+### API
 
 Todo.
 
-## <a id="contributing"></a>Contributing
+## Contributing
 
 Todo.
 
-## <a id="versioning"></a>Versioning
+## Versioning
 
 Todo.
 
-## <a id="bugs-and-issues"></a>Reporting bugs and known issues
+## Reporting bugs and known issues
 
-Before reporting new issues please make sure you have reviewed our existing and closed issues. To report new issues, please first read our [issues guidelines](https://github.com/mfarfanr/coreui/issues/new) and then [open a new issue](https://github.com/mfarfanr/coreui/issues/new).
+Before reporting new issues please make sure you have reviewed our existing and closed issues. To report new issues, please first read our [issues guidelines](https://github.com/nys-its/frg-coreui/CONTRIBUTING.md) and then [open a new issue](https://github.com/nys-its/frg-coreui/issues/new).
 
-## <a id="feature-requests"></a>Feature requests
+## Feature requests
 
 Todo.
 
-## <a id="copyright-and-licensing"></a>Copyright and licensing
+## Copyright and licensing
 
 Todo.
