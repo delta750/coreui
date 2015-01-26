@@ -1,0 +1,94 @@
+/*
+=======================================================================
+ New York State Department of Taxation and Finance
+ User Interface Team
+ Styles for primary structural elements across all pages.
+ Version 1.0.0.20120323
+======================================================================= 
+
+----------------------------------------
+ Contents
+----------------------------------------
+    Page
+    Header
+    Body
+    Footer
+    Generated
+    Shared
+*/
+
+
+/* ----------------------------------------
+   .Page
+   ---------------------------------------- */
+.page {
+    width: auto;
+    *zoom: 1;
+}
+
+.its-margin-center-align {
+    margin: 0px auto;
+    padding: 0px auto;
+}
+
+.its-fluid {
+    float: none;
+  	overflow: hidden;
+}
+
+
+/* ----------------------------------------
+   .Header
+   ---------------------------------------- */
+.its-header {
+    /* background-color: #E2E9F3; debug */
+}
+
+
+/* ----------------------------------------
+   .Body
+   ---------------------------------------- */
+.its-body {
+    /* background-color: #FFF; debug */
+}
+
+
+/* ----------------------------------------
+   .Footer
+   ---------------------------------------- */
+.its-footer {
+    /* background-color: #E5E5E5; debug */
+}
+
+
+/* ----------------------------------------
+   .Generated
+   ---------------------------------------- */
+.its-generated {
+    /* background-color: #E4EFEB; debug */
+}
+
+
+/* ----------------------------------------
+   .Shared
+   ---------------------------------------- */
+.its-header, .its-body, .its-footer, .its-generated {
+    width: auto;
+}
+
+.its-body,
+.its-fluid {
+	*zoom: 1;
+}
+
+.its-body:after,
+.its-fluid:after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0 !important;
+    line-height: 0;
+    font-size: xx-large;
+    content:" ";
+}

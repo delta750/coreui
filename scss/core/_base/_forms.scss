@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/**
+ * CoreUI form css
+ * Version 1.0.0.20141231
+ * URL:https://github.com/nys-its/frg-coreui/coreui
+ */
+
+form {
+    height: 1%;
+    display: inline;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 2px;
+
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-align: left;
+    text-indent: 0;
+    text-shadow: none;
+
+}
+/*
+input, textarea {
+    padding: 2px 1px 2px 3px;
+    margin-top: -4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+select {
+    padding: 1px 1px 1px 3px;
+    margin-top: -2px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    margin-top: 0;
+}
+
+input[type="checkbox"], input[type="radio"], input[type="image"] {
+    border: none;
+}
+*/

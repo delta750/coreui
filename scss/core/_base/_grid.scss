@@ -1,0 +1,243 @@
+@charset "UTF-8";
+/* CoreUI grid
+Version 1.0.0.20141231
+URL:https://github.com/nys-its/frg-coreui/coreui
+- Mobile first
+- Based on rows and columns
+- 12-column default grid
+- Fluid and/or fixed with filler when needed
+- Responsive with three breakpoints (≤480px, ≤768px and ≥769px)
+- Gutters (or not)
+- Push (offsets? pull?)
+- Hide
+- Mixins for customizing columns, gutters, etc. */
+
+.its-row {
+    width: 100%;
+    clear: both;
+    margin: 0 auto 10px auto;
+    overflow: hidden
+}
+
+[class*="its-col-sm-"], [class*="its-fixed-col-"] {
+    float: left
+}
+
+[class*="its-col-"], [class*="its-fixed-col-"], [class*="its-filler-col-"] {
+    position: relative;
+    padding: 0 10px;
+    line-height: 1.414;
+    min-height: 1px;
+    overflow: hidden;
+}
+
+.its-filler-col-sm {
+    float: none;
+    width: auto;
+    overflow: hidden
+}
+
+.its-row:after, [class*="its-filler-col-"]:after, .its-clearfix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0
+}
+
+.its-hide-col-sm {
+    display: none;
+}
+
+.its-col-sm-12 {
+    width: 100%
+}
+
+.its-col-sm-11 {
+    width: 91.66666667%
+}
+
+.its-col-sm-10 {
+    width: 83.33333333%
+}
+
+.its-col-sm-9 {
+    width: 75%
+}
+
+.its-col-sm-8 {
+    width: 66.66666667%
+}
+
+.its-col-sm-7 {
+    width: 58.33333333%
+}
+
+.its-col-sm-6 {
+    width: 50%
+}
+
+.its-col-sm-5 {
+    width: 41.66666667%
+}
+
+.its-col-sm-4 {
+    width: 33.33333333%
+}
+
+.its-col-sm-3 {
+    width: 25%
+}
+
+.its-col-sm-2 {
+    width: 16.66666667%
+}
+
+.its-col-sm-1 {
+    width: 8.33333333%
+}
+
+@media only screen and (min-width:480px) {
+    [class*="its-col-md-"] {
+        float: left
+    }
+
+    .its-filler-col-md {
+        float: none;
+        width: auto;
+        overflow: hidden
+    }
+
+    .its-hide-col-md {
+        display: none;
+    }
+
+    .its-hide-col-sm, .its-hide-col-lg {
+        display: block;
+    }
+
+    .its-col-md-12 {
+        width: 100%
+    }
+
+    .its-col-md-11 {
+        width: 91.66666667%
+    }
+
+    .its-col-md-10 {
+        width: 83.33333333%
+    }
+
+    .its-col-md-9 {
+        width: 75%
+    }
+
+    .its-col-md-8 {
+        width: 66.66666667%
+    }
+
+    .its-col-md-7 {
+        width: 58.33333333%
+    }
+
+    .its-col-md-6 {
+        width: 50%
+    }
+
+    .its-col-md-5 {
+        width: 41.66666667%
+    }
+
+    .its-col-md-4 {
+        width: 33.33333333%
+    }
+
+    .its-col-md-3 {
+        width: 25%
+    }
+
+    .its-col-md-2 {
+        width: 16.66666667%
+    }
+
+    .its-col-md-1 {
+        width: 8.33333333%
+    }
+
+    [class$="-200"] {
+        width: 200px
+    }
+}
+
+@media only screen and (min-width:786px) {
+    [class*="its-col-lg-"] {
+        float: left
+    }
+
+    .its-filler-col-lg {
+        float: none;
+        width: auto;
+        overflow: hidden
+    }
+
+    .its-hide-col-lg {
+        display: none;
+    }
+
+    .its-hide-col-sm, .its-hide-col-md {
+        display: block;
+    }
+
+    .its-col-lg-12 {
+        width: 100%
+    }
+
+    .its-col-lg-11 {
+        width: 91.66666667%
+    }
+
+    .its-col-lg-10 {
+        width: 83.33333333%
+    }
+
+    .its-col-lg-9 {
+        width: 75%
+    }
+
+    .its-col-lg-8 {
+        width: 66.66666667%
+    }
+
+    .its-col-lg-7 {
+        width: 58.33333333%
+    }
+
+    .its-col-lg-6 {
+        width: 50%
+    }
+
+    .its-col-lg-5 {
+        width: 41.66666667%
+    }
+
+    .its-col-lg-4 {
+        width: 33.33333333%
+    }
+
+    .its-col-lg-3 {
+        width: 25%
+    }
+
+    .its-col-lg-2 {
+        width: 16.66666667%
+    }
+
+    .its-col-lg-1 {
+        width: 8.33333333%
+    }
+}
+
+.its-push-right {
+    float: right
+}

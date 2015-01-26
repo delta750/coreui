@@ -1,0 +1,487 @@
+/* 
+=======================================================================
+ New York State Department of Taxation and Finance
+ User Interface Team
+ Styles specific to page-independent controls/modules/web parts/etc.
+ Version 1.0.0.20120320
+=======================================================================
+
+----------------------------------------
+ Contents
+----------------------------------------
+    Banner
+        OFT
+    Calendar
+    Tooltip
+*/
+
+
+/* ----------------------------------------
+   .Banner
+   ---------------------------------------- */
+   
+/* 
+   OFT
+   ---------------------------------------- */
+div#nysbanner input, input#search-box, input#search-button {
+    font: 13px "Segoe UI", Arial, Helvetica, sans-serif !important;
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
+    *padding: 0;
+    margin: 3px 0 0 0 !important;
+	*margin: 2px 0 0 0 !important;
+    vertical-align: middle !important;
+}
+
+
+/* ----------------------------------------
+   .Calendar
+   ---------------------------------------- */
+/*
+/* Calendar icon */
+.calendar {
+  display: inline-block;
+  width: 20px;
+  height: 19px;
+  border: 1px solid transparent;
+  background: transparent url("../../images/plugin/CalendarSprite.png") 0 0 no-repeat;
+  vertical-align: middle;
+  border-radius: 4px;
+  margin: -4px 0 0 0em;
+}
+
+.calendar:hover {
+  border: 1px solid #BDDBFF;
+  background-color: #FFFBFF;
+}
+
+/* Main */
+.dp {
+  position: absolute;
+  font-size: 100%; /* sizes to match page's default font size */
+  overflow: visible;
+  min-width: 16.5em;
+  white-space: nowrap;
+}
+
+.dpCalWrap {
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  display: inline-block;
+  *width: 16.46em;
+}
+
+.dpCal {
+  position: relative;
+  top: 0;
+  left: 0;
+  border: 1px solid #C6D5E8;
+  background-color: #FFF;
+  z-index: 2;
+}
+
+/* General */
+.dp a, .dp img {
+  border: 0;
+}
+
+.dp ul {
+  list-style: none;
+  overflow: visible;
+}
+
+.dp ul, .dp li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.dpHead {
+  position: relative;
+  clear: both;
+  padding: 0;
+  margin: 0;
+  background-color: #F1F5FB;
+  border-bottom: 1px solid #C6D5E8;
+  overflow: hidden;
+  text-align: center;
+}
+
+.dpHead ul {
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+.dpHead .lIcons {
+  left: 0.2em;
+}
+
+.dpHead .rIcons {
+  right: 0.2em;
+}
+
+.dpHead li {
+  float: left;
+  padding: 0.25em 0.1em 0 0.1em;
+}
+
+.dpHead li a,
+.dpHead .grayedOut {
+  float: left;
+  line-height: 1.25em;
+  height: 1.25em;
+  padding: 0 0.25em;
+}
+
+.dpHead .fastNavPrevQtr,
+.dpHead .navPrevMon,
+.dpHead .navNextMon,
+.dpHead .fastNavNextQtr {
+  border: 1px solid #F1F5FB;
+}
+
+.dpHead .fastNavPrevQtr:hover,
+.dpHead .navPrevMon:hover,
+.dpHead .navNextMon:hover,
+.dpHead .fastNavNextQtr:hover {
+  border: 1px solid #BBCADB;
+  background-color: #DDE6EF;
+  border-radius: 3px;
+}
+
+.dpHead img {
+  *vertical-align: middle;
+  padding-top: 2px;
+  *padding-top: 0px;
+}
+
+.dpHead .title {
+  line-height: 1.75em;
+  width: 100%;
+}
+
+.dpHead .monthYear {
+  position: relative;
+  top: 0px;
+  color: #333;
+  padding: 0 0.7em 2px 0.7em;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.dpHead .monthYear:hover {
+  color: #CC6633;
+  text-decoration: underline;
+}
+
+/* Body */
+.dpBody {
+  background-color: #FFF;
+}
+
+.dpDayDesc,
+.dpWeekNbrDays {
+  clear: both;
+  overflow: hidden;
+}
+
+.dpDayDesc {
+  background-color: #E7EBF6;
+  border-top: 1px solid #E7EBF6;
+  line-height: 1.5em;
+}
+
+.dpDayDesc ul {
+  /*margin-left: 2.1em; -- week nbr -- */
+  overflow: hidden;
+}
+
+.dpDayDesc li {
+  float: left;
+  margin: 0;
+  padding: 2px 0 3px 0;
+  width: 2.3em;
+  text-align: center;
+}
+
+.dpWeekNbr,
+.dpDays {
+  float: left;
+}
+
+.dpWeekNbr {
+  background-color: #E7EBF6;
+  width: 2.15em;
+  text-align: center;
+  color: #4C607A;
+}
+
+.dpWeekNbr li,
+.dpDays a,
+.dpDays .disabled {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.dpWeekNbr li {
+  padding: 1px 0 2px 0;
+  border-color: #E7EBF6;
+}
+
+.dpDays li {
+  float: left;
+  width: 2.3em;
+  text-align: right;
+  padding-bottom: 1px;
+}
+
+.dpDays .prevMonthDay a,
+.dpDays .nextMonthDay a,
+.dpDays .disabled,
+.dpMon .disabled,
+.dpYr .disabled {
+  color: #999999 !important;
+}
+
+.dpDays a,
+.dpDays a:visited,
+.dpDays .disabled {
+  float: left;
+  color: #333;
+  margin-left: 1px;
+  width: 1.45em;
+  line-height: 1.5em;
+  padding-right: 0.5em;
+  text-decoration: none;
+  border-color: #FFF;
+  border-radius: 4px;
+}
+
+.dpDays .today a {
+  border: 1px solid transparent;
+  background-color: none;
+  color: #C30;
+}
+
+.dpDays a:hover,
+.dpDays li.selectedDay a:hover,
+.dpDays .today a:hover {
+  border: 1px solid #8FB0D6;
+  color: #4C607A;
+  background-color: #EFF3F7;
+}
+
+.dpDays .today a:hover {
+  color: #C60;
+}
+
+.dpDays li.selectedDay a {
+  border: 1px solid #8FB0D6;
+  color: #4C607A;
+  background-color: #D0E4FC;
+}
+
+/* Footer */
+.dpFoot {
+}
+
+/* Shadow */
+.dpCalShadow {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: #BBB;
+  z-index: 1;
+}
+
+/* Select */
+.dpOptWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #BBB;
+  color: #333;
+  background-color: #FFF;
+  z-index: 3;
+  display: nnone;
+}
+
+.dpOpt {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 12.85em;
+  overflow: hidden;
+  padding: 0.3em 0.25em 0.35em 0.3em;
+  background-color: #FFF;
+  z-index: 5;
+}
+
+.dpOpt li {
+  float: left;
+}
+
+.dpMon,
+.dpYr {
+  float: left;
+  color: #333;
+}
+
+.dpMon {
+  width: 5.9em;
+  border-right: 1px solid #E1E1E1;
+
+  padding-right: 0.2em;
+  margin-right: 0.35em;
+}
+
+.dpYr {
+  width: 6.25em;
+}
+
+.dpMon li,
+.dpYr li {
+  margin: 0.25em 0.25em 0 0.2em;
+  text-align: center;
+}
+
+.dpMon li {
+  width: 2.4em;
+}
+
+.dpYr li {
+  width: 2.6em;
+}
+
+.dpMon a,
+.dpMon a:visited,
+.dpMon .disabled,
+.dpYr a,
+.dpYr a:visited,
+.dpYr .disabled,
+.dpYr .grayedOut {
+  display: inline-block;
+  line-height: 1.45em;
+  width: 100%;
+  color: #333;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.dpMon li a:hover,
+.dpMon li.selected a:hover,
+.dpYr li a:hover,
+.dpYr li.selected a:hover {
+  border: 1px solid #8FB0D6;
+  color: #4C607A;
+  background-color: #EFF3F7;
+}
+
+.dpMon li.selected a,
+.dpYr li.selected a {
+  color: #4A617B;
+  border-color: #8CB2D6;
+  background-color: #CEE3FF;
+}
+
+.dpMon li.selected .disabled {
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+}
+
+.dpYr .fastNavPrevYrs,
+.dpYr .fastNavNextYrs {
+  *display: block;
+  width: 60%;
+  height: 1.45em;
+}
+
+.dpYr .fastNavPrevYrs img,
+.dpYr .fastNavNextYrs img,
+.dpYr .grayedOut img {
+  margin: 0.25em 0 0 -0.1em;
+}
+
+.dpOther {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+.dpOtherL,
+.dpOtherR {
+  float: left;
+}
+
+.dpOtherL {
+  width: 40%;
+}
+
+.dpOtherR {
+  width: 60%;
+  text-align: right;
+}
+
+.dpOtherL a,
+.dpOtherL a:visited,
+.dpOtherR a,
+.dpOtherR a:visited {
+  display: inline-block;
+  padding: 0.2em 0.4em;
+  margin: 0.2em 0.2em 0 0.2em;
+  color: #0059C6;
+  text-decoration: underline;
+}
+
+.dpOtherL a:hover,
+.dpOtherR a:hover {
+  color: #CC6633;
+}
+
+/* Shadow */
+.dpOptShadow {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: #BBB;
+  z-index: 4;
+}
+
+/* Misc */
+.dp .newLine {
+  clear: left !important;
+}
+
+.dp .grayedOut {
+  border: 1px solid transparent;
+}
+
+.dp .grayedOut img {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+
+.invalidDate {
+  color: #B32D34;
+  border-color: #D18185;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* ----------------------------------------
+   .Tooltip
+   ---------------------------------------- */
+/* TODO */

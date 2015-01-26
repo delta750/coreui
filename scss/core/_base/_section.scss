@@ -1,0 +1,224 @@
+/*
+URL:https://github.com/nys-its/frg-coreui/coreui
+
+   ----------------------------------------
+   .Sections
+   ---------------------------------------- */
+   
+/*   .Section
+---------------------------------------- */
+.its-section {
+	padding: 0 !important;
+}
+
+.its-section-header {
+    position: relative;
+    padding: 0.35em 0 0.25em 0;
+}
+
+.its-section-header .its-col {
+    padding: 0 !important;
+}
+
+.its-section-body {
+    clear: both;
+    overflow: hidden;
+    width: auto;
+}
+
+/* Changing this will affect its-empy-line so make sure you update that too */
+.its-section .its-line, .its-section-body .its-line {
+    margin: 0;
+}
+
+/* Changing this will affect its-empy-line so make sure you update that too */
+.its-section-body .its-line .its-col {
+    padding: 4px 0 2px 0;
+    margin: 1px 0;
+}
+
+/* This might vary if the padding/margin of line/col change */
+.its-section-body .its-empty-line {
+    height: 2.19em;
+    line-height: 2.19em;
+}
+
+.its-section .its-section .its-section-header {
+    padding: 0.25em 0 0.15em 0;
+}
+
+.its-section-header-title {
+    margin-left: 0.3em !important;
+}
+
+.its-section .its-section .its-section-header-title {
+    font-size: 93%;
+}
+
+.its-section .its-section .its-section .its-section-header {
+    padding: 0.15em 0 0.05em 0;
+}
+
+.its-section .its-section .its-section .its-section-header-title {
+    font-size: 86%;
+}
+
+.its-section .its-section .its-section .its-section .its-section-header {
+    padding: 0.05em 0 0 0;
+}
+
+.its-section .its-section .its-section .its-section .its-section-header-title {
+    font-size: 79%;
+}
+
+.its-section-footer {
+    width: auto;
+}
+
+/*   .Widget (extends its-section)
+---------------------------------------- */
+.its-widget {
+    margin-top: 8px;
+}
+
+.its-widget .its-section-header {
+	padding: 0;
+    font-size: 100% !important;
+}
+
+.its-widget h2 {
+    margin: 0 0.3em;
+    padding: 0.5em 0.4em;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.its-widget-2 h3 {
+    margin: 0;
+    padding: 0.3em 0em !important;
+    font-size: 100%;
+    font-weight: bold !important;
+}
+
+.its-widget-2 h4 {
+    margin: 0;
+    padding: 1em 0em 0.3em 0;
+    font-size: 100%;
+    font-weight: bold !important;
+}
+
+.its-widget .its-section-body {
+    margin: 0;
+    padding: 6px 10px;
+    overflow: hidden;
+}
+
+.its-widget-2 .its-widget .its-section-body {
+    padding: 0 0 0 18px;
+}
+
+.its-section-header, .its-section-footer {
+    clear: both;
+}
+
+.its-widget-1 .its-section-footer-middle, .its-widget-2 .its-section-footer-middle {
+    margin: 0 3px;
+    padding: 1px 0;
+}
+
+/*   .Labels/data
+   ---------------------------------------- */
+   
+/*     .Wrappers
+   ---------------------------------------- */
+.its-label-wrap, .its-data-wrap {
+    float: left;
+    line-height: normal;
+}
+
+.its-label-wrap {
+    text-align: right;
+    vertical-align: top;
+    padding-right: 17px; /* Careful with Chrome - doesn't like some ems (i.e. 1.3em is a no, 1.29em is a yes), pixels are ok */
+}
+
+.its-data-wrap {
+    width: auto;
+}
+
+.its-section-body .its-data-wrap, .its-widget .its-section-body .its-data-wrap {
+    float: none;
+}
+
+/* Defaults section's/widget's body data containers to have a table-cell style so that data inside these can wrap and remain in place.
+   For example:
+   
+   My Label is a little    So is the data... when the data inside this container
+   too long:               gets longer than the label, the data here should remain
+                           here and not move (or wrap) below the label. 
+
+   These wrappers are defaulted to table-cell because we're assuming most labels will have a specific fixed width, like 200px or 100em, etc.
+   If the label is fixed in width, then the data wrapper will use width: auto to comply with liquid design. Because of this, we need 
+   to use table-cell in order to keep both divs next to each other (left and right).
+   
+   On the other hand, when the label and data containers use a variable width, like 20% or auto, the label-wrap must be floated left to gain layout. */
+.its-section-body .its-data-wrap, .its-widget .its-section-body .its-data-wrap {
+    display: table-cell;
+    *display: auto; /* IE7 */
+    float: none;
+    *float: left; /* IE7 */
+    *padding-right: 0; /* IE7 */
+}
+
+/* Any .its-w-*p added in the .Grid section should be found here too */
+.its-w-100p .its-label-wrap, .its-w-99p .its-label-wrap, .its-w-95p .its-label-wrap, .its-w-90p .its-label-wrap, .its-w-80p .its-label-wrap, .its-w-75p .its-label-wrap, .its-w-70p .its-label-wrap, .its-w-66p .its-label-wrap, .its-w-60p .its-label-wrap, .its-w-50p .its-label-wrap, .its-w-49p .its-label-wrap, .its-w-45p .its-label-wrap, .its-w-40p .its-label-wrap, .its-w-33p .its-label-wrap, .its-w-30p .its-label-wrap, .its-w-20p .its-label-wrap, .its-w-10p .its-label-wrap, .its-w-5p .its-label-wrap, .its-w-2p .its-label-wrap, .its-w-1p .its-label-wrap {
+    float: left;
+}
+
+.its-label {
+    position: relative;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.its-data {
+    padding: auto 0;
+}
+
+.its-required {
+    display: inline;
+    position: absolute;
+    right: -0.8em;
+    top: 0;
+    font-weight: bold;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.its-data-mask {
+    margin-left: 0.3em;
+}
+
+.its-label-top .its-label-wrap,
+.its-label-top .its-data-wrap {
+    display: block !important;
+    text-align: left;
+    *width: 100%; /* IE7 */
+}
+
+.its-legend-text {
+    *float: left;
+}
+
+/*     .Sizes
+   ---------------------------------------- */
+.its-label-auto .its-label-wrap, .its-label-auto .its-data-wrap { width: auto; }
+.its-label-XXS .its-label-wrap { width: 10%; }
+.its-label-XS .its-label-wrap  { width: 15%; }
+.its-label-S .its-label-wrap   { width: 30%; }
+.its-label-M .its-label-wrap   { width: 50%; }
+.its-label-L .its-label-wrap   { width: 60%; }
+.its-label-XL .its-label-wrap  { width: 75%; }
+
+.its-label-XXS .its-data-wrap, .its-label-XS .its-data-wrap, .its-label-S .its-data-wrap, .its-label-M .its-data-wrap, .its-label-L .its-data-wrap, .its-label-XL .its-data-wrap {
+    width: auto;
+}

@@ -1,0 +1,66 @@
+/*
+URL:https://github.com/nys-its/frg-coreui/coreui
+*/
+/* Modules will scale with document
+.header {
+    font-size: 1.5rem;
+}
+
+.footer {
+    font-size: 0.75rem;
+}
+
+.sidebar {
+    font-size: 0.85rem;
+}
+
+/* Type will scale with modules
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2.5em;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+/* ----------------------------------------
+   .Heading
+   ---------------------------------------- */
+
+/*   .H1-H6
+   ---------------------------------------- */
+h1, h2, h3, h4, h5, h6, .its-h1, .its-h2, .its-h3, .its-h4, .its-h5, .its-h6 {
+    font-style: normal;
+    font-weight: normal;
+}
+
+h1, .its-h1 {
+    font-size: 170%;
+}
+
+h2, .its-h2 {
+    font-size: 150%;
+}
+
+h3, .its-h3 h4, .its-h3 h5, .its-h3 h6 {
+    font-size: 130%;
+    margin-bottom: 2px !important;
+}
+
+h4, .its-h4 {
+    font-size: 120%;
+}
+
+h3, h4, .its-h3 h4, .its-h3 h5, .its-h3 h6, .its-h4 {
+    padding-bottom: 1px;
+    text-indent: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+h5, h6, .its-h5, .its-h6 {
+    font-size: 100%;
+}

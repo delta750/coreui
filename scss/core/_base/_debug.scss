@@ -1,0 +1,45 @@
+@charset "UTF-8";
+/**
+ * CoreUI debug css
+ * Version 1.0.0.20150101
+ * URL:https://github.com/nys-its/frg-coreui/coreui
+ */
+
+/* http://coolors.co */
+.debug [class*="its-col-"], .debug [class*="its-fixed-col-"], .debug[class*="its-filler-col-"] {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc
+}
+
+.debug .no-debug {
+	background: none;
+	border: none;
+	padding: 0 1em;
+}
+
+.debug h1 {
+	font-size: 1.45em;
+	font-weight: 600;
+	text-indent: 0;
+	padding: 6px 0;
+	margin: 0;
+}
+
+.debug h2 {
+	font-size: 1.3em;
+	text-indent: 0;
+	padding: 0;
+	margin: 0.4em 0 0 0;
+}
+
+.debug p {
+	padding: 0 0 10px 0;
+}
+
+.debug ul {
+	list-style-type: disc;
+	list-style-position: inside;
+	overflow: auto;
+	padding: 0 0 0 1em;
+	margin: 0;
+}
