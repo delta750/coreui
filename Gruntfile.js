@@ -21,9 +21,6 @@ module.exports = function(grunt) {
         //////////////////////////
 
         jsCore = [
-            // Libraries
-            'js/src/vendor/**/*.js',
-
             // Main file(s)
             'js/src/core/**/*.js',
         ],
@@ -33,7 +30,12 @@ module.exports = function(grunt) {
         ],
 
         // All JS files that will be included in the HTML (i.e. js/core.js)
-        jsBuild = jsCore,
+        jsBuild = [
+                    // Libraries
+                    'js/src/vendor/**/*.js',
+                ]
+                // Add Core files
+                .concat(jsCore),
 
         // Scripts to be linted (i.e. every JS file that we hand-code)
         jsToLint = jsCore.concat(jsComponents),
