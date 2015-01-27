@@ -112,7 +112,10 @@ module.exports = function(grunt) {
             // Global options
             options: {
                 sourceMap: false, // No source maps by default
-                outputStyle: 'compressed', // Options: nested, compressed
+
+                // Cannot use "compressed" until this bug is resolved, otherwise media queries will be empty: https://github.com/sindresorhus/grunt-sass/issues/152
+                // That's fixed in v0.17.0, but that version introduces another Windows 7-related bug
+                outputStyle: 'nested', // Options: nested, compressed
             },
 
             // Development task
