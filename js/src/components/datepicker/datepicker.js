@@ -1666,7 +1666,7 @@ UI.plugin.calendar = (function calendar() {
 
             _priv._showHideDatePicker(elem, cal);
 
-            UI.event.stop(ev);
+            ev.preventDefault();
         } catch (e) {
         }
     };
@@ -1770,7 +1770,7 @@ UI.plugin.calendar = (function calendar() {
                 }
             }
 
-            UI.event.stop(ev);
+            ev.preventDefault();
         } catch (e) {
         }
     };
@@ -1784,6 +1784,7 @@ UI.plugin.calendar = (function calendar() {
                 inputId = parent.id.substring(parent.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
                 calIcon = document.getElementById('cal_' + inputId),
                 cal = document.getElementById(PREFIX_ID + inputId),
+                $cal = $(cal),
                 linksCal = [],
                 linksOpts = [];
 
@@ -1791,6 +1792,7 @@ UI.plugin.calendar = (function calendar() {
                 case 27: // 'Esc' was pressed, close calendar
                     _priv._showHideDatePicker(calIcon, cal, true);
                     break;
+
                 case 9: // 'Shift + Tab' (ev.shiftKey) or 'Tab' (!ev.shiftKey)
                     linksCal = UI.dom.query('a', document.getElementById('dpCalWrap_' + inputId));
                     linksOpts = UI.dom.query('a', document.getElementById('dpOptions_' + inputId));
@@ -1798,40 +1800,45 @@ UI.plugin.calendar = (function calendar() {
                     if ((elem.id === ('dpCalWrap_' + inputId) && ev.shiftKey) || (linksCal[linksCal.length - 1] === elem && !ev.shiftKey)) {
                         _priv._hideDatePicker(cal);
                         UI.dom.setFocus(document.getElementById('cal_' + inputId));
-                        UI.event.stop(ev);
+                        ev.preventDefault();
                     }
                     // Options
                     if ((elem.id === ('dpOptions_' + inputId) && ev.shiftKey) || (linksOpts[linksOpts.length - 1] === elem && !ev.shiftKey)) {
                         _priv._runOptionsClose(cal);
-                        UI.event.stop(ev);
+                        ev.preventDefault();
                     }
                     break;
+
                 case 37: // left arrow goes back 1 month
-                    if (UI.dom.hasClass(document.getElementById('dpOptions_' + inputId), 'hidden')) {
-                        _priv._handleCalHeaderNavigation(UI.dom.query('.navPrevMon', cal)[0], cal);
-                        UI.event.stop(ev);
+                    if ($('#dpOptions_' + inputId).hasClass('hidden')) {
+                        _priv._handleCalHeaderNavigation($cal.find('.navPrevMon').get(0), cal);
+                        ev.preventDefault();
                     }
                     break;
+
                 case 39: // right arrow goes forward 1 month
-                    if (UI.dom.hasClass(document.getElementById('dpOptions_' + inputId), 'hidden')) {
-                        _priv._handleCalHeaderNavigation(UI.dom.query('.navNextMon', cal)[0], cal);
-                        UI.event.stop(ev);
+                    if ($('#dpOptions_' + inputId).hasClass('hidden')) {
+                        _priv._handleCalHeaderNavigation($cal.find('.navNextMon').get(0), cal);
+                        ev.preventDefault();
                     }
                     break;
+
                 case 38: // up arrow goes forward 1 year
-                    if (UI.dom.hasClass(document.getElementById('dpOptions_' + inputId), 'hidden')) {
+                    if ($('#dpOptions_' + inputId).hasClass('hidden')) {
                         _priv._handleCalHeaderNavigation('navNextYear', cal);
-                        UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
-                        UI.event.stop(ev);
+                        UI.dom.setFocus($cal.find('a.monthYear').get(0));
+                        ev.preventDefault();
                     }
                     break;
+
                 case 40: // down arrow goes back 1 year
-                    if (UI.dom.hasClass(document.getElementById('dpOptions_' + inputId), 'hidden')) {
+                    if ($('#dpOptions_' + inputId).hasClass('hidden')) {
                         _priv._handleCalHeaderNavigation('navPrevYear', cal);
-                        UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
-                        UI.event.stop(ev);
+                        UI.dom.setFocus($cal.find('a.monthYear').get(0));
+                        ev.preventDefault();
                     }
                     break;
+
                 default:
                     break;
             }
@@ -1867,16 +1874,10 @@ UI.plugin.calendar = (function calendar() {
     /* _events._windowResize */
     _events._windowResize = function _windowResize(ev) {
         try {
-            // local variables
-            var cals = UI.dom.query('div.dp'),
-                i = cals.length;
-
-            while ((i -= 1) >= 0) {
-                if (!UI.dom.hasClass(cals[i], 'hidden')) {
-                    // Reposition opened calendars
-                    _priv._setDatePickerPosition(cals[i]);
-                }
-            }
+            // Reposition opened calendars
+            $('div.dp:not(.hidden)').each(function() {
+                _priv._setDatePickerPosition(this);
+            });
         } catch (e) {
         }
     };
