@@ -135,13 +135,3 @@ cui.environment = (function environment() {
         getQueryStringParameter: _getQueryStringParameter
     };
 }());
-
-
-/* ----------------------------------------
-   .cui.plugin
-   ---------------------------------------- */
-cui.plugin = (function plugin() {
-    // Any global code for app's plugin
-    return {
-    };
-}());
