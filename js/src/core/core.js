@@ -57,7 +57,13 @@ cui.namespace('plugin');
    .cui.environment
    ---------------------------------------- */
 cui.environment = (function environment() {
-    var SPACE = ' ',
+    var IMAGE_PATHS = {
+            core:     '../images/core/',
+            plugin:   '../images/plugin/',
+            skin:     '../images/skin/',
+            template: '../images/template/'
+        },
+        SPACE = ' ',
 
         ////////////////////
         // Public methods //
@@ -126,12 +132,24 @@ cui.environment = (function environment() {
             }
 
             return null;
+        },
+
+        /**
+         * Returns the image path for a given category
+         *
+         * @param   {String}  category  Name of category
+         *
+         * @return  {String}            Relative path to images folder
+         */
+        _getImagesPath = function _getImagesPath(category) {
+            return IMAGE_PATHS[category];
         };
 
     // reveal public API
     return {
         decodeURL: _decodeURL,
         encodeURL: _encodeURL,
+        getImagesPath: _getImagesPath,
         getQueryStringParameter: _getQueryStringParameter
     };
 }());

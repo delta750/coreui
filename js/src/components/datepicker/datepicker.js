@@ -23,7 +23,7 @@ cui.plugin.calendar = (function calendar() {
         // private API
         _priv = {},
         _events = {},
-        _imgPath = "../../../COREUI" + cui.environment.getImagesPath('plugin'),
+        _imgPath = "../../../COREUI/images" + cui.environment.getImagesPath('plugin'),
         _defaultSettings = {
             datePickers: [
                 {
