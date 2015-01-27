@@ -23,10 +23,11 @@ var UI = UI || {};
    .UI.namespace
    ---------------------------------------- */
 // Non-destructive implementation for creating namespaces or adding properties inside of them
-UI.namespace = function namespace(namespace, parent) {
+UI.namespace = function _namespace(namespace, parent) {
 	var parts = namespace.split('.'),
-		parent = parent || UI,
 		i;
+
+	parent = parent || UI;
 
 	// strip redundant leading global
 	if (parts[0] === 'UI') {
@@ -69,11 +70,9 @@ UI.environment = (function environment() {
 		},
 		SPACE = ' ',
 		EMPTY = '',
-		KEY_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
 		// private API
 		_priv = {},
-		_userAgent = { name:'', version:'', os:'' },
 
 		/* _decodeURL */
 		_decodeURL = function _decodeURL(string) {
@@ -328,323 +327,6 @@ UI.dom = (function dom() {
 		// private API
 		_priv = {},
 
-		// private methods
-		///<summary>Returns array of elements matching the specified CSS class(es)</summary>
-		///<param name="node" type="DOM Object">The sender object to search within</param>
-		///<param name="tag" type='string'>The type of element to search within (optional)</param>
-		///<param name="classNames" type='string'>The class name(s) to look for (one or more)</param>
-		///<returns>Returns an array of elements with the specified class name(s)</returns>
-		_getElementsByClassName = function _getElementsByClassName(node, tag, classNames) {
-			// set defaults if these parameters weren't specified
-			if (typeof node !== 'object') { node = document; }
-			if (!tag) { tag = '*'; }
-
-			var i = 0,
-				j = 0,
-				nodes = [],
-				classes = _priv._cleanClassNames(classNames).split(SPACE),
-				elements = node.getElementsByTagName(tag);
-
-			// loop through elements and check each one's classes against the list
-			while (i < elements.length) {
-				j = classes.length;
-				while ((j -= 1) >= 0) {
-					if (_hasClass(elements[i], classes[j])) {
-						nodes.push(elements[i]);
-						// quit the classes loop so this element doesn't get added again if it matches another class
-						break;
-					}
-				}
-				i++;
-			}
-
-			return nodes;
-		},
-
-		///<summary>Returns true if the element has the specified class, otherwise returns false</summary>
-		///<param name="element" type="DOM Object">The DOM element to check</param>
-		///<param name="className" type='string'>The class name to check for</param>
-		///<returns>True if className is present on elem</returns>
-		_hasClass = function _hasClass(element, className) {
-			var result = false,
-				className = (typeof className === 'string') ? _trim(className) : EMPTY;
-
-			// fix elem if 'this' was passed in IE
-			if (!element && window.event) { element = window.event.srcElement; }
-
-			// check parameters
-			if (element.className && className.length > 0) {
-				// test for the class
-				result = (SPACE + element.className + SPACE).indexOf(SPACE + className + SPACE) > -1;
-			}
-
-			return result;
-		},
-
-		///<summary>Returns true if the element now has the specified class, otherwise returns false</summary>
-		///<param name="element" type="DOM Object">The DOM element to check</param>
-		///<param name="className" type='string'>The class name to add</param>
-		///<returns>True if className is present on elem</returns>
-		_addClass = function _addClass(element, className) {
-			var result = false;
-
-			// fix elem if 'this' was passed in IE
-			if (!element && window.event) { element = window.event.srcElement; }
-
-			if (element && typeof className === 'string') {
-				if (!element.className) {
-					element.className = _priv._cleanClassNames(className);
-					result = true;
-				}
-				else if (_hasClass(element, className)) {
-					result = false;
-				}
-				else {
-					// add class name and clean up extraneous spaces
-					element.className = _priv._cleanClassNames(element.className + SPACE + className);
-					result = true;
-				}
-			}
-
-			return result;
-		},
-
-		///<summary>Returns true if the element no longer has the specified class, otherwise returns false</summary>
-		///<param name="element" type="DOM Object">The DOM element to check</param>
-		///<param name="className" type='string'>The class name to remove</param>
-		///<returns>True if className wasn't present on elem</returns>
-		_removeClass = function _removeClass(element, className) {
-			var result = false,
-				regExp = null;
-
-			// fix oSender if 'this' was passed in IE
-			if (!element && window.event) { element = window.event.srcElement; }
-
-			// check parameters
-			if (element && typeof className === 'string') {
-				// make sure the class exists
-				if (_hasClass(element, className)) {
-					// remove class name and clean up extraneous spaces
-					regExp = new RegExp('(^|\\s)' + _priv._cleanClassNames(className) + '(\\s|$)', 'g');
-					element.className = _priv._cleanClassNames(element.className.replace(regExp, SPACE));
-					result = true;
-
-					// here we should remove class attribute if empty
-					if (element.className === '') {
-						element.removeAttribute('class');
-					}
-				}
-			}
-
-			return result;
-		},
-
-		///<summary>Simultaneously add/remove classnames from an element</summary>
-		///<param name="element" type="DOM Object">The DOM element to be changed</param>
-		///<param name="sClasses" type='string'>Space-separated class names</param>
-		///<returns>Updated class list, or false upon failure</returns>
-		///<remark>Useful with CSS transitions and to prevent FOUC</remark>
-		_toggleClass = function _toggleClass(element, classNames) {
-			var result = false,
-				classes = [],
-				i = 0,
-				numClasses = 0,
-				hasChanged = false,
-				elementClass = '',
-				klass = ''; // klass with 'k' since class is a reserved word
-
-			if (element && typeof classNames === 'string') {
-				classes = _priv._cleanClassNames(classNames).split(SPACE);
-				i = 0;
-				numClasses = classes.length;
-				elementClass = SPACE + _priv._cleanClassNames(element.className) + SPACE;
-
-				while (i < numClasses) {
-					klass = SPACE + classes[i] + SPACE;
-					if (elementClass.indexOf(klass) < 0) {
-						elementClass += klass;
-						hasChanged = true;
-					}
-					else {
-						elementClass = elementClass.replace(klass, SPACE);
-						hasChanged = true;
-					}
-					i++;
-				}
-
-				if (hasChanged) {
-					// apply updated class list to the element
-					element.className = _priv._cleanClassNames(elementClass);
-					result = element.className;
-				}
-			}
-
-			return result;
-		},
-
-		// new class must exist
-		// if no old class then just add new class
-		// replace and maintain classes order
-		_replaceClass = function _replaceClass(element, oldClassName, newClassName) {
-			var result = false,
-				from = (typeof oldClassName === 'string') ? _trim(oldClassName) : EMPTY,
-				to = (typeof newClassName === 'string') ? _trim(newClassName) : EMPTY;
-
-			if (element && to.length > 0) {
-				if (element.className) {
-					if (_hasClass(element, from)) {
-						element.className = element.className.replace(from, to);
-					}
-					else {
-						_addClass(element, to);
-					}
-				}
-				else {
-					_addClass(element, to);
-				}
-
-				result = true;
-			}
-
-			return result;
-		},
-
-		_trim = function _trim(string, separator) {
-			// default case, just trim leading and ending spaces
-			if (!separator || typeof separator !== "string") {
-				return string.replace(/^\s+|\s+$/g, '');
-			}
-
-			// also trim around the specified separator
-			var separatorInner = new RegExp("\\s*" + separator + "+\\s*", "g"),
-				separatorBegin = new RegExp("^\\s*" + separator + "+\\s*", "g"),
-				separatorEnd   = new RegExp("\\s*" + separator + "+\\s*$", "g");
-
-			return string.replace(/^\s+|\s+$/g, '').replace(separatorInner, separator).replace(separatorBegin, '').replace(separatorEnd, '');
-		},
-
-		///<summary>Basic query selector</summary>
-		///<param name="selector" type="String">Comma-separated list of CSS selectors</param>
-		///<param name="node" type="DOM Object">Optional node to search within</param>
-		///<param name="settings" type="Object">Optional settings: filter (function to test against each element; if defined, failed objects are omitted), toArray (Boolean, force the returned result to be an actual array)</param>
-		///<returns>An array of matched elements</returns>
-		///<remarks>Only supports basic selectors: #id, .class, and tag name.</remarks>
-		/* _query */
-		_query = function _query(selector, node, settings) {
-			var elements = [],
-				isArray = false,
-				selectors = selector.replace(/\s*\,\s*/,',').split(','),
-				singleSelector = (selectors.length === 1),
-				tagName,
-				property,
-				i = 0,
-				node = node || document,
-				filter = null,
-				toArray = false;
-
-			// check settings
-			settings = settings || {filter:null, toArray:false};
-			filter = settings.filter || null;
-			toArray = settings.toArray || false;
-
-			// loop through each selector
-			while (i < selectors.length) {
-				selector = selectors[i];
-				// by class name
-				if (selector.indexOf('.') > -1) {
-					tagName = selector.split('.')[0] || "*";
-					property = selector.split('.')[1] || "";
-					// if there is only one selector or the previous selectors did not return
-					//   anything, this will be the only set of results so far
-					if (singleSelector || !elements.length) {
-						elements = _getElementsByClassName(node,tagName,property);
-					}
-					else {
-						// otherwise, these results will need to be concatenated with the others
-						//   so we need an actual array
-						if (!isArray && elements.length) {
-							elements = _priv._toArray(elements);
-						}
-						elements = elements.concat(_getElementsByClassName(node,tagName,property));
-					}
-					isArray = true; // getElementsByClass() always returns an array
-				}
-				else if (selector.indexOf('#') > -1) { // By element ID
-					// get the ID
-					property = selector.substr(selector.indexOf('#')+1);
-					if (node.getElementById(property)) {
-						// if the results list is not already an array and it's not empty, it must be converted first
-						if (!singleSelector && !isArray && elements.length) {
-							elements = _priv._toArray(elements);
-						}
-						elements.push(node.getElementById(property));
-						isArray = true;
-					}
-				}
-				else { // by tag name
-					// don't need to convert to an array if these are the only results so far
-					if (singleSelector || !elements.length) {
-						elements = node.getElementsByTagName(selector);
-					}
-					else {
-						if (!isArray && elements.length) {
-							elements = _priv._toArray(elements);
-							isArray = true;
-						}
-						elements = elements.concat(_priv._toArray(node.getElementsByTagName(selector)));
-					}
-				}
-				i++;
-			}
-
-			// convert to array based on settings, if it hasn't been done already
-			if (!isArray && (toArray || filter)) {
-				elements = _priv._toArray(elements);
-				isArray = true;
-			}
-
-			// filter results
-			if (filter) {
-				elements = elements.filter(filter);
-			}
-
-			return elements;
-		},
-
-		///<summary>Gets the parent object of element that matches the other two parameters</summary>
-		///<param name="element" type="DOM Object">The element whose ancestors will be searched</param>
-		///<param name="targets" type="String">the actual tag or .class names, space-separated</param>
-		_getParentElement = function _getParentElement(element, targets) {
-			var targetValues = [],
-				node = element,
-				i = 0,
-				__testElem = function __testElem(_node, value) {
-					if (value.indexOf('.') === 0) {
-						return UI.dom.hasClass(_node, value.substr(1));
-					}
-					else {
-						return _node.nodeName.toLowerCase() === value;
-					}
-				};
-
-			// normalize input values and place them into an array so we can loop through them
-			targetValues = targets.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ').split(' ');
-
-			// loop through each ancestor node, beginning with element
-			while (!/^body$|^html$/i.test(node.nodeName)) {
-				// Check current node against each target value
-				i = targetValues.length;
-				while ((i -= 1) >= 0) {
-					if (__testElem(node, targetValues[i])) {
-						return node;
-					}
-				}
-				node = node.parentNode;
-			}
-
-			return null;
-		};
-
 		///<summary>Sets focus on particular element</summary>
 		///<param name="element" type="DOM Object" required="true">Element object or element's id to set focus to</param>
 		_setFocus = function _setFocus(element) {
@@ -707,8 +389,8 @@ UI.dom = (function dom() {
 				value = getComputedStyle(element, '').getPropertyValue(style);
 			}
 			catch (e) {
-				// IE8-
-				value = element.currentStyle[style.replace(/-\b[a-z]/g, function __toUpperCase() {return arguments[0].toUpperCase()}).replace(/-/g, '')];
+				// IE8
+				value = element.currentStyle[style.replace(/-\b[a-z]/g, function __toUpperCase() {return arguments[0].toUpperCase();}).replace(/-/g, '')];
 			}
 			finally {
 				if (isNaN(parseInt(value, 10))) {
@@ -719,12 +401,6 @@ UI.dom = (function dom() {
 				}
 			}
 		};
-
-	// _priv API
-	/* _priv._cleanClassNames */
-	_priv._cleanClassNames = function _priv_cleanClassList(classnames) {
-		return _trim(classnames).replace(/\s+/g, SPACE);
-	};
 
 	///<summary>Converts a node list or element list into a proper array</summary>
 	///<param name="list" type="List">The list to be converted</param>
@@ -752,15 +428,6 @@ UI.dom = (function dom() {
 
 	// revealing public API
 	return {
-		getElementsByClassName: _getElementsByClassName,
-		hasClass: _hasClass,
-		addClass: _addClass,
-		removeClass: _removeClass,
-		toggleClass: _toggleClass,
-		replaceClass: _replaceClass,
-		trim: _trim,
-		query: _query,
-		getParentElement: _getParentElement,
 		setFocus: _setFocus,
 		getElementPosition: _getElementPosition,
 		isArray: _isArray,
