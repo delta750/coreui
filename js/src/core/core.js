@@ -10,10 +10,7 @@
 ----------------------------------------
     UI.namespace
 	UI.environment
-		UI.environment.nys
-	UI.event
 	UI.dom
-	UI.ajax
 */
 
 var UI = UI || {};
@@ -45,7 +42,6 @@ UI.namespace = function _namespace(namespace, parent) {
 	return parent;
 };
 
-
 // Public API
 UI.namespace('environment');
 UI.namespace('environment.nys');
@@ -53,7 +49,6 @@ UI.namespace('event');
 UI.namespace('dom');
 UI.namespace('ajax');
 UI.namespace('plugin');
-
 
 /* ----------------------------------------
    .UI.environment
@@ -141,176 +136,8 @@ UI.environment = (function environment() {
 		getQueryStringParameter: _getQueryStringParameter,
 		getVersion: _getVersion,
 		getImagesPath: _getImagesPath
-	}
-}());
-
-/*   .UI.environment.nys
- -------------------------------------- */
-UI.environment.nys = (function nys() {
-	// private properties
-		// constants
-	var GOVERNOR_NAME = "Andrew M. Cuomo - <span class='its-italicized'>Governor</span>",
-		COMMISSIONER_NAME = "Thomas H. Mattox - <span class='its-italicized'>Commissioner</span>",
-
-		// private methods
-		_getGovernor = function _getGovernor() {
-			return GOVERNOR_NAME || null;
-		},
-
-		_getCommissioner = function _getCommissioner() {
-			return COMMISSIONER_NAME || null;
-		};
-
-	// reveal public API
-	return {
-		getGovernor: _getGovernor,
-		getCommissioner: _getCommissioner
-	}
-}());
-
-
-/* ----------------------------------------
-   .UI.event
-   ---------------------------------------- */
-UI.event = (function event() {
-	// private properties
-		// private methods
-	var _add = null, // see init-time branching
-
-		_dispatch = null, // see init-time branching
-
-		_getElement = function _getElement(ev) {
-			var elem = null;
-
-			// create cross browser event (if null)
-			if (!ev) {
-				ev = window.event;
-			}
-
-			// get HTML object
-			if (ev.target) {
-				elem = ev.target;
-			}
-			else if (ev.srcElement) { // IE
-				elem = ev.srcElement;
-			}
-
-			// defeat Safari bug
-			if (elem.nodeType === 3) {
-				elem = elem.parentNode;
-			}
-
-			return elem;
-		},
-
-		_preventDefault = function _preventDefault(ev) {
-			if (typeof ev.preventDefault === "function") {
-				ev.preventDefault();
-			}
-			else { // IE6 - IE8
-				ev.returnValue = false;
-			}
-		},
-
-		_remove = null, // see init-time branching
-
-		_stop = function _stop(ev) {
-			UI.event.preventDefault(ev);
-			UI.event.stopPropagation(ev);
-		},
-
-		// stop propagation
-		_stopPropagation = function _stopPropagation(ev) {
-			if (typeof ev.stopPropagation === "function") {
-				ev.stopPropagation();
-			}
-			else {
-				ev.cancelBubble = true; // IE6 - IE8
-			}
-		};
-
-
-	// init-time branching optimization pattern
-	if (window.addEventListener) { // modern browsers
-		// add
-		_add = function _add(el, type, fn, customFlag) {
-			el.addEventListener(type, fn, false);
-		}
-		// remove
-		_remove = function _remove(el, type, fn) {
-			el.removeEventListener(type, fn, false);
-		}
-	}
-	else if (window.attachEvent) { // IE6 - IE8
-		// add
-		_add = function _add(el, type, fn, customFlag) {
-			if (!customFlag) {
-				el.attachEvent('on' + type, fn);
-			}
-			else {
-				// IE can't handle custom events; instead, we must watch the element's onpropertychange event
-				// when that event's propertyName matches fn, fn will be called.
-				if (!el[type]) {
-					el[type] = 0;
-				}
-				el.attachEvent("onpropertychange", function (ev) {
-					if (ev.propertyName === type) {
-						fn(fn);
-					}
-				});
-			}
-		}
-		// remove
-		_remove = function _remove(el, type, fn) {
-			el.detachEvent('on' + type, fn);
-		}
-	}
-	else { // older browsers
-		// add
-		_add = function _add(el, type, fn, customFlag) {
-			var currentEventHandler = el['on' + type];
-			if (currentEventHandler === null) {
-				el['on' + type] = fn;
-			}
-			else {
-				el['on' + type] = function(e) { currentEventHandler(e); fn(e); };
-			}
-		}
-		// remove
-		_remove = function _remove(el, type, fn) {
-			if (currentEventHandler !== null) { // Older browsers, inline event handlers
-				el.removeAttribute('on' + type);
-			}
-		}
-	}
-
-	// dispatch
-	if (!document.createEvent) { // IE7 - IE8
-		_dispatch = function _dispatch(el, type) {
-			// change this property on the object to trigger its event listener
-			el[type] = (new Date()).toString().replace(/\W/g, '');
-		}
-	}
-	else {
-		_dispatch = function _dispatch(el, type) {
-			var ev = document.createEvent("HTMLEvents");
-			ev.initEvent(type, true, true);
-			return !el.dispatchEvent(ev);
-		}
-	}
-
-	// revealing public API
-	return {
-		add: _add,
-		dispatch: _dispatch,
-		getElement: _getElement,
-		preventDefault: _preventDefault,
-		remove: _remove,
-		stop: _stop,
-		stopPropagation: _stopPropagation
 	};
 }());
-
 
 /* ----------------------------------------
    .UI.dom
@@ -318,12 +145,7 @@ UI.event = (function event() {
 UI.dom = (function dom() {
 	// private properties
 		// constants
-	var SPACE = ' ',
-		EMPTY = '',
-
-		// dependencies
-		uiEVT = UI.event,
-
+	var
 		// private API
 		_priv = {},
 
@@ -402,46 +224,12 @@ UI.dom = (function dom() {
 			}
 		};
 
-	///<summary>Converts a node list or element list into a proper array</summary>
-	///<param name="list" type="List">The list to be converted</param>
-	/* _priv._toArray */
-	_priv._toArray = function _priv_toArray(list) {
-		var array = [],
-			i = 0;
-		try {
-			// this method will unpredictably fail on some types of lists
-			array = Array.prototype.slice.call(list);
-		}
-		catch (ex) {
-		}
-
-		// Manually copy the contents to a new array
-		if (!array.length && list.length) {
-			while (i < list.length) {
-				array.push(list[i]);
-				i++;
-			}
-		}
-
-		return array;
-	};
-
 	// revealing public API
 	return {
 		setFocus: _setFocus,
 		getElementPosition: _getElementPosition,
 		isArray: _isArray,
 		getComputedStyle: _getComputedStyle
-	};
-}());
-
-
-/* ----------------------------------------
-   .UI.ajax
-   ---------------------------------------- */
-UI.ajax = (function ajax() {
-	// Bring it from MyAccount and refactor a little but keep it backwards compatible?
-	return {
 	};
 }());
 
