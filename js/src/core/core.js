@@ -17,7 +17,16 @@ var UI = UI || {};
 /* ----------------------------------------
    .UI.namespace
    ---------------------------------------- */
-// Non-destructive implementation for creating namespaces or adding properties inside of them
+//
+
+/**
+ * Non-destructive implementation for creating namespaces or adding properties inside of them
+ *
+ * @param   {String}  namespace  Namespace to be registered
+ * @param   {Object}  parent     Parent of namespace
+ *
+ * @return  {Object}             Parent of namespace
+ */
 UI.namespace = function _namespace(namespace, parent) {
     var parts = namespace.split('.'),
         i;
@@ -48,31 +57,42 @@ UI.namespace('plugin');
    .UI.environment
    ---------------------------------------- */
 UI.environment = (function environment() {
-    // private properties
-        // constants
-    var IMAGE_PATHS = {
-            core:     '../images/core/',
-            plugin:   '../images/plugin/',
-            skin:     '../images/skin/',
-            template: '../images/template/'
-        },
-        SPACE = ' ',
-        EMPTY = '',
+    var SPACE = ' ',
 
-        // private API
-        _priv = {},
+        ////////////////////
+        // Public methods //
+        ////////////////////
 
-        /* _decodeURL */
+        /**
+         * Decodes a URL parameter string
+         *
+         * @param   {String}  string  Encoded URL component
+         *
+         * @return  {String}          The decoded URL component
+         */
         _decodeURL = function _decodeURL(string) {
             return decodeURIComponent(string.replace(/\+/g, SPACE));
         },
 
-        /* _encodeURL */
+        /**
+         * Encodes a URL parameter string
+         *
+         * @param   {String}  string  Unencoded URL component
+         *
+         * @return  {String}          The encoded URL component
+         */
         _encodeURL = function _encodeURL(string) {
             return encodeURIComponent(string).replace(/%20/g, '+');
         },
 
-        /* _getQueryStringParameter */
+        /**
+         * Gets the value for a given URL parameter
+         *
+         * @param   {String}  parameterName  Parameter to find
+         * @param   {String}  url            URL (if not provided, the current URL will be used)
+         *
+         * @return  {String}                 The value of the parameter
+         */
         _getQueryStringParameter = function _getQueryStringParameter(parameterName, url) {
             var index = 0,
                 queryString = '',
@@ -106,22 +126,13 @@ UI.environment = (function environment() {
             }
 
             return null;
-        },
-
-        /* _getImagesPath */
-        _getImagesPath = function _getImagesPath(category) {
-            return IMAGE_PATHS[category];
         };
-
-    // _priv API
 
     // reveal public API
     return {
         decodeURL: _decodeURL,
         encodeURL: _encodeURL,
-        getQueryStringParameter: _getQueryStringParameter,
-        getVersion: _getVersion,
-        getImagesPath: _getImagesPath
+        getQueryStringParameter: _getQueryStringParameter
     };
 }());
 
