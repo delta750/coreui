@@ -75,81 +75,6 @@ UI.environment = (function environment() {
 		_priv = {},
 		_userAgent = { name:'', version:'', os:'' },
 
-		// private methods
-		// (base64 encoding/decoding: http://rumkin.com/tools/compression/base64.php (modified version by UI team))
-		/* _base64Encode */
-		_base64Encode = function _base64Encode(string) {
-			var result = "",
-				sChr1 = "",
-				sChr2 = "",
-				sChr3 = "",
-				sEnc1 = "",
-				sEnc2 = "",
-				sEnc3 = "",
-				sEnc4 = "",
-				i = 0;
-
-			while (i < string.length) {
-				sChr1 = string.charCodeAt(i++);
-				sChr2 = string.charCodeAt(i++);
-				sChr3 = string.charCodeAt(i++);
-
-				sEnc1 = sChr1 >> 2;
-				sEnc2 = ((sChr1 & 3) << 4) | (sChr2 >> 4);
-				sEnc3 = ((sChr2 & 15) << 2) | (sChr3 >> 6);
-				sEnc4 = sChr3 & 63;
-
-				if (isNaN(sChr2)) {
-					sEnc3 = sEnc4 = 64;
-				}
-				else if (isNaN(sChr3)) {
-					sEnc4 = 64;
-				}
-
-				result += KEY_STRING.charAt(sEnc1) + KEY_STRING.charAt(sEnc2) + KEY_STRING.charAt(sEnc3) + KEY_STRING.charAt(sEnc4);
-			}
-
-			return result;
-		},
-
-		/* _base64Decode */
-		_base64Decode = function _base64Decode(string) {
-			var result = "",
-				sChr1 = "",
-				sChr2 = "",
-				sChr3 = "",
-				sEnc1 = "",
-				sEnc2 = "",
-				sEnc3 = "",
-				sEnc4 = "",
-				i = 0;
-
-			// remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-			string = string.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-			while (i < string.length) {
-				sEnc1 = KEY_STRING.indexOf(string.charAt(i++));
-				sEnc2 = KEY_STRING.indexOf(string.charAt(i++));
-				sEnc3 = KEY_STRING.indexOf(string.charAt(i++));
-				sEnc4 = KEY_STRING.indexOf(string.charAt(i++));
-
-				sChr1 = (sEnc1 << 2) | (sEnc2 >> 4);
-				sChr2 = ((sEnc2 & 15) << 4) | (sEnc3 >> 2);
-				sChr3 = ((sEnc3 & 3) << 6) | sEnc4;
-
-				result += String.fromCharCode(sChr1);
-
-				if (sEnc3 != 64) {
-					result += String.fromCharCode(sChr2);
-				}
-				if (sEnc4 != 64) {
-					result += String.fromCharCode(sChr3);
-				}
-			}
-
-			return result;
-		},
-
 		/* _decodeURL */
 		_decodeURL = function _decodeURL(string) {
 			return decodeURIComponent(string.replace(/\+/g, SPACE));
@@ -158,21 +83,6 @@ UI.environment = (function environment() {
 		/* _encodeURL */
 		_encodeURL = function _encodeURL(string) {
 			return encodeURIComponent(string).replace(/%20/g, '+');
-		},
-
-		/* _getBrowser */
-		_getBrowser = function _getBrowser() {
-			return _userAgent.name || null;
-		},
-
-		/* _getBrowserVersion */
-		_getBrowserVersion = function _getBrowserVersion() {
-			return _userAgent.version || null;
-		},
-
-		/* _getOS */
-		_getOS = function _getOS() {
-			return _userAgent.os || null;
 		},
 
 		/* _getQueryStringParameter */
@@ -224,81 +134,11 @@ UI.environment = (function environment() {
 		};
 
 	// _priv API
-	/* _priv._getUserAgent */
-	// browser sniffing (http://www.quirksmode.org/js/detect.html (modified version by UI team))
-	_priv._getUserAgent = function _priv_getUserAgent() {
-		var versionSearchString = '',
-			dataBrowser = [
-				{ string: navigator.userAgent, subString: 'Chrome', identity: 'Chrome' },
-				{ string: navigator.userAgent, subString: 'OmniWeb', versionSearch: 'OmniWeb/', identity: 'OmniWeb' },
-				{ string: navigator.vendor, subString: 'Apple', identity: 'Safari', versionSearch: 'Version' },
-				{ property: window.opera, identity: 'Opera', versionSearch: 'Version' },
-				{ string: navigator.vendor, subString: 'iCab', identity: 'iCab' },
-				{ string: navigator.vendor, subString: 'KDE', identity: 'Konqueror' },
-				{ string: navigator.userAgent, subString: 'Firefox', identity: 'Firefox' },
-				{ string: navigator.vendor, subString: 'Camino', identity: 'Camino' },
-				{ string: navigator.userAgent, subString: 'Netscape', identity: 'Netscape' },
-				{ string: navigator.userAgent, subString: 'MSIE', identity: 'Internet Explorer', versionSearch: 'MSIE' },
-				{ string: navigator.userAgent, subString: 'Gecko', identity: 'Mozilla', versionSearch: 'rv' },
-				{ string: navigator.userAgent, subString: 'Mozilla', identity: 'Netscape', versionSearch: 'Mozilla' }
-			],
-			dataOS = [
-				{ string: navigator.platform, subString: 'Win', identity: 'Windows' },
-				{ string: navigator.platform, subString: 'Mac', identity: 'Mac' },
-				{ string: navigator.platform, subString: 'Linux', identity: 'Linux' },
-				{ string: navigator.userAgent, subString: 'iPhone', identity: 'iPhone/iPod/iPad' },
-				{ string: navigator.userAgent, subString: 'Android', identity: 'Android' },
-				{ string: navigator.userAgent, subString: 'Blackberry', identity: 'Blackberry' }
-			],
-			__searchString = function __searchString(key) {
-				if (typeof key === 'undefined') { return false; }
-
-				var i = key.length,
-					dataString = '',
-					dataProperty = '',
-					j = 0;
-
-				while (j < i) {
-					dataString = key[j].string;
-					dataProperty = key[j].property;
-					versionSearchString = key[j].versionSearch || key[j].identity;
-
-					if (dataString) {
-						if (dataString.indexOf(key[j].subString) != -1) {
-							return key[j].identity;
-						}
-					}
-					else if (dataProperty) {
-						return key[j].identity;
-					}
-					j++;
-				}
-			},
-			__searchVersion = function __searchVersion(dataString) {
-				var i = dataString.indexOf(versionSearchString);
-
-				if (i > -1) {
-					return parseFloat(dataString.substring(i + versionSearchString.length + 1));
-				}
-			};
-
-		// init-time branching; run browser sniffing once then just refer to obtained values
-		_userAgent.name = __searchString(dataBrowser) || "Unknown browser";
-		_userAgent.version = __searchVersion(navigator.userAgent) || __searchVersion(navigator.appVersion) || "Unknown version";
-		_userAgent.os = __searchString(dataOS) || "Unknown OS";
-	};
-
-	_priv._getUserAgent();
 
 	// reveal public API
 	return {
-		base64Encode: _base64Encode,
-		base64Decode: _base64Decode,
 		decodeURL: _decodeURL,
 		encodeURL: _encodeURL,
-		getBrowser: _getBrowser,
-		getBrowserVersion: _getBrowserVersion,
-		getOS: _getOS,
 		getQueryStringParameter: _getQueryStringParameter,
 		getVersion: _getVersion,
 		getImagesPath: _getImagesPath
@@ -840,7 +680,7 @@ UI.dom = (function dom() {
 
 			return [left,top];
 		},
-		
+
 		///<summary>Determines if object is array</summary>
 		///<param name="object" type="DOM Object">The object to be checked</param>
 		///<returns>True if it is of array type, false if it is not of array type</returns>
@@ -853,7 +693,7 @@ UI.dom = (function dom() {
 				return Array.isArray(object);
 			}
 		},
-		
+
 		///<summary>Returns element's computed style value</summary>
 		///<param name="element" type="DOM Object">The sender object</param>
 		///<param name="style" type="string">Style to get computed value from</param>
@@ -861,7 +701,7 @@ UI.dom = (function dom() {
 		///<remarks>Style param pattern: border-top-width, padding-left, etc. For older browsers, the "-" is removed and its following letter capitalized: i.e. borderTopWidth</remarks>
 		_getComputedStyle = function _getComputedStyle(element, style) {
 			var value = 0;
-			
+
 			try {
 				// modern browsers
 				value = getComputedStyle(element, '').getPropertyValue(style);
@@ -885,7 +725,7 @@ UI.dom = (function dom() {
 	_priv._cleanClassNames = function _priv_cleanClassList(classnames) {
 		return _trim(classnames).replace(/\s+/g, SPACE);
 	};
-	
+
 	///<summary>Converts a node list or element list into a proper array</summary>
 	///<param name="list" type="List">The list to be converted</param>
 	/* _priv._toArray */
