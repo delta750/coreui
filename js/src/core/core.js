@@ -176,9 +176,11 @@ UI.dom = (function dom() {
 			if (element.offsetParent) {
 				left = element.offsetLeft;
 				top = element.offsetTop;
-				while (element = element.offsetParent) {
+				while (element) {
 					left += element.offsetLeft;
 					top += element.offsetTop;
+
+					element = element.offsetParent;
 				}
 			}
 
