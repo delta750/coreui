@@ -5,12 +5,12 @@
  Calendar plug-in to be used across projects
 =======================================================================
 */
-UI.namespace('calendar', UI.plugin);
+cui.namespace('calendar', cui.plugin);
 
-UI.plugin.calendar = (function calendar() {
+cui.plugin.calendar = (function calendar() {
     // private properties
     // constants
-    var VERSION = { name: 'UI.plugin.calendar', version: '1.1.1', date: '20131008' },
+    var VERSION = { name: 'cui.plugin.calendar', version: '1.1.1', date: '20131008' },
         MONTH_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November' ,'December'],
         MSHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         DAYS_WK_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -23,7 +23,7 @@ UI.plugin.calendar = (function calendar() {
         // private API
         _priv = {},
         _events = {},
-        _imgPath = "../../../COREUI" + UI.environment.getImagesPath('plugin'),
+        _imgPath = "../../../COREUI" + cui.environment.getImagesPath('plugin'),
         _defaultSettings = {
             datePickers: [
                 {
@@ -48,7 +48,7 @@ UI.plugin.calendar = (function calendar() {
         _init = function _init() {
             try {
                 // local variables
-                var calLinks = UI.dom.query('a.calendar'),
+                var calLinks = cui.dom.query('a.calendar'),
                     i = calLinks.length,
                     input = null;
 
@@ -56,17 +56,17 @@ UI.plugin.calendar = (function calendar() {
                 while ((i -= 1) >= 0) {
                     input = document.getElementById(calLinks[i].id.substring(calLinks[i].id.indexOf('cal_') + 4));
                     if (input) {
-                        UI.event.add(calLinks[i], 'click', _events._iconClick);
-                        UI.event.add(input, 'blur', _events._inputBlur);
+                        cui.event.add(calLinks[i], 'click', _events._iconClick);
+                        cui.event.add(input, 'blur', _events._inputBlur);
                     }
                     calLinks[i].title = ICON_TOOLTIP.show;
                 }
 
                 // add body.click
-                UI.event.add(document.body, 'click', _events._bodyClick);
+                cui.event.add(document.body, 'click', _events._bodyClick);
 
                 // add window.resize
-                UI.event.add(window, 'resize', _events._windowResize);
+                cui.event.add(window, 'resize', _events._windowResize);
             } catch (e) {
             }
         },
@@ -74,7 +74,7 @@ UI.plugin.calendar = (function calendar() {
         _setImagesPath = function _setImagesPath(url) {
             try {
                 if (typeof url === 'string') {
-                    if (UI.dom.trim(url).length > 0) {
+                    if (cui.dom.trim(url).length > 0) {
                         _imgPath = url;
                     }
                 }
@@ -100,7 +100,7 @@ UI.plugin.calendar = (function calendar() {
                         dp = settings.datePickers[j];
 
                         if (dp.inputId) {
-                            if (UI.dom.trim(dp.inputId).length > 0) {
+                            if (cui.dom.trim(dp.inputId).length > 0) {
                                 // check if display was passed, else add it
                                 if (!dp.display) {
                                     dp.display = {};
@@ -177,7 +177,7 @@ UI.plugin.calendar = (function calendar() {
             // Check if calendar already exists for this associated control
             if (cal) {
                 // If it exists, show it or hide it
-                if (UI.dom.hasClass(cal, 'hidden') && !forceHide) {
+                if (cui.dom.hasClass(cal, 'hidden') && !forceHide) {
                     // Refresh calendar
                     cal = _priv._refreshDatePickerHtml(cal);
 
@@ -190,12 +190,12 @@ UI.plugin.calendar = (function calendar() {
                         _priv._handleBoundaryDetection(cal);
                     }
 
-                    UI.dom.setFocus(document.getElementById('dpCalWrap_' + inputId));
+                    cui.dom.setFocus(document.getElementById('dpCalWrap_' + inputId));
                 }
                 else {
                     _priv._hideDatePicker(cal);
 
-                    UI.dom.setFocus(elem);
+                    cui.dom.setFocus(elem);
                 }
             }
             else {
@@ -208,7 +208,7 @@ UI.plugin.calendar = (function calendar() {
                     _priv._handleBoundaryDetection(cal);
                 }
 
-                UI.dom.setFocus(document.getElementById('dpCalWrap_' + inputId));
+                cui.dom.setFocus(document.getElementById('dpCalWrap_' + inputId));
 
                 elem.title = ICON_TOOLTIP.hide;
             }
@@ -226,16 +226,16 @@ UI.plugin.calendar = (function calendar() {
             // Add calendar to HTML DOM
             cal.setAttribute('id', PREFIX_ID + inputId);
             cal.setAttribute('style', 'inline-block');
-            UI.dom.addClass(cal, 'dp');
+            cui.dom.addClass(cal, 'dp');
             cal.innerHTML = _priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId);
             document.body.appendChild(cal);
 
             // Add click event to calendar and use delegation to handle clicks on it
-            UI.event.add(cal, 'click', _events._calClick);
-            UI.event.add(cal, 'dblclick', _events._calClick);
+            cui.event.add(cal, 'click', _events._calClick);
+            cui.event.add(cal, 'dblclick', _events._calClick);
 
             // Add keydown event to handle keystrokes like 'esc'
-            UI.event.add(cal, 'keydown', _events._calKeydown);
+            cui.event.add(cal, 'keydown', _events._calKeydown);
 
             return cal;
         } catch (e) {
@@ -376,7 +376,7 @@ UI.plugin.calendar = (function calendar() {
                 }
 
                 // Check if there is a selected day
-                dateParsed = _priv._processDate(UI.dom.trim(document.getElementById(inputId).value), inputId);
+                dateParsed = _priv._processDate(cui.dom.trim(document.getElementById(inputId).value), inputId);
                 if (dateParsed.valid) {
                     if (parseInt(dateParsed.dmy.day, 10) === (i + 1) && parseInt(dateParsed.dmy.month, 10) === dmyCal.month && parseInt(dateParsed.dmy.year, 10) === dmyCal.year) {
                         html += " selectedDay";
@@ -510,14 +510,14 @@ UI.plugin.calendar = (function calendar() {
                 inputParent.style.position = "relative";
 
                 // Get parent's coordinates
-                coord = UI.dom.getElementPosition(inputParent);
+                coord = cui.dom.getElementPosition(inputParent);
 
                 // Set 'x' value to calendar
                 cal.style.left = coord[0] + 'px';
 
                 // Calculate 'y' value
-                borderTop = UI.dom.getComputedStyle(input, 'border-top-width');
-                borderBottom = UI.dom.getComputedStyle(input, 'border-bottom-width');
+                borderTop = cui.dom.getComputedStyle(input, 'border-top-width');
+                borderBottom = cui.dom.getComputedStyle(input, 'border-bottom-width');
 
                 // Set 'y' value to calendar
                 cal.style.top = (coord[1] + input.clientHeight + parseInt(borderTop, 10) + parseInt(borderBottom, 10) + input.offsetTop) + 'px';
@@ -533,7 +533,7 @@ UI.plugin.calendar = (function calendar() {
             var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
                 calIcon = document.getElementById('cal_' + inputId);
 
-            UI.dom.removeClass(cal, 'hidden');
+            cui.dom.removeClass(cal, 'hidden');
 
             calIcon.title = ICON_TOOLTIP.hide;
         } catch (e) {
@@ -547,7 +547,7 @@ UI.plugin.calendar = (function calendar() {
             var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
                 calIcon = document.getElementById('cal_' + inputId);
 
-            UI.dom.addClass(cal, 'hidden');
+            cui.dom.addClass(cal, 'hidden');
 
             calIcon.title = ICON_TOOLTIP.show;
         } catch (e) {
@@ -558,7 +558,7 @@ UI.plugin.calendar = (function calendar() {
     _priv._hideAllDatePickers = function _hideAllDatePickers(inputId) {
         try {
             // local variables
-            var cals = UI.dom.query('div.dp'),
+            var cals = cui.dom.query('div.dp'),
                 i = cals.length;
 
             if (!inputId || typeof inputId !== 'string') {
@@ -567,8 +567,8 @@ UI.plugin.calendar = (function calendar() {
 
             while ((i -= 1) >= 0) {
                 if (cals[i].id !== (PREFIX_ID + inputId)) {
-                    if (!UI.dom.hasClass(cals[i], 'hidden')) {
-                        UI.dom.addClass(cals[i], 'hidden');
+                    if (!cui.dom.hasClass(cals[i], 'hidden')) {
+                        cui.dom.addClass(cals[i], 'hidden');
 
                         document.getElementById('cal_' + cals[i].id.substring(cals[i].id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))).title = ICON_TOOLTIP.show;
                     }
@@ -590,16 +590,16 @@ UI.plugin.calendar = (function calendar() {
 
             forceHide = forceHide || false;
 
-            if (UI.dom.hasClass(opts, 'hidden') && !forceHide) {
+            if (cui.dom.hasClass(opts, 'hidden') && !forceHide) {
                 // get current month and year in calendar and set hidden in case they changed
                 document.getElementById('selMon_' + inputId).value = monthYear[0];
                 document.getElementById('selYr_' + inputId).value = monthYear[1];
 
                 // then refresh options to have selected month/year
-                divMonths = UI.dom.query('div.dpMon', opts)[0];
+                divMonths = cui.dom.query('div.dpMon', opts)[0];
                 divMonths.innerHTML = _priv._setOptionsMonths(_priv._convertDMYToNumeric({day: 1, month: monthYear[0], year: monthYear[1]}), inputId);
 
-                divYears = UI.dom.query('div.dpYr', opts)[0];
+                divYears = cui.dom.query('div.dpYr', opts)[0];
                 divYears.innerHTML = _priv._setOptionsYears(_priv._convertDMYToNumeric({day: 1, month: monthYear[0], year: monthYear[1]}), inputId);
 
                 _priv._positionOptions(elem, opts);
@@ -612,14 +612,14 @@ UI.plugin.calendar = (function calendar() {
                     _priv._handleBoundaryDetection(opts);
                 }
 
-                UI.dom.setFocus(opts);
+                cui.dom.setFocus(opts);
             }
             else {
                 elem.title = OPTIONS_TOOLTIP.show;
 
                 _priv._hideOptions(opts);
 
-                UI.dom.setFocus(elem);
+                cui.dom.setFocus(elem);
             }
         } catch (e) {
         }
@@ -629,17 +629,17 @@ UI.plugin.calendar = (function calendar() {
     _priv._setOptionsSelectedMonth = function _setOptionsSelectedMonth(elem, opts, cal) {
         try {
             // local variables
-            var months = UI.dom.query('a, span.disabled', opts),
+            var months = cui.dom.query('a, span.disabled', opts),
                 i = months.length,
                 inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
                 selMonth = document.getElementById('selMon_' + inputId);
 
             // Highlight selected month
             while ((i -= 1) >= 0) {
-                UI.dom.removeClass(months[i].parentNode, 'selected');
+                cui.dom.removeClass(months[i].parentNode, 'selected');
             }
 
-            UI.dom.addClass(elem.parentNode, 'selected');
+            cui.dom.addClass(elem.parentNode, 'selected');
 
             selMonth.value = _priv._getMonthValFromShortStr(elem.innerHTML);
         } catch (e) {
@@ -650,20 +650,20 @@ UI.plugin.calendar = (function calendar() {
     _priv._setOptionsSelectedYear = function _setOptionsSelectedYear(elem, opts, cal) {
         try {
             // local variables
-            var years = UI.dom.query('a', opts),
+            var years = cui.dom.query('a', opts),
                 i = years.length,
                 yr = elem.innerHTML,
                 inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
                 selMonth = document.getElementById('selMon_' + inputId),
                 selYear = document.getElementById('selYr_' + inputId),
-                divMonths = UI.dom.query('div.dpMon', document.getElementById('dpOptions_' + inputId))[0];
+                divMonths = cui.dom.query('div.dpMon', document.getElementById('dpOptions_' + inputId))[0];
 
             // Highlight selected year
             while ((i -= 1) >= 0) {
-                UI.dom.removeClass(years[i].parentNode, 'selected');
+                cui.dom.removeClass(years[i].parentNode, 'selected');
             }
 
-            UI.dom.addClass(elem.parentNode, 'selected');
+            cui.dom.addClass(elem.parentNode, 'selected');
 
             selYear.value = yr;
 
@@ -809,7 +809,7 @@ UI.plugin.calendar = (function calendar() {
     /* _priv._showOptions */
     _priv._showOptions = function _showOptions(opts) {
         try {
-            UI.dom.removeClass(opts, 'hidden');
+            cui.dom.removeClass(opts, 'hidden');
         } catch (e) {
         }
     };
@@ -817,7 +817,7 @@ UI.plugin.calendar = (function calendar() {
     /* _priv._hideOptions */
     _priv._hideOptions = function _hideOptions(opts) {
         try {
-            UI.dom.addClass(opts, 'hidden');
+            cui.dom.addClass(opts, 'hidden');
         } catch (e) {
         }
     };
@@ -904,7 +904,7 @@ UI.plugin.calendar = (function calendar() {
     /* _priv._getMonthYearFromCalHeader */
     _priv._getMonthYearFromCalHeader = function _getMonthYearFromCalHeader(cal) {
         try {
-            var monthYear = UI.dom.query('a.monthYear', cal)[0],
+            var monthYear = cui.dom.query('a.monthYear', cal)[0],
                 splitMonYr = monthYear.innerHTML.split(' '),
                 mon = _priv._getMonthValFromLongStr(splitMonYr[0]),
                 yr = splitMonYr[1];
@@ -962,7 +962,7 @@ UI.plugin.calendar = (function calendar() {
 
             if (input) {
                 // Clean and validate date
-                return __buildCalDate(_priv._processDate(UI.dom.trim(input.value), inputId));
+                return __buildCalDate(_priv._processDate(cui.dom.trim(input.value), inputId));
             }
         } catch (e) {
         }
@@ -975,7 +975,7 @@ UI.plugin.calendar = (function calendar() {
             var dateParsed = {};
 
             // Validate date
-            dateParsed = _priv._processDate(UI.dom.trim(dateStr), inputId);
+            dateParsed = _priv._processDate(cui.dom.trim(dateStr), inputId);
             if (dateParsed.valid) {
             return dateParsed.stringValue;
             }
@@ -1196,7 +1196,7 @@ UI.plugin.calendar = (function calendar() {
     _priv._runOptionsActions = function _runOptionsActions(elem, opts, cal) {
         try {
             // local variables
-            var actions = UI.dom.query('a', opts),
+            var actions = cui.dom.query('a', opts),
                 i = actions.length,
                 j = 0;
 
@@ -1265,7 +1265,7 @@ UI.plugin.calendar = (function calendar() {
     /* _priv._runOptionsClose */
     _priv._runOptionsClose = function _runOptionsClose(cal) {
         try {
-            _priv._showHideOptions(UI.dom.query('a.monthYear', cal)[0], document.getElementById('dpOptions_' + cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))), true);
+            _priv._showHideOptions(cui.dom.query('a.monthYear', cal)[0], document.getElementById('dpOptions_' + cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))), true);
         } catch (e) {
         }
     };
@@ -1291,14 +1291,14 @@ UI.plugin.calendar = (function calendar() {
                     year: parseInt(splitHdn[1], 10)
                 };
 
-                if (UI.dom.hasClass(elem.parentNode, 'prevMonthDay')) {
+                if (cui.dom.hasClass(elem.parentNode, 'prevMonthDay')) {
                     dmyCal.month -= 1;
                     if (dmyCal.month < 1) {
                         dmyCal.month = 12;
                         dmyCal.year -= 1;
                     }
                 }
-                else if (UI.dom.hasClass(elem.parentNode, 'nextMonthDay')) {
+                else if (cui.dom.hasClass(elem.parentNode, 'nextMonthDay')) {
                     dmyCal.month += 1;
                     if (dmyCal.month > 12) {
                         dmyCal.month = 1;
@@ -1335,7 +1335,7 @@ UI.plugin.calendar = (function calendar() {
 
             _priv._hideDatePicker(cal);
 
-            UI.dom.setFocus(document.getElementById('cal_' + inputId));
+            cui.dom.setFocus(document.getElementById('cal_' + inputId));
         } catch (e) {
         }
     };
@@ -1376,10 +1376,10 @@ UI.plugin.calendar = (function calendar() {
                         if (_priv._validateMinMaxRange(dmyCal, inputId)) {
                             cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
                             if (cal.innerHTML.indexOf(elem.className) > -1) {
-                                UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                             }
                             else {
-                                UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.monthYear', cal)[0]);
                             }
                         }
                         else {
@@ -1389,10 +1389,10 @@ UI.plugin.calendar = (function calendar() {
                                 dmyCal.year = minDateYear;
                                 cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
                                 if (cal.innerHTML.indexOf(elem.className) > -1) {
-                                    UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                                    cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                                 }
                                 else {
-                                    UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
+                                    cui.dom.setFocus(cui.dom.query('a.monthYear', cal)[0]);
                                 }
                             }
                         }
@@ -1406,10 +1406,10 @@ UI.plugin.calendar = (function calendar() {
                         if (_priv._validateMinMaxRange(dmyCal, inputId)) {
                             cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
                             if (cal.innerHTML.indexOf(elem.className) > -1) {
-                                UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                             }
                             else {
-                                UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.monthYear', cal)[0]);
                             }
                         }
                     }
@@ -1421,10 +1421,10 @@ UI.plugin.calendar = (function calendar() {
                         if (_priv._validateMinMaxRange(dmyCal, inputId)) {
                             cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
                             if (cal.innerHTML.indexOf(elem.className) > -1) {
-                                UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                             }
                             else {
-                                UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.monthYear', cal)[0]);
                             }
                         }
                     }
@@ -1436,10 +1436,10 @@ UI.plugin.calendar = (function calendar() {
                         if (_priv._validateMinMaxRange(dmyCal, inputId)) {
                             cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
                             if (cal.innerHTML.indexOf(elem.className) > -1) {
-                                UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                             }
                             else {
-                                UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
+                                cui.dom.setFocus(cui.dom.query('a.monthYear', cal)[0]);
                             }
                         }
                         else {
@@ -1449,10 +1449,10 @@ UI.plugin.calendar = (function calendar() {
                                 dmyCal.year = maxDateYear;
                                 cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
                                 if (cal.innerHTML.indexOf(elem.className) > -1) {
-                                    UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                                    cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                                 }
                                 else {
-                                    UI.dom.setFocus(UI.dom.query('a.monthYear', cal)[0]);
+                                    cui.dom.setFocus(cui.dom.query('a.monthYear', cal)[0]);
                                 }
                             }
                         }
@@ -1492,8 +1492,8 @@ UI.plugin.calendar = (function calendar() {
                 startOptYr = parseInt(document.getElementById('startOptYr_' + inputId).value, 10),
                 endOptYr = parseInt(document.getElementById('endOptYr_' + inputId).value, 10),
                 selYear = parseInt(document.getElementById('selYr_' + inputId).value, 10),
-                divMonths = UI.dom.query('div.dpMon', document.getElementById('dpOptions_' + inputId))[0],
-                divYears = UI.dom.query('div.dpYr', document.getElementById('dpOptions_' + inputId))[0],
+                divMonths = cui.dom.query('div.dpMon', document.getElementById('dpOptions_' + inputId))[0],
+                divYears = cui.dom.query('div.dpYr', document.getElementById('dpOptions_' + inputId))[0],
                 settings = _priv._getSettings(inputId),
                 minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
                 maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId);
@@ -1510,10 +1510,10 @@ UI.plugin.calendar = (function calendar() {
                             divMonths.innerHTML = _priv._setOptionsMonths({day: 31, month: 12, year: (startOptYr - 1)}, inputId);
                         }
                         if (minDate.getFullYear() < (startOptYr - 10)) {
-                            UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                            cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                         }
                         else {
-                            UI.dom.setFocus(UI.dom.query('a.fastNavNextYrs', cal)[0]);
+                            cui.dom.setFocus(cui.dom.query('a.fastNavNextYrs', cal)[0]);
                         }
                     }
                     break;
@@ -1528,10 +1528,10 @@ UI.plugin.calendar = (function calendar() {
                             divMonths.innerHTML = _priv._setOptionsMonths({day: 1, month: 1, year: (endOptYr + 1)}, inputId);
                         }
                         if (maxDate.getFullYear() > (endOptYr + 10)) {
-                            UI.dom.setFocus(UI.dom.query('a.' + elem.className, cal)[0]);
+                            cui.dom.setFocus(cui.dom.query('a.' + elem.className, cal)[0]);
                         }
                         else {
-                            UI.dom.setFocus(UI.dom.query('a.fastNavPrevYrs', cal)[0]);
+                            cui.dom.setFocus(cui.dom.query('a.fastNavPrevYrs', cal)[0]);
                         }
                     }
                     break;
@@ -1626,7 +1626,7 @@ UI.plugin.calendar = (function calendar() {
     /* _priv._showInlineError */
     _priv._showInlineError = function _showInlineError(elem) {
         try {
-            UI.dom.addClass(elem, 'invalidDate');
+            cui.dom.addClass(elem, 'invalidDate');
         } catch (e) {
         }
     };
@@ -1634,7 +1634,7 @@ UI.plugin.calendar = (function calendar() {
     /* _priv._removeInlineError */
     _priv._removeInlineError = function _removeInlineError(elem) {
         try {
-            UI.dom.removeClass(elem, 'invalidDate');
+            cui.dom.removeClass(elem, 'invalidDate');
         } catch (e) {
         }
     };
@@ -1657,7 +1657,7 @@ UI.plugin.calendar = (function calendar() {
     _events._iconClick = function _iconClick(ev) {
         try {
             // local variables
-            var elem = UI.event.getElement(ev),
+            var elem = cui.event.getElement(ev),
                 elemId = elem.id.substring(elem.id.indexOf('cal_') + 4),
                 cal = document.getElementById(PREFIX_ID + elemId);
 
@@ -1675,12 +1675,12 @@ UI.plugin.calendar = (function calendar() {
     _events._inputBlur = function _inputBlur(ev) {
         try {
             // local variables
-            var elem = UI.event.getElement(ev),
+            var elem = cui.event.getElement(ev),
                 dateParsed = null,
                 settings = _priv._getSettings(elem.id);
 
             if (elem) {
-                if (UI.dom.trim(elem.value).length > 0) {
+                if (cui.dom.trim(elem.value).length > 0) {
                     dateParsed = _priv._getFormattedDate(elem.value, elem.id);
                     if (dateParsed) {
                         elem.value = dateParsed;
@@ -1708,7 +1708,7 @@ UI.plugin.calendar = (function calendar() {
     _events._calClick = function _calClick(ev) {
         try {
             // local variables
-            var elem = UI.event.getElement(ev),
+            var elem = cui.event.getElement(ev),
                 parent = elem,
                 clickElem = null,
                 clickParent = null;
@@ -1779,8 +1779,8 @@ UI.plugin.calendar = (function calendar() {
     _events._calKeydown = function _calKeydown(ev) {
         try {
             // local variables
-            var elem = UI.event.getElement(ev),
-                parent = UI.dom.getParentElement(elem, '.dp'),
+            var elem = cui.event.getElement(ev),
+                parent = cui.dom.getParentElement(elem, '.dp'),
                 inputId = parent.id.substring(parent.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
                 calIcon = document.getElementById('cal_' + inputId),
                 cal = document.getElementById(PREFIX_ID + inputId),
@@ -1794,12 +1794,12 @@ UI.plugin.calendar = (function calendar() {
                     break;
 
                 case 9: // 'Shift + Tab' (ev.shiftKey) or 'Tab' (!ev.shiftKey)
-                    linksCal = UI.dom.query('a', document.getElementById('dpCalWrap_' + inputId));
-                    linksOpts = UI.dom.query('a', document.getElementById('dpOptions_' + inputId));
+                    linksCal = cui.dom.query('a', document.getElementById('dpCalWrap_' + inputId));
+                    linksOpts = cui.dom.query('a', document.getElementById('dpOptions_' + inputId));
                     // Calendar
                     if ((elem.id === ('dpCalWrap_' + inputId) && ev.shiftKey) || (linksCal[linksCal.length - 1] === elem && !ev.shiftKey)) {
                         _priv._hideDatePicker(cal);
-                        UI.dom.setFocus(document.getElementById('cal_' + inputId));
+                        cui.dom.setFocus(document.getElementById('cal_' + inputId));
                         ev.preventDefault();
                     }
                     // Options
@@ -1826,7 +1826,7 @@ UI.plugin.calendar = (function calendar() {
                 case 38: // up arrow goes forward 1 year
                     if ($('#dpOptions_' + inputId).hasClass('hidden')) {
                         _priv._handleCalHeaderNavigation('navNextYear', cal);
-                        UI.dom.setFocus($cal.find('a.monthYear').get(0));
+                        cui.dom.setFocus($cal.find('a.monthYear').get(0));
                         ev.preventDefault();
                     }
                     break;
@@ -1834,7 +1834,7 @@ UI.plugin.calendar = (function calendar() {
                 case 40: // down arrow goes back 1 year
                     if ($('#dpOptions_' + inputId).hasClass('hidden')) {
                         _priv._handleCalHeaderNavigation('navPrevYear', cal);
-                        UI.dom.setFocus($cal.find('a.monthYear').get(0));
+                        cui.dom.setFocus($cal.find('a.monthYear').get(0));
                         ev.preventDefault();
                     }
                     break;
@@ -1850,7 +1850,7 @@ UI.plugin.calendar = (function calendar() {
     _events._bodyClick = function _bodyClick(ev) {
         try {
             // local variables
-            var elem = UI.event.getElement(ev),
+            var elem = cui.event.getElement(ev),
                 parent = elem.parentNode,
                 bubbledToCal = false;
 

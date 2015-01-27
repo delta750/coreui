@@ -8,14 +8,14 @@
 ----------------------------------------
  Contents
 ----------------------------------------
-    UI.namespace
-    UI.environment
+    cui.namespace
+    cui.environment
 */
 
-var UI = UI || {};
+var cui = cui || {};
 
 /* ----------------------------------------
-   .UI.namespace
+   .cui.namespace
    ---------------------------------------- */
 //
 
@@ -27,14 +27,14 @@ var UI = UI || {};
  *
  * @return  {Object}             Parent of namespace
  */
-UI.namespace = function _namespace(namespace, parent) {
+cui.namespace = function _namespace(namespace, parent) {
     var parts = namespace.split('.'),
         i;
 
-    parent = parent || UI;
+    parent = parent || cui;
 
     // strip redundant leading global
-    if (parts[0] === 'UI') {
+    if (parts[0] === 'cui') {
         parts = parts.slice(1);
     }
 
@@ -50,13 +50,13 @@ UI.namespace = function _namespace(namespace, parent) {
 };
 
 // Public API
-UI.namespace('environment');
-UI.namespace('plugin');
+cui.namespace('environment');
+cui.namespace('plugin');
 
 /* ----------------------------------------
-   .UI.environment
+   .cui.environment
    ---------------------------------------- */
-UI.environment = (function environment() {
+cui.environment = (function environment() {
     var SPACE = ' ',
 
         ////////////////////
@@ -138,9 +138,9 @@ UI.environment = (function environment() {
 
 
 /* ----------------------------------------
-   .UI.plugin
+   .cui.plugin
    ---------------------------------------- */
-UI.plugin = (function plugin() {
+cui.plugin = (function plugin() {
     // Any global code for app's plugin
     return {
     };
