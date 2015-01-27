@@ -1,3 +1,7 @@
+node_modules/
 css/
+js/dist/
 *.sublime-*
+
+# Temp
 docs/
