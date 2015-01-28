@@ -1,29 +1,55 @@
-/*
-=======================================================================
- New York State Department of Taxation and Finance
- User Interface Team
- Calendar plug-in to be used across projects
-=======================================================================
-*/
 cui.namespace('calendar', cui.plugin);
 
 cui.plugin.calendar = (function calendar() {
-    // private properties
-    // constants
-    var VERSION = { name: 'cui.plugin.calendar', version: '1.1.1', date: '20131008' },
+    var
+        // Constants
+        VERSION = {
+            name: 'cui.plugin.calendar',
+            version: '0.0.1',
+            date: '20131008'
+        },
         MONTH_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November' ,'December'],
         MSHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         DAYS_WK_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         DAYS_MON = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        CULTURES = {USA: {mask: 'MM|DD|YYYY', delim: '/'}, INT: {mask: 'DD|MM|YYYY', delim: '/'}, SYS: {mask: 'YYYY|MM|DD', delim: '-'}},
-        PREFIX_ID = 'datePicker_',
-        ICON_TOOLTIP = {show: 'Open the calendar popup', hide: 'Close the calendar popup'},
-        OPTIONS_TOOLTIP = {show: 'Open options', hide: 'Close options'},
+        CULTURES = {
+            USA: {
+                mask: 'MM|DD|YYYY',
+                delim: '/'
+            },
+            INT: {
+                mask: 'DD|MM|YYYY',
+                delim: '/'
+            },
+            SYS: {
+                mask: 'YYYY|MM|DD',
+                delim: '-'
+            }
+        },
+        ID_PREFIXES = {
+            datePicker: 'datePicker_',
+            calIcon: 'cal_'
+        },
+        SELECTORS = {
+            icon: '.calendar'
+        },
+        ICON_TOOLTIP = {
+            show: 'Open the calendar popup',
+            hide: 'Close the calendar popup'
+        },
+        OPTIONS_TOOLTIP = {
+            show: 'Open options',
+            hide: 'Close options'
+        },
 
-        // private API
+        // Element caches
+        $body,
+        $window,
+
+        // Private API
         _priv = {},
         _events = {},
-        _imgPath = "../../../COREUI/images" + cui.environment.getImagesPath('plugin'),
+        _imgPath = cui.environment.getImagesPath('plugin'),
         _defaultSettings = {
             datePickers: [
                 {
@@ -43,38 +69,44 @@ cui.plugin.calendar = (function calendar() {
             datePickers: []
         },
 
-        // private methods
-        /* _init */
+        /**
+         * Initialize all calendar icons on the page
+         */
         _init = function _init() {
-            try {
-                // local variables
-                var calLinks = cui.dom.query('a.calendar'),
-                    i = calLinks.length,
-                    input = null;
+            // local variables
+            var calLinks = cui.dom.query,
+                i = calLinks.length,
+                input = null;
 
-                // add click event on calendar icon
-                while ((i -= 1) >= 0) {
-                    input = document.getElementById(calLinks[i].id.substring(calLinks[i].id.indexOf('cal_') + 4));
-                    if (input) {
-                        cui.event.add(calLinks[i], 'click', _events._iconClick);
-                        cui.event.add(input, 'blur', _events._inputBlur);
-                    }
-                    calLinks[i].title = ICON_TOOLTIP.show;
+            $body = $(body);
+            $window = $(window);
+
+            // Add click event on calendar icons
+            $body.on('click', SELECTORS.icon, _events._iconClick);
+
+            // Add events to date inputs
+            $(SELECTORS.icon).each(function() {
+                var $icon = $(this),
+                    $input = $('#' + (this.id.substr(this.id.indexOf(ID_PREFIXES.calIcon) + 4)));
+
+                if ($input.length) {
+                    $input.on('blur', _events._inputBlur);
                 }
 
-                // add body.click
-                cui.event.add(document.body, 'click', _events._bodyClick);
+                $icon.attr('title', ICON_TOOLTIP.show);
+            });
 
-                // add window.resize
-                cui.event.add(window, 'resize', _events._windowResize);
-            } catch (e) {
-            }
+            // add body.click
+            $body.on('click', _events._bodyClick);
+
+            // add window.resize
+            $window.on('resize', _events._windowResize);
         },
 
         _setImagesPath = function _setImagesPath(url) {
             try {
                 if (typeof url === 'string') {
-                    if (cui.dom.trim(url).length > 0) {
+                    if ($.trim(url).length > 0) {
                         _imgPath = url;
                     }
                 }
@@ -100,7 +132,7 @@ cui.plugin.calendar = (function calendar() {
                         dp = settings.datePickers[j];
 
                         if (dp.inputId) {
-                            if (cui.dom.trim(dp.inputId).length > 0) {
+                            if ($.trim(dp.inputId).length > 0) {
                                 // check if display was passed, else add it
                                 if (!dp.display) {
                                     dp.display = {};
@@ -170,7 +202,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._showHideDatePicker = function _showHideDatePicker(elem, cal, forceHide) {
         try {
             // local variables
-            var inputId = elem.id.substring(elem.id.indexOf('cal_') + 4);
+            var inputId = elem.id.substring(elem.id.indexOf(ID_PREFIXES.calIcon) + 4);
 
             forceHide = forceHide || false;
 
@@ -220,11 +252,11 @@ cui.plugin.calendar = (function calendar() {
     _priv._createDatePicker = function _createDatePicker(elem) {
         try {
             // local variables
-            var inputId = elem.id.substring(elem.id.indexOf('cal_') + 4),
+            var inputId = elem.id.substring(elem.id.indexOf(ID_PREFIXES.calIcon) + 4),
                 cal = document.createElement('div');
 
             // Add calendar to HTML DOM
-            cal.setAttribute('id', PREFIX_ID + inputId);
+            cal.setAttribute('id', ID_PREFIXES.datepickers + inputId);
             cal.setAttribute('style', 'inline-block');
             cui.dom.addClass(cal, 'dp');
             cal.innerHTML = _priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId);
@@ -247,7 +279,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._refreshDatePickerHtml = function _refreshDatePickerHtml(cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1));
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1));
 
             cal.innerHTML = _priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId);
             return cal;
@@ -376,7 +408,7 @@ cui.plugin.calendar = (function calendar() {
                 }
 
                 // Check if there is a selected day
-                dateParsed = _priv._processDate(cui.dom.trim(document.getElementById(inputId).value), inputId);
+                dateParsed = _priv._processDate($.trim(document.getElementById(inputId).value), inputId);
                 if (dateParsed.valid) {
                     if (parseInt(dateParsed.dmy.day, 10) === (i + 1) && parseInt(dateParsed.dmy.month, 10) === dmyCal.month && parseInt(dateParsed.dmy.year, 10) === dmyCal.year) {
                         html += " selectedDay";
@@ -496,7 +528,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._setDatePickerPosition = function _setDatePickerPosition(cal) {
         try {
             // local variables
-            var input = document.getElementById(cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))),
+            var input = document.getElementById(cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))),
                 inputParent = null,
                 coord = [],
                 borderTop = 0,
@@ -530,8 +562,8 @@ cui.plugin.calendar = (function calendar() {
     _priv._showDatePicker = function _showDatePicker(cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
-                calIcon = document.getElementById('cal_' + inputId);
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
+                calIcon = document.getElementById(ID_PREFIXES.calIcon + inputId);
 
             cui.dom.removeClass(cal, 'hidden');
 
@@ -544,8 +576,8 @@ cui.plugin.calendar = (function calendar() {
     _priv._hideDatePicker = function _hideDatePicker(cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
-                calIcon = document.getElementById('cal_' + inputId);
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
+                calIcon = document.getElementById(ID_PREFIXES.calIcon + inputId);
 
             cui.dom.addClass(cal, 'hidden');
 
@@ -566,11 +598,11 @@ cui.plugin.calendar = (function calendar() {
             }
 
             while ((i -= 1) >= 0) {
-                if (cals[i].id !== (PREFIX_ID + inputId)) {
+                if (cals[i].id !== (ID_PREFIXES.datepickers + inputId)) {
                     if (!cui.dom.hasClass(cals[i], 'hidden')) {
                         cui.dom.addClass(cals[i], 'hidden');
 
-                        document.getElementById('cal_' + cals[i].id.substring(cals[i].id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))).title = ICON_TOOLTIP.show;
+                        document.getElementById(ID_PREFIXES.calIcon + cals[i].id.substring(cals[i].id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))).title = ICON_TOOLTIP.show;
                     }
                 }
             }
@@ -583,7 +615,7 @@ cui.plugin.calendar = (function calendar() {
         try {
             // local variables
             var inputId = opts.id.substring(opts.id.indexOf('_') + 1),
-                cal = document.getElementById(PREFIX_ID + inputId),
+                cal = document.getElementById(ID_PREFIXES.datepickers + inputId),
                 monthYear = _priv._getMonthYearFromCalHeader(cal),
                 divMonths = [],
                 divYears = [];
@@ -631,7 +663,7 @@ cui.plugin.calendar = (function calendar() {
             // local variables
             var months = cui.dom.query('a, span.disabled', opts),
                 i = months.length,
-                inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+                inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 selMonth = document.getElementById('selMon_' + inputId);
 
             // Highlight selected month
@@ -653,7 +685,7 @@ cui.plugin.calendar = (function calendar() {
             var years = cui.dom.query('a', opts),
                 i = years.length,
                 yr = elem.innerHTML,
-                inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+                inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 selMonth = document.getElementById('selMon_' + inputId),
                 selYear = document.getElementById('selYr_' + inputId),
                 divMonths = cui.dom.query('div.dpMon', document.getElementById('dpOptions_' + inputId))[0];
@@ -962,7 +994,7 @@ cui.plugin.calendar = (function calendar() {
 
             if (input) {
                 // Clean and validate date
-                return __buildCalDate(_priv._processDate(cui.dom.trim(input.value), inputId));
+                return __buildCalDate(_priv._processDate($.trim(input.value), inputId));
             }
         } catch (e) {
         }
@@ -975,7 +1007,7 @@ cui.plugin.calendar = (function calendar() {
             var dateParsed = {};
 
             // Validate date
-            dateParsed = _priv._processDate(cui.dom.trim(dateStr), inputId);
+            dateParsed = _priv._processDate($.trim(dateStr), inputId);
             if (dateParsed.valid) {
             return dateParsed.stringValue;
             }
@@ -1237,7 +1269,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._runOptionsOK = function _runOptionsOK(cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 selMonth = document.getElementById('selMon_' + inputId),
                 selYear = document.getElementById('selYr_' + inputId),
                 settings = _priv._getSettings(inputId),
@@ -1265,7 +1297,7 @@ cui.plugin.calendar = (function calendar() {
     /* _priv._runOptionsClose */
     _priv._runOptionsClose = function _runOptionsClose(cal) {
         try {
-            _priv._showHideOptions(cui.dom.query('a.monthYear', cal)[0], document.getElementById('dpOptions_' + cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))), true);
+            _priv._showHideOptions(cui.dom.query('a.monthYear', cal)[0], document.getElementById('dpOptions_' + cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))), true);
         } catch (e) {
         }
     };
@@ -1282,7 +1314,7 @@ cui.plugin.calendar = (function calendar() {
 
             if (elem) {
                 // Get date from calendar click
-                inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1));
+                inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1));
                 hidden = document.getElementById('dpSel_' + inputId);
                 splitHdn = hidden.value.split('/');
                 dmyCal = {
@@ -1321,7 +1353,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._setSelectedDate = function _setSelectedDate(elem, cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 input = document.getElementById(inputId),
                 dmyCal = _priv._getSelectedDate(elem, cal),
                 settings = _priv._getSettings(inputId);
@@ -1335,7 +1367,7 @@ cui.plugin.calendar = (function calendar() {
 
             _priv._hideDatePicker(cal);
 
-            cui.dom.setFocus(document.getElementById('cal_' + inputId));
+            cui.dom.setFocus(document.getElementById(ID_PREFIXES.calIcon + inputId));
         } catch (e) {
         }
     };
@@ -1344,7 +1376,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._handleCalHeaderNavigation = function _handleCalHeaderNavigation(elem, cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 monthYear = _priv._getMonthYearFromCalHeader(cal),
                 dmyCal = {
                     day: 1,
@@ -1488,7 +1520,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._handleOptionsNavigation = function _handleOptionsNavigation(elem, cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 startOptYr = parseInt(document.getElementById('startOptYr_' + inputId).value, 10),
                 endOptYr = parseInt(document.getElementById('endOptYr_' + inputId).value, 10),
                 selYear = parseInt(document.getElementById('selYr_' + inputId).value, 10),
@@ -1643,7 +1675,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._forceOptionsOK = function _forceOptionsOK(cal) {
         try {
             // local variables
-            var inputId = cal.id.substring(cal.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
+            var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
                 okBtn = document.getElementById('dpOK_' + inputId),
                 opts = document.getElementById('dpOther_' + inputId);
 
@@ -1657,9 +1689,9 @@ cui.plugin.calendar = (function calendar() {
     _events._iconClick = function _iconClick(ev) {
         try {
             // local variables
-            var elem = cui.event.getElement(ev),
-                elemId = elem.id.substring(elem.id.indexOf('cal_') + 4),
-                cal = document.getElementById(PREFIX_ID + elemId);
+            var elem = ev.target,
+                elemId = elem.id.substring(elem.id.indexOf(ID_PREFIXES.calIcon) + 4),
+                cal = document.getElementById(ID_PREFIXES.datepickers + elemId);
 
             // Hide other datepickers
             _priv._hideAllDatePickers(elemId);
@@ -1675,12 +1707,12 @@ cui.plugin.calendar = (function calendar() {
     _events._inputBlur = function _inputBlur(ev) {
         try {
             // local variables
-            var elem = cui.event.getElement(ev),
+            var elem = ev.target,
                 dateParsed = null,
                 settings = _priv._getSettings(elem.id);
 
             if (elem) {
-                if (cui.dom.trim(elem.value).length > 0) {
+                if ($.trim(elem.value).length > 0) {
                     dateParsed = _priv._getFormattedDate(elem.value, elem.id);
                     if (dateParsed) {
                         elem.value = dateParsed;
@@ -1708,13 +1740,13 @@ cui.plugin.calendar = (function calendar() {
     _events._calClick = function _calClick(ev) {
         try {
             // local variables
-            var elem = cui.event.getElement(ev),
+            var elem = ev.target,
                 parent = elem,
                 clickElem = null,
                 clickParent = null;
 
             // Use delegation on the calendar div container to know what was clicked
-            while (parent.id.indexOf(PREFIX_ID) < 0) {
+            while (parent.id.indexOf(ID_PREFIXES.datepickers) < 0) {
                 if (parent.nodeName === 'A') {
                     clickElem = parent;
                 }
@@ -1730,7 +1762,7 @@ cui.plugin.calendar = (function calendar() {
                         _priv._handleCalHeaderNavigation(clickElem, parent);
                         break;
                     case 'monthYear':
-                        _priv._showHideOptions(clickElem, document.getElementById('dpOptions_' + parent.id.substring(parent.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1))));
+                        _priv._showHideOptions(clickElem, document.getElementById('dpOptions_' + parent.id.substring(parent.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))));
                         break;
                     case 'fastNavPrevYrs':
                     case 'fastNavNextYrs':
@@ -1779,11 +1811,11 @@ cui.plugin.calendar = (function calendar() {
     _events._calKeydown = function _calKeydown(ev) {
         try {
             // local variables
-            var elem = cui.event.getElement(ev),
+            var elem = ev.target,
                 parent = cui.dom.getParentElement(elem, '.dp'),
-                inputId = parent.id.substring(parent.id.indexOf(PREFIX_ID + '_') + (PREFIX_ID.length + 1)),
-                calIcon = document.getElementById('cal_' + inputId),
-                cal = document.getElementById(PREFIX_ID + inputId),
+                inputId = parent.id.substring(parent.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
+                calIcon = document.getElementById(ID_PREFIXES.calIcon + inputId),
+                cal = document.getElementById(ID_PREFIXES.datepickers + inputId),
                 $cal = $(cal),
                 linksCal = [],
                 linksOpts = [];
@@ -1799,7 +1831,7 @@ cui.plugin.calendar = (function calendar() {
                     // Calendar
                     if ((elem.id === ('dpCalWrap_' + inputId) && ev.shiftKey) || (linksCal[linksCal.length - 1] === elem && !ev.shiftKey)) {
                         _priv._hideDatePicker(cal);
-                        cui.dom.setFocus(document.getElementById('cal_' + inputId));
+                        cui.dom.setFocus(document.getElementById(ID_PREFIXES.calIcon + inputId));
                         ev.preventDefault();
                     }
                     // Options
@@ -1850,13 +1882,13 @@ cui.plugin.calendar = (function calendar() {
     _events._bodyClick = function _bodyClick(ev) {
         try {
             // local variables
-            var elem = cui.event.getElement(ev),
+            var elem = ev.target,
                 parent = elem.parentNode,
                 bubbledToCal = false;
 
             // Check to see whether click happened inside or outside calendar
             while (parent.nodeName !== "BODY") {
-                if (parent.id.indexOf(PREFIX_ID) > -1) {
+                if (parent.id.indexOf(ID_PREFIXES.datepickers) > -1) {
                     bubbledToCal = true;
                     break;
                 }
