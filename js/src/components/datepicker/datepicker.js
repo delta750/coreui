@@ -77,7 +77,7 @@ cui.plugin.calendar = (function calendar() {
          */
         _init = function _init() {
             // Cache common elements
-            $body = $(body);
+            $body = $('body');
             $window = $(window);
 
             // Add click event on calendar icons
@@ -109,21 +109,18 @@ cui.plugin.calendar = (function calendar() {
         },
 
         _customize = function _customize(settings) {
-            var i = 0,
-                j = 0,
-                k = 0,
-                dp = null,
-                minDefaultDate = new Date(_defaultSettings.datePickers[0].minDate),
-                maxDefaultDate = new Date(_defaultSettings.datePickers[0].maxDate);
+            var minDefaultDate = new Date(_defaultSettings.datePickers[0].minDate),
+                maxDefaultDate = new Date(_defaultSettings.datePickers[0].maxDate),
+                dp, i, j, k;
 
             // check if any settings are passed
-            if (typeof settings === 'object') {
+            if (settings && typeof settings === 'object') {
                 i = settings.datePickers.length;
 
                 while (j < i) {
                     dp = settings.datePickers[j];
 
-                    if (dp.inputId) {
+                    if (dp && dp.inputId) {
                         if ($.trim(dp.inputId).length > 0) {
                             // check if display was passed, else add it
                             if (!dp.display) {
@@ -185,15 +182,16 @@ cui.plugin.calendar = (function calendar() {
         return _defaultSettings.datePickers[0];
     };
 
-    _priv._showHideDatePicker = function _showHideDatePicker(elem, cal, forceHide) {
-        var inputId = elem.id.substr(elem.id.indexOf(ID_PREFIXES.calIcon) + 4);
+    _priv._showHideDatePicker = function _showHideDatePicker(calIcon, cal, forceHide) {
+        var inputId = calIcon.id.substr(calIcon.id.indexOf(ID_PREFIXES.calIcon) + 4);
 
         forceHide = forceHide || false;
 
         // Check if calendar already exists for this associated control
         if (cal) {
+
             // If it exists, show it or hide it
-            if (cui.dom.hasClass(cal, CLASSES.hidden) && !forceHide) {
+            if ($(cal).hasClass(CLASSES.hidden) && !forceHide) {
                 // Refresh calendar
                 cal = _priv._refreshDatePickerHtml(cal);
 
@@ -206,16 +204,16 @@ cui.plugin.calendar = (function calendar() {
                     _priv._handleBoundaryDetection(cal);
                 }
 
-                cui.dom.setFocus(document.getElementById('dpCalWrap_' + inputId));
+                $('#dpCalWrap_' + inputId).focus();
             }
             else {
                 _priv._hideDatePicker(cal);
 
-                cui.dom.setFocus(elem);
+                $(calIcon).focus();
             }
         }
         else {
-            cal = _priv._createDatePicker(elem);
+            cal = _priv._createDatePicker(calIcon);
 
             // Position calendar
             _priv._setDatePickerPosition(cal);
@@ -224,31 +222,37 @@ cui.plugin.calendar = (function calendar() {
                 _priv._handleBoundaryDetection(cal);
             }
 
-            cui.dom.setFocus(document.getElementById('dpCalWrap_' + inputId));
+            $('#dpCalWrap_' + inputId).focus();
 
-            elem.title = ICON_TOOLTIP.hide;
+            calIcon.title = ICON_TOOLTIP.hide;
         }
     };
 
+    /**
+     * Creates a new date picker for a given icon and adds it to the DOM
+     * @param   {Element}  elem  Icon element
+     * @return  {Element}        Date picker element
+     */
     _priv._createDatePicker = function _createDatePicker(elem) {
         var inputId = elem.id.substr(elem.id.indexOf(ID_PREFIXES.calIcon) + 4),
-            cal = document.createElement('div');
+            $cal = $('<div/>');
 
-        // Add calendar to HTML DOM
-        cal.setAttribute('id', ID_PREFIXES.datepickers + inputId);
-        cal.setAttribute('style', 'inline-block');
-        cui.dom.addClass(cal, 'dp');
-        cal.innerHTML = _priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId);
-        document.body.appendChild(cal);
+        $cal
+            .attr('id', ID_PREFIXES.datepickers + inputId)
+            .attr('style', 'inline-block')
+            .addClass('dp')
+            .html(_priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId));
+
+        $body.append($cal);
 
         // Add click event to calendar and use delegation to handle clicks on it
-        cui.event.add(cal, 'click', _events._calClick);
-        cui.event.add(cal, 'dblclick', _events._calClick);
+        $body
+            .on('click', '.dp', _events._calClick)
+            .on('dblclick', '.dp', _events._calClick)
+            // Add keydown event to handle keystrokes like 'esc'
+            .on('keydown', '.dp', _events._calKeydown);
 
-        // Add keydown event to handle keystrokes like 'esc'
-        cui.event.add(cal, 'keydown', _events._calKeydown);
-
-        return cal;
+        return $cal.get(0);
     };
 
     _priv._refreshDatePickerHtml = function _refreshDatePickerHtml(cal) {
@@ -528,22 +532,21 @@ cui.plugin.calendar = (function calendar() {
     };
 
     _priv._hideAllDatePickers = function _hideAllDatePickers(inputId) {
-        var cals = cui.dom.query('div.dp'),
-            i = cals.length;
-
         if (!inputId || typeof inputId !== 'string') {
             inputId = '';
         }
 
-        while ((i -= 1) >= 0) {
-            if (cals[i].id !== (ID_PREFIXES.datepickers + inputId)) {
-                if (!cui.dom.hasClass(cals[i], CLASSES.hidden)) {
-                    cui.dom.addClass(cals[i], CLASSES.hidden);
+        $('div.dp').each(function() {
+            var $cal = $(this);
 
-                    document.getElementById(ID_PREFIXES.calIcon + cals[i].id.substr(cals[i].id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))).title = ICON_TOOLTIP.show;
+            if (this.id !== (ID_PREFIXES.datepickers + inputId)) {
+                if (!$cal.hasClass(CLASSES.hidden)) {
+                    $cal.addClass(CLASSES.hidden);
+
+                    document.getElementById(ID_PREFIXES.calIcon + this.id.substr(this.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))).title = ICON_TOOLTIP.show;
                 }
             }
-        }
+        });
     };
 
     _priv._showHideOptions = function _showHideOptions(elem, opts, forceHide) {
@@ -1431,41 +1434,44 @@ cui.plugin.calendar = (function calendar() {
     ////////////
 
     _events._iconClick = function _iconClick(ev) {
-        var elem = ev.target,
-            elemId = elem.id.substr(elem.id.indexOf(ID_PREFIXES.calIcon) + 4),
+        var target = ev.target,
+            elemId = target.id.substr(target.id.indexOf(ID_PREFIXES.calIcon) + 4),
             cal = document.getElementById(ID_PREFIXES.datepickers + elemId);
 
-        // Hide other datepickers
-        _priv._hideAllDatePickers(elemId);
+        if (cal) {
+            // Hide other datepickers
+            _priv._hideAllDatePickers(elemId);
 
-        _priv._showHideDatePicker(elem, cal);
+            _priv._showHideDatePicker(target, cal);
 
-        ev.preventDefault();
+            // Do we need this?
+            // ev.preventDefault();
+        }
     };
 
     _events._inputBlur = function _inputBlur(ev) {
-        var elem = ev.target,
+        var target = ev.target,
             dateParsed = null,
             settings = _priv._getSettings(elem.id);
 
-        if (elem) {
-            if ($.trim(elem.value).length > 0) {
-                dateParsed = _priv._getFormattedDate(elem.value, elem.id);
+        if (target) {
+            if ($.trim(target.value).length > 0) {
+                dateParsed = _priv._getFormattedDate(target.value, target.id);
                 if (dateParsed) {
-                    elem.value = dateParsed;
+                    target.value = dateParsed;
                     if (settings.display.autoError) {
-                        _priv._removeInlineError(elem);
+                        _priv._removeInlineError(target);
                     }
                 }
                 else {
                     if (settings.display.autoError) {
-                        _priv._showInlineError(elem);
+                        _priv._showInlineError(target);
                     }
                 }
             }
             else {
                 if (settings.display.autoError) {
-                    _priv._removeInlineError(elem);
+                    _priv._removeInlineError(target);
                 }
             }
         }
@@ -1531,17 +1537,19 @@ cui.plugin.calendar = (function calendar() {
 
                         clickParent = clickParent.parentNode;
                     }
+
                     break;
             }
         }
 
-        ev.preventDefault();
+        // Do we need this?
+        // ev.preventDefault();
     };
 
     _events._calKeydown = function _calKeydown(ev) {
         var elem = ev.target,
-            parent = cui.dom.getParentElement(elem, '.dp'),
-            inputId = parent.id.substr(parent.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
+            parentId = $(elem).closest('.dp').attr('id'),
+            inputId = parentId.substr(parentId.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
             calIcon = document.getElementById(ID_PREFIXES.calIcon + inputId),
             cal = document.getElementById(ID_PREFIXES.datepickers + inputId),
             $cal = $(cal),
@@ -1560,26 +1568,34 @@ cui.plugin.calendar = (function calendar() {
                 if ((elem.id === ('dpCalWrap_' + inputId) && ev.shiftKey) || (linksCal[linksCal.length - 1] === elem && !ev.shiftKey)) {
                     _priv._hideDatePicker(cal);
                     cui.dom.setFocus(document.getElementById(ID_PREFIXES.calIcon + inputId));
-                    ev.preventDefault();
+
+                    // Do we need this?
+                    //ev.preventDefault();
                 }
                 // Options
                 if ((elem.id === ('dpOptions_' + inputId) && ev.shiftKey) || (linksOpts[linksOpts.length - 1] === elem && !ev.shiftKey)) {
                     _priv._runOptionsClose(cal);
-                    ev.preventDefault();
+
+                    // Do we need this?
+                    //ev.preventDefault();
                 }
                 break;
 
             case 37: // left arrow goes back 1 month
                 if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation($cal.find('.navPrevMon').get(0), cal);
-                    ev.preventDefault();
+
+                    // Do we need this?
+                    //ev.preventDefault();
                 }
                 break;
 
             case 39: // right arrow goes forward 1 month
                 if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation($cal.find('.navNextMon').get(0), cal);
-                    ev.preventDefault();
+
+                    // Do we need this?
+                    //ev.preventDefault();
                 }
                 break;
 
@@ -1587,7 +1603,9 @@ cui.plugin.calendar = (function calendar() {
                 if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation('navNextYear', cal);
                     cui.dom.setFocus($cal.find('a.monthYear').get(0));
-                    ev.preventDefault();
+
+                    // Do we need this?
+                    //ev.preventDefault();
                 }
                 break;
 
@@ -1595,7 +1613,9 @@ cui.plugin.calendar = (function calendar() {
                 if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation('navPrevYear', cal);
                     cui.dom.setFocus($cal.find('a.monthYear').get(0));
-                    ev.preventDefault();
+
+                    // Do we need this?
+                    //ev.preventDefault();
                 }
                 break;
 
@@ -1621,6 +1641,8 @@ cui.plugin.calendar = (function calendar() {
             _priv._setDatePickerPosition(this);
         });
     };
+
+    $(document).ready(_init);
 
     // Reveal public API
     return {
