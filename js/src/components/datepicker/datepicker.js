@@ -30,6 +30,9 @@ cui.plugin.calendar = (function calendar() {
             datePicker: 'datePicker_',
             calIcon: 'cal_'
         },
+        CLASSES = {
+            hidden: 'hidden'
+        },
         SELECTORS = {
             icon: '.calendar'
         },
@@ -150,7 +153,7 @@ cui.plugin.calendar = (function calendar() {
         },
 
         /* _getVersion */
-        _getVersion = function _getVersion(name) {
+        _getVersion = function _getVersion() {
             return VERSION || '';
         },
 
@@ -190,7 +193,7 @@ cui.plugin.calendar = (function calendar() {
         // Check if calendar already exists for this associated control
         if (cal) {
             // If it exists, show it or hide it
-            if (cui.dom.hasClass(cal, 'hidden') && !forceHide) {
+            if (cui.dom.hasClass(cal, CLASSES.hidden) && !forceHide) {
                 // Refresh calendar
                 cal = _priv._refreshDatePickerHtml(cal);
 
@@ -272,17 +275,14 @@ cui.plugin.calendar = (function calendar() {
             today = new Date(),
 
             __getDayTitle = function __getDayTitle(date) {
-                try {
-                    return DAYS_WK_EN[date.getDay()] + ', ' + MONTH_EN[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-                } catch (e) {
-                }
+                return DAYS_WK_EN[date.getDay()] + ', ' + MONTH_EN[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
             };
 
         dmyCal = _priv._convertDMYToNumeric(dmyCal);
 
         // Calendar wrapper
         // ---------------------------
-        html += "<div id='dpCalWrap_" + inputId + "' class='dpCalWrap' tabindex='1'><div class='dpCal'>";
+        html += '<div id="dpCalWrap_' + inputId + '" class="dpCalWrap" tabindex="1"><div class="dpCal">';
 
         // Calendar main
         // ---------------------------
@@ -291,10 +291,10 @@ cui.plugin.calendar = (function calendar() {
 
         // Body
         // One-letter abbreviation for each single day
-        html += "<div class='dpBody'><div class='dpDayDesc'><ul><li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li></ul></div><div class='dpWeekNbrDays'><!--<div class='dpWeekNbr'><ul><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li></ul></div>-->";
+        html += '<div class="dpBody"><div class="dpDayDesc"><ul><li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li></ul></div><div class="dpWeekNbrDays">';
 
         // Days
-        html += "<div class='dpDays'><ul>";
+        html += '<div class="dpDays"><ul>';
 
         // Calculate the day where the 1st of the month falls
         calDate = new Date(dmyCal.month.toString() + '/01/' + dmyCal.year.toString());
@@ -332,10 +332,10 @@ cui.plugin.calendar = (function calendar() {
             // Counts the number of days used in row (1...7)
             daysCnt += 1;
 
-            html += "<li class='prevMonthDay";
+            html += '<li class="prevMonthDay';
 
             if (i === 0) {
-                html += " newLine";
+                html += ' newLine';
                 rows += 1;
                 i += 1;
             }
@@ -343,49 +343,49 @@ cui.plugin.calendar = (function calendar() {
             // Validate date and show as clickable or read-only
             titleDate = new Date(prevMon + '/' + (lastDayPrevMonth - weekday + 1) + '/' + prevYr);
             if (_priv._validateMinMaxRange({day: (lastDayPrevMonth - weekday + 1), month: prevMon, year: prevYr}, inputId)) {
-                html += "'><a href='#' title='" + __getDayTitle(titleDate) + "' tabindex='1'>" + (lastDayPrevMonth - weekday + 1) + "</a></li>";
+                html += '"><a href="#" title="' + __getDayTitle(titleDate) + '" tabindex="1">' + (lastDayPrevMonth - weekday + 1) + '</a></li>';
             }
             else {
-                html += "'><span class='disabled'>" + (lastDayPrevMonth - weekday + 1) + "</span></li>";
+                html += '"><span class="disabled">' + (lastDayPrevMonth - weekday + 1) + '</span></li>';
             }
 
             weekday -= 1;
         }
         i = 0;
 
-        // Month's days
+        // Month"s days
         while (i < lastDayMonth) {
             // Counts the number of days used in row (1...7)
             daysCnt += 1;
 
-            html += "<li class='";
+            html += '<li class="';
 
             if (daysCnt === 8) {
-                html += "newLine";
+                html += 'newLine';
                 rows += 1;
                 daysCnt = 1;
             }
 
             // Check if today's date falls into this month
             if (today.getDate() === (i + 1) && today.getMonth() === (dmyCal.month - 1) && today.getFullYear() === dmyCal.year) {
-                html += " today";
+                html += ' today';
             }
 
             // Check if there is a selected day
             dateParsed = _priv._processDate($.trim(document.getElementById(inputId).value), inputId);
             if (dateParsed.valid) {
                 if (parseInt(dateParsed.dmy.day, 10) === (i + 1) && parseInt(dateParsed.dmy.month, 10) === dmyCal.month && parseInt(dateParsed.dmy.year, 10) === dmyCal.year) {
-                    html += " selectedDay";
+                    html += ' selectedDay';
                 }
             }
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(dmyCal.month.toString() + '/' + (i + 1) + '/' + dmyCal.year.toString());
             if (_priv._validateMinMaxRange({day: (i + 1), month: dmyCal.month, year: dmyCal.year}, inputId)) {
-                html += "'><a href='#' title='" + __getDayTitle(titleDate) + "' tabindex='1'>" + (i + 1) + "</a></li>";
+                html += '"><a href="#" title="' + __getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
             }
             else {
-                html += "'><span class='disabled'>" + (i + 1) + "</span></li>";
+                html += '"><span class="disabled">' + (i + 1) + '</span></li>';
             }
 
             i += 1;
@@ -397,20 +397,20 @@ cui.plugin.calendar = (function calendar() {
             daysCnt = 0;
         }
         while (daysCnt < 7) {
-            html += "<li class='nextMonthDay";
+            html += '<li class="nextMonthDay';
 
             if (daysCnt === 0) {
-                html += " newLine";
+                html += ' newLine';
                 rows += 1;
             }
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(nextMon + '/' + (i + 1) + '/' + nextYr);
             if (_priv._validateMinMaxRange({day: (i + 1), month: nextMon, year: nextYr}, inputId)) {
-                html += "'><a href='#' title='" + __getDayTitle(titleDate) + "' tabindex='1'>" + (i + 1) + "</a></li>";
+                html += '"><a href="#" title="' + __getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
             }
             else {
-                html += "'><span class='disabled'>" + (i + 1) + "</span></li>";
+                html += '"><span class="disabled">' + (i + 1) + '</span></li>';
             }
 
             daysCnt += 1;
@@ -424,26 +424,26 @@ cui.plugin.calendar = (function calendar() {
         i = 0;
 
         // Footer
-        html += "</ul></div></div><div class='dpFoot'></div></div></div>";
+        html += '</ul></div></div><div class="dpFoot"></div></div></div>';
 
         // Calendar shadow
-        html += "<div class='dpCalShadow'></div></div>";
+        html += '<div class="dpCalShadow"></div></div>';
 
         // Options
         // ---------------------------
-        html += "<div id='dpOptions_" + inputId + "' class='dpOptWrap hidden' tabindex='1'>";
+        html += '<div id="dpOptions_' + inputId + '" class="dpOptWrap hidden" tabindex="1">';
 
         // Months
-        html += "<div class='dpOpt'><div class='dpMon'>" + _priv._setOptionsMonths(dmyCal, inputId) + "</div>";
+        html += '<div class="dpOpt"><div class="dpMon">' + _priv._setOptionsMonths(dmyCal, inputId) + '</div>';
 
         // Years
-        html += "<div class='dpYr'>" + _priv._setOptionsYears(dmyCal, inputId) + "</div>";
+        html += '<div class="dpYr">' + _priv._setOptionsYears(dmyCal, inputId) + '</div>';
 
         // Other
-        html += "<div id='dpOther_" + inputId + "' class='dpOther'><div class='dpOtherL'><a href='#' title='Today' tabindex='1'>Today</a></div><div class='dpOtherR'><a href='#' id='dpOK_" + inputId + "' title='OK' tabindex='1'>OK</a><a href='#' title='Cancel' tabindex='1'>Cancel</a></div></div>";
+        html += '<div id="dpOther_' + inputId + '" class="dpOther"><div class="dpOtherL"><a href="#" title="Today" tabindex="1">Today</a></div><div class="dpOtherR"><a href="#" id="dpOK_' + inputId + '" title="OK" tabindex="1">OK</a><a href="#" title="Cancel" tabindex="1">Cancel</a></div></div>';
 
         // Options shadow
-        html += "</div><div class='dpOptShadow'></div></div></div>";
+        html += '</div><div class="dpOptShadow"></div></div></div>';
 
         return html;
     };
@@ -454,28 +454,28 @@ cui.plugin.calendar = (function calendar() {
             minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
             maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId);
 
-        html = "<div class='dpHead'>";
+        html = '<div class="dpHead">';
 
         // Previous navigation items
         if (dmyCal.month === (minDate.getMonth() + 1) && dmyCal.year === minDate.getFullYear()) {
-            html += "<ul class='lIcons'><li><span class='grayedOut'><img src='" + _imgPath + "CalendarPreviousQuarter.png' alt='Previous quarter' /></span></li><li><span class='grayedOut'><img src='" + _imgPath + "CalendarPreviousMonth.png' alt='Previous month' /></span></li></ul>";
+            html += '<ul class="lIcons"><li><span class="grayedOut"><img src="' + _imgPath + 'CalendarPreviousQuarter.png" alt="Previous quarter"></span></li><li><span class="grayedOut"><img src="' + _imgPath + 'CalendarPreviousMonth.png" alt="Previous month"></span></li></ul>';
         }
         else {
-            html += "<ul class='lIcons'><li><a href='#' class='fastNavPrevQtr' title='Previous quarter' tabindex='1'><img src='" + _imgPath + "CalendarPreviousQuarter.png' alt='Previous quarter' /></a></li><li><a href='#' class='navPrevMon' title='Previous month' tabindex='1'><img src='" + _imgPath + "CalendarPreviousMonth.png' alt='Previous month' /></a></li></ul>";
+            html += '<ul class="lIcons"><li><a href="#" class="fastNavPrevQtr" title="Previous quarter" tabindex="1"><img src="' + _imgPath + 'CalendarPreviousQuarter.png" alt="Previous quarter"></a></li><li><a href="#" class="navPrevMon" title="Previous month" tabindex="1"><img src="' + _imgPath + 'CalendarPreviousMonth.png" alt="Previous month"></a></li></ul>';
         }
 
         // Month year
-        html += "<div class='title'><a href='#' class='monthYear' title='" + OPTIONS_TOOLTIP.show + "' tabindex='1'>" + MONTH_EN[dmyCal.month - 1] + " " + dmyCal.year.toString()  + "</a><input type='hidden' id='dpSel_" + inputId + "' value='" + dmyCal.month.toString() + '/' + dmyCal.year.toString() + "'/></div>";
+        html += '<div class="title"><a href="#" class="monthYear" title="' + OPTIONS_TOOLTIP.show + '" tabindex="1">' + MONTH_EN[dmyCal.month - 1] + ' ' + dmyCal.year.toString()  + '</a><input type="hidden" id="dpSel_' + inputId + '" value="' + dmyCal.month.toString() + '/' + dmyCal.year.toString() + '"></div>';
 
         // Next navigation items
         if (dmyCal.month === (maxDate.getMonth() + 1) && dmyCal.year === maxDate.getFullYear()) {
-            html += "<ul class='rIcons'><li><span class='grayedOut'><img src='" + _imgPath + "CalendarNextMonth.png' alt='Next month' /></span></li><li><span class='grayedOut'><img src='" + _imgPath + "CalendarNextQuarter.png' alt='Next quarter' /></span></li></ul>";
+            html += '<ul class="rIcons"><li><span class="grayedOut"><img src="' + _imgPath + 'CalendarNextMonth.png" alt="Next month"></span></li><li><span class="grayedOut"><img src="' + _imgPath + 'CalendarNextQuarter.png" alt="Next quarter"></span></li></ul>';
         }
         else {
-            html += "<ul class='rIcons'><li><a href='#' class='navNextMon' title='Next month' tabindex='1'><img src='" + _imgPath + "CalendarNextMonth.png' alt='Next month' /></a></li><li><a href='#' class='fastNavNextQtr' title='Next quarter' tabindex='1'><img src='" + _imgPath + "CalendarNextQuarter.png' alt='Next quarter' /></a></li></ul>";
+            html += '<ul class="rIcons"><li><a href="#" class="navNextMon" title="Next month" tabindex="1"><img src="' + _imgPath + 'CalendarNextMonth.png" alt="Next month"></a></li><li><a href="#" class="fastNavNextQtr" title="Next quarter" tabindex="1"><img src="' + _imgPath + 'CalendarNextQuarter.png" alt="Next quarter"></a></li></ul>';
         }
 
-        html += "</div>";
+        html += '</div>';
 
         return html;
     };
@@ -492,7 +492,7 @@ cui.plugin.calendar = (function calendar() {
             inputParent = input.parentNode;
 
             // Parent must be positioned at least relative
-            inputParent.style.position = "relative";
+            inputParent.style.position = 'relative';
 
             // Get parent's coordinates
             coord = cui.dom.getElementPosition(inputParent);
@@ -513,7 +513,7 @@ cui.plugin.calendar = (function calendar() {
         var inputId = cal.id.substr(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
             calIcon = document.getElementById(ID_PREFIXES.calIcon + inputId);
 
-        cui.dom.removeClass(cal, 'hidden');
+        cui.dom.removeClass(cal, CLASSES.hidden);
 
         calIcon.title = ICON_TOOLTIP.hide;
     };
@@ -522,7 +522,7 @@ cui.plugin.calendar = (function calendar() {
         var inputId = cal.id.substr(cal.id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1)),
             calIcon = document.getElementById(ID_PREFIXES.calIcon + inputId);
 
-        cui.dom.addClass(cal, 'hidden');
+        cui.dom.addClass(cal, CLASSES.hidden);
 
         calIcon.title = ICON_TOOLTIP.show;
     };
@@ -537,8 +537,8 @@ cui.plugin.calendar = (function calendar() {
 
         while ((i -= 1) >= 0) {
             if (cals[i].id !== (ID_PREFIXES.datepickers + inputId)) {
-                if (!cui.dom.hasClass(cals[i], 'hidden')) {
-                    cui.dom.addClass(cals[i], 'hidden');
+                if (!cui.dom.hasClass(cals[i], CLASSES.hidden)) {
+                    cui.dom.addClass(cals[i], CLASSES.hidden);
 
                     document.getElementById(ID_PREFIXES.calIcon + cals[i].id.substr(cals[i].id.indexOf(ID_PREFIXES.datepickers + '_') + (ID_PREFIXES.datepickers.length + 1))).title = ICON_TOOLTIP.show;
                 }
@@ -555,7 +555,7 @@ cui.plugin.calendar = (function calendar() {
 
         forceHide = forceHide || false;
 
-        if (cui.dom.hasClass(opts, 'hidden') && !forceHide) {
+        if (cui.dom.hasClass(opts, CLASSES.hidden) && !forceHide) {
             // get current month and year in calendar and set hidden in case they changed
             document.getElementById('selMon_' + inputId).value = monthYear[0];
             document.getElementById('selYr_' + inputId).value = monthYear[1];
@@ -629,8 +629,7 @@ cui.plugin.calendar = (function calendar() {
     _priv._setOptionsYears = function _setOptionsYears(dmyCal, inputId) {
         var html = '',
             i = 0,
-            selYear = document.getElementById('selYr_' + inputId),
-            settings = _priv._getSettings(inputId);
+            selYear = document.getElementById('selYr_' + inputId);
 
         dmyCal.year = parseInt(dmyCal.year, 10);
 
@@ -641,55 +640,55 @@ cui.plugin.calendar = (function calendar() {
             selYear = dmyCal.year;
         }
 
-        html += "<ul>";
+        html += '<ul>';
 
         while (i < 10) {
-            html += "<li class='";
+            html += '<li class="';
             if ((i % 2) === 0) {
-                html += "newLine";
+                html += 'newLine';
             }
 
             if ((dmyCal.year - (5 - i)) === selYear) {
-                html += " selected";
+                html += ' selected';
             }
 
             // Validate date and show as clickable or read-only
             if (_priv._validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year - (5 - i))}, inputId)) {
-                html += "'><a href='#' title='" + (dmyCal.year - (5 - i)) + "' tabindex='1'>" + (dmyCal.year - (5 - i)) + "</a>";
+                html += '"><a href="#" title="' + (dmyCal.year - (5 - i)) + '" tabindex="1">' + (dmyCal.year - (5 - i)) + '</a>';
             }
             else {
-                html += "'><span class='disabled'>" + (dmyCal.year - (5 - i)) + "</span>";
+                html += '"><span class="disabled">' + (dmyCal.year - (5 - i)) + '</span>';
             }
 
             // Set hidden for efficiency on navigation purposes
             if (i === 0) {
-                html += "<input type='hidden' id='startOptYr_" + inputId + "' value='" + (dmyCal.year - (5 - i)) + "'/></li>";
+                html += '<input type="hidden" id="startOptYr_' + inputId + '" value="' + (dmyCal.year - (5 - i)) + '"></li>';
             }
             else if (i === 9) {
-                html += "<input type='hidden' id='endOptYr_" + inputId + "' value='" + (dmyCal.year - (5 - i)) + "'/></li>";
+                html += '<input type="hidden" id="endOptYr_' + inputId + '" value="' + (dmyCal.year - (5 - i)) + '"></li>';
             }
             else {
-                html += "</li>";
+                html += '</li>';
             }
             i += 1;
         }
 
-        // Option's actions
+        // Option"s actions
         if (_priv._validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year - 6)}, inputId)) {
-            html += "<li class='newLine'><a href='#' class='fastNavPrevYrs' title='Previous years' tabindex='1'><img src='" + _imgPath + "CalendarPreviousQuarter.png' alt='Previous years' /></a></li>";
+            html += '<li class="newLine"><a href="#" class="fastNavPrevYrs" title="Previous years" tabindex="1"><img src="' + _imgPath + 'CalendarPreviousQuarter.png" alt="Previous years"></a></li>';
         }
         else {
-            html += "<li class='newLine'><span class='grayedOut'><img src='" + _imgPath + "CalendarPreviousQuarter.png' alt='Previous years' /></span></li>";
+            html += '<li class="newLine"><span class="grayedOut"><img src="' + _imgPath + 'CalendarPreviousQuarter.png" alt="Previous years"></span></li>';
         }
 
         if (_priv._validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year + 5)}, inputId)) {
-            html += "<li><a href='#' class='fastNavNextYrs' title='Next years' tabindex='1'><img src='" + _imgPath + "CalendarNextQuarter.png' alt='Next years' /></a></li>";
+            html += '<li><a href="#" class="fastNavNextYrs" title="Next years" tabindex="1"><img src="' + _imgPath + 'CalendarNextQuarter.png" alt="Next years"></a></li>';
         }
         else {
-            html += "<li><span class='grayedOut'><img src='" + _imgPath + "CalendarNextQuarter.png' alt='Next years' /></span></li>";
+            html += '<li><span class="grayedOut"><img src="' + _imgPath + 'CalendarNextQuarter.png" alt="Next years"></span></li>';
         }
 
-        html += "</ul><input type='hidden' id='selYr_" + inputId + "' value='" + selYear.toString() + "'/>";
+        html += '</ul><input type="hidden" id="selYr_' + inputId + '" value="' + selYear.toString() + '">';
 
         return html;
     };
@@ -706,32 +705,32 @@ cui.plugin.calendar = (function calendar() {
             selMonth = dmyCal.month;
         }
 
-        html += "<ul>";
+        html += '<ul>';
 
         // Add available months
         while (i < 12) {
-            html += "<li class='";
+            html += '<li class="';
             if ((i % 2) === 0) {
-                html += "newLine";
+                html += 'newLine';
             }
 
             // If month is 0, ignore highlighting keep current one
             if ((i + 1) === selMonth) {
-                html += " selected";
+                html += ' selected';
             }
 
             // Validate date and show as clickable or read-only
             if (_priv._validateMinMaxRange({day: 1, month: (i + 1), year: dmyCal.year}, inputId) || _priv._validateMinMaxRange({day: _priv._getLastDayOfMonth(new Date((i + 1) + '/01/' + dmyCal.year)), month: (i + 1), year: dmyCal.year}, inputId)) {
-                html += "'><a href='#' title='" + MONTH_EN[i] + "' tabindex='1'>" + MSHORT_EN[i] + "</a></li>";
+                html += '"><a href="#" title="' + MONTH_EN[i] + '" tabindex="1">' + MSHORT_EN[i] + '</a></li>';
             }
             else {
-                html += "'><span class='disabled'>" + MSHORT_EN[i] + "</span></li>";
+                html += '"><span class="disabled">' + MSHORT_EN[i] + '</span></li>';
             }
 
             i += 1;
         }
 
-        html += "</ul><input type='hidden' id='selMon_" + inputId + "' value='" + selMonth.toString() + "'/>";
+        html += '</ul><input type="hidden" id="selMon_' + inputId + '" value="' + selMonth.toString() + '">';
 
         return html;
     };
@@ -743,11 +742,11 @@ cui.plugin.calendar = (function calendar() {
     };
 
     _priv._showOptions = function _showOptions(opts) {
-        cui.dom.removeClass(opts, 'hidden');
+        cui.dom.removeClass(opts, CLASSES.hidden);
     };
 
     _priv._hideOptions = function _hideOptions(opts) {
-        cui.dom.addClass(opts, 'hidden');
+        cui.dom.addClass(opts, CLASSES.hidden);
     };
 
     _priv._handleBoundaryDetection = function _handleBoundaryDetection(elem) {
@@ -1571,21 +1570,21 @@ cui.plugin.calendar = (function calendar() {
                 break;
 
             case 37: // left arrow goes back 1 month
-                if ($('#dpOptions_' + inputId).hasClass('hidden')) {
+                if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation($cal.find('.navPrevMon').get(0), cal);
                     ev.preventDefault();
                 }
                 break;
 
             case 39: // right arrow goes forward 1 month
-                if ($('#dpOptions_' + inputId).hasClass('hidden')) {
+                if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation($cal.find('.navNextMon').get(0), cal);
                     ev.preventDefault();
                 }
                 break;
 
             case 38: // up arrow goes forward 1 year
-                if ($('#dpOptions_' + inputId).hasClass('hidden')) {
+                if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation('navNextYear', cal);
                     cui.dom.setFocus($cal.find('a.monthYear').get(0));
                     ev.preventDefault();
@@ -1593,7 +1592,7 @@ cui.plugin.calendar = (function calendar() {
                 break;
 
             case 40: // down arrow goes back 1 year
-                if ($('#dpOptions_' + inputId).hasClass('hidden')) {
+                if ($('#dpOptions_' + inputId).hasClass(CLASSES.hidden)) {
                     _priv._handleCalHeaderNavigation('navPrevYear', cal);
                     cui.dom.setFocus($cal.find('a.monthYear').get(0));
                     ev.preventDefault();
@@ -1606,26 +1605,17 @@ cui.plugin.calendar = (function calendar() {
     };
 
     _events._bodyClick = function _bodyClick(ev) {
-        var elem = ev.target,
-            parent = elem.parentNode,
-            bubbledToCal = false;
+        var $target = $(ev.target),
+            $parent = $target.closest('#' + ID_PREFIXES.datepickers);
 
         // Check to see whether click happened inside or outside calendar
-        while (parent.nodeName !== "BODY") {
-            if (parent.id.indexOf(ID_PREFIXES.datepickers) > -1) {
-                bubbledToCal = true;
-                break;
-            }
-            parent = parent.parentNode;
-        }
-
-        // Make sure calendar is closed
-        if (!bubbledToCal) {
+        if (!$parent.length) {
+            // Make sure calendar is closed
             _priv._hideAllDatePickers();
         }
     };
 
-    _events._windowResize = function _windowResize(ev) {
+    _events._windowResize = function _windowResize( /*ev*/ ) {
         // Reposition opened calendars
         $('div.dp:not(.hidden)').each(function() {
             _priv._setDatePickerPosition(this);
