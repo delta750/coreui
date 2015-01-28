@@ -3,10 +3,10 @@
    ---------------------------------------- */
 cui.environment = (function environment() {
     var IMAGE_PATHS = {
-            core:     '../images/core/',
-            plugin:   '../images/plugin/',
-            skin:     '../images/skin/',
-            template: '../images/template/'
+            core:       '../images/core/',
+            components: '../../../../images/src/components/',
+            skin:       '../images/skin/',
+            template:   '../images/template/'
         },
         SPACE = ' ',
 
