@@ -487,7 +487,8 @@ cui.plugin.calendar = (function calendar() {
     };
 
     _priv._setDatePickerPosition = function _setDatePickerPosition(cal) {
-        var input = document.getElementById(cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1))),
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
+            input = document.getElementById(inputId),
             inputParent = null,
             coord = [],
             offset,
