@@ -1570,6 +1570,7 @@ cui.plugin.calendar = (function calendar() {
                 case 'fastNavNextQtr':
                     _priv._handleCalHeaderNavigation(clickElem, parent);
                     break;
+
                 case 'monthYear':
                     _priv._showHideOptions(clickElem, document.getElementById('dpOptions_' + parent.id.substring(parent.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1))));
                     break;
