@@ -4,7 +4,7 @@
 cui.environment = (function environment() {
     var IMAGE_PATHS = {
             core:       '../images/core/',
-            components: '../../../../images/src/components/',
+            components: '../../../../images/dist/components/',
             skin:       '../images/skin/',
             template:   '../images/template/'
         },
