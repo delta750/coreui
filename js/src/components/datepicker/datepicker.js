@@ -288,7 +288,8 @@ cui.plugin.calendar = (function calendar() {
 
         // Calendar wrapper
         // ---------------------------
-        html += '<div id="dpCalWrap_' + inputId + '" class="dpCalWrap" tabindex="1"><div class="dpCal">';
+        html += '<div id="dpCalWrap_' + inputId + '" class="dpCalWrap" tabindex="1">' +
+                    '<div class="dpCal">';
 
         // Calendar main
         // ---------------------------
@@ -297,10 +298,15 @@ cui.plugin.calendar = (function calendar() {
 
         // Body
         // One-letter abbreviation for each single day
-        html += '<div class="dpBody"><div class="dpDayDesc"><ul><li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li></ul></div><div class="dpWeekNbrDays">';
+        html +=         '<div class="dpBody">' +
+                            '<div class="dpDayDesc">' +
+                                '<ul><li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li></ul>' +
+                            '</div>' +
+                            '<div class="dpWeekNbrDays">';
 
         // Days
-        html += '<div class="dpDays"><ul>';
+        html +=                 '<div class="dpDays">' +
+                                    '<ul>';
 
         // Calculate the day where the 1st of the month falls
         calDate = new Date(dmyCal.month.toString() + '/01/' + dmyCal.year.toString());
@@ -430,26 +436,44 @@ cui.plugin.calendar = (function calendar() {
         i = 0;
 
         // Footer
-        html += '</ul></div></div><div class="dpFoot"></div></div></div>';
+        html +=                     '</ul>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="dpFoot"></div>' +
+                        '</div>' +
+                    '</div>';
 
         // Calendar shadow
-        html += '<div class="dpCalShadow"></div></div>';
+        html +=     '<div class="dpCalShadow"></div>' +
+                '</div>';
 
         // Options
         // ---------------------------
-        html += '<div id="dpOptions_' + inputId + '" class="dpOptWrap hidden" tabindex="1">';
+        html += '<div id="dpOptions_' + inputId + '" class="dpOptWrap ' + CLASSES.hidden + '" tabindex="1">';
 
         // Months
-        html += '<div class="dpOpt"><div class="dpMon">' + _priv._setOptionsMonths(dmyCal, inputId) + '</div>';
+        html +=     '<div class="dpOpt">' +
+                        '<div class="dpMon">' + _priv._setOptionsMonths(dmyCal, inputId) + '</div>';
 
         // Years
-        html += '<div class="dpYr">' + _priv._setOptionsYears(dmyCal, inputId) + '</div>';
+        html +=         '<div class="dpYr">' + _priv._setOptionsYears(dmyCal, inputId) + '</div>';
 
         // Other
-        html += '<div id="dpOther_' + inputId + '" class="dpOther"><div class="dpOtherL"><a href="#" title="Today" tabindex="1">Today</a></div><div class="dpOtherR"><a href="#" id="dpOK_' + inputId + '" title="OK" tabindex="1">OK</a><a href="#" title="Cancel" tabindex="1">Cancel</a></div></div>';
+        html +=         '<div id="dpOther_' + inputId + '" class="dpOther">' +
+                            '<div class="dpOtherL">' +
+                                '<a href="#" title="Today" tabindex="1">Today</a>' +
+                            '</div>' +
+                            '<div class="dpOtherR">' +
+                                '<a href="#" id="dpOK_' + inputId + '" title="OK" tabindex="1">OK</a>' +
+                                '<a href="#" title="Cancel" tabindex="1">Cancel</a>' +
+                            '</div>' +
+                        '</div>';
 
         // Options shadow
-        html += '</div><div class="dpOptShadow"></div></div></div>';
+        html +=     '</div>' +
+                    '<div class="dpOptShadow"></div>' +
+                '</div>' +
+            '</div>';
 
         return html;
     };
@@ -1673,7 +1697,7 @@ cui.plugin.calendar = (function calendar() {
 
     _events._bodyClick = function _bodyClick(ev) {
         var $target = $(ev.target),
-            $parent = $target.closest('#' + ID_PREFIXES.datePicker);
+            $parent = $target.closest('[id^="' + ID_PREFIXES.calIcon + '"], .dp');
 
         // Check to see whether click happened inside or outside calendar
         if (!$parent.length) {

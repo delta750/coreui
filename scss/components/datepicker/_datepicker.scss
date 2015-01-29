@@ -7,20 +7,19 @@
     background: transparent url("../../images/dist/components/datepicker/CalendarSprite.png") 0 0 no-repeat;
     vertical-align: middle;
     border-radius: 4px;
-    margin: -4px 0 0 0em;
-}
+    margin: 0;
+    text-indent: 9999em;
+    overflow: hidden;
 
-.calendar:hover {
-    border: 1px solid #BDDBFF;
-    background-color: #FFFBFF;
+    &:hover {
+        border: 1px solid #BDDBFF;
+        background-color: #FFFBFF;
+    }
 }
 
 // Main
 .dp {
     position: absolute;
-    font-size: 100%;
-    // sizes to match page's default font size
-
     overflow: visible;
     min-width: 16.5em;
     white-space: nowrap;
@@ -273,7 +272,7 @@
     color: #333;
     background-color: #FFF;
     z-index: 3;
-    display: nnone;
+    box-shadow: 2px 2px 2px #444;
 }
 
 .dpOpt {
