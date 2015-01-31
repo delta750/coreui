@@ -4,7 +4,7 @@
     width: 20px;
     height: 19px;
     border: 1px solid transparent;
-    background: transparent url("../../images/dist/components/datepicker/CalendarSprite.png") 0 0 no-repeat;
+    background: transparent url("#{$images-path}datepicker/CalendarSprite.png") 0 0 no-repeat;
     vertical-align: middle;
     border-radius: 4px;
     margin: 0;
@@ -31,6 +31,7 @@
     left: 0;
     display: inline-block;
     // overflow: visible;
+    box-shadow: 2px 2px 2px #444;
 }
 
 .dpCal {
@@ -212,15 +213,17 @@
     a,
     a:visited,
     .disabled {
-        float: left;
+        // float: left;
         color: #333;
         margin-left: 1px;
-        width: 1.45em;
+        width: 2.25em;
         line-height: 1.5em;
-        padding-right: 0.5em;
+        // padding-right: 0.5em;
         text-decoration: none;
         border-color: #FFF;
         border-radius: 4px;
+        text-align: center;
+        display: inline-block;
     }
 
     .today a {
@@ -251,18 +254,6 @@
 // Footer
 .dpFoot {}
 
-// Shadow
-.dpCalShadow {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    margin: 3px;
-    width: 100%;
-    height: 100%;
-    background-color: #BBB;
-    z-index: 1;
-}
-
 // Select
 .dpOptWrap {
     position: absolute;
@@ -279,7 +270,7 @@
     position: relative;
     top: 0;
     left: 0;
-    width: 12.85em;
+    width: 13.2em;
     overflow: hidden;
     padding: 0.3em 0.25em 0.35em 0.3em;
     background-color: #FFF;
@@ -297,7 +288,7 @@
 }
 
 .dpMon {
-    width: 5.9em;
+    width: 6em;
     border-right: 1px solid #E1E1E1;
     padding-right: 0.2em;
     margin-right: 0.35em;
@@ -406,18 +397,6 @@
 .dpOtherL a:hover,
 .dpOtherR a:hover {
     color: #CC6633;
-}
-
-// Shadow
-.dpOptShadow {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    margin: 3px;
-    width: 100%;
-    height: 100%;
-    background-color: #BBB;
-    z-index: 4;
 }
 
 // Misc

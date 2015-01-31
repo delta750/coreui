@@ -1,6 +1,5 @@
-/* ----------------------------------------
-   .cui.environment
-   ---------------------------------------- */
+cui.namespace('environment');
+
 cui.environment = (function environment() {
     var IMAGE_PATHS = {
             core:       '../images/core/',

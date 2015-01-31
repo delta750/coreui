@@ -4,12 +4,6 @@
  User Interface Team
  Core script (mainly utilities) to be used across projects
 =======================================================================
-
-----------------------------------------
- Contents
-----------------------------------------
-    cui.namespace
-    cui.environment
 */
 
 var cui = cui || {};
@@ -17,7 +11,6 @@ var cui = cui || {};
 /* ----------------------------------------
    .cui.namespace
    ---------------------------------------- */
-//
 
 /**
  * Non-destructive implementation for creating namespaces or adding properties inside of them
@@ -33,22 +26,21 @@ cui.namespace = function _namespace(namespace, parent) {
 
     parent = parent || cui;
 
-    // strip redundant leading global
+    // Strip redundant leading global
     if (parts[0] === 'cui') {
         parts = parts.slice(1);
     }
 
     for (i = 0; i < parts.length; i += 1) {
-        // create a property if it does not exist
+        // Create a property if it does not exist
         if (typeof parent[parts[i]] === 'undefined') {
             parent[parts[i]] = {};
         }
+
         parent = parent[parts[i]];
     }
 
     return parent;
 };
 
-// Public API
-cui.namespace('environment');
-cui.namespace('plugin');
+cui.namespace('component');
