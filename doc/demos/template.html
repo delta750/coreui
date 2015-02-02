@@ -9,8 +9,8 @@
 <body>
     <!-- Skip navigation for accessibility purposes -->
     <div class="its-hide-from-screen">
-        <a id="skip_to_navigation" href="#skip_to_navigation_target">Go to navigation</a>
-        <a id="skip_to_content" href="#skip_to_content_target">Go to content</a>
+        <a href="#nav">Go to navigation</a>
+        <a href="#main">Go to content</a>
     </div>
 
     <header class="cui-row">
@@ -22,12 +22,14 @@
         </div>
     </header>
 
-    <nav id="skip_to_navigation_target">
+    <nav id="nav">
         Navigation
     </nav>
 
     <!-- Actual meat of the page goes here, broken up into sections which may or may not have their own headers -->
-    <main role="main" id="skip_to_content_target">
+    <!-- The attribute `role="main"` is for assistive technologies that don't yet know the `<main>` element holds the main content. The ID is for the skip link at the top. -->
+    <main role="main" id="main">
+
         <!-- This entire page is a form, otherwise the `form` element(s) would be inside the appropriate section(s) -->
         <form name="form_content" id="form_content" action="www.ny.gov" method="post">
 
