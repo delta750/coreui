@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Template - Core UI</title>
+    <!-- Deployment: All CSS files should be minified (same order) into one single CSS file called: all_20121026.css -->
+    <link href="../../css/core/core.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+    <!-- Skip navigation for accessibility purposes -->
+    <div class="its-hide-from-screen">
+        <a id="skip_to_navigation" href="#skip_to_navigation_target">Go to navigation</a>
+        <a id="skip_to_content" href="#skip_to_content_target">Go to content</a>
+    </div>
+
+    <header class="cui-row">
+        <div class="cui-col-sm-12">
+            <h1>Site Title</h1>
+        </div>
+        <div class="cui-col-sm-12">
+            <h2>Page title</h2>
+        </div>
+    </header>
+
+    <nav id="skip_to_navigation_target">
+        Navigation
+    </nav>
+
+    <!-- Actual meat of the page goes here, broken up into sections which may or may not have their own headers -->
+    <main role="main" id="skip_to_content_target">
+        <!-- This entire page is a form, otherwise the `form` element(s) would be inside the appropriate section(s) -->
+        <form name="form_content" id="form_content" action="www.ny.gov" method="post">
+
+            <section>
+                <header>
+                    <h3>Form fields</h3>
+                    <!-- Other "header" items would go here that doesn't belong in the H3, like icons or section-level controls -->
+                </header>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        First name:
+                    </div>
+                    <div class="cui-col-sm-12">
+                        John
+                    </div>
+                </div>
+
+                <div class="cui-row required">
+                    <div class="cui-col-sm-12">
+                        <label for="lastName">Last name (required):</label>
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <input type="text" id="lastName" aria-required="true" size="20" maxlength="30" value="John" tabindex="1">
+                    </div>
+                </div>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <label for="lastName">Date:</label>
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <input type="text" class="date" data-date-mask="mm/dd/yyyy" tabindex="1">
+                        <!-- The date picker icon will be rendered by the component -->
+                    </div>
+                </div>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <label for="taxType">Tax type:</label>
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <select id="taxType" tabindex="1">
+                            <option selected="selected" value="1">Personal income</option>
+                            <option value="2">Sales</option>
+                            <option value="3">Corporation</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        Button:
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <button type="button" value="abc" tabindex="1">Go</button>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        Target Amount ($):
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <div class="cui-input cui-currency">
+                            <input type="text" tabindex="1">
+                            <span class="input-append">.00</span>
+                        </div>
+                    </div>
+                </div>
+                <fieldset class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <legend>Are you filing in this quarter?</legend>
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <div class="cui-radio-group">
+                            <label for="radioExample_1">Yes</label>
+                            <input type="radio" name="radioExample" id="radioExample_Y" value="1" tabindex="1">
+                            <label for="radioExample_2">No</label>
+                            <input type="radio" name="radioExample" id="radioExample_N" checked="checked" value="2" tabindex="1">
+                        </div>
+                    </div>
+                </fieldset>
+            </section>
+
+            <section>
+                <header>
+                    <h3>Table</h3>
+                    <!-- Other "header" items would go here that doesn't belong in the H3, like icons or section-level controls -->
+                </header>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <p>Table description</p>
+                    </div>
+                </div>
+
+                <!-- A table could also go inside a row/column, in which case it wouldn't have the `.cui-row` class -->
+                <table class="cui-row cui-sortable">
+                    <thead>
+                        <tr>
+                            <th>First name</th>
+                            <th data-sort="alpha">Last name</th>
+                            <th data-sort="date">Birth date</th>
+                            <th data-sort="numeric">Amount ($)</th>
+                            <th class="cui-icon-wrapper"><span class="its-hide-from-screen">Remove person</span></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">Total:</td>
+                            <td>2171.74</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>Cesc</td>
+                            <td>Fabregas</td>
+                            <td>01/01/1990</td>
+                            <td>80</td>
+                            <td class="cui-icon-wrapper"><button class="cui-icon-remove" tabindex="1">Delete record</button></td>
+                        </tr>
+                        <tr>
+                            <td>Olivier</td>
+                            <td>Giroud</td>
+                            <td>12/31/1990</td>
+                            <td>80</td>
+                            <td class="cui-icon-wrapper"><button class="cui-icon-remove" tabindex="1">Delete record</button></td>
+                        </tr>
+                        <tr>
+                            <td>Olivier</td>
+                            <td>Giroud</td>
+                            <td>12/31/1990</td>
+                            <td>80</td>
+                            <td class="cui-icon-wrapper"><button class="cui-icon-remove" tabindex="1">Delete record</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <header>
+                    <h3>General content</h3>
+                </header>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu enim ante. Nulla facilisi. Nunc eget lectus egestas, malesuada erat at, rutrum enim. Curabitur vitae ipsum varius, dignissim libero quis, imperdiet tellus. Vestibulum quis risus mattis, faucibus quam ut, maximus erat. Vestibulum ac tempor arcu, et iaculis sapien. Suspendisse et vehicula nibh, id placerat arcu.</p>
+                        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac quam eget diam laoreet porta sit amet eu nisi. Curabitur mattis erat maximus, varius risus a, fringilla purus. Mauris non odio nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae ligula dolor.</p>
+                    </div>
+                </div>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12 cui-col-md-6">
+                        <p>Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis.</p>
+                    </div>
+                    <div class="cui-col-sm-12 cui-col-md-6">
+                        <p>Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id.</p>
+                    </div>
+                </div>
+            </section>
+
+        </form>
+    </main>
+
+    <footer>
+        Footer
+    </footer>
+
+    <script src="../../../COREUI/js/common/core.js"></script>
+</body>
+</html>
