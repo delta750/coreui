@@ -13,9 +13,6 @@ module.exports = function(grunt) {
         // This banner will appear at the top style sheets
         cssBanner = '@charset "utf-8";\n' + jsBanner,
 
-        // Appended to JS files
-        jsFooter = '\n;uiGlobal.sVersion = "<%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>";',
-
         //////////////////////////
         // Lists of asset files //
         //////////////////////////
@@ -127,7 +124,8 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'css/core/core.css': 'scss/core/core.scss'
+                    'css/core/core.css': 'scss/core/core.scss',
+                    'css/components/components.css': 'scss/components/components.scss'
                 },
             },
 

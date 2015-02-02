@@ -1,12 +1,11 @@
-/* ----------------------------------------
-   .cui.environment
-   ---------------------------------------- */
+cui.namespace('environment');
+
 cui.environment = (function environment() {
     var IMAGE_PATHS = {
-            core:     '../images/core/',
-            plugin:   '../images/plugin/',
-            skin:     '../images/skin/',
-            template: '../images/template/'
+            core:       '../images/core/',
+            components: '../../../../images/dist/components/',
+            skin:       '../images/skin/',
+            template:   '../images/template/'
         },
         SPACE = ' ',
 
