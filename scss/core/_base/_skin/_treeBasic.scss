@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/**
+ * @name       _treeBasic.scss
+ * @desc       Skinning for tree structure styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Default tree styles
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */
+.cui-tree-list li {
+    padding-left: 20px;
+    margin: 0.3em 0;
+    background: transparent url("../images/src/core/document.png") top left no-repeat;
+}
+
+.cui-tree-list div {
+    margin: 0.4em 0;
+}
+
+.cui-tree-list .cui-parent-open, .cui-tree-list .cui-parent-close {
+    padding-left: 30px;
+}
+
+.cui-tree-list .cui-parent-open {
+    background: transparent url("../images/src/core/folder-open.png") top left no-repeat;
+}
+
+.cui-tree-list .cui-parent-close {
+    background: transparent url("../images/src/core/folder-close.png") top left no-repeat;
+}
+
+.cui-tree-list a, .cui-tree-list a:hover {
+    color: #333;
+    text-decoration: none;
+}

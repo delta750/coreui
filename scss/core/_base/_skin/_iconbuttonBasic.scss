@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/**
+ * @name       _iconbutton.scss
+ * @desc       Icon-based button styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Default icon-based button styles
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */
+.cui-icon-buttons {
+    right: 0;
+    vertical-align: baseline;
+}
+
+.cui-icon-buttons li {
+    padding-left: 0.6em;
+}
+
+.cui-icon-buttons a {
+    width: 19px;
+    height: 19px;
+}
+
+.cui-sections-toggle {
+    background: transparent url("../images/src/core/section-collapse-all.png") center left no-repeat;
+}
+
+.cui-sections-toggle-expand {
+    background: transparent url("../images/src/core/section-expand-all.png") center left no-repeat;
+}
+
+.cui-info-blocks-toggle {
+    background: transparent url("../images/src/core/section-help-hide-all.png") center left no-repeat;
+}
+
+.cui-info-blocks-toggle-expand {
+    background: transparent url("../images/src/core/section-help-show-all.png") center left no-repeat;
+}
+
+.cui-section-toggle {
+    background: transparent url("../images/src/core/section-collapse.png") center left no-repeat;
+}
+
+.cui-section-toggle-expand {
+    background: transparent url("../images/src/core/section-expand.png") center left no-repeat;
+}
+
+.cui-info-block-toggle {
+    background: transparent url("../images/src/core/section-help-hide.png") center left no-repeat;
+}
+
+.cui-info-block-toggle-expand {
+    background: transparent url("../images/src/core/section-help-show.png") center left no-repeat;
+}
+
+.cui-print {
+    background: transparent url("../images/src/core/printer.gif") center left no-repeat;
+}
+
+.cui-print-20 {
+    background: transparent url("../images/src/core/printer-20.gif") center left no-repeat;
+}
+
+.cui-dollar {
+    background: transparent url("../images/src/core/dollar.png") center left no-repeat;
+}
+
+.cui-pencil {
+    background: transparent url("../images/src/core/pencil.png") center left no-repeat !important;
+}
+
+.cui-trash {
+    background: transparent url("../images/src/core/delete.png") center left no-repeat !important;
+}
+
+.cui-popup {
+    background: transparent url("../images/src/core/popup.png") center left no-repeat !important;
+}
+
+.cui-section .cui-section .cui-icon-buttons a {
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+.cui-section .cui-section .cui-section .cui-icon-buttons a {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}

@@ -1,11 +1,31 @@
-/* Use @import to manage all css files (not for production where all files will be combined into one; styles.css) */
-@import url("../../CoreUI_New/css/core/normalize.css");
-@import url("../../CoreUI_New/css/core/core.css");
-@import url("../../CoreUI_New/css/core/grid.css");
-@import url("../../CoreUI_New/css/core/forms.css");
-@import url("../../CoreUI_New/css/core/lists.css");
-@import url("../../CoreUI_New/css/core/headers.css");
-@import url("../../CoreUI_New/css/core/section.css");
-@import url("../../CoreUI_New/css/core/links.css");
-@import url("../../CoreUI_New/css/core/template.css");
-@import url("../../CoreUI_New/css/core/debug.css");
+@include "core/_vendor/_normalize"
+@include "core/_base/_global"
+@include "core/_base/_skins/_globalBasic"
+@include "core/_base/_grid"
+@include "core/_base/_skins/_gridBasic"
+@include "core/_base/_forms"
+@include "core/_base/_lists"
+@include "core/_base/_headers"
+@include "core/_base/_section"
+@include "core/_base/_links"
+@include "core/_base/_template"
+@include "core/_base/_debug"
+
+// Completed:
+// ----------------------------
+//    * form
+//    * global
+//    * grid
+//    * header
+//    * link
+//    * list
+//    * message
+//    * misc
+//    * section
+//    * table
+//    * template
+//    * button
+//    * iconbutton
+//    * tree
+//    * menu
+//    * tabstrip
