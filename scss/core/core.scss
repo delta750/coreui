@@ -1,31 +1,57 @@
-@include "core/_vendor/_normalize"
-@include "core/_base/_global"
-@include "core/_base/_skins/_globalBasic"
-@include "core/_base/_grid"
-@include "core/_base/_skins/_gridBasic"
-@include "core/_base/_forms"
-@include "core/_base/_lists"
-@include "core/_base/_headers"
-@include "core/_base/_section"
-@include "core/_base/_links"
-@include "core/_base/_template"
-@include "core/_base/_debug"
-
-// Completed:
-// ----------------------------
-//    * form
+// sass files
+// ---------------------------------
+// Need to start with these in order
+//    * normalize
 //    * global
+//    * template
+//    * form
 //    * grid
+// These do not need to be ordered
+//    * button
 //    * header
+//    * iconbutton
+//    * labeldata
 //    * link
 //    * list
 //    * message
 //    * misc
 //    * section
 //    * table
-//    * template
-//    * button
-//    * iconbutton
-//    * tree
+// These should be in components
 //    * menu
 //    * tabstrip
+//    * tree
+
+@include "core/_base/_global"
+@include "core/_base/_skins/_globalBasic"
+@include "core/_base/_template"
+@include "core/_base/_form"
+@include "core/_base/_skins/_formBasic"
+@include "core/_base/_grid"
+@include "core/_base/_skins/_gridBasic"
+@include "core/_base/_button"
+@include "core/_base/_skins/_buttonBasic"
+@include "core/_base/_header"
+@include "core/_base/_skins/_headerBasic"
+@include "core/_base/_iconbutton"
+@include "core/_base/_skins/_iconbuttonBasic"
+@include "core/_base/_labeldata"
+@include "core/_base/_skins/_labeldataBasic"
+@include "core/_base/_link"
+@include "core/_base/_skins/_linkBasic"
+@include "core/_base/_list"
+@include "core/_base/_skins/_listBasic"
+@include "core/_base/_message"
+@include "core/_base/_skins/_messageBasic"
+@include "core/_base/_misc"
+@include "core/_base/_skins/_miscBasic"
+@include "core/_base/_section"
+@include "core/_base/_skins/_sectionBasic"
+@include "core/_base/_table"
+@include "core/_base/_skins/_tableBasic"
+@include "core/_base/_menu"
+@include "core/_base/_skins/_menuBasic"
+@include "core/_base/_tabstrip"
+@include "core/_base/_skins/_tabstripBasic"
+@include "core/_base/_tree"
+@include "core/_base/_skins/_treeBasic"
