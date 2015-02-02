@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/**
+ * @name       _gridBasic.scss
+ * @desc       Skinning for responsive grid styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Row and col structures
+ * @desc       Gutters
+ * --------------------------------------------------------
+ */
+.cui-row {
+    margin: 0 auto 10px auto;
+}
+
+[class*="cui-col-"], [class*="cui-fixed-col-"], [class*="cui-filler-col-"] {
+    padding: 0 10px;
+}

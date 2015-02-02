@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
- * @name       _section.scss
- * @desc       Section styles
+ * @name       _table.scss
+ * @desc       Table styles
  * @author     Manolo Farfan
  * @version    1.0.0.20141231
  * @see        https://github.com/nys-its/frg-coreui/coreui     
@@ -9,29 +9,34 @@
 
 /**
  * --------------------------------------------------------
- * @section    Section styles
+ * @section    Default table styles
  * @todo       Extract eMPIRE-specific styles
+ *             Take out IE7 hacks
  * --------------------------------------------------------
  */
-.cui-section-header {
-    position: relative;
+ .cui-table-section {
+    overflow: hidden;
 }
 
-.cui-section-body {
-    clear: both;
-    overflow: hidden;
+.cui-table-div {
+    zoom: 1;
+}
+
+table {
+    empty-cells: show;
+}
+
+.cui-table-fixed {
+    table-layout: fixed;
+}
+
+.cui-table-sort {
+    display: inline-block;
 }
 
 /**
  * --------------------------------------------------------
- * @section    Widget (extends section) styles
+ * @section    List table (i.e. subscription lists)
  * @todo       Extract eMPIRE-specific styles
  * --------------------------------------------------------
  */
-.cui-widget .cui-section-body {
-    overflow: hidden;
-}
-
-.cui-section-header, .cui-section-footer {
-    clear: both;
-}

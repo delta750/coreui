@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/**
+ * @name       _messageBasic.scss
+ * @desc       Skinning for messages styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Messages for error, warning, success, etc.
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */
+.cui-list-messages {
+    margin-left: 0.2em;
+}
+
+.cui-list-messages li {
+    width: 100%;
+    margin-bottom: 0.2em;
+}
+
+.cui-list-messages p {
+    margin: -1px 0 0 20px;
+}
+
+.cui-type-error div,
+.cui-type-warning div,
+.cui-type-informational div,
+.cui-type-success div {
+    width: 14px;
+    height: 14px;
+    text-indent: -99999em;
+    background: transparent url("../images/src/core/icons-sprite.png") top left no-repeat;
+}
+
+.cui-type-error {
+    color: #CC0000;
+}
+
+.cui-type-warning,
+.cui-type-informational {
+    color: #454545;
+}
+
+.cui-type-success {
+    color: #009933;
+}
+
+.cui-type-error div {
+    background-position: -16px 0;
+}
+
+.cui-type-warning div {
+    background-position: 0 0;
+}
+
+.cui-type-informational div {
+    background-position: -32px 0;
+}
+
+.cui-type-success div {
+    background-position: -48px 0;
+}
