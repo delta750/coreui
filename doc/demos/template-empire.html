@@ -104,7 +104,7 @@
 
     <!-- Workflow -->
     <form class="cui-row" name="form_workflow" id="form_workflow" action="www.tax.ny.gov" method="post">
-        <div class="emp-col-full cui-pull-right">
+        <div class="cui-col-sm-12 cui-pull-right">
             <ul class="emp-icon-list">
                 <li><a href="#" id="workflow_next" class="its-icon-button work-item-next" title="Get next workitem" tabindex="1">Get next workitem</a></li>
                 <li><a href="#" id="workflow_view_comments" class="its-icon-button its-marg-l-S work-item-comments" title="View comments" tabindex="1">View comments</a></li>
@@ -122,120 +122,87 @@
     <!-- ==================== -->
     <!-- TABSET               -->
     <!-- ==================== -->
-    <!-- Line for tabset -->
-    <div class="its-line its-marg-t-M tabset">
+
+    <div class="cui-row emp-tabset">
         <!-- Column for tabs -->
-           <div id="tab_set" class="its-col its-fluid its-padd-r-XXL its-tab-strip">
-            <ul class="its-list-horizontal">
-                <li class="first-item"><a href="#" id="tab_set_1" title="TP Sum" tabindex="1">TP Sum</a></li>
-                <li><a href="#" id="tab_set_2" title="Srch by Name" tabindex="1">Srch by Name</a></li>
-                <li><a href="#" id="tab_set_3" class="selected" title="Name History" tabindex="1">Name History</a></li>
-                <li><a href="#" id="tab_set_4" title="Address Sum" tabindex="1">Address Sum</a></li>
-                <li><a href="#" id="tab_set_5" title="Check Digit" tabindex="1">Check Digit</a></li>
-                <li><a href="#" id="tab_set_6" title="Old ID Search" tabindex="1">Old ID Search</a></li>
-                <li><a href="#" id="tab_set_7" title="Current ID Search" tabindex="1">Current ID Search</a></li>
-                <li><a href="#" id="tab_set_8" title="Multi 9-Char ID" tabindex="1">Multi 9-Char ID</a></li>
-                <li><a href="#" id="tab_set_9" title="CT Sub Profile" tabindex="1">CT Sub Profile</a></li>
-                <li><a href="#" id="tab_set_10" title="ST Profile" tabindex="1">ST Profile</a></li>
-                <!--<li><a href="#" id="tab_set_11" title="Multi State" tabindex="1">Multi State</a></li>
-                <li><a href="#" id="tab_set_12" title="Pymt Search" tabindex="1">Pymt Search</a></li>
-                <li><a href="#" id="tab_set_13" title="Trnsfr Return" tabindex="1">Trnsfr Return</a></li>
-                <li><a href="#" id="tab_set_14" title="Transfer In" tabindex="1">Transfer In</a></li>
-                <li><a href="#" id="tab_set_15" title="Transfer In/Out" tabindex="1">Transfer In/Out</a></li>
-                <li><a href="#" id="tab_set_16" title="TFA Details" tabindex="1">TFA Details</a></li>
-                <li><a href="#" id="tab_set_17" title="Events" tabindex="1">Events</a></li>
-                <li><a href="#" id="tab_set_18" title="Correspondence" tabindex="1">Correspondence</a></li>-->
-            </ul>
-            <!-- Absolutely-positioned pane for showing/hiding the tabset -->
-            <div class="show-hide">
-                <a href="#" id="show_hide_tab_set" class="its-icon-button its-marg-t-XS" title="Show a full/partial tabset view" tabindex="1">Click to resize tabset's height</a>
-            </div>
+        <ul class="cui-col-sm-10">
+            <li><a href="#" id="tab_set_1" title="TP Sum" tabindex="1">TP Sum</a></li>
+            <li><a href="#" id="tab_set_2" title="Srch by Name" tabindex="1">Srch by Name</a></li>
+            <li><a href="#" id="tab_set_3" class="selected" title="Name History" tabindex="1">Name History</a></li>
+            <li><a href="#" id="tab_set_4" title="Address Sum" tabindex="1">Address Sum</a></li>
+            <li><a href="#" id="tab_set_5" title="Check Digit" tabindex="1">Check Digit</a></li>
+            <li><a href="#" id="tab_set_6" title="Old ID Search" tabindex="1">Old ID Search</a></li>
+            <li><a href="#" id="tab_set_7" title="Current ID Search" tabindex="1">Current ID Search</a></li>
+            <li><a href="#" id="tab_set_8" title="Multi 9-Char ID" tabindex="1">Multi 9-Char ID</a></li>
+            <li><a href="#" id="tab_set_9" title="CT Sub Profile" tabindex="1">CT Sub Profile</a></li>
+            <li><a href="#" id="tab_set_10" title="ST Profile" tabindex="1">ST Profile</a></li>
+            <!--<li><a href="#" id="tab_set_11" title="Multi State" tabindex="1">Multi State</a></li>
+            <li><a href="#" id="tab_set_12" title="Pymt Search" tabindex="1">Pymt Search</a></li>
+            <li><a href="#" id="tab_set_13" title="Trnsfr Return" tabindex="1">Trnsfr Return</a></li>
+            <li><a href="#" id="tab_set_14" title="Transfer In" tabindex="1">Transfer In</a></li>
+            <li><a href="#" id="tab_set_15" title="Transfer In/Out" tabindex="1">Transfer In/Out</a></li>
+            <li><a href="#" id="tab_set_16" title="TFA Details" tabindex="1">TFA Details</a></li>
+            <li><a href="#" id="tab_set_17" title="Events" tabindex="1">Events</a></li>
+            <li><a href="#" id="tab_set_18" title="Correspondence" tabindex="1">Correspondence</a></li>-->
+        </ul>
+        <!-- Absolutely-positioned pane for showing/hiding the tabset -->
+        <div class="cui-col-sm-2 emp-show-hide">
+            <button type="button" id="show_hide_tab_set" class="cui-icon cui-icon-showhide" title="Show a full/partial tabset view" tabindex="1">Resize the tabset's height</button>
         </div>
     </div>
 
     <!-- ==================== -->
     <!-- SEARCH BOX           -->
     <!-- ==================== -->
-    <!-- Line for search box -->
-    <div class="its-line search-box">
-        <!-- Absolutely-positioned column for showing/hiding the search box -->
-        <div class="its-col its-fluid show-hide">
-            <a href="#" id="show_hide_search_box" class="its-icon-button" title="Click to hide the search box" tabindex="1">Click to hide the search box</a>
-            <!-- To default search box to hidden use <a> below and add its-hidden to: <div id="search_box" class="its-col its-fluid its-hidden search-fields-wrapper"> -->
-            <!-- <a href="#" id="show_hide_search_box" class="its-icon-button expand" title="Click to show the search box" tabindex="1">Click to show the search box</a>-->
-        </div>
-        <form name="form_search" id="form_search" action="www.tax.ny.gov" method="post">
-            <div class="its-col its-fluid search-wrapper">
-                <div class="its-line its-padd-t-L its-padd-b-S">
-                    <!-- Column for buttons and fields -->
-                    <div id="search_box" class="its-col its-fluid search-fields-wrapper">
-                        <div class="its-line">
-                            <!-- Column for Get ID button -->
-                            <div class="its-col its-padd-l-L button-wrapper-left">
-                                <input type="button" id="btn_get_id" class="its-button-S its-display-block" value="Get ID" title="Get ID" tabindex="1">
+
+    <div class="search-box">
+        <form class="cui-row" name="form_search" id="form_search" action="www.tax.ny.gov" method="post">
+            <!-- Column for Get ID button -->
+            <div class="cui-col-sm-2">
+                <input type="button" id="btn_get_id" class="its-button-S its-display-block" value="Get ID" title="Get ID" tabindex="1">
+            </div>
+            <div class="cui-col-sm-8">
+                    <div class="cui-row">
+                        <div class="cui-col-sm-12">
+                            <div class="emp-label">
+                                <label for="HEADER_ID_TYPE" class="its-hidden">Header id type</label>
+                                <select id="HEADER_ID_TYPE" tabindex="1">
+                                    <option value="NC" selected="selected">9 Character ID</option>
+                                    <option value="BN">Business Name</option>
+                                    <option value="BT">Business Taxpayer ID</option>
+                                    <option value="IN">Individual Name</option>
+                                    <option value="IT">Individual Taxpayer ID</option>
+                                    <option value="MA">Mail Agent ID</option>
+                                    <option value="RD">Representative ID</option>
+                                    <option value="RN">Representative Name</option>
+                                </select>
                             </div>
-                            <!-- Column for search box filter criteria fields and buttons -->
-                            <div class="its-col search-fields">
-                                <div class="its-line its-marg-b-XS">
-                                    <div class="its-col its-float-right">
-                                        <div class="its-line its-label-auto">
-                                            <div class="its-col">
-                                                <div class="its-label-wrap">
-                                                    <div class="its-label">
-                                                        <label for="HEADER_ID_TYPE" class="its-hidden">Header id type</label>
-                                                    </div>
-                                                </div>
-                                                <div class="its-data-wrap">
-                                                    <div class="its-data">
-                                                        <select id="HEADER_ID_TYPE" tabindex="1">
-                                                            <option value="NC" selected="selected">9 Character ID</option>
-                                                            <option value="BN">Business Name</option>
-                                                            <option value="BT">Business Taxpayer ID</option>
-                                                            <option value="IN">Individual Name</option>
-                                                            <option value="IT">Individual Taxpayer ID</option>
-                                                            <option value="MA">Mail Agent ID</option>
-                                                            <option value="RD">Representative ID</option>
-                                                            <option value="RN">Representative Name</option>
-                                                        </select>
-                                                        <label for="HEADER_ID_NUMBER" class="its-hidden">Header id number</label>
-                                                        <input type="text" id="HEADER_ID_NUMBER" value="" size="20" maxlength="50" tabindex="1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="its-line its-marg-b-XS">
-                                    <div class="its-col its-float-right">
-                                        <div class="its-line its-label-auto">
-                                            <div class="its-col">
-                                                <div class="its-label-wrap">
-                                                    <div class="its-label">
-                                                        <label for="S_VIEW">View:<span class="its-hidden">Required field</span></label>
-                                                        <div class="its-required">*</div>
-                                                    </div>
-                                                </div>
-                                                <div class="its-data-wrap">
-                                                    <div class="its-data">
-                                                        <select name="S_VIEW" id="S_VIEW" tabindex="1">
-                                                            <option selected="selected">ALL</option>
-                                                            <option>NON-REVERSED</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="S_TAX_TYPE_TEXT" class="its-col">
-                                                <div class="its-label-wrap">
-                                                    <div class="its-label">
-                                                        Tax Type:<span class="its-hidden">Required field</span>
-                                                        <div class="its-required">*</div>
-                                                    </div>
-                                                </div>
-                                                <div class="its-data-wrap">
-                                                    <div class="its-data">
-                                                        CORP
-                                                        <a href="#" id="S_POPUP" class="its-icon-button its-popup" title="Tax type selection popup" tabindex="1">Tax type selection popup</a>
-                                                    </div>
+                            <div class="emp-data">
+                                <label for="HEADER_ID_NUMBER" class="its-hidden">Header id number</label>
+                                <input type="text" id="HEADER_ID_NUMBER" value="" size="20" maxlength="50" tabindex="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cui-row">
+                        <div class="cui-col-sm-12 emp-field required">
+                            <div class="emp-label">
+                                <label for="S_VIEW">View:</label>
+                            </div>
+                            <div class="emp-data">
+                                <select name="S_VIEW" id="S_VIEW" tabindex="1" aria-required="true">
+                                    <option selected="selected">ALL</option>
+                                    <option>NON-REVERSED</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cui-col-sm-12 emp-field required">
+                            <div class="emp-label">
+                                Tax Type:
+                            </div>
+                            <div class="emp-data">
+                                CORP <button type="button" id="S_POPUP" class="cui-icon emp-popup" title="Tax type selection popup" tabindex="1">Tax type selection popup</button>
+                            </div>
+                        </div>
                                                 </div>
                                             </div>
                                             <div id="S_TAX_SUB_TYPE_DESC" class="its-col">
@@ -287,22 +254,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Column for right-aligned buttons -->
-                            <div class="its-col its-padd-l-XL button-wrapper-right">
-                                <!-- Buttons -->
-                                <div class="its-line its-marg-t-None">
-                                    <div class="its-col its-right-align">
-                                        <input type="submit" id="btn_retrieve" class="its-button-S its-button-primary" value="Retrieve" title="Retrieve" tabindex="1"><br/>
-                                        <input type="button" id="btn_clear" class="its-button-S its-marg-t-XS" value="Clear" title="Leave ID and clear the rest" tabindex="1"><br/>
-                                        <input type="button" id="btn_clear_all" class="its-button-S its-marg-t-XS" value="Clear all" title="Clear all fields in search box" tabindex="1">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Buttons -->
+            <div class="cui-col-sm-2">
+                <input type="submit" id="btn_retrieve" class="its-button-S its-button-primary" value="Retrieve" title="Retrieve" tabindex="1">
+                <input type="button" id="btn_clear" class="its-button-S its-marg-t-XS" value="Clear" title="Leave ID and clear the rest" tabindex="1">
+                <input type="button" id="btn_clear_all" class="its-button-S its-marg-t-XS" value="Clear all" title="Clear all fields in search box" tabindex="1">
+            </div>
         </form>
+        <!-- Absolutely-positioned column for showing/hiding the search box -->
+        <div class="emp-show-hide">
+            <a href="#" id="show_hide_search_box" class="its-icon-button" title="Click to hide the search box" tabindex="1">Click to hide the search box</a>
+            <!-- To default search box to hidden use <a> below and add its-hidden to: <div id="search_box" class="its-col its-fluid its-hidden search-fields-wrapper"> -->
+            <!-- <a href="#" id="show_hide_search_box" class="its-icon-button expand" title="Click to show the search box" tabindex="1">Click to show the search box</a>-->
+        </div>
     </div>
 
     <!-- ==================== -->
