@@ -22,7 +22,20 @@
     </header>
 
     <nav id="nav">
-        Navigation
+        <header>Navigation</header>
+
+        <ul>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+        </ul>
+
+        <div class="cui-row">
+            <div class="cui-col-sm-12">
+                <!-- Navigation controls, i.e. expand/collapse the nav -->
+            </div>
+        </div>
     </nav>
 
     <!-- Actual meat of the page goes here, broken up into sections which may or may not have their own headers -->
@@ -35,7 +48,8 @@
             <section>
                 <header>
                     <h3>Form fields</h3>
-                    <!-- Other "header" items would go here that doesn't belong in the H3, like icons or section-level controls -->
+                    <!-- Other "header" items would go here that don't belong in the H3, like icons or section-level controls -->
+                    <p>These fields are displayed with the labels above the inputs.</p>
                 </header>
 
                 <div class="cui-row">
@@ -47,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="cui-row required">
+                <div class="cui-row cui-required">
                     <div class="cui-col-sm-12">
                         <label for="lastName">Last name (required):</label>
                     </div>
@@ -61,8 +75,7 @@
                         <label for="lastName">Date:</label>
                     </div>
                     <div class="cui-col-sm-12">
-                        <input type="text" class="date" data-date-mask="mm/dd/yyyy" tabindex="1">
-                        <!-- The date picker icon will be rendered by the component -->
+                        <input type="text" class="date" data-date="{mask: 'mm/dd/yyyy'}" tabindex="1">
                     </div>
                 </div>
 
@@ -112,6 +125,96 @@
 
             <section>
                 <header>
+                    <h3>Form fields</h3>
+                    <p>These fields are displayed with the labels next to the inputs.</p>
+                </header>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">First name:</div>
+                        <div class="cui-data">John</div>
+                    </div>
+                </div>
+
+                <div class="cui-row cui-required">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <label for="lastName">Last name (required):</label>
+                        </div>
+                        <div class="cui-data">
+                            <input type="text" id="lastName" aria-required="true" size="20" maxlength="30" value="John" tabindex="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <label for="lastName">Date:</label>
+                        </div>
+                        <div class="cui-data">
+                            <input type="text" class="date" data-date="{mask:'mm/dd/yyyy'}" tabindex="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <label for="taxType">Tax type:</label>
+                        </div>
+                        <div class="cui-data">
+                            <select id="taxType" tabindex="1">
+                                <option selected="selected" value="1">Personal income</option>
+                                <option value="2">Sales</option>
+                                <option value="3">Corporation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            Button:
+                        </div>
+                        <div class="cui-data">
+                            <button value="abc" tabindex="1">Go</button>
+                            <button type="button" value="xyz" tabindex="1">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            Target Amount ($):
+                        </div>
+                        <div class="cui-data">
+                            <div class="cui-input-wrapper cui-currency">
+                                <input type="text" tabindex="1">
+                                <span class="input-append">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <fieldset class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <legend>Are you filing in this quarter?</legend>
+                        </div>
+                        <div class="cui-data">
+                            <div class="cui-radio-group">
+                                <label for="radioExample_1">Yes</label>
+                                <input type="radio" name="radioExample" id="radioExample_Y" value="1" tabindex="1">
+                                <label for="radioExample_2">No</label>
+                                <input type="radio" name="radioExample" id="radioExample_N" checked="checked" value="2" tabindex="1">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </section>
+
+            <section>
+                <header>
                     <h3>Table</h3>
                     <!-- Other "header" items would go here that doesn't belong in the H3, like icons or section-level controls -->
                 </header>
@@ -129,7 +232,7 @@
                                     <th data-sort="alpha">Last name</th>
                                     <th data-sort="date">Birth date</th>
                                     <th data-sort="numeric">Amount ($)</th>
-                                    <th class="cui-icon-wrapper"><span class="cui-hide-from-screen">Remove person</span></th>
+                                    <th class="cui-width-icon"><span class="cui-hide-from-screen">Remove person</span></th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -141,25 +244,25 @@
                             </tfoot>
                             <tbody>
                                 <tr>
+                                    <td>Thomas</td>
+                                    <td>Müller</td>
+                                    <td>03/04/1986</td>
+                                    <td>120</td>
+                                    <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                </tr>
+                                <tr>
                                     <td>Cesc</td>
                                     <td>Fabregas</td>
                                     <td>01/01/1990</td>
                                     <td>80</td>
-                                    <td class="cui-icon-wrapper"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                    <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
                                 </tr>
                                 <tr>
                                     <td>Olivier</td>
                                     <td>Giroud</td>
                                     <td>12/31/1990</td>
                                     <td>75</td>
-                                    <td class="cui-icon-wrapper"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Bastian</td>
-                                    <td>Schweinsteiger</td>
-                                    <td>03/04/1986</td>
-                                    <td>120</td>
-                                    <td class="cui-icon-wrapper"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                    <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -192,7 +295,7 @@
             <section>
                 <div class="cui-row">
                     <div class="cui-col-sm-12 cui-center">
-                        <button>Submit</button>
+                        <button class="cui-primary">Submit</button>
                     </div>
                 </div>
             </section>
