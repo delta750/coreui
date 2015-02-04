@@ -1,18 +1,25 @@
 //   ========================================================
-// * @name       _header.scss
-// * @desc       H1-H6 default styles
+// * @name      _skin/_section.scss
+// * @desc       Skinning section styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui/coreui     
 //   ========================================================
- 
-// * @section    H1-H6
-// * @see        http://css-tricks.com/rems-ems/
+
+// * @section    Section styles
+// * @todo       Extract eMPIRE-specific styles
 // * --------------------------------------------------------
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+section {
+	padding: 0.7em 0;
+}
+
+section {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-bottom: 0.35em;
+	}
 }

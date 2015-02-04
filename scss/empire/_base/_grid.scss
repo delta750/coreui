@@ -1,29 +1,31 @@
-//   ========================================================
-// * @name       _grid.scss
-// * @desc       Responsive grid styles
-// * @author     Manolo Farfan, Craig Patik
-// * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui/coreui     
-//   ========================================================
+@charset "UTF-8";
+/**
+ * @name       _grid.scss
+ * @desc       Responsive grid styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
 
-// * @section    Row and col structures
-// * @desc       The grid's row and columns (default cols 12)
-// *             - Fluid & fixed + fluid layouts with fillers
-// *             - Clearfix to force new row
-// * --------------------------------------------------------
+/**
+ * --------------------------------------------------------
+ * @section    Row and col structures
+ * @desc       The grid's row and columns (default cols 12)
+ *             - Fluid & fixed + fluid layouts with fillers
+ *             - Clearfix to force new row
+ * --------------------------------------------------------
+ */
 .cui-row {
     width: 100%;
     clear: both;
+    overflow: hidden;
 }
 
-[class*="cui-col-sm-"],
-[class*="cui-fixed-col-"] {
+[class*="cui-col-sm-"], [class*="cui-fixed-col-"] {
     float: left;
 }
 
-[class*="cui-col-"],
-[class*="cui-fixed-col-"],
-[class*="cui-filler-col-"] {
+[class*="cui-col-"], [class*="cui-fixed-col-"], [class*="cui-filler-col-"] {
     position: relative;
     line-height: 1.414;
     min-height: 1px;
@@ -36,23 +38,29 @@
     overflow: hidden;
 }
 
-// Apply clearfix mixin here
-.cui-row:after,
-[class*="cui-filler-col-"]:after,
-.cui-clearfix:after {
-    content: "";
+.cui-row:after, [class*="cui-filler-col-"]:after, .cui-clearfix:after {
+    content: ".";
     clear: both;
-    display: table;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
 }
 
-// * @section    Hide columns
-// * --------------------------------------------------------
+/**
+ * --------------------------------------------------------
+ * @section    Hide columns
+ * --------------------------------------------------------
+ */
 .cui-hide-col-sm {
     display: none;
 }
 
-// * @section    Mobile-first (small) default column widths
-// * --------------------------------------------------------
+/**
+ * --------------------------------------------------------
+ * @section    Mobile-first (small) default column widths
+ * --------------------------------------------------------
+ */
 .cui-col-sm-12 {
     width: 100%;
 }
@@ -101,8 +109,11 @@
     width: 8.33333333%;
 }
 
-// * @section    Tablet (medium) column widths
-// * --------------------------------------------------------
+/**
+ * --------------------------------------------------------
+ * @section    Tablet (medium) column widths
+ * --------------------------------------------------------
+ */
 @media only screen and (min-width:480px) {
     [class*="cui-col-md-"] {
         float: left;
@@ -118,8 +129,7 @@
         display: none;
     }
 
-    .cui-hide-col-sm,
-    .cui-hide-col-lg {
+    .cui-hide-col-sm, .cui-hide-col-lg {
         display: block;
     }
 
@@ -176,8 +186,11 @@
     }
 }
 
-// * @section    Desktop (large) column widths
-// * --------------------------------------------------------
+/**
+ * --------------------------------------------------------
+ * @section    Desktop (large) column widths
+ * --------------------------------------------------------
+ */
 @media only screen and (min-width:786px) {
     [class*="cui-col-lg-"] {
         float: left;
@@ -193,8 +206,7 @@
         display: none;
     }
 
-    .cui-hide-col-sm,
-    .cui-hide-col-md {
+    .cui-hide-col-sm, .cui-hide-col-md {
         display: block;
     }
 
@@ -247,8 +259,9 @@
     }
 }
 
-// * @section    Push columns
-// * --------------------------------------------------------
+/**
+ * @section    Push columns
+ */
 .cui-push-right {
     float: right;
 }

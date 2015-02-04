@@ -1,0 +1,40 @@
+//   ========================================================
+// * @name       _skin/_labeldata.scss
+// * @desc       Skinning for labels and data styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
+
+// * @section    Label/data wrapper styles
+// * --------------------------------------------------------
+ label,
+ legend {
+    color: #333;
+    width: auto;
+}
+
+[class*="cui-col-"] {
+    min-height: 1.5em;
+}
+
+.cui-label,
+.cui-data {
+    line-height: 2;
+    padding: auto 0;
+}
+
+.cui-label {
+    padding-right: 0.2em;
+}
+
+.cui-data {
+    padding-left: 0.2em;
+}
+
+.cui-required label:after {
+    color: #ee3300;
+    font: 1.1em Arial, Consolas, sans-serif;
+    font-weight: 600;
+    margin-left: 0.2em;
+}

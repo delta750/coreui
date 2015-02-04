@@ -1,20 +1,22 @@
-@charset "UTF-8";
-/**
- * @name       _global.scss
- * @desc       Global styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
- */
+//   ========================================================
+// * @name       _global.scss
+// * @desc       Global styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Additional resets
- * @todo       Check if needed or old IE7 support
- * --------------------------------------------------------
- */
+// * @section    Additional resets
+// * --------------------------------------------------------
 body {
     line-height: 1;
+}
+
+// Apply clearfix mixin here
+body:after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 legend {
@@ -22,12 +24,9 @@ legend {
     display: inline-block;
 }
 
-/**
- * --------------------------------------------------------
- * @section    Browser inconsistencies
- * @bugfix     Avoid box model inconsistencies
- * --------------------------------------------------------
- */
+// * @section    Browser inconsistencies
+// * @bugfix     Avoid box model inconsistencies
+// * --------------------------------------------------------
 *, *:after, *:before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

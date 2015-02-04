@@ -1,18 +1,24 @@
 //   ========================================================
-// * @name       _header.scss
-// * @desc       H1-H6 default styles
+// * @name       _skin/_link.scss
+// * @desc       Skinning for anchor tag styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui/coreui     
 //   ========================================================
- 
-// * @section    H1-H6
-// * @see        http://css-tricks.com/rems-ems/
+
+// * @section    Default link styles
 // * --------------------------------------------------------
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+a,
+a:link,
+a:active,
+a:visited,
+a:focus {
+    color: #19a6e2;
+    font-weight: 600;
+	text-decoration: none;
+}
+
+a:hover,
+a:visited:hover {
+    text-decoration: underline;
 }

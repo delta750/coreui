@@ -1,6 +1,6 @@
 //   ========================================================
-// * @name       _list.scss
-// * @desc       List styles
+// * @name       _skin/_list.scss
+// * @desc       Skinning for list styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui/coreui     
@@ -10,7 +10,22 @@
 // * @todo       Extract eMPIRE-specific styles
 // * --------------------------------------------------------
 ol,
-ul,
+ul {
+	padding-left: 0;
+	margin: 0;
+}	
+
+li {
+	list-style-position: inside;
+}
+
+li img {
+    vertical-align: middle;
+    line-height: normal;
+}
+
 .cui-list-inline li {
-	display: inline-block;
+	list-style-position: 1em;
+	list-style-type: none;
+	padding-right: 1em;
 }

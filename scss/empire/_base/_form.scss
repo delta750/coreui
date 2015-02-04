@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/**
+ * @name       _form.scss
+ * @desc       Form and form tag styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Form tag
+ * @todo       Check if needed or old IE7 support
+ * --------------------------------------------------------
+ */
+form {
+    height: 1%;
+    display: inline;
+}
+
+/**
+ * --------------------------------------------------------
+ * @section    Form tags like input, select, textarea, etc.
+ * --------------------------------------------------------
+ */
+textarea {
+	resize: vertical;
+}
