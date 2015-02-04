@@ -115,10 +115,10 @@
                         <legend>Are you filing in this quarter?</legend>
                     </div>
                     <div class="cui-col-sm-12">
-                        <label for="radioExample_1">Yes</label>
+                        <label for="radioExample_Y">Yes</label>
                         <input type="radio" name="radioExample" id="radioExample_Y" value="1" tabindex="1">
-                        <label for="radioExample_2">No</label>
-                        <input type="radio" name="radioExample" id="radioExample_N" checked="checked" value="2" tabindex="1">
+                        <label for="radioExample_N">No</label>
+                        <input type="radio" name="radioExample" id="radioExample_N" checked value="2" tabindex="1">
                     </div>
                 </fieldset>
             </section>
@@ -190,6 +190,7 @@
                         </div>
                         <div class="cui-data">
                             <div class="cui-input-wrapper cui-currency">
+                                <span class="input-prepend">$</span>
                                 <input type="text" tabindex="1">
                                 <span class="input-append">.00</span>
                             </div>
@@ -202,11 +203,30 @@
                             <legend>Are you filing in this quarter?</legend>
                         </div>
                         <div class="cui-data">
-                            <div class="cui-radio-group">
-                                <label for="radioExample_1">Yes</label>
-                                <input type="radio" name="radioExample" id="radioExample_Y" value="1" tabindex="1">
-                                <label for="radioExample_2">No</label>
-                                <input type="radio" name="radioExample" id="radioExample_N" checked="checked" value="2" tabindex="1">
+                            <div class="cui-selection-group">
+                                <input type="radio" name="radioGroupExample" id="radioGroupExample_Y" value="1" tabindex="1">
+                                <label for="radioGroupExample_Y">Yes</label>
+                                <input type="radio" name="radioGroupExample" id="radioGroupExample_N" checked="checked" value="2" tabindex="1">
+                                <label for="radioGroupExample_N">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <legend>Which quarters are you filing?</legend>
+                        </div>
+                        <div class="cui-data">
+                            <div class="cui-selection-group">
+                                <input type="checkbox" id="checkGroupExample_1" value="1" tabindex="1">
+                                <label for="checkGroupExample_1">First</label>
+                                <input type="checkbox" id="checkGroupExample_2" checked="checked" value="2" tabindex="1">
+                                <label for="checkGroupExample_2">Second</label>
+                                <input type="checkbox" id="checkGroupExample_3" value="3" tabindex="1">
+                                <label for="checkGroupExample_3">Third</label>
+                                <input type="checkbox" id="checkGroupExample_4" value="4" tabindex="1">
+                                <label for="checkGroupExample_4">Fourth</label>
                             </div>
                         </div>
                     </div>
