@@ -25,24 +25,19 @@
 [class*="cui-fixed-col-"],
 [class*="cui-filler-col-"] {
     position: relative;
-    line-height: 1.414;
-    min-height: 1px;
-    overflow: hidden;
+    @include clearfix;
 }
 
 .cui-filler-col-sm {
     float: none;
     width: auto;
-    overflow: hidden;
+    @include clearfix;
 }
 
-// Apply clearfix mixin here
-.cui-row:after,
-[class*="cui-filler-col-"]:after,
-.cui-clearfix:after {
-    content: "";
-    clear: both;
-    display: table;
+.cui-row,
+[class*="cui-filler-col-"],
+.cui-clearfix {
+    @include clearfix;
 }
 
 // * @section    Hide columns
@@ -249,6 +244,6 @@
 
 // * @section    Push columns
 // * --------------------------------------------------------
-.cui-push-right {
+.cui-pull-right {
     float: right;
 }

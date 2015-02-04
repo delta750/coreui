@@ -25,19 +25,14 @@ textarea {
 @media (min-width: 0px) {
     .cui-selection-group {
         label {
-            // Keep these 4 lines
             display: block;
             float: left;
-            -webkit-user-select: none; // Needs to become a mixin later
-                    user-select: none; // Needs to become a mixin later
+            @include user-select;
         }
      
         // Hide inputs off screen
         input {
-            // Instead of this we should use `@include hide-off-screen;` when we sass-ify it
-            position: absolute;
-            top: -10px;
-            left: -9999em;
+            @include hide;
         }
     }
 }
