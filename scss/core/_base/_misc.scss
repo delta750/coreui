@@ -13,35 +13,9 @@
 }
 
 .cui-hide-from-screen {
-    position: absolute;
-    top: 0;
-    left: -9999px;
-    width: 1px;
-    overflow: hidden;
-    white-space: nowrap;
-    z-index: 0;
-}
-
-.cui-float-left {
-    float: left;
-}
-
-.cui-float-right {
-    float: right;
+    @include hide;
 }
 
 .cui-no-wrap {
     white-space: nowrap;
-}
-
-.cui-text-uppercase {
-    text-transform: uppercase;
-}
-
-.cui-text-lowercase {
-    text-transform: lowercase;
-}
-
-.cui-text-capitalize {
-    text-transform: capitalize;
 }
