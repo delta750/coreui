@@ -1,0 +1,58 @@
+//   ========================================================
+// * @name       _skin/_button.scss
+// * @desc       Skinning for button styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui
+//   ========================================================
+
+// * @section    Default button styles
+// * --------------------------------------------------------
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+    color: #333;
+    border: 1px solid #bfbfbd;
+    border-radius: 4px;
+    margin: 0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: #dededc;
+    text-shadow: #fff 0px 1px 0px;
+    white-space: nowrap;
+}
+
+button {
+    padding: 8px 12px;
+}
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    padding: 8px 12px;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+    border-color: #a5a5a3;
+    background-color: #d0d0ce;
+}
+
+// * @section   Specific button styles
+// * @desc      Primary button
+// * --------------------------------------------------------
+.cui-button-primary {
+    color: #fff !important;
+    border: 1px solid #5a5a56 !important;
+    background-color: #646460 !important;
+    text-shadow: rgb(90, 90, 90) 0px 1px 0px;    
+}
+
+.cui-button-primary:hover {
+    border: 1px solid #444440 !important;
+    background-color: #50504b !important;
+}

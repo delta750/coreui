@@ -1,15 +1,15 @@
 //   ========================================================
-// * @name       _link.scss
-// * @desc       Anchor tag styles
+// * @name       _skin/_text.scss
+// * @desc       Skinning for text styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui/coreui     
 //   ========================================================
 
-a,
-a:link,
-a:visited,
-a:active,
-a:hover,
-a:focus {
+// * @section    Text styles
+// * --------------------------------------------------------
+p {
+    margin: 0;
+    padding-bottom: 0.7em;
+    line-height: 1.4;
 }

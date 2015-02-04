@@ -1,18 +1,22 @@
 //   ========================================================
-// * @name       _header.scss
-// * @desc       H1-H6 default styles
+// * @name       _skin/_grid.scss
+// * @desc       Skinning for responsive grid styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui/coreui     
 //   ========================================================
- 
-// * @section    H1-H6
-// * @see        http://css-tricks.com/rems-ems/
+
+// * @section    Row and col structures
+// * @desc       Gutters
 // * --------------------------------------------------------
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.cui-row {
+    margin: 0 auto 10px auto;
+}
+
+[class*="cui-col-"],
+[class*="cui-fixed-col-"],
+[class*="cui-filler-col-"],
+section header,
+nav header {
+    padding: 0 10px;
 }

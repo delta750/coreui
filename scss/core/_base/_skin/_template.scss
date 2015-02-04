@@ -1,18 +1,18 @@
 //   ========================================================
-// * @name       _header.scss
-// * @desc       H1-H6 default styles
+// * @name       _skin/_template.scss
+// * @desc       Skinning for specific structure styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui/coreui     
 //   ========================================================
- 
-// * @section    H1-H6
+
+// * @section    Styles for specific structures
 // * @see        http://css-tricks.com/rems-ems/
 // * --------------------------------------------------------
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+header,
+footer,
+section,
+main,
+nav {
+    margin: 0 auto;
 }

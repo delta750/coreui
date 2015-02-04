@@ -1,37 +1,13 @@
-@charset "UTF-8";
-/**
- * @name       _section.scss
- * @desc       Section styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
- */
+//   ========================================================
+// * @name       _section.scss
+// * @desc       Section styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Section styles
- * @todo       Extract eMPIRE-specific styles
- * --------------------------------------------------------
- */
-.cui-section-header {
-    position: relative;
-}
-
-.cui-section-body {
-    clear: both;
-    overflow: hidden;
-}
-
-/**
- * --------------------------------------------------------
- * @section    Widget (extends section) styles
- * @todo       Extract eMPIRE-specific styles
- * --------------------------------------------------------
- */
-.cui-widget .cui-section-body {
-    overflow: hidden;
-}
-
-.cui-section-header, .cui-section-footer {
-    clear: both;
+// * @section    Section styles
+// * @todo       Extract eMPIRE-specific styles
+// * --------------------------------------------------------
+section {
 }

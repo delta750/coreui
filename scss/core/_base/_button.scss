@@ -1,14 +1,25 @@
-@charset "UTF-8";
-/**
- * @name       _button.scss
- * @desc       Button styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
- */
+//   ========================================================
+// * @name       _button.scss
+// * @desc       Button styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Default button styles
- * --------------------------------------------------------
- */
+// * @section    Default button styles
+// * --------------------------------------------------------
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+	display: inline-block;
+    line-height: 1;
+}
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

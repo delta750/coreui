@@ -1,0 +1,62 @@
+//   ========================================================
+// * @name      _skin/_table.scss
+// * @desc       Skinning for table styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
+
+// * @section    Default table styles
+// * --------------------------------------------------------
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th {
+    padding: 8px 12px;
+    background-color: #dededc;
+}
+
+th, td {
+    font-weight: normal;
+    text-align: left;
+    border: 1px solid #bfbfbd;
+}
+
+td {
+    padding: 4px 8px;
+}
+
+td a[role="button"]
+td input[type="button"],
+td input[type="reset"],
+td input[type="submit"],
+td button {
+    padding: 4px 8px;
+    margin: 0;
+}
+
+tfoot td {
+    padding: 8px 6px;
+    border: 0;
+    border-top: 3px solid #bfbfbd;
+}
+
+th img {
+    margin-top: -3px;
+}
+
+table:not([class*="cui-no-stripes"]) tbody tr:nth-child(even) {
+    background-color: #eeeeec;
+}
+
+tbody tr:hover,
+table tbody tr:nth-child(even):hover {
+    background-color: #e7e7e5;
+}
+
+.cui-width-icon {
+    width: 1px;
+}

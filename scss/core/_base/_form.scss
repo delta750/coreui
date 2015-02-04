@@ -1,28 +1,43 @@
-@charset "UTF-8";
-/**
- * @name       _form.scss
- * @desc       Form and form tag styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
- */
+//   ========================================================
+// * @name       _form.scss
+// * @desc       Form and form tag styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Form tag
- * @todo       Check if needed or old IE7 support
- * --------------------------------------------------------
- */
+// * @section    Form tag
+// * --------------------------------------------------------
 form {
     height: 1%;
     display: inline;
 }
 
-/**
- * --------------------------------------------------------
- * @section    Form tags like input, select, textarea, etc.
- * --------------------------------------------------------
- */
+// * @section    Form tags like input, select, textarea, etc.
+// * --------------------------------------------------------
 textarea {
 	resize: vertical;
+}
+
+// * @section    Selection groups
+// * --------------------------------------------------------
+// Add media queries for IE8 support
+@media (min-width: 0px) {
+    .cui-selection-group {
+        label {
+            // Keep these 4 lines
+            display: block;
+            float: left;
+            -webkit-user-select: none; // Needs to become a mixin later
+                    user-select: none; // Needs to become a mixin later
+        }
+     
+        // Hide inputs off screen
+        input {
+            // Instead of this we should use `@include hide-off-screen;` when we sass-ify it
+            position: absolute;
+            top: -10px;
+            left: -9999em;
+        }
+    }
 }

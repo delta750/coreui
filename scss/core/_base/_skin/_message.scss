@@ -1,0 +1,62 @@
+//   ========================================================
+// * @name       _skin/_message.scss
+// * @desc       Skinning for messages styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui/coreui     
+//   ========================================================
+
+// * @section    Messages for error, warning, success, etc.
+// * --------------------------------------------------------
+.cui-messages li {
+    width: 100%;
+    text-indent: 0; // 1.5em if using icons
+    list-style-type: none;
+}
+
+.cui-type-error {
+    color: #b52c29;
+}
+
+.cui-type-warning {
+    color: #ba7b05;
+}
+
+.cui-type-info {
+    color: #1b2a5e;
+}
+
+.cui-type-success {
+    color: #468453;
+}
+
+// Using icons
+/*
+.cui-type-error:before,
+.cui-type-warning:before,
+.cui-type-info:before,
+.cui-type-success:before {
+    background: transparent url("../../images/src/core/sprite-icons.png") top left no-repeat;
+    content: '';
+    position: absolute;
+    margin: 0.26em 0 0 -1.5em;
+    width: 16px;
+    height: 16px;    
+}
+
+.cui-type-error:before {
+    background-position: -16px 0;
+}
+
+.cui-type-warning:before {
+    background-position: 0 0;
+}
+
+.cui-type-info:before {
+    background-position: -32px 0;
+}
+
+.cui-type-success:before {
+    background-position: -48px 0;
+}
+*/
