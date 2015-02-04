@@ -23,19 +23,23 @@
 
     <nav id="nav">
         <header>Navigation</header>
-
-        <ul>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-        </ul>
-
         <div class="cui-row">
             <div class="cui-col-sm-12">
-                <!-- Navigation controls, i.e. expand/collapse the nav -->
+                <ul>
+                    <li>A</li>
+                    <li><a href="#">Default</a></li>
+                    <li>List</li>
+                    <li>With an image: <img src="../../images/src/core/delete.png"/></li>
+                </ul>
             </div>
         </div>
+        <!--
+        <div class="cui-row">
+            <div class="cui-col-sm-12">
+                Navigation controls, i.e. expand/collapse the nav
+            </div>
+        </div>
+        -->
     </nav>
 
     <!-- Actual meat of the page goes here, broken up into sections which may or may not have their own headers -->
@@ -52,6 +56,17 @@
                     <p>These fields are displayed with the labels above the inputs.</p>
                 </header>
 
+                <div class="cui-row cui-messages">
+                    <div class="cui-col-sm-12">
+                        <ul>
+                            <li class="cui-type-error">Error message.</li>
+                            <li class="cui-type-success">Success message.</li>
+                            <li class="cui-type-warning">Warning message.</li>
+                            <li class="cui-type-info">Informational message.</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
                         First name:
@@ -63,7 +78,7 @@
 
                 <div class="cui-row cui-required">
                     <div class="cui-col-sm-12">
-                        <label for="lastName">Last name (required):</label>
+                        <label for="lastName">Last name:</label>
                     </div>
                     <div class="cui-col-sm-12">
                         <input type="text" id="lastName" aria-required="true" size="20" maxlength="30" value="John" tabindex="1">
@@ -96,7 +111,8 @@
                         Button:
                     </div>
                     <div class="cui-col-sm-12">
-                        <button type="button" value="abc" tabindex="1">Go</button>
+                        <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
+                        <button type="button" value="xyz" tabindex="1">Cancel</button>
                     </div>
                 </div>
                 <div class="cui-row">
@@ -115,10 +131,29 @@
                         <legend>Are you filing in this quarter?</legend>
                     </div>
                     <div class="cui-col-sm-12">
-                        <label for="radioExample_Y">Yes</label>
-                        <input type="radio" name="radioExample" id="radioExample_Y" value="1" tabindex="1">
-                        <label for="radioExample_N">No</label>
-                        <input type="radio" name="radioExample" id="radioExample_N" checked value="2" tabindex="1">
+                        <div class="cui-selection-group">
+                            <input type="radio" name="radioGroupExample" id="radioGroupExample_Y" value="1" tabindex="1">
+                            <label for="radioGroupExample_Y">Yes</label>
+                            <input type="radio" name="radioGroupExample" id="radioGroupExample_N" checked="checked" value="2" tabindex="1">
+                            <label for="radioGroupExample_N">No</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <legend>Which quarters are you filing?</legend>
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <div class="cui-selection-group">
+                            <input type="checkbox" id="checkGroupExample_1" value="1" tabindex="1">
+                            <label for="checkGroupExample_1">First</label>
+                            <input type="checkbox" id="checkGroupExample_2" checked="checked" value="2" tabindex="1">
+                            <label for="checkGroupExample_2">Second</label>
+                            <input type="checkbox" id="checkGroupExample_3" value="3" tabindex="1">
+                            <label for="checkGroupExample_3">Third</label>
+                            <input type="checkbox" id="checkGroupExample_4" value="4" tabindex="1">
+                            <label for="checkGroupExample_4">Fourth</label>
+                        </div>
                     </div>
                 </fieldset>
             </section>
@@ -139,7 +174,7 @@
                 <div class="cui-row cui-required">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            <label for="lastName">Last name (required):</label>
+                            <label for="lastName">Last name:</label>
                         </div>
                         <div class="cui-data">
                             <input type="text" id="lastName" aria-required="true" size="20" maxlength="30" value="John" tabindex="1">
@@ -178,8 +213,22 @@
                             Button:
                         </div>
                         <div class="cui-data">
-                            <button value="abc" tabindex="1">Go</button>
+                            <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
                             <button type="button" value="xyz" tabindex="1">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            Target Amount:
+                        </div>
+                        <div class="cui-data">
+                            <div class="cui-input-wrapper cui-currency">
+                                <span class="input-prepend">$</span>
+                                <input type="text" value="1,908" tabindex="1">
+                                <span class="input-append">.00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -190,9 +239,21 @@
                         </div>
                         <div class="cui-data">
                             <div class="cui-input-wrapper cui-currency">
-                                <span class="input-prepend">$</span>
-                                <input type="text" tabindex="1">
+                                <input type="text" value="1,908" tabindex="1">
                                 <span class="input-append">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            Target Amount:
+                        </div>
+                        <div class="cui-data">
+                            <div class="cui-input-wrapper cui-currency">
+                                <span class="input-prepend">$</span>
+                                <input type="text" value="1,908" tabindex="1">
                             </div>
                         </div>
                     </div>
@@ -204,10 +265,10 @@
                         </div>
                         <div class="cui-data">
                             <div class="cui-selection-group">
-                                <input type="radio" name="radioGroupExample" id="radioGroupExample_Y" value="1" tabindex="1">
-                                <label for="radioGroupExample_Y">Yes</label>
-                                <input type="radio" name="radioGroupExample" id="radioGroupExample_N" checked="checked" value="2" tabindex="1">
-                                <label for="radioGroupExample_N">No</label>
+                                <input type="radio" name="radioGroupExample_2" id="radioGroupExample_2_Y" value="1" tabindex="1">
+                                <label for="radioGroupExample_2_Y">Yes</label>
+                                <input type="radio" name="radioGroupExample_2" id="radioGroupExample_2_N" checked="checked" value="2" tabindex="1">
+                                <label for="radioGroupExample_2_N">No</label>
                             </div>
                         </div>
                     </div>
@@ -219,14 +280,14 @@
                         </div>
                         <div class="cui-data">
                             <div class="cui-selection-group">
-                                <input type="checkbox" id="checkGroupExample_1" value="1" tabindex="1">
-                                <label for="checkGroupExample_1">First</label>
-                                <input type="checkbox" id="checkGroupExample_2" checked="checked" value="2" tabindex="1">
-                                <label for="checkGroupExample_2">Second</label>
-                                <input type="checkbox" id="checkGroupExample_3" value="3" tabindex="1">
-                                <label for="checkGroupExample_3">Third</label>
-                                <input type="checkbox" id="checkGroupExample_4" value="4" tabindex="1">
-                                <label for="checkGroupExample_4">Fourth</label>
+                                <input type="checkbox" id="checkGroupExample_5" value="1" tabindex="1">
+                                <label for="checkGroupExample_5">First</label>
+                                <input type="checkbox" id="checkGroupExample_6" checked="checked" value="2" tabindex="1">
+                                <label for="checkGroupExample_6">Second</label>
+                                <input type="checkbox" id="checkGroupExample_7" value="3" tabindex="1">
+                                <label for="checkGroupExample_7">Third</label>
+                                <input type="checkbox" id="checkGroupExample_8" value="4" tabindex="1">
+                                <label for="checkGroupExample_8">Fourth</label>
                             </div>
                         </div>
                     </div>
@@ -284,6 +345,13 @@
                                     <td>75</td>
                                     <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
                                 </tr>
+                                <tr>
+                                    <td>Lionel</td>
+                                    <td>Messi</td>
+                                    <td>12/31/1988</td>
+                                    <td>205</td>
+                                    <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -315,7 +383,7 @@
             <section>
                 <div class="cui-row">
                     <div class="cui-col-sm-12 cui-center">
-                        <button class="cui-primary">Submit</button>
+                        <button class="cui-button-primary">Submit</button>
                     </div>
                 </div>
             </section>
@@ -323,7 +391,9 @@
     </main>
 
     <footer>
-        Footer
+        <div class="cui-col-sm-12">
+            Footer
+        </div>
     </footer>
 
     <script src="../../js/dist/core.js"></script>
