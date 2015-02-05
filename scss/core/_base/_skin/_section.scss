@@ -6,9 +6,10 @@
 // * @see        hhttps://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Section styles
 // * @todo       Extract eMPIRE-specific styles
 // * --------------------------------------------------------
 section {
-	padding: 0.7em 0;
+	padding: $section-padding;
 }

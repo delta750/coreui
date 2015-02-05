@@ -6,6 +6,7 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Styles for specific structures
 // * @see        http://css-tricks.com/rems-ems/
 // * --------------------------------------------------------
@@ -14,5 +15,5 @@ footer,
 section,
 main,
 nav {
-    margin: 0 auto;
+    margin: $margin-center-h;
 }

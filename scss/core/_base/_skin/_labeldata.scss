@@ -6,11 +6,12 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Label/data wrapper styles
 // * --------------------------------------------------------
  label,
  legend {
-    color: #333;
+    color: $dark-gray;
     width: auto;
 }
 
@@ -33,8 +34,8 @@
 }
 
 .cui-required label:after {
-    color: #ee3300;
-    font: 1.1em Arial, Consolas, sans-serif;
-    font-weight: 600;
+    color: $required-red;
+    font: $font-required;
+    font-weight: $font-weight-semibold;
     margin-left: 0.2em;
 }

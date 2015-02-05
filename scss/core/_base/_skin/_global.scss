@@ -11,6 +11,6 @@
 // * @see        http://css-tricks.com/rems-ems/ for font sizes
 // * --------------------------------------------------------
 html {
-    font: 16px "Segoe UI", Arial, Consolas, sans-serif;
-    color: #333;
+    font: $font-size $font-family;
+    color: $dark-gray;
 }

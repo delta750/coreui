@@ -10,7 +10,7 @@
 // * @desc       Gutters
 // * --------------------------------------------------------
 .cui-row {
-    margin: 0 auto 10px auto;
+    margin: 0 auto $grid-gutter-width auto;
 }
 
 [class*="cui-col-"],
@@ -18,5 +18,5 @@
 [class*="cui-filler-col-"],
 section header,
 nav header {
-    padding: 0 10px;
+    padding: 0 $grid-gutter-width;
 }

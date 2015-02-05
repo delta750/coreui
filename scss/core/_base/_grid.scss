@@ -6,6 +6,7 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Row and col structures
 // * @desc       The grid's row and columns (default cols 12)
 // *             - Fluid & fixed + fluid layouts with fillers
@@ -40,11 +41,13 @@
     @include clearfix;
 }
 
+
 // * @section    Hide columns
 // * --------------------------------------------------------
 .cui-hide-col-sm {
     display: none;
 }
+
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
@@ -96,9 +99,10 @@
     width: 8.33333333%;
 }
 
+
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:480px) {
+@media only screen and (min-width:$bp-tablet) {
     [class*="cui-col-md-"] {
         float: left;
     }
@@ -171,9 +175,10 @@
     }
 }
 
+
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:786px) {
+@media only screen and (min-width:$bp-desktop) {
     [class*="cui-col-lg-"] {
         float: left;
     }
@@ -241,6 +246,7 @@
         width: 8.33333333%;
     }
 }
+
 
 // * @section    Push columns
 // * --------------------------------------------------------
