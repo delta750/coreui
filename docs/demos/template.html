@@ -59,10 +59,10 @@
                 <div class="cui-row cui-messages">
                     <div class="cui-col-sm-12">
                         <ul>
-                            <li class="cui-type-error">Error message.</li>
-                            <li class="cui-type-success">Success message.</li>
-                            <li class="cui-type-warning">Warning message.</li>
-                            <li class="cui-type-info">Informational message.</li>
+                            <li class="cui-type-error">Error message</li>
+                            <li class="cui-type-success">Success message</li>
+                            <li class="cui-type-warning">Warning message</li>
+                            <li class="cui-type-info">Informational message</li>
                         </ul>
                     </div>
                 </div>
@@ -87,12 +87,26 @@
 
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
-                        <label for="lastName">Date:</label>
+                        <label for="date">Date:</label>
                     </div>
                     <div class="cui-col-sm-12">
-                        <input type="text" class="date" data-date="{mask: 'mm/dd/yyyy'}" tabindex="1">
+                        <input type="text" class="date" id="date" data-date="{mask: 'mm/dd/yyyy'}" tabindex="1">
                     </div>
                 </div>
+
+                <fieldset class="cui-row cui-required">
+                    <div class="cui-col-sm-12">
+                        <legend>Name:</legend>
+                    </div>
+                    <div class="cui-col-sm-12">
+                        <label for="name_first" class="cui-hide-from-screen">First</label>
+                        <input type="text" id="name_first" size="15" maxlength="20" value="John" tabindex="1">
+                        <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
+                        <input type="text" id="name_middle" size="1" maxlength="1" value="Q" tabindex="1">
+                        <label for="name_last" class="cui-hide-from-screen">Last</label>
+                        <input type="text" id="name_last" size="20" maxlength="30" value="Public" tabindex="1">
+                    </div>
+                </fieldset>
 
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
@@ -111,17 +125,17 @@
                         Button:
                     </div>
                     <div class="cui-col-sm-12">
-                        <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
+                        <button class="cui-primary" value="abc" tabindex="1">Go</button>
                         <button type="button" value="xyz" tabindex="1">Cancel</button>
                     </div>
                 </div>
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
-                        Target Amount ($):
+                        <label for="targetAmount">Target Amount ($):</label>
                     </div>
                     <div class="cui-col-sm-12">
                         <div class="cui-input-wrapper cui-currency">
-                            <input type="text" tabindex="1">
+                            <input type="text" id="targetAmount" tabindex="1">
                             <span class="input-append">.00</span>
                         </div>
                     </div>
@@ -174,10 +188,10 @@
                 <div class="cui-row cui-required">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            <label for="lastName">Last name:</label>
+                            <label for="lastName2">Last name:</label>
                         </div>
                         <div class="cui-data">
-                            <input type="text" id="lastName" aria-required="true" size="20" maxlength="30" value="John" tabindex="1">
+                            <input type="text" id="lastName2" aria-required="true" size="20" maxlength="30" value="John" tabindex="1">
                         </div>
                     </div>
                 </div>
@@ -185,13 +199,29 @@
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            <label for="lastName">Date:</label>
+                            <label for="date2">Date:</label>
                         </div>
                         <div class="cui-data">
-                            <input type="text" class="date" data-date="{mask:'mm/dd/yyyy'}" tabindex="1">
+                            <input type="text" class="date" id="date2" data-date="{mask:'mm/dd/yyyy'}" tabindex="1">
                         </div>
                     </div>
                 </div>
+
+                <fieldset class="cui-row cui-required">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <legend>Name:</legend>
+                        </div>
+                        <div class="cui-data">
+                            <label for="name_first" class="cui-hide-from-screen">First</label>
+                            <input type="text" id="name_first" size="15" maxlength="20" value="John" tabindex="1">
+                            <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
+                            <input type="text" id="name_middle" size="1" maxlength="1" value="Q" tabindex="1">
+                            <label for="name_last" class="cui-hide-from-screen">Last</label>
+                            <input type="text" id="name_last" size="20" maxlength="30" value="Public" tabindex="1">
+                        </div>
+                    </div>
+                </fieldset>
 
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
@@ -213,7 +243,7 @@
                             Button:
                         </div>
                         <div class="cui-data">
-                            <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
+                            <button class="cui-primary" value="abc" tabindex="1">Go</button>
                             <button type="button" value="xyz" tabindex="1">Cancel</button>
                         </div>
                     </div>
@@ -221,12 +251,12 @@
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            Target Amount:
+                            <label for="targetAmount2">Target Amount:</label>
                         </div>
                         <div class="cui-data">
                             <div class="cui-input-wrapper cui-currency">
                                 <span class="input-prepend">$</span>
-                                <input type="text" value="1,908" tabindex="1">
+                                <input type="text" id="targetAmount2" value="1,908" tabindex="1">
                                 <span class="input-append">.00</span>
                             </div>
                         </div>
@@ -235,11 +265,11 @@
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            Target Amount ($):
+                            <label for="targetAmount3">Target Amount ($):</label>
                         </div>
                         <div class="cui-data">
                             <div class="cui-input-wrapper cui-currency">
-                                <input type="text" value="1,908" tabindex="1">
+                                <input type="text" id="targetAmount3" value="1,908" tabindex="1">
                                 <span class="input-append">.00</span>
                             </div>
                         </div>
@@ -248,12 +278,12 @@
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            Target Amount:
+                            <label for="targetAmount4">Target Amount:</label>
                         </div>
                         <div class="cui-data">
                             <div class="cui-input-wrapper cui-currency">
                                 <span class="input-prepend">$</span>
-                                <input type="text" value="1,908" tabindex="1">
+                                <input type="text" id="targetAmount4" value="1,908" tabindex="1">
                             </div>
                         </div>
                     </div>
@@ -333,7 +363,7 @@
                                 </tr>
                                 <tr>
                                     <td>Cesc</td>
-                                    <td>Fabregas</td>
+                                    <td>Fàbregas</td>
                                     <td>01/01/1990</td>
                                     <td>80</td>
                                     <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
@@ -383,7 +413,7 @@
             <section>
                 <div class="cui-row">
                     <div class="cui-col-sm-12 cui-center">
-                        <button class="cui-button-primary">Submit</button>
+                        <button class="cui-primary">Submit</button>
                     </div>
                 </div>
             </section>
