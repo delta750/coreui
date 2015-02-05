@@ -6,6 +6,7 @@
 // * @see        https://github.com/nys-its/frg-coreui    
 //   ========================================================
 
+
 // * @section    Default link styles
 // * --------------------------------------------------------
 a,
@@ -13,8 +14,8 @@ a:link,
 a:active,
 a:visited,
 a:focus {
-    color: #19a6e2;
-    font-weight: 600;
+    color: $light-blue;
+    font-weight: $font-weight-semibold;
 	text-decoration: none;
 }
 

@@ -6,53 +6,52 @@
 // * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
+
 // * @section    Default button styles
 // * --------------------------------------------------------
 input[type="button"],
 input[type="reset"],
 input[type="submit"],
 button {
-    color: #333;
-    border: 1px solid #bfbfbd;
-    border-radius: 4px;
+    color: $dark-gray;
+    border: $input-border;
+    border-radius: $border-radius;
     margin: 0;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 400;
-    background-color: #dededc;
-    text-shadow: #fff 0px 1px 0px;
+    font-size: $input-font-size;
+    font-weight: $input-font-weight;
+    background-color: $input-bg-hover-color;
+    text-shadow: $button-text-shadow;
     white-space: nowrap;
-}
-
-button {
-    padding: 8px 12px;
 }
 
 input[type="button"],
 input[type="reset"],
-input[type="submit"] {
-    padding: 8px 12px;
+input[type="submit"],
+button {
+    padding: $button-padding;
 }
 
 button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-    border-color: #a5a5a3;
-    background-color: #d0d0ce;
+    border-color: $button-border-color;
+    background-color: $button-bg-color;
 }
+
 
 // * @section   Specific button styles
 // * @desc      Primary button
 // * --------------------------------------------------------
 .cui-button-primary {
-    color: #fff;
-    border: 1px solid #5a5a56;
-    background-color: #646460;
-    text-shadow: rgb(90, 90, 90) 0px 1px 0px;    
+    color: $white;
+    border: $button-primary-border;
+    background-color: $button-primary-bg-color;
+    text-shadow: $button-primary-text-shadow;    
 }
 
 .cui-button-primary:hover {
-    border: 1px solid #444440;
-    background-color: #50504b;
+    border-color: $button-primary-border-hover-color;
+    background-color: $button-primary-bg-hover-color;
 }

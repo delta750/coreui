@@ -6,10 +6,11 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Text styles
 // * --------------------------------------------------------
 p {
     margin: 0;
-    padding-bottom: 0.7em;
-    line-height: 1.4;
+    padding-bottom: $paragraph-padding;
+    line-height: $text-line-height;
 }

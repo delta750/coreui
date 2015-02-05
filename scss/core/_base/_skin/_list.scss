@@ -6,6 +6,7 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Lists and bullets
 // * @todo       Extract eMPIRE-specific styles
 // * --------------------------------------------------------
@@ -25,7 +26,7 @@ li img {
 }
 
 .cui-list-inline li {
-	list-style-position: 1em;
+	list-style-position: $list-inline-spacing;
 	list-style-type: none;
-	padding-right: 1em;
+	padding-right: $list-inline-spacing;
 }

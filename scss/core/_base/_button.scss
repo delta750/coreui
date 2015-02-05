@@ -6,6 +6,7 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Default button styles
 // * --------------------------------------------------------
 input[type="button"],
@@ -19,7 +20,5 @@ button {
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    @include box-sizing;
 }

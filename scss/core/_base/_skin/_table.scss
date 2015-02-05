@@ -6,6 +6,7 @@
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
+
 // * @section    Default table styles
 // * --------------------------------------------------------
 table {
@@ -15,18 +16,18 @@ table {
 }
 
 th {
-    padding: 8px 12px;
-    background-color: #dededc;
+    padding: $table-header-padding;
+    background-color: $table-header-bg-color;
 }
 
 th, td {
     font-weight: normal;
     text-align: left;
-    border: 1px solid #bfbfbd;
+    border: $table-cell-border;
 }
 
 td {
-    padding: 4px 8px;
+    padding: $table-cell-padding;
 }
 
 td a[role="button"]
@@ -34,27 +35,23 @@ td input[type="button"],
 td input[type="reset"],
 td input[type="submit"],
 td button {
-    padding: 4px 8px;
+    padding: $table-button-padding;
     margin: 0;
 }
 
 tfoot td {
-    padding: 8px 6px;
+    padding: $table-footer-cell-padding;
     border: 0;
-    border-top: 3px solid #bfbfbd;
-}
-
-th img {
-    margin-top: -3px;
+    border-top: 3px $table-cell-border-style $table-cell-border-color;
 }
 
 table:not([class*="cui-no-stripes"]) tbody tr:nth-child(even) {
-    background-color: #eeeeec;
+    background-color: $table-row-bg-alt-color;
 }
 
 tbody tr:hover,
 table tbody tr:nth-child(even):hover {
-    background-color: #e7e7e5;
+    background-color: $table-row-bg-hover-color;
 }
 
 .cui-width-icon {
