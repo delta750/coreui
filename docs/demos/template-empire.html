@@ -111,17 +111,19 @@
     <!-- Workflow -->
     <form class="cui-row emp-workflow" name="form_workflow" id="form_workflow" action="www.tax.ny.gov" method="post">
         <div class="cui-col-sm-12 cui-pull-right">
-            <ul class="emp-icon-list">
-                <li><a href="#" id="workflow_next" class="its-icon-button work-item-next" title="Get next workitem" tabindex="1">Get next workitem</a></li>
-                <li><a href="#" id="workflow_view_comments" class="its-icon-button its-marg-l-S work-item-comments" title="View comments" tabindex="1">View comments</a></li>
-                <li><a href="#" id="workflow_work_management" class="its-icon-button its-marg-l-S work-item-work-management" title="Go to work management" tabindex="1">Go to work management</a></li>
+            <ul>
+                <li><button id="workflow_next" class="cui-icon emp-workflow-item-next" title="Get next workitem" tabindex="1">Get next workitem</button></li>
+                <li><button id="workflow_view_comments" class="cui-icon emp-workflow-item-comments" title="View comments" tabindex="1">View comments</button></li>
+                <li><button id="workflow_work_management" class="cui-icon emp-workflow-item-work-management" title="Go to work management" tabindex="1">Go to work management</button></li>
             </ul>
-            <label for="workflow_actions" class="cui-hidden">Workflow action</label>
-            <select id="workflow_actions" class="its-marg-None its-marg-l-M" tabindex="1">
-                <option>Wokflow actions</option>
-                <option>Wokflow actions 12345</option>
-            </select>
-            <input type="button" id="btn_workFlow_go" class="its-button-XS its-marg-l-S" value="Go" title="Go" tabindex="1">
+            <div class="emp-field">
+                <label for="workflow_actions" class="cui-hide-from-screen">Workflow action</label>
+                <select id="workflow_actions" tabindex="1">
+                    <option>Wokflow actions</option>
+                    <option>Wokflow actions 12345</option>
+                </select>
+                <button id="btn_workFlow_go" tabindex="1">Go</button>
+            </div>
         </div>
     </form>
 
@@ -165,7 +167,7 @@
         <form class="cui-row" name="form_search" id="form_search" action="www.tax.ny.gov" method="post">
             <!-- Column for Get ID button -->
             <div class="cui-col-sm-2">
-                <input type="button" id="btn_get_id" class="its-button-S its-display-block" value="Get ID" title="Get ID" tabindex="1">
+                <button type="button" id="btn_get_id" tabindex="1">Get ID</button>
             </div>
             <div class="cui-col-sm-8">
                 <div class="cui-row">
@@ -242,7 +244,7 @@
             </div>
             <!-- Buttons -->
             <div class="cui-col-sm-2">
-                <button type="submit" class="cui-button-primary" title="Retrieve" tabindex="1">Retrieve</button>
+                <button type="submit" class="cui-button-primary" tabindex="1">Retrieve</button>
                 <button type="button" class="emp-search-clear" title="Leave ID and clear the rest" tabindex="1">Clear</button>
                 <button type="button" class="emp-search-clear-all" title="Clear all fields in search box" tabindex="1">Clear all</button>
             </div>
@@ -250,8 +252,6 @@
         <!-- Absolutely-positioned column for showing/hiding the search box -->
         <div class="emp-show-hide">
             <button type="button" class="cui-icon" title="Click to hide the search box" tabindex="1">Click to hide the search box</button>
-            <!-- To default search box to hidden use <a> below and add cui-hidden to: <div id="search_box" class="its-col its-fluid cui-hidden search-fields-wrapper"> -->
-            <!-- <a href="#" id="show_hide_search_box" class="its-icon-button expand" title="Click to show the search box" tabindex="1">Click to show the search box</a>-->
         </div>
     </div>
 
@@ -632,8 +632,8 @@
                             </select>
                         </div>
                         <div class="emp-field">
-                            <label for="E_FIELD_CONTAINS" class="its-marg-l-M">Field Contains:</label>
-                            <input type="text" id="E_FIELD_CONTAINS" class="its-marg-l-M" size="20" maxlength="50" tabindex="1">
+                            <label for="E_FIELD_CONTAINS">Field Contains:</label>
+                            <input type="text" id="E_FIELD_CONTAINS" size="20" maxlength="50" tabindex="1">
                         </div>
                         <button name="btn_Filter_table_1_section_1" value="Filter" tabindex="1">Filter</button>
                     </div>
@@ -699,9 +699,9 @@
                             <td class="cui-currency">1,750.00</td>
                             <td class="cui-width-icon">&nbsp;</td>
                             <td class="cui-width-icon">&nbsp;</td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-its-trash" title="Delete record" tabindex="1">Delete record</button></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-its-pencil" title="Edit record" tabindex="1">Edit record</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-delete" title="Delete record" tabindex="1">Delete record</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-pencil" title="Edit record" tabindex="1">Edit record</button></td>
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
@@ -717,10 +717,10 @@
                             <td>03/20/2012</td>
                             <td class="cui-currency">309.17</td>
                             <td class="cui-width-icon"><i class="cui-icon emp-icon-redcheck">Red check mark</i></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-its-trash" title="Delete record" tabindex="1">Delete record</button></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-its-pencil" title="Edit record" tabindex="1">Edit record</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-delete" title="Delete record" tabindex="1">Delete record</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-pencil" title="Edit record" tabindex="1">Edit record</button></td>
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
@@ -736,10 +736,10 @@
                             <td>01/03/2011</td>
                             <td class="cui-currency">112.57</td>
                             <td class="cui-width-icon"><i class="cui-icon emp-icon-redcheck">Red check mark</i></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
                             <td class="cui-width-icon">&nbsp;</td>
-                            <td class="cui-width-icon"><button class="cui-cion emp-more-info" title="View more information" tabindex="1">View more information</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-more-info" title="View more information" tabindex="1">View more information</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -792,10 +792,10 @@
                             <td>Requested FWD - Orig Post</td>
                             <td class="cui-no-wrap">CT-3</td>
                             <td class="cui-currency">430.01</td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon cui-currency" title="Go to payment data" tabindex="1">Go to payment data</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon emp-icon-view-image" title="View Image" tabindex="1">View image</a></td>
                             <td class="cui-width-icon"></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
@@ -808,10 +808,10 @@
                             <td>Extension - Orig Post</td>
                             <td class="cui-no-wrap">NYC-210</td>
                             <td class="cui-currency">99.15</td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon cui-currency" title="Go to payment data" tabindex="1">Go to payment data</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon emp-icon-view-image" title="View Image" tabindex="1">View image</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon emp-icon-delete" title="Delete record" tabindex="1">Delete record</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
@@ -824,10 +824,10 @@
                             <td>Orig Post</td>
                             <td class="cui-no-wrap">IT-210</td>
                             <td class="cui-currency">1.35</td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
-                            <td class="cui-width-icon"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon cui-currency" title="Go to payment data" tabindex="1">Go to payment data</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon emp-icon-view-image" title="View Image" tabindex="1">View image</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon emp-icon-delete" title="Delete record" tabindex="1">Delete record</a></td>
+                            <td class="cui-width-icon"><a href="#" class="emp-icon drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -950,7 +950,7 @@
                         </div>
                         <div class="emp-field">
                             <label for="E_NAME_SUFFIX" class="cui-hide-from-screen">Name suffix</label>
-                            <select id="E_NAME_SUFFIX" class="its-marg-l-S" tabindex="1">
+                            <select id="E_NAME_SUFFIX" tabindex="1">
                                 <option value="" selected="selected"></option>
                                 <option value='Jr'>Jr</option>
                                 <option value='Sr'>Sr</option>
