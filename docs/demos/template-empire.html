@@ -60,8 +60,8 @@
                     <div class="cui-label">ID:</div>
                     <div class="cui-data">
                         <span>123-45-6789 (IND)</span>
-                        <span class="emp-indicator-type-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
-                        <span class="emp-indicator-type-1" title="Identity theft" alt="I">Identity theft</span>
+                        <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
+                        <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
                         <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
                         <button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>
                     </div>
@@ -91,8 +91,8 @@
                     <div class="cui-label">Associated ID:</div>
                     <div class="cui-data">
                         <span>234-56-7890 (IND)</span>
-                        <span class="emp-indicator-type-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
-                        <span class="emp-indicator-type-1" title="Identity theft" alt="I">Identity theft</span>
+                        <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
+                        <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
                         <button type="button" class="cui-icon data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
                         <button type="button" class="cui-icon list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
                         <button type="button" class="cui-icon legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
@@ -116,7 +116,7 @@
                 <li><a href="#" id="workflow_view_comments" class="its-icon-button its-marg-l-S work-item-comments" title="View comments" tabindex="1">View comments</a></li>
                 <li><a href="#" id="workflow_work_management" class="its-icon-button its-marg-l-S work-item-work-management" title="Go to work management" tabindex="1">Go to work management</a></li>
             </ul>
-            <label for="workflow_actions" class="its-hidden">Workflow action</label>
+            <label for="workflow_actions" class="cui-hidden">Workflow action</label>
             <select id="workflow_actions" class="its-marg-None its-marg-l-M" tabindex="1">
                 <option>Wokflow actions</option>
                 <option>Wokflow actions 12345</option>
@@ -250,7 +250,7 @@
         <!-- Absolutely-positioned column for showing/hiding the search box -->
         <div class="emp-show-hide">
             <button type="button" class="cui-icon" title="Click to hide the search box" tabindex="1">Click to hide the search box</button>
-            <!-- To default search box to hidden use <a> below and add its-hidden to: <div id="search_box" class="its-col its-fluid its-hidden search-fields-wrapper"> -->
+            <!-- To default search box to hidden use <a> below and add cui-hidden to: <div id="search_box" class="its-col its-fluid cui-hidden search-fields-wrapper"> -->
             <!-- <a href="#" id="show_hide_search_box" class="its-icon-button expand" title="Click to show the search box" tabindex="1">Click to show the search box</a>-->
         </div>
     </div>
@@ -340,35 +340,37 @@
         <!-- ++++++++++++++++++++++++++ -->
         <section>
             <header>
-                <h3>Section elements <a href="#" id="view_image_1" class="its-icon-button its-marg-l-S its-marg-t-XS flower" title="View image" tabindex="1">View image</a></h3>
-
-                <div class="xxxxxxxxxxxxxxxxx">
-                    Total ($): 1,234.56
+                <div class="cui-col-sm-6 cui-col-md-3">
+                    <h3>Section elements <button type="button" class="cui-icon emp-view-image" title="View image" tabindex="1">View image</button></h3>
                 </div>
-                <!-- Column for other header's info -->
-                <div class="xxxxxxxxxxxxxxxxx">
+
+                <div class="cui-col-sm-6 cui-col-md-3">
+                    <div class="emp-field">
+                        Total ($): 1,234.56
+                    </div>
+                </div>
+
+                <div class="cui-col-sm-6 cui-col-md-3">
                     <i class="cui-icon emp-icon-redcheck">Red check mark</i> Review Details
                 </div>
 
-                <div class="emp-section-controls">
-                    <ul class="its-list-horizontal-block its-marg-r-S its-marg-t-None">
-                        <li><a href="#" class="its-icon-button its-info-block-toggle-expand" title="Click to show section's instructions" tabindex="1">Click to show section's instructions</a></li>
-                        <li><a href="#" class="its-icon-button its-section-toggle" title="Click to hide section" tabindex="1">Click to hide section</a></li>
-                    </ul>
-                </div>
+                <ul class="cui-col-sm-6 cui-col-md-3 emp-section-controls">
+                    <li><button type="button" class="cui-icon emp-section-instructions-toggle-expand" title="Click to show section's instructions" tabindex="1">Click to show section's instructions</button></li>
+                    <li><button type="button" class="cui-icon emp-section-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                </ul>
             </header>
 
-            <div class="cui-row">
+            <div class="cui-row emp-section-instructions">
                 <div class="cui-col-sm-12">
                     <p>Free text. Section instructions can go here. <a href="http://www.tax.ny.gov" title="This will open a new window" target="_blank" tabindex="1">Sample URL</a> too.</p>
                 </div>
             </div>
 
-            <!-- First row -->
+            <!-- First row of fields -->
             <div class="cui-row">
                 <div class="emp-col-half">
                     <div class="cui-label">
-                        <label for="E_ID_DROPDOWN_LABEL" class="its-hidden">Id type</label>
+                        <label for="E_ID_DROPDOWN_LABEL" class="cui-hidden">Id type</label>
                         <select id="E_ID_DROPDOWN_LABEL" tabindex="1">
                             <option selected="selected" value="NC">9 Character ID</option>
                             <option value="BT">Business Taxpayer ID</option>
@@ -379,7 +381,7 @@
                         </select>
                     </div>
                     <div class="cui-data">
-                        <label for="E_ID" class="its-hidden">Id</label>
+                        <label for="E_ID" class="cui-hidden">Id</label>
                         <input type="text" id="E_ID" size="20" maxlength="18" tabindex="1">
                     </div>
                 </div>
@@ -393,7 +395,7 @@
                 </div>
             </div>
 
-            <!-- Second row -->
+            <!-- Second row of fields -->
             <div class="cui-row">
                 <div class="emp-col-half">
                     <div class="cui-label">
@@ -530,10 +532,10 @@
             <div class="cui-row">
                 <div class="emp-col-full cui-required">
                     <div class="cui-label">
-                        <label for="E_COMMENTS">Comments:<span class="its-hidden">Required field</span></label>
+                        <label for="E_COMMENTS">Comments:</label>
                     </div>
                     <div class="cui-data">
-                        <textarea id="E_COMMENTS" rows="3" cols="100" tabindex="1">Tax return for 2002 broken into 48-month installments. Current debt: $1,208.97. Interest Rate is 4.9%.</textarea>
+                        <textarea id="E_COMMENTS" aria-required="true" rows="3" cols="100" tabindex="1">Tax return for 2002 broken into 48-month installments. Current debt: $1,208.97. Interest Rate is 4.9%.</textarea>
                     </div>
                 </div>
             </div>
@@ -570,7 +572,6 @@
             </div>
 
             <div class="cui-row">
-                <!-- We need a better class name than `emp-left-side-input` -->
                 <div class="emp-col-half emp-left-side-input">
                     <div class="cui-label">
                         <i class="cui-icon emp-icon-ghostbusters">Not applicable</i>
@@ -622,6 +623,7 @@
                 <div class="cui-row emp-table-controls">
                     <!-- Really not sure about the classes/structure in here... -->
                     <div class="emp-col-full cui-align-right">
+                        <!-- I guess the idea is that `div.emp-field` encapsulates a label and data that are treated as a single unit but have no special layout -->
                         <div class="emp-field">
                             <label for="E_VIEW">View:</label>
                             <select id="E_VIEW" tabindex="1">
@@ -638,6 +640,7 @@
                 </div>
 
                 <!-- `.emp-table header` inherits `.cui-row` styles -->
+                <!-- Or maybe all `<header>`s are rows, and then we just overwrite the styles for the exceptions to that rule? -->
                 <header>
                     <div class="cui-col-sm-12 cui-col-md-8">
                         <h4>Table 1 - Checkboxes</h4>
@@ -649,255 +652,228 @@
                     </div>
                 </header>
 
-                <table>
+                <table class="cui-row cui-sortable">
                     <thead>
                         <tr>
-                            <!--<th class="its-w-1p"><span class="its-hidden">Use this column's checkboxes to select rows</span></th>-->
-                            <th>
-                                <label class="its-hidden" for="cb_table_1_section_1_all">Select All</label>
+                            <th class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_all">Select All</label>
                                 <input type="checkbox" id="cb_table_1_section_1_all" value="" tabindex="1">
                             </th>
-                            <th>Liability Period <a href="#" id="E_LIAB_PERIOD" class="its-table-sort" title="Sort by"></a></th>
-                            <th title="Joint Liability Period Exists"><a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th title="Audit Ownership"><a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th>Score <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th>Tax Type/Sub Type <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th>Return Status <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th>Return Status Date <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th>Amount ($) <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                            <th id="E_REVIEW_DETAILS" title="Review details"></th>
-                            <th id="E_BTN_TFA_DETAILS" title="TFA Details"></th>
-                            <th id="E_BTN_MORE_DETAILS" title="{Page}"></th>
-                            <th title="Delete row"></th>
-                            <th title="Edit record"></th>
+                            <th data-sort="date-range">Liability Period</th>
+                            <th data-sort="alpha" class="emp-width-ind1"><span class="cui-hide-from-screen">Joint Liability Period Exists</span></th>
+                            <th data-sort="alpha" class="emp-width-ind2"><span class="cui-hide-from-screen">Audit Ownership</span></th>
+                            <th data-sort="numeric">Score</th>
+                            <th data-sort="alpha">Tax Type/Sub Type</th>
+                            <th data-sort="alpha">Return Status</th>
+                            <th data-sort="alpha">Return Status Date</th>
+                            <th data-sort="numeric">Amount ($)</th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">Review details</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">TFA Details</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">{Page}</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">Delete row</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">Edit record</span></th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <td colspan="6"></td>
-                            <td colspan="2" class="its-right-align">Total Amount ($):</td>
-                            <td class="its-right-align its-footer-border">2171.74</td>
-                            <td colspan="5"></td>
+                            <td colspan="6">&nbsp;</td>
+                            <td colspan="2" class="cui-align-right">Total Amount ($):</td>
+                            <!-- I removed `.its-border` from the next cell. You'll know to draw a border around it because it has the class currency (and maybe other classes we will need for data in the footer) -->
+                            <td class="cui-currency">2171.74</td>
+                            <td colspan="5">&nbsp;</td>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr class="its-normal-bg-color">
-                            <td class="its-w-1p its-center-align">
-                                <label class="its-hidden" for="cb_table_1_section_1_1">Select this row</label>
+                        <tr>
+                            <td class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_1">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_1" value="" tabindex="1">
                             </td>
-                            <td class="its-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2011 - 12/31/2011</a></td>
-                            <td class="its-w-1p"><span class="indicator-type-1" title="Joint Liability Period (123-45-6789 (IND), 234-56-7890 (IND))">J</span></td>
-                            <td class="its-w-1p"></td>
+                            <td class="cui-no-wrap"><a href="#" tabindex="1">01/01/2011 - 12/31/2011</a></td>
+                            <td class="emp-width-ind1"><span class="emp-indicator-1" title="Joint Liability Period (123-45-6789 (IND), 234-56-7890 (IND))">J</span></td>
+                            <td class="emp-width-ind2">&nbsp;</td>
                             <td>80</td>
                             <td>CORP - CT-3, 3S, CT-4, 4S</td>
                             <td>Not filed</td>
                             <td>03/20/2012</td>
-                            <td class="its-money">1,750.00</td>
-                            <td class="its-w-1p"></td>
-                            <td class="its-w-1p"></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button view-details" title="Go to {page}" tabindex="1">Go to {page}</a></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button its-pencil" title="Edit record" tabindex="1">Edit record</a></td>
+                            <td class="cui-currency">1,750.00</td>
+                            <td class="cui-width-icon">&nbsp;</td>
+                            <td class="cui-width-icon">&nbsp;</td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-its-trash" title="Delete record" tabindex="1">Delete record</button></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-its-pencil" title="Edit record" tabindex="1">Edit record</button></td>
                         </tr>
-                        <tr class="its-alternate-bg-color">
-                            <td class="its-w-1p its-center-align">
-                                <label class="its-hidden" for="cb_table_1_section_1_2">Select this row</label>
+                        <tr>
+                            <td class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_2">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_2" value="" tabindex="1">
                             </td>
-                            <td class="its-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2012 - 12/31/2012</a></td>
-                            <td class="its-w-1p"></td>
-                            <td class="its-w-1p"><span class="indicator-type-1" title="Audit Ownership">AU</span></td>
+                            <td class="cui-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2012 - 12/31/2012</a></td>
+                            <td class="emp-width-ind1">&nbsp;</td>
+                            <td class="emp-width-ind2"><span class="indicator-type-1" title="Audit Ownership">AU</span></td>
                             <td>32</td>
                             <td>CORP - CT-3M, 4M MTA</td>
                             <td>Not filed</td>
                             <td>03/20/2012</td>
-                            <td class="its-money">309.17</td>
-                            <td class="its-w-1p"><img src="../../../COREUI/images/common/check-red.png" alt="Red check mark"></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</a></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button view-details" title="Go to {page}" tabindex="1">Go to {page}</a></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button its-pencil" title="Edit record" tabindex="1">Edit record</a></td>
+                            <td class="cui-currency">309.17</td>
+                            <td class="cui-width-icon"><i class="cui-icon emp-icon-redcheck">Red check mark</i></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-its-trash" title="Delete record" tabindex="1">Delete record</button></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-its-pencil" title="Edit record" tabindex="1">Edit record</button></td>
                         </tr>
-                        <tr class="its-normal-bg-color">
-                            <td class="its-w-1p its-center-align">
-                                <label class="its-hidden" for="cb_table_1_section_1_3">Select this row</label>
+                        <tr>
+                            <td class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_3">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_3" value="" tabindex="1">
                             </td>
-                            <td class="its-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2013 - 12/31/2013</a></td>
-                            <td class="its-w-1p"><span class="indicator-type-1" title="Joint Liability Period (123-45-6789 (IND), 234-56-7890 (IND))">J</span></td>
-                            <td class="its-w-1p"></td>
+                            <td class="cui-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2013 - 12/31/2013</a></td>
+                            <td class="emp-width-ind1"><span class="indicator-type-1" title="Joint Liability Period (123-45-6789 (IND), 234-56-7890 (IND))">J</span></td>
+                            <td class="emp-width-ind2">&nbsp;</td>
                             <td>56</td>
                             <td>CORP - CT-3, 3S, CT-4, 4S</td>
                             <td><a href="#" tabindex="1" title="Go to View Return">Filed - Exception</a></td>
                             <td>01/03/2011</td>
-                            <td class="its-money">112.57</td>
-                            <td class="its-w-1p"><img src="../../../COREUI/images/common/check-red.png" alt="Red check mark"></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</a></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button view-details" title="Go to {page}" tabindex="1">Go to {page}</a></td>
-                            <td class="its-w-1p"></td>
-                            <td class="its-w-1p"><a href="#" class="its-icon-button more-info" title="View more information" tabindex="1">View more information</a></td>
+                            <td class="cui-currency">112.57</td>
+                            <td class="cui-width-icon"><i class="cui-icon emp-icon-redcheck">Red check mark</i></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon">&nbsp;</td>
+                            <td class="cui-width-icon"><button class="cui-cion emp-more-info" title="View more information" tabindex="1">View more information</button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Line for table 2 -->
-            <div id="table_2_section_1" class="its-line its-table-section">
-                <div class="its-col its-fluid its-padd-t-None">
-                    <div class="its-line its-table-wrap">
-                        <div class="its-col its-fluid">
-                            <!-- Title and options -->
-                            <div class="its-line">
-                                <div class="its-col its-w-66p its-table-title">
-                                    Table 2 - Radio buttons
-                                </div>
-                                <div class="its-col its-fluid its-right-align its-table-options">
-                                    <a href="#" class="its-icon-button its-marg-l-S table-resizer" title="Resize table" tabindex="1">Resize table</a>
-                                </div>
-                            </div>
-                            <div class="its-line its-table-div _empire-table">
-                                <div class="its-col its-fluid its-padd-t-None">
-                                    <table class="its-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="its-w-1p"><span class="its-hidden">Use this column's radio buttons to select rows</span></th>
-                                                <th>TRXN Create Date <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                                                <th>TRXN Effective Date <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                                                <th id="E_DLN">DLN <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                                                <th>Transaction Description/Reason <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                                                <th>Form <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                                                <th>Amount ($) <a href="#" class="its-table-sort" title="Sort by"></a></th>
-                                                <th id="E_PAYMENT_DATA" title="Payment Data"></th>
-                                                <th id="E_VIEW_IMAGE" title="View Image"></th>
-                                                <th title="Delete record"></th>
-                                                <th id="E_BTN_DRILLDOWN" title="Drill down to more details"></th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="4"></td>
-                                                <td colspan="2" class="its-right-align">Total Amount ($):</td>
-                                                <td class="its-right-align its-footer-border">530.51</td>
-                                                <td colspan="4"></td>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr class="its-normal-bg-color">
-                                                <td class="its-center-align">
-                                                    <label class="its-hidden" for="rb_table_2_section_1_1">Select this row</label>
-                                                    <input type="radio" id="rb_table_2_section_1_1" name="rb_table_2_section_1" value="" tabindex="1">
-                                                </td>
-                                                <td>01/01/2011</td>
-                                                <td>04/01/2011</td>
-                                                <td><a href="#" title="Go to LP Application" tabindex="1">12345678901234567</a></td>
-                                                <td>Requested FWD - Orig Post</td>
-                                                <td class="its-no-wrap">CT-3</td>
-                                                <td class="its-money">430.01</td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
-                                                <td class="its-w-1p"></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
-                                            </tr>
-                                            <tr class="its-alternate-bg-color">
-                                                <td class="its-center-align">
-                                                    <label class="its-hidden" for="rb_table_2_section_1_2">Select this row</label>
-                                                    <input type="radio" id="rb_table_2_section_1_2" name="rb_table_2_section_1" value="" tabindex="1">
-                                                </td>
-                                                <td>01/01/2012</td>
-                                                <td>04/15/2012</td>
-                                                <td><a href="#" title="Go to LP Application" tabindex="1">PE028148261334289</a></td>
-                                                <td>Extension - Orig Post</td>
-                                                <td class="its-no-wrap">NYC-210</td>
-                                                <td class="its-money">99.15</td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
-                                            </tr>
-                                            <tr class="its-normal-bg-color">
-                                                <td class="its-center-align">
-                                                    <label class="its-hidden" for="rb_table_2_section_1_3">Select this row</label>
-                                                    <input type="radio" id="rb_table_2_section_1_3" name="rb_table_2_section_1" value="" tabindex="1">
-                                                </td>
-                                                <td>01/01/2013</td>
-                                                <td>03/26/2013</td>
-                                                <td><a href="#" title="Go to LP Application" tabindex="1">STRP20119473824910</a></td>
-                                                <td>Orig Post</td>
-                                                <td class="its-no-wrap">IT-210</td>
-                                                <td class="its-money">1.35</td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
-                                                <td class="its-w-1p"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Table 2 -->
+            <div class="emp-table">
+                <header>
+                    <div class="cui-col-sm-12 cui-col-md-10">
+                        <h4>Table 2 - Radio buttons</h4>
                     </div>
-                </div>
+                    <div class="cui-col-sm-12 cui-col-md-2">
+                        <button type="button" class="cui-icon emp-table-resizer" title="Resize table" tabindex="1">Resize table</button>
+                    </div>
+                </header>
+
+                <table class="cui-row cui-sortable">
+                    <thead>
+                        <tr>
+                            <th class="cui-align-center emp-width-selection"><span class="cui-hide-off-screen">Use this column's radio buttons to select rows</span></th>
+                            <th data-sort="date">TRXN Create Date</th>
+                            <th data-sort="date">TRXN Effective Date</th>
+                            <th data-sort="alpha">DLN</th>
+                            <th data-sort="alpha">Transaction Description/Reason</th>
+                            <th data-sort="alpha">Form</th>
+                            <th data-sort="numeric">Amount ($)</th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">Payment Data</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">View Image</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">Delete record</span></th>
+                            <th class="cui-width-icon"><span class="cui-hide-from-screen">Drill down to more details</span></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                            <td colspan="2" class="cui-align-right">Total Amount ($):</td>
+                            <td class="cui-currency">530.51</td>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="rb_table_2_section_1_1">Select this row</label>
+                                <input type="radio" id="rb_table_2_section_1_1" name="rb_table_2_section_1" value="" tabindex="1">
+                            </td>
+                            <td>01/01/2011</td>
+                            <td>04/01/2011</td>
+                            <td><a href="#" title="Go to LP Application" tabindex="1">12345678901234567</a></td>
+                            <td>Requested FWD - Orig Post</td>
+                            <td class="cui-no-wrap">CT-3</td>
+                            <td class="cui-currency">430.01</td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
+                            <td class="cui-width-icon"></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="rb_table_2_section_1_2">Select this row</label>
+                                <input type="radio" id="rb_table_2_section_1_2" name="rb_table_2_section_1" value="" tabindex="1">
+                            </td>
+                            <td>01/01/2012</td>
+                            <td>04/15/2012</td>
+                            <td><a href="#" title="Go to LP Application" tabindex="1">PE028148261334289</a></td>
+                            <td>Extension - Orig Post</td>
+                            <td class="cui-no-wrap">NYC-210</td>
+                            <td class="cui-currency">99.15</td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-align-center emp-width-selection">
+                                <label class="cui-hide-off-screen" for="rb_table_2_section_1_3">Select this row</label>
+                                <input type="radio" id="rb_table_2_section_1_3" name="rb_table_2_section_1" value="" tabindex="1">
+                            </td>
+                            <td>01/01/2013</td>
+                            <td>03/26/2013</td>
+                            <td><a href="#" title="Go to LP Application" tabindex="1">STRP20119473824910</a></td>
+                            <td>Orig Post</td>
+                            <td class="cui-no-wrap">IT-210</td>
+                            <td class="cui-currency">1.35</td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-dollar" title="Go to payment data" tabindex="1">Go to payment data</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button flower" title="View Image" tabindex="1">View image</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button its-trash" title="Delete record" tabindex="1">Delete record</a></td>
+                            <td class="cui-width-icon"><a href="#" class="its-icon-button drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
         <!-- +++++++++++++++++++++++ -->
         <!-- SECTION: .Tree example -->
         <!-- +++++++++++++++++++++++ -->
-        <div class="its-line">
-            <!-- Column for section -->
-            <div id="section_2" class="its-col its-fluid its-section its-accessible its-acc-type-1 its-marg-M">
-                <!-- Line for section's header -->
-                <!-- <div class="its-line its-section-header"> -->
-                <div class="its-line its-section-header its-no-border-b">
-                    <!-- Column for section's title and icons -->
-                    <div class="its-col its-w-40p its-section-header-title">
-                        <h3>Tree example <input type="button" id="E_BUTTON_GO_SECTION_2" value="Go" class="its-marg-l-S its-button-short its-font-size-XS" title="Go" tabindex="1"></h3>
-                    </div>
-                    <!-- Column for section's options -->
-                    <div class="its-icon-buttons its-col its-fluid its-right-align its-marg-r-S its-marg-t-XS">
-                        <ul class="its-list-horizontal-block its-marg-r-S its-marg-t-None">
-                            <!--<li><a href="#" class="its-icon-button its-section-toggle" title="Click to hide section" tabindex="1">Click to hide section</a></li>-->
-                            <li><a href="#" class="its-icon-button its-section-toggle-expand" title="Click to show section" tabindex="1">Click to show section</a></li>
-                        </ul>
-                    </div>
+        <section class="emp-section-collapsed">
+            <header>
+                <div class="cui-col-sm-10">
+                    <h3>Tree example <button id="E_BUTTON_GO_SECTION_2" value="" tabindex="1">Go</button></h3>
                 </div>
-                <!-- Line for section's body -->
-                <!-- To set a section to collapse by default you need to do three things:
-                    1. Add its-hidden to section's body container like this: <div class="its-section-body its-padd-M its-hidden">
-                    2. Add its-no-border-b to section's header container like this: <div class="its-line its-section-header its-no-border-b">
-                    3. Change icon to expand icon inside section's header like shown above -->
-                <!--<div class="its-line its-section-body its-padd-M">-->
-                <div class="its-line its-section-body its-padd-M its-hidden">
-                    <div class="its-col its-fluid its-tree-list">
-                        <ul>
-                            <li class="its-parent-open">
-                                <div><a href="#" title="Folder 1. Click to see additional items." tabindex="1">Folder 1</a></div>
-                                <ul class="child">
-                                    <li><a href="#" id="leaf_1_1" title="Child 1_1" tabindex="1">Child 1_1</a></li>
-                                    <li><a href="#" id="leaf_1_2" title="Child 1_2" tabindex="1">Child 1_2</a></li>
-                                    <li class="its-parent-open">
-                                        <div><a href="#" title="Child 1_3 Folder 1_3. Click to see additional items." tabindex="1">Child 1_3 Folder 1_3</a></div>
-                                        <ul class="child">
-                                            <li><a href="#" id="leaf_1_3_1" title="Child 1_3_1" tabindex="1">Child 1_3_1</a></li>
-                                            <li><a href="#" id="leaf_1_3_2" title="Child 1_3_2" tabindex="1">Child 1_3_2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#" id="leaf_1_4" title="Child 1_4" tabindex="1">Child 1_4</a></li>
-                                    <li class="its-parent-close">
-                                        <div><a href="#" title="Child 1_5 Folder 1_5. Click to see additional items." tabindex="1">Child 1_5 Folder 1_5</a></div>
-                                        <ul class="child its-hidden">
-                                            <li><a href="#" id="leaf_1_5_1" title="Child 1_5" tabindex="1">Child 1_5_1</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#" id="leaf_1_6" title="Child 1_6" tabindex="1">Child 1_6</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+                <ul class="cui-col-sm-2 emp-section-controls">
+                    <li><button type="button" class="cui-icon emp-section-toggle-expand" title="Show section" tabindex="1">Show section</button></li>
+                </ul>
+            </header>
+
+            <!-- JavaScript will add ARIA attributes and IDs as necessary. The attributes are only needed for the dynamic aspects, and since the tree will only be dynamic if the JS component is running, there's no reason to put attributes in the HTML. -->
+            <ul class="emp-tree">
+                <li class="emp-tree-branch-open">
+                    <a href="#" tabindex="1">Folder 1</a>
+                    <ul>
+                        <li><a href="#" tabindex="1">Child 1_1</a></li>
+                        <li><a href="#" tabindex="1">Child 1_2</a></li>
+                        <li class="emp-tree-branch-open">
+                            <a href="#" tabindex="1">Child 1_3 Folder 1_3</a>
+                            <ul>
+                                <li><a href="#" tabindex="1">Child 1_3_1</a></li>
+                                <li><a href="#" tabindex="1">Child 1_3_2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" tabindex="1">Child 1_4</a></li>
+                        <li class="emp-tree-branch-close">
+                            <a href="#" tabindex="1">Child 1_5 Folder 1_5</a>
+                            <ul>
+                                <li><a href="#" tabindex="1">Child 1_5_1</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" tabindex="1">Child 1_6</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
 
         <!-- ++++++++++++++++++++++++++++++++ -->
         <!-- SECTION: .Section inside section -->
