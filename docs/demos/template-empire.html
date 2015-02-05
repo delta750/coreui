@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <title>Empire Template - Core UI</title>
     <link href="../../css/core/core.css" rel="stylesheet" type="text/css" media="all">
-
+    <link href="../../css/empire/empire.css" rel="stylesheet" type="text/css" media="all">
+    <script src="../../js/dist/core.js"></script>
+    
     <!-- #################### -->
     <!-- FRAMEWORK CODE (JSP) -->
     <!-- #################### -->
@@ -34,7 +36,7 @@
                 <h1>Tabset menu title</h1>
             </div>
 
-            <div class="cui-col-sm-4 preferences" id="emp-menu-preferences">
+            <div class="cui-col-sm-4 emp-preferences">
                 <!-- Menu placeholder -->
             </div>
         </div>
@@ -44,7 +46,7 @@
     <!-- GENERAL HEADER       -->
     <!-- ==================== -->
 
-    <form class="cui-row tp-info" name="form_tp_info" id="form_tp_info" action="www.tax.ny.gov" method="post">
+    <form class="cui-row" name="form_tp_info" id="form_tp_info" action="www.tax.ny.gov" method="post">
         <!-- Buttons -->
         <div class="cui-col-sm-2">
             <button class="emp-button-send-id" tabindex="1">Send ID</button>
@@ -93,9 +95,9 @@
                         <span>234-56-7890 (IND)</span>
                         <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
                         <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
-                        <button type="button" class="cui-icon data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
-                        <button type="button" class="cui-icon list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
-                        <button type="button" class="cui-icon legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
+                        <button type="button" class="cui-icon emp-icon-data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
+                        <button type="button" class="cui-icon emp-icon-list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
+                        <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
                     </div>
                 </div>
             </div>
@@ -109,8 +111,8 @@
     </form>
 
     <!-- Workflow -->
-    <form class="cui-row emp-workflow" name="form_workflow" id="form_workflow" action="www.tax.ny.gov" method="post">
-        <div class="cui-col-sm-12 cui-pull-right">
+    <form class="cui-row" name="form_workflow" id="form_workflow" action="www.tax.ny.gov" method="post">
+        <div class="cui-col-sm-12 cui-align-right">
             <ul>
                 <li><button id="workflow_next" class="cui-icon emp-workflow-item-next" title="Get next workitem" tabindex="1">Get next workitem</button></li>
                 <li><button id="workflow_view_comments" class="cui-icon emp-workflow-item-comments" title="View comments" tabindex="1">View comments</button></li>
@@ -133,10 +135,10 @@
 
     <div class="cui-row emp-tabset">
         <!-- Column for tabs -->
-        <ul class="cui-col-sm-10">
+        <ul class="cui-col-sm-11">
             <li><a href="#" title="Taxpayer Summary" tabindex="1">TP Sum</a></li>
             <li><a href="#" title="Search by Name" tabindex="1">Srch by Name</a></li>
-            <li class="selected"><a href="#" title="Name History" tabindex="1">Name History</a></li>
+            <li class="emp-selected"><a href="#" title="Name History" tabindex="1">Name History</a></li>
             <li><a href="#" title="Address Summary" tabindex="1">Address Sum</a></li>
             <li><a href="#" title="Check Digit" tabindex="1">Check Digit</a></li>
             <li><a href="#" title="Old ID Search" tabindex="1">Old ID Search</a></li>
@@ -154,8 +156,8 @@
             <li><a href="#" title="Correspondence" tabindex="1">Correspondence</a></li>-->
         </ul>
         <!-- Absolutely-positioned pane for showing/hiding the tabset -->
-        <div class="cui-col-sm-2 emp-show-hide">
-            <button type="button" class="cui-icon cui-icon-showhide" title="Show a full/partial tabset view" tabindex="1">Resize the tabset's height</button>
+        <div class="cui-col-sm-1">
+            <button type="button" class="cui-icon emp-icon-showhide" title="Show a full/partial tabset view" tabindex="1">Resize the tabset's height</button>
         </div>
     </div>
 
@@ -250,8 +252,10 @@
             </div>
         </form>
         <!-- Absolutely-positioned column for showing/hiding the search box -->
-        <div class="emp-show-hide">
-            <button type="button" class="cui-icon" title="Click to hide the search box" tabindex="1">Click to hide the search box</button>
+        <div class="cui-row">
+            <div class="cui-col-sm-12">
+                <button type="button" class="cui-icon emp-show-hide" title="Hide the search box" tabindex="1">Hide the search box</button>
+            </div>
         </div>
     </div>
 
@@ -304,9 +308,9 @@
 
     <ul class="emp-indicators-page">
         <li><span class="emp-indicator-oic" title="OIC whatever it stands for" tabindex="1">OIC</span></li>
-        <li><button type="button" class="emp-indicator-combat-zone" title="This will open a new window" target="_blank" tabindex="1">Combat Zone</button></li>
+        <li><a href="#" class="emp-indicator-combat-zone" target="_blank" tabindex="1">Combat Zone</a></li>
         <li><span class="emp-indicator-unavailable-cod" title="Unavailable for COD..." tabindex="1">Unavailable for COD</span></li>
-        <li><button type="button" class="emp-indicator-multi-locations" title="This will open a new window" target="_blank" tabindex="1">Multi Locations</button></li>
+        <li><a href="#" class="emp-indicator-multi-locations" target="_blank" tabindex="1">Multi Locations</a></li>
     </ul>
 
     <!-- ==================== -->
@@ -314,12 +318,9 @@
     <!-- ==================== -->
 
     <div class="emp-asof">
-        <!-- Not sure if we need an inner <div> to help us center everything -->
-        <!-- <div class="cui-centered"> -->
-            <button type="button" class="emp-asof-prev" title="Previous history" tabindex="1">Previous history</button>
-            <span>As of: <time>01/01/2012 12:00:00</time></span>
-            <button type="button" class="emp-asof-next" title="Next history" tabindex="1">Next history</button>
-        <!-- </div> -->
+        <button type="button" class="emp-asof-prev" title="Previous history" tabindex="1">Previous history</button>
+        <span>As of: <time>01/01/2012 12:00:00</time></span>
+        <button type="button" class="emp-asof-next" title="Next history" tabindex="1">Next history</button>
     </div>
 
     <!-- ==================== -->
@@ -370,7 +371,7 @@
             <div class="cui-row">
                 <div class="emp-col-half">
                     <div class="cui-label">
-                        <label for="E_ID_DROPDOWN_LABEL" class="cui-hidden">Id type</label>
+                        <label for="E_ID_DROPDOWN_LABEL" class="cui-hide-from-screen">Id type</label>
                         <select id="E_ID_DROPDOWN_LABEL" tabindex="1">
                             <option selected="selected" value="NC">9 Character ID</option>
                             <option value="BT">Business Taxpayer ID</option>
@@ -381,7 +382,7 @@
                         </select>
                     </div>
                     <div class="cui-data">
-                        <label for="E_ID" class="cui-hidden">Id</label>
+                        <label for="E_ID" class="cui-hide-from-screen">Id</label>
                         <input type="text" id="E_ID" size="20" maxlength="18" tabindex="1">
                     </div>
                 </div>
@@ -450,7 +451,7 @@
             </div>
 
             <div class="cui-row">
-                <div class="emp-col-half cui-pull-right">
+                <div class="emp-col-half cui-align-right">
                     <div class="cui-label">
                         IPA Amount ($):
                     </div>
@@ -655,7 +656,7 @@
                 <table class="cui-row cui-sortable">
                     <thead>
                         <tr>
-                            <th class="cui-align-center emp-width-selection">
+                            <th class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="cb_table_1_section_1_all">Select All</label>
                                 <input type="checkbox" id="cb_table_1_section_1_all" value="" tabindex="1">
                             </th>
@@ -685,7 +686,7 @@
                     </tfoot>
                     <tbody>
                         <tr>
-                            <td class="cui-align-center emp-width-selection">
+                            <td class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="cb_table_1_section_1_1">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_1" value="" tabindex="1">
                             </td>
@@ -699,12 +700,12 @@
                             <td class="cui-currency">1,750.00</td>
                             <td class="cui-width-icon">&nbsp;</td>
                             <td class="cui-width-icon">&nbsp;</td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
                             <td class="cui-width-icon"><button class="cui-icon emp-icon-delete" title="Delete record" tabindex="1">Delete record</button></td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-icon-pencil" title="Edit record" tabindex="1">Edit record</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-edit" title="Edit record" tabindex="1">Edit record</button></td>
                         </tr>
                         <tr>
-                            <td class="cui-align-center emp-width-selection">
+                            <td class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="cb_table_1_section_1_2">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_2" value="" tabindex="1">
                             </td>
@@ -717,13 +718,13 @@
                             <td>03/20/2012</td>
                             <td class="cui-currency">309.17</td>
                             <td class="cui-width-icon"><i class="cui-icon emp-icon-redcheck">Red check mark</i></td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
                             <td class="cui-width-icon"><button class="cui-icon emp-icon-delete" title="Delete record" tabindex="1">Delete record</button></td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-icon-pencil" title="Edit record" tabindex="1">Edit record</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-edit" title="Edit record" tabindex="1">Edit record</button></td>
                         </tr>
                         <tr>
-                            <td class="cui-align-center emp-width-selection">
+                            <td class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="cb_table_1_section_1_3">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_3" value="" tabindex="1">
                             </td>
@@ -736,8 +737,8 @@
                             <td>01/03/2011</td>
                             <td class="cui-currency">112.57</td>
                             <td class="cui-width-icon"><i class="cui-icon emp-icon-redcheck">Red check mark</i></td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
-                            <td class="cui-width-icon"><button class="cui-icon emp-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-letters-tx" title="Popup TFA details" tabindex="1">Popup TFA details</button></td>
+                            <td class="cui-width-icon"><button class="cui-icon emp-icon-view-details" title="Go to {page}" tabindex="1">Go to {page}</button></td>
                             <td class="cui-width-icon">&nbsp;</td>
                             <td class="cui-width-icon"><button class="cui-icon emp-more-info" title="View more information" tabindex="1">View more information</button></td>
                         </tr>
@@ -759,7 +760,7 @@
                 <table class="cui-row cui-sortable">
                     <thead>
                         <tr>
-                            <th class="cui-align-center emp-width-selection"><span class="cui-hide-from-screen">Use this column's radio buttons to select rows</span></th>
+                            <th class="cui-align-center cui-width-selection"><span class="cui-hide-from-screen">Use this column's radio buttons to select rows</span></th>
                             <th data-sort="date">TRXN Create Date</th>
                             <th data-sort="date">TRXN Effective Date</th>
                             <th data-sort="alpha">DLN</th>
@@ -782,7 +783,7 @@
                     </tfoot>
                     <tbody>
                         <tr>
-                            <td class="cui-align-center emp-width-selection">
+                            <td class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="rb_table_2_section_1_1">Select this row</label>
                                 <input type="radio" id="rb_table_2_section_1_1" name="rb_table_2_section_1" value="" tabindex="1">
                             </td>
@@ -798,7 +799,7 @@
                             <td class="cui-width-icon"><a href="#" class="emp-icon drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
                         </tr>
                         <tr>
-                            <td class="cui-align-center emp-width-selection">
+                            <td class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="rb_table_2_section_1_2">Select this row</label>
                                 <input type="radio" id="rb_table_2_section_1_2" name="rb_table_2_section_1" value="" tabindex="1">
                             </td>
@@ -814,7 +815,7 @@
                             <td class="cui-width-icon"><a href="#" class="emp-icon drill-down" title="Drill down to more details" tabindex="1">Drill down to more details</a></td>
                         </tr>
                         <tr>
-                            <td class="cui-align-center emp-width-selection">
+                            <td class="cui-align-center cui-width-selection">
                                 <label class="cui-hide-from-screen" for="rb_table_2_section_1_3">Select this row</label>
                                 <input type="radio" id="rb_table_2_section_1_3" name="rb_table_2_section_1" value="" tabindex="1">
                             </td>
@@ -1001,55 +1002,13 @@
                 </div>
             </div>
 
-            <div class="emp-section-container">
-                <section class="emp-section-inline">
-                    <header>
-                        <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
-                        <div class="cui-col-sm-12 cui-col-md-10">
-                            <h3>Section inside section 1</h3>
-                        </div>
-                        <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
-                            <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
-                        </ul>
-                    </header>
-
-                    <div class="cui-row">
-                        <div class="emp-col-full">
-                            <div class="cui-label">
-                                <label for="E_SOME_AMOUNT">Some Amount ($):</label>
-                            </div>
-                            <div class="cui-data cui-currency">
-                                <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cui-row">
-                        <div class="emp-col-full">
-                            <div class="cui-label">
-                                Type something:
-                            </div>
-                            <div class="cui-data">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <header>
-                        <div class="cui-col-sm-12 cui-col-md-10">
-                            <h3>Section inside section 2</h3>
-                        </div>
-                        <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
-                            <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
-                        </ul>
-                    </header>
-
+            <div class="cui-row emp-section-container">
+                <div class="cui-col-sm-12 cui-col-md-7">
                     <section>
                         <header>
+                            <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
                             <div class="cui-col-sm-12 cui-col-md-10">
-                                <h3>Section inside section inside section 2</h3>
+                                <h3>Section inside section 1</h3>
                             </div>
                             <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
                                 <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
@@ -1059,15 +1018,60 @@
                         <div class="cui-row">
                             <div class="emp-col-full">
                                 <div class="cui-label">
-                                    <label for="E_NAME">Name:</label>
+                                    <label for="E_SOME_AMOUNT">Some Amount ($):</label>
+                                </div>
+                                <div class="cui-data cui-currency">
+                                    <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cui-row">
+                            <div class="emp-col-full">
+                                <div class="cui-label">
+                                    Type something:
                                 </div>
                                 <div class="cui-data">
-                                    <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
+                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
                                 </div>
                             </div>
                         </div>
                     </section>
-                </section>
+                </div>
+                <div class="cui-col-sm-12 cui-col-md-5">
+                    <section>
+                        <header>
+                            <div class="cui-col-sm-12 cui-col-md-10">
+                                <h3>Section inside section 2</h3>
+                            </div>
+                            <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                                <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                            </ul>
+                        </header>
+
+                        <section>
+                            <header>
+                                <div class="cui-col-sm-12 cui-col-md-10">
+                                    <h3>Section inside section inside section 2</h3>
+                                </div>
+                                <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                                    <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                                </ul>
+                            </header>
+
+                            <div class="cui-row">
+                                <div class="emp-col-full">
+                                    <div class="cui-label">
+                                        <label for="E_NAME">Name:</label>
+                                    </div>
+                                    <div class="cui-data">
+                                        <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                </div>
             </div>
         </section>
 
@@ -1086,7 +1090,5 @@
             </div>
         </footer>
     </form>
-
-    <script src="../../js/dist/core.js"></script>
 </body>
 </html>
