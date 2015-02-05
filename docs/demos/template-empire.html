@@ -302,7 +302,7 @@
     <!-- INDICATORS           -->
     <!-- ==================== -->
 
-    <ul class="emp-page-indicators">
+    <ul class="emp-indicators-page">
         <li><span class="emp-indicator-oic" title="OIC whatever it stands for" tabindex="1">OIC</span></li>
         <li><button type="button" class="emp-indicator-combat-zone" title="This will open a new window" target="_blank" tabindex="1">Combat Zone</button></li>
         <li><span class="emp-indicator-unavailable-cod" title="Unavailable for COD..." tabindex="1">Unavailable for COD</span></li>
@@ -656,7 +656,7 @@
                     <thead>
                         <tr>
                             <th class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_all">Select All</label>
+                                <label class="cui-hide-from-screen" for="cb_table_1_section_1_all">Select All</label>
                                 <input type="checkbox" id="cb_table_1_section_1_all" value="" tabindex="1">
                             </th>
                             <th data-sort="date-range">Liability Period</th>
@@ -686,7 +686,7 @@
                     <tbody>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_1">Select this row</label>
+                                <label class="cui-hide-from-screen" for="cb_table_1_section_1_1">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_1" value="" tabindex="1">
                             </td>
                             <td class="cui-no-wrap"><a href="#" tabindex="1">01/01/2011 - 12/31/2011</a></td>
@@ -705,7 +705,7 @@
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_2">Select this row</label>
+                                <label class="cui-hide-from-screen" for="cb_table_1_section_1_2">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_2" value="" tabindex="1">
                             </td>
                             <td class="cui-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2012 - 12/31/2012</a></td>
@@ -724,7 +724,7 @@
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="cb_table_1_section_1_3">Select this row</label>
+                                <label class="cui-hide-from-screen" for="cb_table_1_section_1_3">Select this row</label>
                                 <input type="checkbox" id="cb_table_1_section_1_3" value="" tabindex="1">
                             </td>
                             <td class="cui-no-wrap"><a href="#" title="Go to Liability Period" tabindex="1">01/01/2013 - 12/31/2013</a></td>
@@ -759,7 +759,7 @@
                 <table class="cui-row cui-sortable">
                     <thead>
                         <tr>
-                            <th class="cui-align-center emp-width-selection"><span class="cui-hide-off-screen">Use this column's radio buttons to select rows</span></th>
+                            <th class="cui-align-center emp-width-selection"><span class="cui-hide-from-screen">Use this column's radio buttons to select rows</span></th>
                             <th data-sort="date">TRXN Create Date</th>
                             <th data-sort="date">TRXN Effective Date</th>
                             <th data-sort="alpha">DLN</th>
@@ -783,7 +783,7 @@
                     <tbody>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="rb_table_2_section_1_1">Select this row</label>
+                                <label class="cui-hide-from-screen" for="rb_table_2_section_1_1">Select this row</label>
                                 <input type="radio" id="rb_table_2_section_1_1" name="rb_table_2_section_1" value="" tabindex="1">
                             </td>
                             <td>01/01/2011</td>
@@ -799,7 +799,7 @@
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="rb_table_2_section_1_2">Select this row</label>
+                                <label class="cui-hide-from-screen" for="rb_table_2_section_1_2">Select this row</label>
                                 <input type="radio" id="rb_table_2_section_1_2" name="rb_table_2_section_1" value="" tabindex="1">
                             </td>
                             <td>01/01/2012</td>
@@ -815,7 +815,7 @@
                         </tr>
                         <tr>
                             <td class="cui-align-center emp-width-selection">
-                                <label class="cui-hide-off-screen" for="rb_table_2_section_1_3">Select this row</label>
+                                <label class="cui-hide-from-screen" for="rb_table_2_section_1_3">Select this row</label>
                                 <input type="radio" id="rb_table_2_section_1_3" name="rb_table_2_section_1" value="" tabindex="1">
                             </td>
                             <td>01/01/2013</td>
@@ -878,313 +878,214 @@
         <!-- ++++++++++++++++++++++++++++++++ -->
         <!-- SECTION: .Section inside section -->
         <!-- ++++++++++++++++++++++++++++++++ -->
-        <div class="its-line">
-            <!-- Column for section -->
-            <div id="section_3" class="its-col its-fluid its-section its-accessible its-acc-type-1 its-marg-M">
-                <!-- Line for section's header -->
-                <div class="its-line its-section-header">
-                    <!-- Column for section's title and icons -->
-                    <div class="its-col its-w-70p its-section-header-title">
-                        <h3>Liability period: <span id="E_LIABILITY_PERIOD" class="its-marg-r-XXL">01/01/2004 - 12/31/2004</span> <span id="E_TAX_TYPE_SHORT_DESCRIPTION" class="its-marg-l-XXL its-marg-r-XXL">Income Personal Tax</span> <span id="E_FROM_TAX_SUB_TYPE" class="its-marg-l-XXL">22/30-601/1301/21</span></h3>
-                    </div>
-                    <!-- Column for other header's info -->
-                    <div class="its-col its-w-20p its-marg-t-XS">
-                        <input type="checkbox" id="E_RETAIN_DATA" value="true" tabindex="1">
-                        <label for="E_RETAIN_DATA">Retain Data<span class="its-hidden">Retain data indicator for this section</span></label>
-                    </div>
-                    <!-- Column for section's options -->
-                    <div class="its-icon-buttons its-col its-fluid its-right-align its-marg-r-S its-marg-t-XS">
-                        <ul class="its-list-horizontal-block its-marg-r-S its-marg-t-None">
-                            <li><a href="#" class="its-icon-button its-section-toggle" title="Click to hide section" tabindex="1">Click to hide section</a></li>
-                        </ul>
-                    </div>
+        <section>
+            <header>
+                <!-- I don't think any of these elements need IDs unless they will be dynamically updated -->
+                <div class="cui-col-sm-12 cui-col-md-5">
+                    <h3>Liability period: <span id="E_LIABILITY_PERIOD">01/01/2004 - 12/31/2004</span></h3>
                 </div>
-                <!-- Line for section's body -->
-                <div class="its-line its-section-body its-padd-M">
-                    <div class="its-col its-fluid">
-                        <div class="its-line">
-                            <div class="its-col its-fluid">
-                                <ul class="its-list-horizontal-block its-right-align page-indicators">
-                                    <li><span title="Indicator no link one" tabindex="1">Indicator no link 1</span></li>
-                                    <li><a href="#" id="indicator_section_3_link_1" title="Multi Locations" tabindex="1">Multi Locations</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="its-line">
-                            <div id="E_OCN" class="its-col its-w-50p label-cust-1">
-                                <div class="its-label-wrap">
-                                    <div class="its-label">
-                                        OCN:
-                                    </div>
-                                </div>
-                                <div class="its-data-wrap">
-                                    <div class="its-data">
-                                        123456789012
-                                        <input type="button" id="btn_Get_OCN" class="its-button its-button-inline its-font-size-S its-marg-l-S" value="Get OCN" title="Get OCN" tabindex="1">
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="E_TOTAL_TARGET_AMOUNT" class="its-col its-fluid label-cust-1">
-                                <div class="its-label-wrap">
-                                    <div class="its-label">
-                                        Total Target Amount ($):
-                                    </div>
-                                </div>
-                                <div class="its-data-wrap">
-                                    <div class="its-data">
-                                        123,456.78
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="its-line">
-                            <div id="E_NAME_PATTERN" class="its-col its-fluid label-cust-1">
-                                <div class="its-label-wrap">
-                                    <div class="its-label">
-                                        Name:
-                                    </div>
-                                </div>
-                                <div class="its-data-wrap">
-                                    <div class="its-data">
-                                        <label for="E_NAME_FIRST" class="its-hidden">First name</label>
-                                        <input type="text" id="E_NAME_FIRST" size="16" maxlength="16" value="John" tabindex="1">
-                                        <label for="E_MIDDLE_INITIAL" class="its-hidden">Middle initial</label>
-                                        <input type="text" id="E_MIDDLE_INITIAL" class="its-marg-l-S" size="1" maxlength="1" value="" tabindex="1">
-                                        <label for="E_LAST_NAME" class="its-hidden">Last name</label>
-                                        <input type="text" id="E_LAST_NAME" class="its-marg-l-S" size="40" maxlength="161" value="Smith" tabindex="1">
-                                        <label for="E_NAME_SUFFIX" class="its-hidden">Name suffix</label>
-                                        <select id="E_NAME_SUFFIX" class="its-marg-l-S" tabindex="1">
-                                            <option value="" selected="selected"></option>
-                                            <option value='Jr'>Jr</option>
-                                            <option value='Sr'>Sr</option>
-                                            <option value='II'>II</option>
-                                            <option value='III'>III</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="its-line">
-                            <div class="its-col its-fluid label-cust-1">
-                                <div class="its-label-wrap">
-                                    <div class="its-label">
-                                        <label for="E_NAME_SOURCE">Name Source:</label>
-                                    </div>
-                                </div>
-                                <div class="its-data-wrap">
-                                    <div class="its-data">
-                                        <select id="E_NAME_SOURCE" tabindex="1">
-                                            <option selected="selected" value='1'>&nbsp;</option>
-                                            <option value='2'>Return</option>
-                                            <option value='3'>Phone Call</option>
-                                            <option value='4'>Walk-in</option>
-                                            <option value='5'>1234567890123456</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="its-line">
-                            <div id="E_LONG_TEXT_EXAMPLE_1" class="its-col its-fluid label-cust-1">
-                                <div class="its-label-wrap">
-                                    <div class="its-label">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum:
-                                    </div>
-                                </div>
-                                <div class="its-data-wrap">
-                                    <div class="its-data">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="its-line">
-                            <div id="E_LONG_TEXT_EXAMPLE_2" class="its-col its-fluid label-cust-1">
-                                <div class="its-label-wrap">
-                                    <div class="its-label">
-                                        Lorem est laborum ss s s s s s s s s:
-                                        <div class="its-required">*</div>
-                                    </div>
-                                </div>
-                                <div class="its-data-wrap">
-                                    <div class="its-data">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="its-line same-sections-height">
-                            <div class="its-col its-w-60p its-marg-r-M">
-                                <!-- +++++++++++++++++++++++++++++++++- -->
-                                <!-- SECTION: .Section inside section 1 -->
-                                <!-- +++++++++++++++++++++++++++++++++- -->
-                                <div class="its-line">
-                                    <!-- Column for section -->
-                                    <div id="section_3_1" class="its-col its-fluid its-section its-accessible its-acc-type-1">
-                                        <!-- Line for section's header -->
-                                        <div class="its-line its-section-header">
-                                            <!-- Column for section's title and icons -->
-                                            <div class="its-col its-w-40p its-section-header-title its-h3">
-                                                <h4>Section inside section 1</h4>
-                                            </div>
-                                            <!-- Column for section's options -->
-                                            <div class="its-icon-buttons its-col its-fluid its-right-align its-marg-r-S its-marg-t-XS">
-                                                <ul class="its-list-horizontal-block its-marg-r-S its-marg-t-None">
-                                                    <li><a href="#" class="its-icon-button its-section-toggle" title="Click to hide section" tabindex="1">Click to hide section</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Line for section's body -->
-                                        <div class="its-line its-section-body its-padd-M">
-                                            <div class="its-col its-fluid">
-                                                <div class="its-line">
-                                                    <div class="its-col its-fluid its-label-L">
-                                                        <div class="its-label-wrap">
-                                                            <div class="its-label">
-                                                                <label for="E_SOME_AMOUNT">Some Amount ($):</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="its-data-wrap">
-                                                            <div class="its-data">
-                                                                <input type="text" id="E_SOME_AMOUNT" size="20" maxlength="23" value="123,456.78" tabindex="1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="its-line">
-                                                    <div id="E_TYPE_SOMETHING" class="its-col its-fluid its-label-L">
-                                                        <div class="its-label-wrap">
-                                                            <div class="its-label">
-                                                                Type something:
-                                                            </div>
-                                                        </div>
-                                                        <div class="its-data-wrap">
-                                                            <div class="its-data">
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="its-col its-fluid">
-                                <!-- +++++++++++++++++++++++++++++++++- -->
-                                <!-- SECTION: .Section inside section 2 -->
-                                <!-- +++++++++++++++++++++++++++++++++- -->
-                                <div class="its-line">
-                                    <!-- Column for section -->
-                                    <div id="section_3_2" class="its-col its-fluid its-section its-accessible its-acc-type-1">
-                                        <!-- Line for section's header -->
-                                        <div class="its-line its-section-header">
-                                            <!-- Column for section's title and icons -->
-                                            <div class="its-col its-w-66p its-section-header-title its-h3">
-                                                <h4>Section inside section 2</h4>
-                                            </div>
-                                            <!-- Column for section's options -->
-                                            <div class="its-icon-buttons its-col its-fluid its-right-align its-marg-r-S its-marg-t-XS">
-                                                <ul class="its-list-horizontal-block its-marg-r-S its-marg-t-None">
-                                                    <li><a href="#" class="its-icon-button its-section-toggle" title="Click to hide section" tabindex="1">Click to hide section</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Line for section's body -->
-                                        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++- -->
-                                        <!-- SECTION: .Section inside section inside section 1 -->
-                                        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++- -->
-                                        <div class="its-line its-section-body its-padd-M">
-                                            <!-- Column for section -->
-                                            <div id="section_3_2_1" class="its-col its-fluid its-section its-accessible its-acc-type-1">
-                                                <!-- Line for section's header -->
-                                                <div class="its-line its-section-header">
-                                                    <!-- Column for section's title and icons -->
-                                                    <div class="its-col its-w-80p its-section-header-title its-h3">
-                                                        <h5>Section inside section inside section 1</h5>
-                                                    </div>
-                                                    <!-- Column for section's options -->
-                                                    <!-- Only use its-marg-t-XXS when section is third-level deep or more, otherwise use its-marg-t-XS -->
-                                                    <div class="its-icon-buttons its-col its-fluid its-right-align its-marg-r-S its-marg-t-XXS">
-                                                        <ul class="its-list-horizontal-block its-marg-r-S its-marg-t-None">
-                                                            <li><a href="#" class="its-icon-button its-section-toggle" title="Click to hide section" tabindex="1">Click to hide section</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <!-- Line for section's body -->
-                                                <div class="its-line its-section-body its-padd-M">
-                                                    <div class="its-col its-fluid">
-                                                        <div class="its-line">
-                                                            <div class="its-col its-fluid its-label-M">
-                                                                <div class="its-label-wrap">
-                                                                    <div class="its-label">
-                                                                        <label for="E_NAME">Name:</label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="its-data-wrap">
-                                                                    <div class="its-data">
-                                                                        <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Line for non-section content -->
-        <div class="its-line">
-            <div class="its-col its-fluid its-marg-M">
-                <div class="its-line">
-                    <div class="its-col its-float-right">
-                        <input type="checkbox" id="E_OVERRIDE" tabindex="1">
-                        <label for="E_OVERRIDE">Override</label>
+                <div class="cui-col-sm-12 cui-col-md-2" id="E_TAX_TYPE_SHORT_DESCRIPTION">
+                    Income Personal Tax
+                </div>
+
+                <div class="cui-col-sm-12 cui-col-md-3" id="E_FROM_TAX_SUB_TYPE">
+                    22/30-601/1301/21
+                </div>
+
+                <div class="cui-col-sm-6 cui-col-md-3 emp-field">
+                    <input type="checkbox" id="E_RETAIN_DATA" value="true" tabindex="1">
+                    <label for="E_RETAIN_DATA">Retain Data<span class="cui-hide-from-screen"> for this section</span></label>
+                </div>
+
+                <ul class="cui-col-sm-6 cui-col-md-1 emp-section-controls">
+                    <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                </ul>
+            </header>
+
+            <!-- Section indicators -->
+            <ul class="emp-indicators-section">
+                <li><span class="emp-indicator-xyz" tabindex="1">Indicator no link 1</span></li>
+                <li><button class="emp-indicator-multi-locations" tabindex="1">Multi Locations</button></li>
+            </ul>
+
+            <!-- First row of fields -->
+            <div class="cui-row">
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        OCN:
+                    </div>
+                    <div class="cui-data">
+                        <span>123456789012</span>
+                        <button type="button" id="btn_Get_OCN" tabindex="1">Get OCN</button>
                     </div>
                 </div>
-                <div class="its-line its-label-auto">
-                    <div class="its-col its-float-right its-padd-t-XS">
-                        <input type="button" id="btn_Reset" class="its-button-S its-marg-t-XS" value="Reset" title="Reset" tabindex="1">
-                        <input type="submit" id="btn_Submit" class="its-button-S its-button-primary its-marg-t-XS its-marg-l-S" value="Submit" title="Submit" tabindex="1">
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        Total Target Amount ($):
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <span>123,456.78</span>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="cui-row">
+                <div class="emp-col-full">
+                    <div class="cui-label">
+                        Name:
+                    </div>
+                    <div class="cui-data">
+                        <div class="emp-field">
+                            <label for="E_NAME_FIRST" class="cui-hide-from-screen">First name</label>
+                            <input type="text" id="E_NAME_FIRST" size="16" maxlength="16" value="John" tabindex="1">
+                        </div>
+                        <div class="emp-field">
+                            <label for="E_MIDDLE_INITIAL" class="cui-hide-from-screen">Middle initial</label>
+                            <input type="text" id="E_MIDDLE_INITIAL" size="1" maxlength="1" value="" tabindex="1">
+                        </div>
+                        <div class="emp-field">
+                            <label for="E_LAST_NAME" class="cui-hide-from-screen">Last name</label>
+                            <input type="text" id="E_LAST_NAME" size="40" maxlength="161" value="Smith" tabindex="1">
+                        </div>
+                        <div class="emp-field">
+                            <label for="E_NAME_SUFFIX" class="cui-hide-from-screen">Name suffix</label>
+                            <select id="E_NAME_SUFFIX" class="its-marg-l-S" tabindex="1">
+                                <option value="" selected="selected"></option>
+                                <option value='Jr'>Jr</option>
+                                <option value='Sr'>Sr</option>
+                                <option value='II'>II</option>
+                                <option value='III'>III</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-full">
+                    <div class="cui-label">
+                        <label for="E_NAME_SOURCE">Name Source:</label>
+                    </div>
+                    <div class="cui-data">
+                        <select id="E_NAME_SOURCE" tabindex="1">
+                            <option selected="selected" value="1">&nbsp;</option>
+                            <option value='2'>Return</option>
+                            <option value='3'>Phone Call</option>
+                            <option value='4'>Walk-in</option>
+                            <option value='5'>1234567890123456</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-full">
+                    <div class="cui-label">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum:
+                    </div>
+                    <div class="cui-data">
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row cui-required">
+                <div class="emp-col-full">
+                    <div class="cui-label">
+                        Lorem est laborum ss s s s s s s s s:
+                    </div>
+                    <div class="cui-data">
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emp-section-container">
+                <section class="emp-section-inline">
+                    <header>
+                        <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
+                        <div class="cui-col-sm-12 cui-col-md-10">
+                            <h3>Section inside section 1</h3>
+                        </div>
+                        <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                            <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                        </ul>
+                    </header>
+
+                    <div class="cui-row">
+                        <div class="emp-col-full">
+                            <div class="cui-label">
+                                <label for="E_SOME_AMOUNT">Some Amount ($):</label>
+                            </div>
+                            <div class="cui-data cui-currency">
+                                <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cui-row">
+                        <div class="emp-col-full">
+                            <div class="cui-label">
+                                Type something:
+                            </div>
+                            <div class="cui-data">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <header>
+                        <div class="cui-col-sm-12 cui-col-md-10">
+                            <h3>Section inside section 2</h3>
+                        </div>
+                        <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                            <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                        </ul>
+                    </header>
+
+                    <section>
+                        <header>
+                            <div class="cui-col-sm-12 cui-col-md-10">
+                                <h3>Section inside section inside section 2</h3>
+                            </div>
+                            <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                                <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                            </ul>
+                        </header>
+
+                        <div class="cui-row">
+                            <div class="emp-col-full">
+                                <div class="cui-label">
+                                    <label for="E_NAME">Name:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </section>
+
+        <footer>
+            <div class="cui-col-sm-12 cui-pull-right emp-page-controls">
+                <div class="emp-field">
+                    <input type="checkbox" id="E_OVERRIDE" tabindex="1">
+                    <label for="E_OVERRIDE">Override</label>
+                </div>
+            </div>
+
+            <div class="cui-col-sm-12 cui-pull-right emp-button-group">
+                <input type="button" name="btn_Reset" value="Reset" tabindex="1">
+                <input type="submit" name="btn_Submit" class="cui-primary" value="Submit" tabindex="1">
+            </div>
+        </footer>
     </form>
-</div>
-<!-- Deployment: All script files should be minified (same order) into one single script file called: all_20121026.js -->
-<script src="../../../COREUI/js/lib/jquery-1.js"></script>
-<script src="../../../COREUI/js/common/core.js"></script>
-<script src="../../../COREUI/js/plugin/calendar.js"></script>
-<script src="../../js/common/common.js"></script>
-<script src="../../js/plugin/menu.js"></script>
-<!-- mockup.js only for local usage. File should not be deployed to any environment. -->
-<script src="../../ReleaseX/Template/mockups.js"></script>
-<!-- Init -->
-<script>
-$(document).ready(function(e) {
-    /* Mockup code >>
-       - Active Exceptions
-         Params: [Type:{mandatory}] [Values:'active', 'corpBtn', 'corp', 'hut', 'partnerBtn', 'partner', 'pitBtn', 'pit', 'ti']
-                 [Hidden:{optional}] [Values:true, false] Notes: true if section is defaulted to collapsed otherwise param not needed or false)
-                 [First Column Width:{optional}] [Values:{string}] Notes: If not provided, first column defaults to width = 20%
-         Examples: MOCKUP.dom.activeExceptions('active', null, 'its-w-30p')
-                 MOCKUP.dom.activeExceptions('pit');
-    */
-    try {
-        $('.active-exceptions').html(MOCKUP.dom.getActiveExceptions('active', true));
-    } catch(e) {
-    }
-    /* End of mockup code << */
-});
-</script>
+
+    <script src="../../js/dist/core.js"></script>
 </body>
 </html>
