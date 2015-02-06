@@ -1,11 +1,11 @@
-/* Use @import to manage all css files (not for production where all files will be combined into one; styles.css) */
-@import url("../../CoreUI_New/css/core/normalize.css");
-@import url("../../CoreUI_New/css/core/core.css");
-@import url("../../CoreUI_New/css/core/grid.css");
-@import url("../../CoreUI_New/css/core/forms.css");
-@import url("../../CoreUI_New/css/core/lists.css");
-@import url("../../CoreUI_New/css/core/headers.css");
-@import url("../../CoreUI_New/css/core/section.css");
-@import url("../../CoreUI_New/css/core/links.css");
-@import url("../../CoreUI_New/css/core/template.css");
-@import url("../../CoreUI_New/css/core/debug.css");
+// sass files
+// ---------------------------------
+// Need to start with these in order
+//    * _variables
+//    * _mixins
+//    * global
+
+@import "_utilities/_variables";
+@import "_utilities/_mixins";
+@import "_base/_global";
+@import "_base/_skin/_blue/_global";

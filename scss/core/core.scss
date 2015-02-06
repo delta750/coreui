@@ -1,6 +1,8 @@
 // sass files
 // ---------------------------------
 // Need to start with these in order
+//    * _variables
+//    * _mixins
 //    * normalize
 //    * global
 //    * template
@@ -17,10 +19,7 @@
 //    * misc
 //    * section
 //    * table
-// These should be in components
-//    * menu
-//    * tabstrip
-//    * tree
+//    * text
 
 @import "_utilities/_variables";
 @import "_utilities/_mixins";
