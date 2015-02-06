@@ -1,0 +1,313 @@
+/*
+=======================================================================
+ New York State Department of Taxation and Finance
+ User Interface Team
+ eMPIRE2-specific styles to modify the appearance of all constructs.
+ Version 1.0.0.20121031
+=======================================================================
+
+----------------------------------------
+ Contents
+----------------------------------------
+    Global
+    Sections
+        Preferences list
+        Global header
+        General header
+        Tab strip
+        Search box
+        Indicators
+    Icon buttons
+*/
+
+
+/* ----------------------------------------
+   .Global
+   ---------------------------------------- */
+h1 {
+    background: transparent url("../../../images/common/logo.png") top left no-repeat;
+}
+
+/* ----------------------------------------
+   .Sections
+   ---------------------------------------- */
+
+/*   .Preferences list
+   ---------------------------------------- */
+.preferences li {
+    border-right-color: #BBCBD5;
+}
+
+.preferences a {
+    color: #3D5361;
+}
+
+.preferences a:hover {
+    color: #28A1E2;
+}
+
+.preferences .has-sub-menu a {
+    background: transparent url("../../../images/common/preferences-arrow-over.png") center right no-repeat;
+}
+
+.preferences .has-sub-menu a:hover {
+    background: transparent url("../../../images/common/preferences-arrow.png") center right no-repeat;
+}
+
+/*   .Global header
+   ---------------------------------------- */
+.global-header h2 {
+    color: #000;
+}
+
+/*   .General header
+   ---------------------------------------- */
+.general-header .content {
+	border: 1px solid #BED0D8;
+    border-width: 1px;
+    border-radius: 2px;
+    background-color: #EFF3F5;
+}
+
+/*   .Tab strip
+   ---------------------------------------- */
+.its-tab-strip .show-hide a {
+	background: transparent url("../../../images/common/toggle-display-1.png") top left no-repeat !important;
+    border: 0;
+}
+
+/*   .Search box
+   ---------------------------------------- */
+.search-wrapper {
+    background: #ECECEC url("../../../images/skin/default/search-box-bg.png") top left repeat-x;
+    border-bottom: 1px dotted #D4D4D4;
+}
+
+.search-box .show-hide a {
+	background: transparent url("../../../images/common/search-box-toggle-up.png") top center no-repeat;
+}
+
+.search-box .show-hide a:hover {
+	background: transparent url("../../../images/common/search-box-toggle-up-over.png") top center no-repeat;
+}
+
+.search-box .show-hide a.expand {
+	background: transparent url("../../../images/common/search-box-toggle-down.png") top center no-repeat;
+}
+
+.search-box .show-hide a.expand:hover {
+	background: transparent url("../../../images/common/search-box-toggle-down-over.png") top center no-repeat;
+}
+
+.search-box .button-wrapper-left {
+    border-right: 1px dashed #BFBFBF;
+}
+
+.search-box .button-wrapper-right {
+    border-left: 1px dashed #BFBFBF;
+}
+
+/*   .Indicators
+   ---------------------------------------- */
+.page-indicators li {
+    color: #FFF;
+    background: #D05029 url("../../../images/common/indicators-bg.png") bottom left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#D05029), to(#CC1500)) fixed;
+    background-image: -webkit-linear-gradient(top, #D05029 0%, #CC1500 100%);
+    background-image:    -moz-linear-gradient(top, #D05029 0%, #CC1500 100%);
+    background-image:     -ms-linear-gradient(top, #D05029 0%, #CC1500 100%);
+    background-image:      -o-linear-gradient(top, #D05029 0%, #CC1500 100%);
+    border: 1px solid #993300;
+    border-radius: 4px;
+}
+
+.page-indicators a {
+    color: #FFF;
+    background: transparent url("../../../images/common/notifier-popup.png") center right no-repeat;
+}
+
+.indicator-type-1, .indicator-type-2 {
+    border-radius: 3px;
+}
+
+.indicator-type-1 {
+    background: #CC0000 url("../../../images/common/indicators.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#D88F81), to(#CC1500)) fixed;
+    background-image: -webkit-linear-gradient(top, #D88F81 0%, #CC1500 100%);
+    background-image:    -moz-linear-gradient(top, #D88F81 0%, #CC1500 100%);
+    background-image:     -ms-linear-gradient(top, #D88F81 0%, #CC1500 100%);
+    background-image:      -o-linear-gradient(top, #D88F81 0%, #CC1500 100%);
+    border: 1px solid #663333;
+    color: #FFF;
+}
+
+
+/* ----------------------------------------
+   .Icon buttons
+   ---------------------------------------- */   
+.activate-inactivate {
+    background: transparent url("../../../images/common/activate-inactivate.png") center left no-repeat !important;
+} 
+
+.add-event {
+    background: transparent url("../../../images/common/comments-add.png") center left no-repeat !important;
+}   
+   
+.calculator {
+    background: transparent url("../../../images/common/calculator.png") center left no-repeat !important;
+} 
+
+.comment {
+    background: transparent url("../../../images/common/comments-view.png") center left no-repeat !important;
+}       
+   
+.data-joint,
+.view-details,
+.taxpayer-data {
+    background: transparent url("../../../../COREUI/images/common/document-view.png") center left no-repeat !important;
+}
+
+.drill-down {
+    background: transparent url("../../../images/common/drill-down.png") center left no-repeat !important;
+}
+
+.flower {
+    background: transparent url("../../../images/common/flower.png") center left no-repeat !important;
+}
+
+.form-order {
+    background: transparent url("../../../images/common/form-order.png") center left no-repeat !important;
+}
+   
+.legal-rep {
+    background: transparent url("../../../images/common/courthouse.png") center left no-repeat !important;
+}
+
+.letter-a {
+    background: transparent url("../../../images/common/letter-a.png") center left no-repeat !important;
+}
+
+.letters-ca {
+    background: transparent url("../../../images/common/letters-ca.png") center left no-repeat !important;
+}
+
+.letters-cj {
+    background: transparent url("../../../images/common/letters-cj.png") center left no-repeat !important;
+}
+
+.letters-dd {
+    background: transparent url("../../../images/common/letters-dd.png") center left no-repeat !important;
+}
+
+.letters-ev {
+    background: transparent url("../../../images/common/letters-ev.png") center left no-repeat !important;
+}
+
+.letters-fc {
+    background: transparent url("../../../images/common/letters-fc.png") center left no-repeat !important;
+}
+
+.letters-fw {
+    background: transparent url("../../../images/common/letters-fw.png") center left no-repeat !important;
+}
+
+.letters-lr {
+    background: transparent url("../../../images/common/letters-lr.png") center left no-repeat !important;
+}
+
+.letters-ru {
+    background: transparent url("../../../images/common/letters-ru.png") center left no-repeat !important;
+}
+
+.letters-st {
+    background: transparent url("../../../images/common/letters-st.png") center left no-repeat !important;
+}
+
+.letters-to {
+    background: transparent url("../../../images/common/letters-to.png") center left no-repeat !important;
+}
+
+.letters-tx {
+    background: transparent url("../../../images/common/letters-tx.png") center left no-repeat !important;
+}
+
+.linked-records {
+    background: transparent url("../../../images/common/link.png") center left no-repeat !important;
+}
+
+.mail {
+    background: transparent url("../../../images/common/mail.gif") center left no-repeat !important;
+}
+
+.more-info {
+    background: transparent url("../../../images/common/magnifier.png") center left no-repeat !important;
+}
+
+.star-red {
+    background: transparent url("../../../images/common/star-red.png") center left no-repeat !important;
+}
+
+.table-resizer {
+    background: transparent url("../../../images/common/table-resize.png") center left no-repeat !important;
+}
+
+.wf-goto-approval-worklist {
+    background: transparent url("../../../images/common/wf-approval-list.png") center left no-repeat !important;
+}
+
+.wf-goto-assign-worklist {
+    background: transparent url("../../../images/common/wf-assign-list.png") center left no-repeat !important;
+}
+
+.wf-goto-audit-case-management {
+    background: transparent url("../../../images/common/wf-audit-case-management.png") center left no-repeat !important;
+}
+
+.wf-goto-sub-category-worklist {
+    background: transparent url("../../../images/common/wf-sub-category-worklist.png") center left no-repeat !important;
+}
+
+.wf-return-worklist-management {
+    background: transparent url("../../../images/common/wf-return-worklist-mgmt.png") center left no-repeat !important;
+}
+
+.work-item-comments {
+    background: transparent url("../../../images/common/comments-view.png") center left no-repeat !important;
+}
+
+.work-item-work-management {
+    background: transparent url("../../../images/common/workflow-in.gif") center left no-repeat !important;
+}
+
+.work-item-next {
+    background: transparent url("../../../images/common/workflow-next.gif") center left no-repeat !important;
+}
+
+.worklist-launch {
+    background: transparent url("../../../images/common/worklist-launch.png") center left no-repeat !important;
+}
+
+
+/* ----------------------------------------
+   .Page-specific
+   ---------------------------------------- */
+
+/*   .IPA Bars
+   ---------------------------------------- */
+.ipa-bar-red,
+.ipa-bar-yellow,
+.ipa-bar-green {
+    color: #FFF;
+}
+
+.ipa-bar-red {
+    background-color: #C00;
+}
+
+.ipa-bar-yellow {
+    background-color: #F90;
+}
+
+.ipa-bar-green {
+    background-color: #093;
+}
