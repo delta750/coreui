@@ -1,6 +1,8 @@
 // sass files
 // ---------------------------------
 // Need to start with these in order
+//    * _variables
+//    * _mixins
 //    * normalize
 //    * global
 //    * template
@@ -17,41 +19,39 @@
 //    * misc
 //    * section
 //    * table
-// These should be in components
-//    * menu
-//    * tabstrip
-//    * tree
+//    * text
 
-@include "core/_base/_global"
-@include "core/_base/_skins/_globalBasic"
-@include "core/_base/_template"
-@include "core/_base/_form"
-@include "core/_base/_skins/_formBasic"
-@include "core/_base/_grid"
-@include "core/_base/_skins/_gridBasic"
-@include "core/_base/_button"
-@include "core/_base/_skins/_buttonBasic"
-@include "core/_base/_header"
-@include "core/_base/_skins/_headerBasic"
-@include "core/_base/_iconbutton"
-@include "core/_base/_skins/_iconbuttonBasic"
-@include "core/_base/_labeldata"
-@include "core/_base/_skins/_labeldataBasic"
-@include "core/_base/_link"
-@include "core/_base/_skins/_linkBasic"
-@include "core/_base/_list"
-@include "core/_base/_skins/_listBasic"
-@include "core/_base/_message"
-@include "core/_base/_skins/_messageBasic"
-@include "core/_base/_misc"
-@include "core/_base/_skins/_miscBasic"
-@include "core/_base/_section"
-@include "core/_base/_skins/_sectionBasic"
-@include "core/_base/_table"
-@include "core/_base/_skins/_tableBasic"
-@include "core/_base/_menu"
-@include "core/_base/_skins/_menuBasic"
-@include "core/_base/_tabstrip"
-@include "core/_base/_skins/_tabstripBasic"
-@include "core/_base/_tree"
-@include "core/_base/_skins/_treeBasic"
+@import "_utilities/_variables";
+@import "_utilities/_mixins";
+@import "_vendor/_normalize";
+@import "_base/_global";
+@import "_base/_skin/_global";
+@import "_base/_template";
+@import "_base/_skin/_template";
+@import "_base/_form";
+@import "_base/_skin/_form";
+// @import "_base/_grid";
+@import "_base/_grid_generated";
+@import "_base/_skin/_grid";
+@import "_base/_button";
+@import "_base/_skin/_button";
+@import "_base/_header";
+@import "_base/_skin/_header";
+@import "_base/_iconbutton";
+@import "_base/_skin/_iconbutton";
+@import "_base/_labeldata";
+@import "_base/_skin/_labeldata";
+@import "_base/_link";
+@import "_base/_skin/_link";
+@import "_base/_list";
+@import "_base/_skin/_list";
+@import "_base/_message";
+@import "_base/_skin/_message";
+@import "_base/_misc";
+@import "_base/_skin/_misc";
+@import "_base/_section";
+@import "_base/_skin/_section";
+@import "_base/_table";
+@import "_base/_skin/_table";
+@import "_base/_text";
+@import "_base/_skin/_text";

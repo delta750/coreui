@@ -1,42 +1,14 @@
-@charset "UTF-8";
-/**
- * @name       _table.scss
- * @desc       Table styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
- */
+//   ========================================================
+// * @name       _table.scss
+// * @desc       Table styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui     
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Default table styles
- * @todo       Extract eMPIRE-specific styles
- *             Take out IE7 hacks
- * --------------------------------------------------------
- */
- .cui-table-section {
-    overflow: hidden;
-}
 
-.cui-table-div {
-    zoom: 1;
-}
-
+// * @section    Default table styles
+// * --------------------------------------------------------
 table {
     empty-cells: show;
 }
-
-.cui-table-fixed {
-    table-layout: fixed;
-}
-
-.cui-table-sort {
-    display: inline-block;
-}
-
-/**
- * --------------------------------------------------------
- * @section    List table (i.e. subscription lists)
- * @todo       Extract eMPIRE-specific styles
- * --------------------------------------------------------
- */
