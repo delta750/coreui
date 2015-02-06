@@ -10,7 +10,7 @@
 // * @section    Form tags like input, select, textarea, etc.
 // * @todo       Add Proxima Nova + other default NYGOV fonts
 // * --------------------------------------------------------
-input:not([type="button"]):not([type="submit"]):not([type="reset"]),
+input,
 textarea,
 select {
     font: 100% $font-family;
@@ -105,7 +105,9 @@ fieldset {
     .input-append {
         display: block;
         float: left;
+        border-top-left-radius: 0;
         border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
@@ -121,17 +123,13 @@ fieldset {
         border-bottom-right-radius: $input-border-radius;
     }
 
-    input {
-        border-radius: 0;
-    }
-
     .input-prepend,
     .input-append {
         border: $input-border;
-        box-sizing: content-box;
-        background: $input-bg-hover-color;
+        @include box-sizing(content-box);
         line-height: 1;
-        padding: 7px 10px 8px 10px;
+        background: $input-bg-hover-color;
+        padding: 5px 10px 7px 10px;
     }
 
     .input-prepend {
