@@ -26,16 +26,20 @@ module.exports = function(grunt) {
             'js/src/components/**/*.js'
         ],
 
+		 jsEmpire = [
+            'js/src/empire/**/*.js'
+        ],
+
         // All JS files that will be included in the HTML (i.e. js/core.js)
         jsBuild = [
-                    // Libraries
-                    'js/src/vendor/**/*.js',
-                ]
-                // Add Core files
-                .concat(jsCore),
+            // Libraries
+            'js/src/vendor/**/*.js',
+        ]
+        // Add Core files
+        .concat(jsCore),
 
         // Scripts to be linted (i.e. every JS file that we hand-code)
-        jsToLint = jsCore.concat(jsComponents),
+        jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
 
         // Scripts to watch for changes (add compiled files to the main list)
         jsToWatch = jsToLint;
@@ -125,14 +129,16 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'css/core/core.css': 'scss/core/core.scss',
-                    'css/components/components.css': 'scss/components/components.scss'
+                    'css/components/components.css': 'scss/components/components.scss',
+                    'css/empire/empire.css': 'scss/empire/empire.scss'
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'css/core/core.css': 'scss/core/core.scss'
+                    'css/core/core.css': 'scss/core/core.scss',
+                    'css/empire/empire.css': 'scss/empire/empire.scss'
                 },
             },
         },
