@@ -13,16 +13,7 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 button {
-    color: $dark-gray;
-    border: $input-border;
-    border-radius: $border-radius;
-    margin: 0;
-    text-decoration: none;
-    font-size: $input-font-size;
-    font-weight: $input-font-weight;
-    background-color: $input-bg-hover-color;
-    text-shadow: $button-text-shadow;
-    white-space: nowrap;
+    @include button;
 }
 
 input[type="button"],
@@ -48,7 +39,7 @@ input[type="submit"]:hover {
     color: $white;
     border: $button-primary-border;
     background-color: $button-primary-bg-color;
-    text-shadow: $button-primary-text-shadow;    
+    text-shadow: $button-primary-text-shadow;
 }
 
 .cui-button-primary:hover {
