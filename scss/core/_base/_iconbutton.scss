@@ -10,8 +10,5 @@
 // * @section    Default icon-based button styles
 // * --------------------------------------------------------
 button.cui-icon-button {
-    display: inline-block;
-    font-size: 0;
-    color: transparent;
-    text-indent: -9999em;
+    @include hide-text;
 }

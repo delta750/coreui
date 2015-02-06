@@ -3,7 +3,7 @@
 // * @desc       Form and form tag styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
@@ -18,7 +18,7 @@ form {
 // * @section    Form tags like input, select, textarea, etc.
 // * --------------------------------------------------------
 textarea {
-	resize: vertical;
+    resize: vertical;
 }
 
 
@@ -32,7 +32,7 @@ textarea {
             float: left;
             @include user-select;
         }
-     
+
         // Hide inputs off screen
         input {
             @include hide;

@@ -3,7 +3,7 @@
 // * @desc       Skinning for table styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
@@ -15,36 +15,38 @@ table {
     border-spacing: 0;
 }
 
-th {
-    padding: $table-header-padding;
-    background-color: $table-header-bg-color;
-}
-
-th, td {
+th,
+td {
     font-weight: normal;
     text-align: left;
     border: $table-cell-border;
 }
 
+th {
+    padding: $table-header-padding;
+    background-color: $table-header-bg-color;
+}
+
 td {
     padding: $table-cell-padding;
+
+    a[role="button"]
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    button {
+        padding: $table-button-padding;
+        margin: 0;
+    }
+
+    tfoot & {
+        padding: $table-footer-cell-padding;
+        border: 0;
+        border-top: 3px $table-cell-border-style $table-cell-border-color;
+    }
 }
 
-td a[role="button"]
-td input[type="button"],
-td input[type="reset"],
-td input[type="submit"],
-td button {
-    padding: $table-button-padding;
-    margin: 0;
-}
-
-tfoot td {
-    padding: $table-footer-cell-padding;
-    border: 0;
-    border-top: 3px $table-cell-border-style $table-cell-border-color;
-}
-
+// Table stripes
 table:not([class*="cui-no-stripes"]) tbody tr:nth-child(even) {
     background-color: $table-row-bg-alt-color;
 }
@@ -53,6 +55,10 @@ tbody tr:hover,
 table tbody tr:nth-child(even):hover {
     background-color: $table-row-bg-hover-color;
 }
+
+
+// * @section    Column width classes
+// * --------------------------------------------------------
 
 .cui-width-icon {
     width: 1px;

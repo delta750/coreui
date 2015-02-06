@@ -3,39 +3,29 @@
 // * @desc       Skinning for form and form tag styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
 // * @section    Form tags like input, select, textarea, etc.
 // * @todo       Add Proxima Nova + other default NYGOV fonts
 // * --------------------------------------------------------
-input,
+input:not([type="button"]):not([type="submit"]):not([type="reset"]),
 textarea,
-select,
-button {
+select {
     font: 100% $font-family;
     border-radius: $input-border-radius;
     border: $input-border;
+    padding: $input-padding;
     color: $dark-gray;
+    @include input-shadow;
     @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+
     &:focus{
-        border-color: #66afe9;
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+        border-color: $input-border-color-focus;
+        box-shadow: $input-boxshadow-focus;
         outline: 0;
     }
-}
-
-input,
-textarea,
-select {
-    padding: $input-padding;
-}
-
-input,
-select,
-textarea {
-    @include input-shadow;
 }
 
 input[type="checkbox"],
@@ -73,21 +63,21 @@ fieldset {
             border: $input-border;
             text-shadow: $white 0px 1px 0px;
             line-height: 1;
-     
+
             // Keep this line (must come after default `border` definition)
             border-right: none;
-     
+
             // First label in the group
             &:first-of-type {
                 border-top-left-radius: $input-border-radius;
                 border-bottom-left-radius: $input-border-radius;
             }
-     
+
             // Last label in the group
             &:last-of-type {
                 border-top-right-radius: $input-border-radius;
                 border-bottom-right-radius: $input-border-radius;
-     
+
                 // Color matches buttons styles
                 border-right: $input-border;
             }
@@ -97,7 +87,7 @@ fieldset {
                 background: $input-bg-hover-color;
             }
         }
-     
+
         // Highlighted label
         input:checked + label {
             // Color matches buttons styles
@@ -133,8 +123,8 @@ fieldset {
 
     input {
         border-radius: 0;
-    }    
- 
+    }
+
     .input-prepend,
     .input-append {
         border: $input-border;
@@ -143,19 +133,19 @@ fieldset {
         line-height: 1;
         padding: 7px 10px 8px 10px;
     }
- 
+
     .input-prepend {
         border-right: none;
         border-top-left-radius: $input-border-radius;
         border-bottom-left-radius: $input-border-radius;
     }
- 
+
     .input-append {
         border-left: none;
         border-top-right-radius: $input-border-radius;
         border-bottom-right-radius: $input-border-radius;
     }
-    
+
     // When currency keep number inside input closer to append
     &.cui-currency input {
         padding-right: 4px;

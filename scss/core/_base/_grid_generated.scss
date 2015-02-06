@@ -36,24 +36,24 @@ $columns: 12;
 
     }
 
-    // // Loop through again, this time creating the push
-    // @for $i from 1 to $totalColumns {
+    // Loop through again, this time creating the push
+    @for $i from 1 to $totalColumns {
 
-    //     // Create this column number and assign it the correct width.
-    //     .cui-#{$breakpointName}-push-#{$i} {
-    //         margin-left: column-width-calc($i, $totalColumns);
-    //     }
+        // Create this column number and assign it the correct width.
+        .cui-#{$breakpointName}-push-#{$i} {
+            margin-left: column-width-calc($i, $totalColumns);
+        }
 
-    // }
+    }
 
-    // // Loop through again, this time creating the pull
-    // @for $i from 1 to $totalColumns {
+    // Loop through again, this time creating the pull
+    @for $i from 1 to $totalColumns {
 
-    //     // Create this column number and assign it the correct width.
-    //     .cui-#{$breakpointName}-pull-#{$i} {
-    //         margin-right: column-width-calc($i, $totalColumns);
-    //     }
-    // }
+        // Create this column number and assign it the correct width.
+        .cui-#{$breakpointName}-pull-#{$i} {
+            margin-right: column-width-calc($i, $totalColumns);
+        }
+    }
 }
 
 /***
@@ -104,7 +104,7 @@ $columns: 12;
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:480px) {
+@media only screen and (min-width: $bp-tablet) {
     [class*="cui-col-md-"] {
         float: left;
     }
@@ -133,7 +133,7 @@ $columns: 12;
 
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width: 786px) {
+@media only screen and (min-width: $bp-desktop) {
     [class*="cui-col-lg-"] {
         float: left;
     }
