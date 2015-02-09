@@ -151,6 +151,14 @@ textarea {
         text-align: center;
     }
 
+    // When the input group is inside some other element besides `.cui-data`, for example `.cui-col-sm-12` or some other basic container
+    *:not(.cui-data) > & {
+        .input-prepend,
+        .input-append {
+            width: auto;
+        }
+    }
+
     .input-prepend {
         border-right: none;
         border-top-left-radius: $input-border-radius;
