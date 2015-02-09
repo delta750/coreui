@@ -194,4 +194,5 @@
     background-color: $input-bg-hover-color;
     text-shadow: $button-text-shadow;
     white-space: nowrap;
+    -webkit-font-smoothing: none;
 }
