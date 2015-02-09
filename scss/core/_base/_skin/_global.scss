@@ -10,7 +10,6 @@
 // * @todo       Add Proxima Nova + other default NYGOV fonts
 // * @see        http://css-tricks.com/rems-ems/ for font sizes
 // * --------------------------------------------------------
-html {
-    font: $font-size $font-family;
+body {
     color: $dark-gray;
 }

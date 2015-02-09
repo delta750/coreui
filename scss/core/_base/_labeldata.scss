@@ -3,7 +3,7 @@
 // * @desc       Skinning for labels and data styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
@@ -30,14 +30,14 @@
 // *                            gets longer than the label,
 // *                            the data here should remain
 // *                            in place and not move or wrap
-// *                            below the label. 
+// *                            below the label.
 // *
 // *             These wrappers are defaulted to table-cell
 // *             because we're assuming most labels will have
 // *             a specific fixed width, like 200px or 100em.
 // *             If the label is fixed in width, then the
 // *             data wrapper will use width: auto to comply
-// *             with fluid design. Because of this, we need 
+// *             with fluid design. Because of this, we need
 // *             to use table-cell in order to keep both divs
 // *             next to each other (left and right).
 // *             On the other hand, when the label and data
@@ -50,6 +50,8 @@ section .cui-data {
     display: table-cell;
 }
 
-.cui-required label:after {
-    content: "*";
+.cui-required {
+    label:after {
+        content: "*";
+    }
 }
