@@ -10,16 +10,12 @@
 // * @section    Form tag
 // * --------------------------------------------------------
 form {
-    height: 1%;
-    display: inline;
+    @include clearfix;
 }
 
 
 // * @section    Form tags like input, select, textarea, etc.
 // * --------------------------------------------------------
-textarea {
-    resize: vertical;
-}
 
 
 // * @section    Selection groups
