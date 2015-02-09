@@ -1,0 +1,190 @@
+@charset "UTF-8";
+/**
+ * @name       _menuBasic.scss
+ * @desc       Skinning for menu styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Default horizontal menu styles
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */
+.cui-menu-horizontal {
+	z-index: 10;
+}
+
+.cui-menu-horizontal-wrap {
+    width: 100%;
+}
+
+.cui-menu-horizontal a,
+.cui-menu-horizontal .cui-disabled,
+.cui-menu-horizontal .cui-filler {
+    line-height: 2.4em;
+    height: 2.4em;
+    padding-bottom: 0.1em;
+    font-size: 110%;
+    text-align: center;
+    text-decoration: none;
+    color: #111;
+    background: #D0D7DE url("../images/src/core/menu-normal-bg.png") top left repeat-x;
+}
+
+.cui-menu-horizontal a:hover {
+    color: #111;
+    background: #9FAFC4 url("../images/src/core/menu-over-bg.png") top left repeat-x;
+}
+
+.cui-menu-horizontal img {
+    position: absolute;
+    right: 0.75em;
+    top: 1.15em;
+}
+
+.cui-menu-horizontal .cui-sub-menu {
+    position: absolute;
+    top: 2.85em;
+    left: -1px;
+}
+
+.cui-menu-horizontal .cui-disabled {
+    color: #999;
+}
+
+.cui-menu-horizontal .cui-disabled img {
+    opacity: 0.50;
+    filter: alpha(opacity=50);
+}
+
+.cui-menu-horizontal .cui-sub-menu {
+    padding: 3px;
+    min-width: 184px;
+    border: 1px solid #9CAEBD;
+    border-bottom-width: 2px;
+    background-color: #F5F5F5;
+}
+
+.cui-menu-horizontal li {
+    border-top: 1px solid #9CAEBD;
+    border-bottom: 1px solid #9CAEBD;
+    border-right: 1px solid #B4C1CD;
+}
+
+.cui-menu-horizontal .cui-sub-menu li {
+    min-width: 184px;
+}
+
+.cui-menu-horizontal .cui-sub-menu li .cui-disabled {
+    color: #808080;
+}
+
+.cui-menu-horizontal .cui-sub-menu a,
+.cui-menu-horizontal .cui-sub-menu .cui-disabled {
+    line-height: normal;
+    height: auto;
+    padding: 3px 4px;
+    font-size: 100%;
+    font-weight: normal;
+    text-align: left;
+    min-width: 174px;
+    background: none;
+    border: 1px solid #F5F5F5;
+    color: #336699;
+}
+
+.cui-menu-horizontal .cui-sub-menu a:hover,
+.cui-menu-horizontal .cui-sub-menu a:visited:hover {
+    background: #DDE4E8;
+    border: 1px solid #B4C1CF;
+    color: #333;
+}
+
+.cui-menu-horizontal .cui-sub-menu a:visited {
+    color: #993399;
+}
+
+.cui-menu-horizontal .cui-clicked a {
+    background: #9FAFC4 url("../images/src/core/menu-over-bg.png") top left repeat-x;
+}
+
+.cui-menu-horizontal .cui-selected a {
+    color: #FFF;
+    background: #405264 url("../images/src/core/menu-select-bg.png") top left repeat-x;
+}
+
+/**
+ * --------------------------------------------------------
+ * @section    Default vertical menu styles
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */   
+.cui-menu-vertical a,
+.cui-menu-vertical .cui-disabled {
+    text-decoration: none;
+    padding: 0.5em 22px 0.6em 12px;
+    border-bottom: 1px solid #C9D2DC;
+    background: #F5F5F5;
+    color: #454545;
+}
+
+.cui-menu-vertical a:hover {
+    background: #E0E5ED;
+}
+
+.cui-menu-vertical li.cui-selected a {
+    background: #546C83;
+    color: #FFF;
+}
+
+.cui-menu-vertical img {
+    position: absolute;
+    right: 9px;
+    top: 11px;
+}
+
+.cui-menu-vertical ul li ul {
+    padding: 2px;
+    border-bottom: 1px solid #C9D2DC;
+    background: #FFF;
+}
+
+.cui-menu-vertical ul li ul a,
+.cui-menu-vertical ul li.cui-selected ul a,
+.cui-menu-vertical ul li ul .cui-disabled {
+    line-height: normal;
+    height: normal;
+    padding: 0.3em 14px 0.3em 17px;
+    border: 1px solid #FFF;
+    background: #FFF;
+    color: #336699;
+}
+
+.cui-menu-vertical ul li ul a:hover,
+.cui-menu-vertical ul li ul a:visited:hover {
+    border: 1px solid #B4C1CF;
+    background: #DDE4E8;
+    color: #454545;
+}
+
+.cui-menu-vertical ul li ul a:visited {
+    color: #993399;
+}
+
+.cui-menu-vertical ul li ul li.cui-selected a {
+    background: #FFE6B7;
+    border: 1px solid #E2912B;
+    color: #333;
+}
+
+.cui-menu-vertical .cui-disabled {
+    color: #808080;
+}
+
+.cui-menu-vertical .cui-disabled img {
+    opacity: 0.70;
+    filter: alpha(opacity=70);
+}

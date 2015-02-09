@@ -1,6 +1,6 @@
 //   ========================================================
-// * @name       _template.scss
-// * @desc       Specific structure styles
+// * @name       _skin/_template.scss
+// * @desc       Skinning for specific structure styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui     
@@ -8,13 +8,12 @@
 
 
 // * @section    Styles for specific structures
+// * @see        http://css-tricks.com/rems-ems/
 // * --------------------------------------------------------
 header,
 footer,
-main,
 section,
+main,
 nav {
-    width: 100%;
-    clear: both;
-    @include clearfix;
+    margin: $margin-center-h;
 }

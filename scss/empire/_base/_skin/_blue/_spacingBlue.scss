@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/**
+ * @name       spacing.css
+ * @desc       Spacing styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui
+ * @todo       Need these? Or spacing should be determined
+ *             by each pattern?   
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Margin spacing
+ * --------------------------------------------------------
+ */
+/**
+ * @subsection All margins
+ */
+.emp-marg-None   { margin: 0 !important; }
+.emp-marg-XXS    { margin: 2px !important; }
+.emp-marg-XS     { margin: 4px !important; }
+.emp-marg-S      { margin: 6px !important; }
+.emp-marg-M      { margin: 10px !important; }
+.emp-marg-L      { margin: 12px !important; }
+.emp-marg-XL     { margin: 15px !important; }
+.emp-marg-XXL    { margin: 20px !important; }
+/**
+ * @subsection Top margins
+ */
+.emp-marg-t-None { margin-top: 0 !important; }
+.emp-marg-t-XXS  { margin-top: 2px !important; }
+.emp-marg-t-XS   { margin-top: 4px !important; }
+.emp-marg-t-S    { margin-top: 6px !important; }
+.emp-marg-t-M    { margin-top: 10px !important; }
+.emp-marg-t-L    { margin-top: 12px !important; }
+.emp-marg-t-XL   { margin-top: 15px !important; }
+.emp-marg-t-XXL  { margin-top: 20px !important; }
+/**
+ * @subsection Right margins
+ */
+.emp-marg-r-None { margin-right: 0 !important; }
+.emp-marg-r-XXS  { margin-right: 2px !important; }
+.emp-marg-r-XS   { margin-right: 4px !important; }
+.emp-marg-r-S    { margin-right: 6px !important; }
+.emp-marg-r-M    { margin-right: 10px !important; }
+.emp-marg-r-L    { margin-right: 12px !important; }
+.emp-marg-r-XL   { margin-right: 15px !important; }
+.emp-marg-r-XXL  { margin-right: 20px !important; }
+/**
+ * @subsection Bottom margins
+ */
+.emp-marg-b-None { margin-bottom: 0 !important; }
+.emp-marg-b-XXS  { margin-bottom: 2px !important; }
+.emp-marg-b-XS   { margin-bottom: 4px !important; }
+.emp-marg-b-S    { margin-bottom: 6px !important; }
+.emp-marg-b-M    { margin-bottom: 10px !important; }
+.emp-marg-b-L    { margin-bottom: 12px !important; }
+.emp-marg-b-XL   { margin-bottom: 15px !important; }
+.emp-marg-b-XXL  { margin-bottom: 20px !important; }
+/**
+ * @subsection Left margins
+ */
+.emp-marg-l-None { margin-left: 0 !important; }
+.emp-marg-l-XXS  { margin-left: 2px !important; }
+.emp-marg-l-XS   { margin-left: 4px !important; }
+.emp-marg-l-S    { margin-left: 6px !important; }
+.emp-marg-l-M    { margin-left: 10px !important; }
+.emp-marg-l-L    { margin-left: 12px !important; }
+.emp-marg-l-XL   { margin-left: 15px !important; }
+.emp-marg-l-XXL  { margin-left: 20px !important; }
+
+/**
+ * --------------------------------------------------------
+ * @section    Padding spacing
+ * --------------------------------------------------------
+ */
+/**
+ * @subsection All paddings
+ */
+.emp-padd-None   { padding: 0 !important; }
+.emp-padd-XXS    { padding: 2px !important; }
+.emp-padd-XS     { padding: 4px !important; }
+.emp-padd-S      { padding: 6px !important; }
+.emp-padd-M      { padding: 10px !important; }
+.emp-padd-L      { padding: 12px !important; }
+.emp-padd-XL     { padding: 15px !important; }
+.emp-padd-XXL    { padding: 20px !important; }
+/**
+ * @subsection Top margins
+ */
+.emp-padd-t-None { padding-top: 0 !important; }
+.emp-padd-t-XXS  { padding-top: 2px !important; }
+.emp-padd-t-XS   { padding-top: 4px !important; }
+.emp-padd-t-S    { padding-top: 6px !important; }
+.emp-padd-t-M    { padding-top: 10px !important; }
+.emp-padd-t-L    { padding-top: 12px !important; }
+.emp-padd-t-XL   { padding-top: 15px !important; }
+.emp-padd-t-XXL  { padding-top: 20px !important; }
+/**
+ * @subsection Right margins
+ */
+.emp-padd-r-None { padding-right: 0 !important; }
+.emp-padd-r-XXS  { padding-right: 2px !important; }
+.emp-padd-r-XS   { padding-right: 4px !important; }
+.emp-padd-r-S    { padding-right: 6px !important; }
+.emp-padd-r-M    { padding-right: 10px !important; }
+.emp-padd-r-L    { padding-right: 12px !important; }
+.emp-padd-r-XL   { padding-right: 15px !important; }
+.emp-padd-r-XXL  { padding-right: 20px !important; }
+/**
+ * @subsection Bottom margins
+ */
+.emp-padd-b-None { padding-bottom: 0 !important; }
+.emp-padd-b-XXS  { padding-bottom: 2px !important; }
+.emp-padd-b-XS   { padding-bottom: 4px !important; }
+.emp-padd-b-S    { padding-bottom: 6px !important; }
+.emp-padd-b-M    { padding-bottom: 10px !important; }
+.emp-padd-b-L    { padding-bottom: 12px !important; }
+.emp-padd-b-XL   { padding-bottom: 15px !important; }
+.emp-padd-b-XXL  { padding-bottom: 20px !important; }
+/**
+ * @subsection Left margins
+ */
+.emp-padd-l-None { padding-left: 0 !important; }
+.emp-padd-l-XXS  { padding-left: 2px !important; }
+.emp-padd-l-XS   { padding-left: 4px !important; }
+.emp-padd-l-S    { padding-left: 6px !important; }
+.emp-padd-l-M    { padding-left: 10px !important; }
+.emp-padd-l-L    { padding-left: 12px !important; }
+.emp-padd-l-XL   { padding-left: 15px !important; }
+.emp-padd-l-XXL  { padding-left: 20px !important; }

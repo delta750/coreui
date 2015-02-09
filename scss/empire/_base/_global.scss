@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/**
+ * @name       _global.scss
+ * @desc       Global styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Additional resets
+ * @todo       Check if needed or old IE7 support
+ * --------------------------------------------------------
+ */
+body {
+    line-height: 1;
+    background: red !important;
+}
+
+legend {
+    white-space: normal;
+    display: inline-block;
+}
+
+/**
+ * --------------------------------------------------------
+ * @section    Browser inconsistencies
+ * @bugfix     Avoid box model inconsistencies
+ * --------------------------------------------------------
+ */
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

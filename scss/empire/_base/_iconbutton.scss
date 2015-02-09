@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/**
+ * @name       _iconbutton.scss
+ * @desc       Icon-based button styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Default icon-based button styles
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */
+.cui-icon-buttons {
+    position: absolute;
+}
+
+.cui-icon-buttons li {
+    float: left;
+}
+
+.cui-icon-buttons a {
+    display: inline-block;
+}

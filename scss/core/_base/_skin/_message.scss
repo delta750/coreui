@@ -1,0 +1,33 @@
+//   ========================================================
+// * @name       _skin/_message.scss
+// * @desc       Skinning for messages styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui     
+//   ========================================================
+
+
+// * @section    Messages for error, warning, success, etc.
+// * --------------------------------------------------------
+.cui-messages li {
+    width: 100%;
+    text-indent: 0;
+    list-style-type: none;
+    margin-bottom: 0.4em;
+}
+
+.cui-type-error {
+    color: $text-error;
+}
+
+.cui-type-warning {
+    color: $text-warning;
+}
+
+.cui-type-info {
+    color: $text-information;
+}
+
+.cui-type-success {
+    color: $text-success;
+}

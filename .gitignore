@@ -4,4 +4,4 @@ js/dist/
 *.sublime-*
 
 # Temp
-docs/
+local_docs/

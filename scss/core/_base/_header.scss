@@ -1,20 +1,19 @@
 //   ========================================================
-// * @name       _template.scss
-// * @desc       Specific structure styles
+// * @name       _header.scss
+// * @desc       H1-H6 default styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
-
-
-// * @section    Styles for specific structures
+ 
+ 
+// * @section    H1-H6
+// * @see        http://css-tricks.com/rems-ems/
 // * --------------------------------------------------------
-header,
-footer,
-main,
-section,
-nav {
-    width: 100%;
-    clear: both;
-    @include clearfix;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 }

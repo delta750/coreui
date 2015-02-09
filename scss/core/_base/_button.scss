@@ -1,20 +1,24 @@
 //   ========================================================
-// * @name       _template.scss
-// * @desc       Specific structure styles
+// * @name       _button.scss
+// * @desc       Button styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
 
-// * @section    Styles for specific structures
+// * @section    Default button styles
 // * --------------------------------------------------------
-header,
-footer,
-main,
-section,
-nav {
-    width: 100%;
-    clear: both;
-    @include clearfix;
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+	display: inline-block;
+    line-height: 1;
+}
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    @include box-sizing;
 }

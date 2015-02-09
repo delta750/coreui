@@ -1,20 +1,22 @@
 //   ========================================================
-// * @name       _template.scss
-// * @desc       Specific structure styles
+// * @name       _misc.scss
+// * @desc       Miscellaneous styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
 
-// * @section    Styles for specific structures
+// * @section    Miscellaneous default ui patterns
 // * --------------------------------------------------------
-header,
-footer,
-main,
-section,
-nav {
-    width: 100%;
-    clear: both;
-    @include clearfix;
+.cui-hidden {
+    display: none !important;
+}
+
+.cui-hide-from-screen {
+    @include hide;
+}
+
+.cui-no-wrap {
+    white-space: nowrap;
 }

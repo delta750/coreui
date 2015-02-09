@@ -1,20 +1,16 @@
 //   ========================================================
-// * @name       _template.scss
-// * @desc       Specific structure styles
+// * @name       _skin/_text.scss
+// * @desc       Skinning for text styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
 
-// * @section    Styles for specific structures
+// * @section    Text styles
 // * --------------------------------------------------------
-header,
-footer,
-main,
-section,
-nav {
-    width: 100%;
-    clear: both;
-    @include clearfix;
+p {
+    margin: 0;
+    padding-bottom: $paragraph-padding;
+    line-height: $text-line-height;
 }

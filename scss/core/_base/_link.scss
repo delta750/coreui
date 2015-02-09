@@ -1,20 +1,18 @@
 //   ========================================================
-// * @name       _template.scss
-// * @desc       Specific structure styles
+// * @name       _link.scss
+// * @desc       Anchor tag styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
 // * @see        https://github.com/nys-its/frg-coreui     
 //   ========================================================
 
 
-// * @section    Styles for specific structures
+// * @section    Link styles
 // * --------------------------------------------------------
-header,
-footer,
-main,
-section,
-nav {
-    width: 100%;
-    clear: both;
-    @include clearfix;
+a,
+a:link,
+a:visited,
+a:active,
+a:hover,
+a:focus {
 }

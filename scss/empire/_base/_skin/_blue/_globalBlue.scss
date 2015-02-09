@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/**
+ * @name       _globalBasic.scss
+ * @desc       Skinning for global styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Define base font types and adjustments
+ * @todo       Add Proxima Nova + other default NYGOV fonts
+ * @see        http://css-tricks.com/rems-ems/ for font sizes
+ * --------------------------------------------------------
+ */
+html {
+    font: 13px "Segoe UI", Tahoma, Arial, Consolas, sans-serif;
+    color: #333;
+}
+
+@media only screen and (min-width:480px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width:786px) {
+    html {
+        font-size: 15px;
+    }
+}

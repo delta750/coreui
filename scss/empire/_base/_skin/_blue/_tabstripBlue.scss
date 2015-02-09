@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/**
+ * @name       _tabstripBasic.scss
+ * @desc       Tabstrip structure styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/nys-its/frg-coreui/coreui     
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Default tabstrip styles
+ * @todo       Extract eMPIRE-specific styles
+ * --------------------------------------------------------
+ */
+.cui-tab-strip {
+    background: #FFF url("../images/src/core/tabstrip-bg.png") bottom left repeat-x;
+}
+
+.cui-tab-strip li {
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.cui-tab-strip li {
+    margin-left: 2px;
+}
+
+.cui-tab-strip a {
+    padding: 4px 9px 6px 9px;
+    margin-top: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: bottom;
+    background: #E9E9E9 url("../images/src/core/tabstrip-tab-bg.png") bottom left repeat-x !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FBFBFB), to(#DFDFDF)) fixed;
+    background-image: -webkit-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    background-image:    -moz-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    background-image:     -ms-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    background-image:      -o-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    border: 1px solid #757575;
+    border-bottom: 0px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #555;
+}
+
+.cui-tab-strip a:hover {
+    color: #FFF;
+    background: #E9E9E9 url("../images/src/core/tabstrip-tab-over-bg.png") bottom left repeat-x !important;
+}
+
+.cui-tab-strip a.selected {
+    padding-top: 8px;
+    margin-top: 0;
+	cursor: default;
+    background: #E4E4E4 url("../images/src/core/tabstrip-tab-selected-bg.png") top left repeat-x !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#B6B6B6), to(#E4E4E4)) fixed;
+    background-image: -webkit-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    background-image:    -moz-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    background-image:     -ms-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    background-image:      -o-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    border-bottom: 0;
+    color: #454545;
+}
