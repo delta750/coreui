@@ -27,15 +27,18 @@ legend {
 
 .cui-label {
     padding-right: 0.2em;
+    cursor: default; // Ensures all "labels" get the same arrowhead cursor whether or not they contain a `<label>` element
 }
 
 .cui-data {
     padding-left: 0.2em;
 }
 
-.cui-required label:after {
-    color: $required-red;
-    font: $font-required;
-    font-weight: $font-weight-semibold;
-    margin-left: 0.2em;
+.cui-required {
+    label:after {
+        color: $required-red;
+        font: $font-required;
+        font-weight: $font-weight-semibold;
+        margin-left: 0.2em;
+    }
 }
