@@ -3,11 +3,29 @@
 // * @desc       Messages styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
 // * @section    Messages for error, warning, success, etc.
 // * --------------------------------------------------------
+
+// List containing messages
 .cui-messages {
+}
+
+// Message item
+[class*="cui-message-"] {
+}
+
+// Error message item
+.cui-message-error {
+}
+
+// Warning message item
+.cui-message-warning {
+}
+
+// Informational message item
+.cui-message-info {
 }
