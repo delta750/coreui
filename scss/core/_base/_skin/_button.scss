@@ -36,13 +36,5 @@ input[type="submit"]:hover {
 // * @desc      Primary button
 // * --------------------------------------------------------
 .cui-button-primary {
-    color: $white;
-    border: $button-primary-border;
-    background-color: $button-primary-bg-color;
-    text-shadow: $button-primary-text-shadow;
-}
-
-.cui-button-primary:hover {
-    border-color: $button-primary-border-hover-color;
-    background-color: $button-primary-bg-hover-color;
+    @include button-primary;
 }

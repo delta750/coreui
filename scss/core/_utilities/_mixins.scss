@@ -196,3 +196,31 @@
     white-space: nowrap;
     -webkit-font-smoothing: none;
 }
+
+@mixin button-primary {
+    color: $white;
+    border: $button-primary-border;
+    background-color: $button-primary-bg-color;
+    text-shadow: $button-primary-text-shadow;
+    -webkit-font-smoothing: none;
+
+    &:hover {
+        @include button-primary-hover;
+    }
+
+    &:active {
+        @include button-primary-active;
+    }
+}
+
+@mixin button-primary-hover {
+    color: $white; // Repeated for elements that only include this mixin and not the basic primary styles
+    border-color: $button-primary-border-hover-color;
+    background-color: $button-primary-bg-hover-color;
+}
+
+@mixin button-primary-active {
+    color: $white; // Repeated for elements that only include this mixin and not the basic primary styles
+    background-color: $button-primary-bg-color;
+    text-shadow: $button-primary-text-shadow;
+}
