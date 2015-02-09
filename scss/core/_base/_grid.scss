@@ -3,7 +3,7 @@
 // * @desc       Responsive grid styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
@@ -39,13 +39,6 @@
 [class*="cui-filler-col-"],
 .cui-clearfix {
     @include clearfix;
-}
-
-
-// * @section    Hide columns
-// * --------------------------------------------------------
-.cui-hide-col-sm {
-    display: none;
 }
 
 
@@ -113,15 +106,6 @@
         overflow: hidden;
     }
 
-    .cui-hide-col-md {
-        display: none;
-    }
-
-    .cui-hide-col-sm,
-    .cui-hide-col-lg {
-        display: block;
-    }
-
     .cui-col-md-12 {
         width: 100%;
     }
@@ -183,15 +167,6 @@
         float: none;
         width: auto;
         overflow: hidden;
-    }
-
-    .cui-hide-col-lg {
-        display: none;
-    }
-
-    .cui-hide-col-sm,
-    .cui-hide-col-md {
-        display: block;
     }
 
     .cui-col-lg-12 {

@@ -36,6 +36,11 @@
     }
 }
 
+// Force an item to be completely hidden
+@mixin hide-forced {
+    display: none !important;
+}
+
 // Hide an element in place. Try to use this as much as possible
 // (rather than `hide-off-screen`) because it won't cause side
 // effects with the viewport and doesn't resort to hacks
@@ -69,6 +74,36 @@
     color: transparent;
     text-indent: -9999em;
 }
+
+// // Force an element to be displayed
+// @mixin show-forced($class) {
+//     // Only render if a class was provided
+//     @if $dir != "" {
+//         // Default display type (inherit from parent)
+//         .#{$class} {
+//             display: inherit !important;
+//         }
+
+//         // Inline elements
+//         span.#{$class},
+//         a.#{$class} {
+//             display: inline !important;
+//         }
+
+//         // List elements
+//         li.#{$class} {
+//             display: list-item !important;
+//         }
+
+//         // Inline blocks
+//         input.#{$class},
+//         button.#{$class},
+//         select.#{$class},
+//         textarea.#{$class} {
+//             display: inline-block !important;
+//         }
+//     }
+// }
 
 @mixin box-sizing($val: border-box) {
     -moz-box-sizing: $val;

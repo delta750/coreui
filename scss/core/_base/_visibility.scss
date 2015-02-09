@@ -1,0 +1,45 @@
+//   ========================================================
+// * @name       _misc.scss
+// * @desc       Miscellaneous styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui
+//   ========================================================
+
+
+// * @section    General hide/show classes
+// * --------------------------------------------------------
+.cui-hidden {
+    @include hide-forced;
+}
+
+.cui-hide-from-screen {
+    @include hide;
+}
+
+
+// * @section    Small screen hide/show classes
+// * --------------------------------------------------------
+@media (max-width: $bp-tablet-minus) {
+    .cui-hide-for-sm {
+        display: none !important;
+    }
+}
+
+
+// * @section    Medium screen hide/show classes
+// * --------------------------------------------------------
+@media (min-width: $bp-tablet) and (max-width: $bp-desktop-minus) {
+    .cui-hide-for-md {
+        display: none !important;
+    }
+}
+
+
+// * @section    Large screen hide/show classes
+// * --------------------------------------------------------
+@media (min-width: $bp-desktop) {
+    .cui-hide-for-lg {
+        display: none !important;
+    }
+}

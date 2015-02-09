@@ -92,14 +92,9 @@ $columns: 12;
     @include clearfix;
 }
 
-// * @section    Hide columns
-// * --------------------------------------------------------
-.cui-hide-col-sm {
-    display: none;
-}
 
-// // * @section    Mobile-first (small) default column widths
-// // * --------------------------------------------------------
+// * @section    Mobile-first (small) default column widths
+// * --------------------------------------------------------
 @include build-grid("sm", $columns);
 
 // * @section    Tablet (medium) column widths
@@ -113,15 +108,6 @@ $columns: 12;
         float: none;
         width: auto;
         @include clearfix;
-    }
-
-    .cui-hide-col-md {
-        display: none;
-    }
-
-    .cui-hide-col-sm,
-    .cui-hide-col-lg {
-        display: block;
     }
 
     @include build-grid("md", $columns);
@@ -142,15 +128,6 @@ $columns: 12;
         float: none;
         width: auto;
         overflow: hidden;
-    }
-
-    .cui-hide-col-lg {
-        display: none;
-    }
-
-    .cui-hide-col-sm,
-    .cui-hide-col-md {
-        display: block;
     }
 
     @include build-grid("lg", $columns);
