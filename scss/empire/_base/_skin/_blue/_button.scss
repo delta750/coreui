@@ -1,16 +1,22 @@
 //   ========================================================
 // * @name       _button.scss
-// * @desc       Skinning for buttons
+// * @desc       Skinning for empire buttons
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20150206
 //   ========================================================
 
 
-// * @section    Logo
+// * @section    Button styles  
 // * --------------------------------------------------------
+[class*="emp-button-"] {
+    //
+}
 
-.emp-button-XXS {
-    width: 25px;
+.emp-button-send-id,
+.emp-button-switch {
+    display: block;
+    width: 5.2em;
+    margin: 0.5em 0 0 0;  
 }
 
 .emp-button-XS {

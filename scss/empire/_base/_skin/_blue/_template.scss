@@ -1,0 +1,27 @@
+//   ========================================================
+// * @name       _template.scss
+// * @desc       Specific structure styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150206
+//   ========================================================
+
+
+// * @section    Styles for specific structures
+// * --------------------------------------------------------
+#form_tp_info {
+    width: auto;
+    padding: 0.8em;
+    margin: 0.8em;
+    border: 1px solid #BED0D8;
+    border-width: 1px;
+    border-radius: 2px;
+    background-color: #EFF3F5;   
+}
+
+// * @section    Fixed width structures
+// * --------------------------------------------------------
+[class$="-100"] {
+    width: 100px;
+    min-width: 100px;
+}
+    

@@ -6,7 +6,7 @@
     <link href="../../css/core/core.css" rel="stylesheet" type="text/css" media="all">
     <link href="../../css/empire/empire.css" rel="stylesheet" type="text/css" media="all">
     <script src="../../js/dist/core.js"></script>
-    <script src="../../js/dist/empire.js"></script>
+    <!--<script src="../../js/dist/empire.js"></script>-->
     
     <!-- #################### -->
     <!-- FRAMEWORK CODE (JSP) -->
@@ -25,30 +25,23 @@
 
     <header>
         <!-- Main menu -->
-        <div class="cui-row">
-            <!-- ============================================================================ -->
-            <!-- Need to fix cui-fix-col-* + cui-filler-col-* that has rows/cols inside of it -->
-            <!-- ============================================================================ -->
-            <div class="cui-fixed-col-sm-200" id="emp-logo">
-                <!-- Logo placeholder -->
-                <span class="cui-hide-from-screen">eMPIRE logo placeholder</span>
-            </div>
-            <div class="cui-filler-col-sm">
-                <div class="cui-row">
-                    <nav class="cui-col-sm-12" id="emp-menu-main">
-                        <!-- Menu placeholder -->
-                        Menu placeholder
-                    </nav>
+        <div class="cui-fixed-col-sm-200" id="emp-logo">
+            <!-- Logo placeholder -->
+            <span class="cui-hide-from-screen">eMPIRE logo placeholder</span>
+        </div>
+        <div class="cui-filler-col-sm">
+            <nav id="emp-menu-main">
+                <!-- Menu placeholder -->
+                Menu placeholder
+            </nav>
+            <!-- Title and secondary menu -->
+            <div class="cui-row">
+                <div class="cui-col-sm-8 emp-tabset-title">
+                    <h1>Tabset menu title</h1>
                 </div>
-                <!-- Title and secondary menu -->
-                <div class="cui-row">
-                    <div class="cui-col-sm-8 emp-tabset-title">
-                        <h1>Tabset menu title</h1>
-                    </div>
-                    <div class="cui-col-sm-4 emp-preferences">
-                        <!-- Menu placeholder -->
-                        Preferences menu placeholder
-                    </div>
+                <div class="cui-col-sm-4 emp-preferences">
+                    <!-- Menu placeholder -->
+                    Preferences menu placeholder
                 </div>
             </div>
         </div>
@@ -60,63 +53,66 @@
 
     <form class="cui-row" name="form_tp_info" id="form_tp_info" action="www.tax.ny.gov" method="post">
         <!-- Buttons -->
-        <div class="cui-col-sm-2">
-            <button class="emp-button-send-id emp-button-S" tabindex="1">Send ID</button>
-            <button class="emp-button-switch emp-button-S" tabindex="1">Switch</button>
+        <div class="cui-fixed-col-sm-100">
+            <button class="emp-button-send-id" tabindex="1">Send ID</button>
+            <button class="emp-button-switch" tabindex="1">Switch</button>
         </div>
 
         <!-- Taxpayer info -->
         <!-- The emp-tpinfo-* classes used at this level are for distinguishing buttons that may appear for both taxpayers (e.g. legal rep) -->
-        <div class="cui-col-sm-5 emp-tpinfo-main">
+        <div class="cui-filler-col-sm emp-tpinfo">
             <!-- Main taxpayer -->
             <div class="cui-row">
-                <div class="cui-col-sm-12">
-                    <div class="cui-label">ID:</div>
-                    <div class="cui-data">
-                        <span>123-45-6789 (IND)</span>
-                        <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
-                        <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
-                        <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
-                        <button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>
+                <div class="cui-col-sm-6 emp-tpinfo-main">
+                    <div class="cui-row">
+                        <div class="cui-col-sm-12">
+                            <div class="cui-label">ID:</div>
+                            <div class="cui-data">
+                                <span>123-45-6789 (IND)</span>
+                                <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
+                                <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
+                                <!--<button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
+                                <button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cui-row">
+                        <div class="cui-col-sm-12">
+                            <div class="cui-label">Name:</div>
+                            <div class="cui-data">Peter L. Griffin</div>
+                        </div>
+                    </div>
+                    <div class="cui-row">
+                        <div class="cui-col-sm-12">
+                            <div class="cui-label">Address:</div>
+                            <div class="cui-data">
+                                <span>31 Spooner Street, Albany, NY 12227</span>
+                                <button type="button" class="cui-icon emp-icon-diff-mail" title="Mailing address is different" tabindex="1">Mailing address is different</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="cui-row">
-                <div class="cui-col-sm-12">
-                    <div class="cui-label">Name:</div>
-                    <div class="cui-data">Peter L. Griffin</div>
-                </div>
-            </div>
-            <div class="cui-row">
-                <div class="cui-col-sm-12">
-                    <div class="cui-label">Address:</div>
-                    <div class="cui-data">
-                        <span>31 Spooner Street, Albany, NY 12227</span>
-                        <button type="button" class="cui-icon emp-icon-diff-mail" title="Mailing address is different" tabindex="1">Mailing address is different</button>
+                <!-- Joint taxpayer -->
+                <div class="cui-col-sm-6 emp-tpinfo-joint">
+                    <div class="cui-row">
+                        <div class="cui-col-sm-12">
+                            <div class="cui-label">Associated ID:</div>
+                            <div class="cui-data">
+                                <span>234-56-7890 (IND)</span>
+                                <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
+                                <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
+                                <button type="button" class="cui-icon emp-icon-data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
+                                <button type="button" class="cui-icon emp-icon-list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
+                                <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
+                            </div>
+                        </div>
+                        <div class="cui-row">
+                            <div class="cui-col-sm-12">
+                                <div class="cui-label">Associated Name:</div>
+                                <div class="cui-data">Lois Griffin</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Joint taxpayer -->
-        <div class="cui-col-sm-5 emp-tpinfo-joint">
-            <div class="cui-row">
-                <div class="cui-col-sm-12">
-                    <div class="cui-label">Associated ID:</div>
-                    <div class="cui-data">
-                        <span>234-56-7890 (IND)</span>
-                        <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
-                        <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
-                        <button type="button" class="cui-icon emp-icon-data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
-                        <button type="button" class="cui-icon emp-icon-list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
-                        <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
-                    </div>
-                </div>
-            </div>
-            <div class="cui-row">
-                <div class="cui-col-sm-12">
-                    <div class="cui-label">Associated Name:</div>
-                    <div class="cui-data">Lois Griffin</div>
                 </div>
             </div>
         </div>

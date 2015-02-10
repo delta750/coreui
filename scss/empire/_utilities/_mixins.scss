@@ -63,6 +63,13 @@
     top: 0 !important;
 }
 
+// Hides the inner text of an element (e.g. for icons)
+@mixin hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 @mixin box-sizing($val: border-box) {
     -moz-box-sizing: $val;
          box-sizing: $val;
