@@ -5,8 +5,8 @@
 //    * _mixins
 //    * global
 
-@import "_utilities/_variables";
-@import "_utilities/_mixins";
+@import "../_settings";
+@import "../_utilities/_mixins";
 @import "_base/_global";
 @import "_base/_skin/_blue/_global";
 @import "_base/_header";
