@@ -1,15 +1,18 @@
 //   ========================================================
-// * @name       _global.scss
-// * @desc       Global styles
+// * @name       _skin/_text.scss
+// * @desc       Skinning for text styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20150206
 //   ========================================================
 
 
-// * @section    Logo
+// * @section    Text styles
 // * --------------------------------------------------------
-#emp-logo {
-	background: transparent url($images-path + "logo.png") 10px 4px no-repeat;
-	min-width: 155px;
-	height: 60px;
+body,
+input,
+select,
+textarea,
+button {
+    font-size: $font-size;
+    font-family: $font-family;
 }
