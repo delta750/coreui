@@ -128,8 +128,8 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/core/core.css':             'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css':         'src/scss/empire/empire.scss'
+                    'dist/css/core/core.css':     'src/scss/core/core.scss',
+                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
 
