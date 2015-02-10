@@ -19,21 +19,21 @@ module.exports = function(grunt) {
 
         jsCore = [
             // Main file(s)
-            'js/src/core/**/*.js',
+            'src/js/core/**/*.js',
         ],
 
         jsComponents = [
-            'js/src/components/**/*.js'
+            'src/js/components/**/*.js'
         ],
 
-		 jsEmpire = [
-            'js/src/empire/**/*.js'
+        jsEmpire = [
+            'src/js/empire/**/*.js'
         ],
 
         // All JS files that will be included in the HTML (i.e. js/core.js)
         jsBuild = [
             // Libraries
-            'js/src/vendor/**/*.js',
+            'src/js/vendor/**/*.js',
         ]
         // Add Core files
         .concat(jsCore),
@@ -91,7 +91,7 @@ module.exports = function(grunt) {
 
             dev: {
                 files: {
-                    'js/dist/core.js': jsBuild,
+                    'dist/js/core.js': jsBuild,
                 },
             },
 
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'js/dist/core.js': jsBuild,
+                    'dist/js/core.js': jsBuild,
                 },
             },
         },
@@ -128,17 +128,16 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'css/core/core.css': 'scss/core/core.scss',
-                    'css/components/components.css': 'scss/components/components.scss',
-                    'css/empire/empire.css': 'scss/empire/empire.scss'
+                    'dist/css/core/core.css':             'src/scss/core/core.scss',
+                    'dist/css/empire/empire.css':         'src/scss/empire/empire.scss'
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'css/core/core.css': 'scss/core/core.scss',
-                    'css/empire/empire.css': 'scss/empire/empire.scss'
+                    'dist/css/core/core.css':     'src/scss/core/core.scss',
+                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
         },
@@ -152,8 +151,8 @@ module.exports = function(grunt) {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['css/core/core.css'],
-                dest: 'css/core/core.css',
+                src: ['dist/css/core/core.css'],
+                dest: 'dist/css/core/core.css',
             },
         },
 
@@ -176,7 +175,7 @@ module.exports = function(grunt) {
 
             sass: {
                 files: [
-                    'scss/**/*.scss',
+                    'src/scss/**/*.scss',
                 ],
                 tasks: [
                     'sass:dev',
@@ -208,8 +207,8 @@ module.exports = function(grunt) {
         clean: {
             // Temporary files and development goodies
             prod: [
-                'css/**/*.map',
-                'js/**/*.map',
+                'src/**/*.map',
+                'dist/**/*.map',
                 '.sass-cache/',
             ],
         },

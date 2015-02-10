@@ -21,9 +21,9 @@
 //    * table
 //    * text
 
-@import "_utilities/_variables";
-@import "_utilities/_fonts";
-@import "_utilities/_mixins";
+@import "../_settings";
+@import "../_utilities/_fonts";
+@import "../_utilities/_mixins";
 @import "_vendor/_normalize";
 @import "_base/_global";
 @import "_base/_skin/_global";
