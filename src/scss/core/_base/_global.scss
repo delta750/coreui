@@ -1,0 +1,30 @@
+//   ========================================================
+// * @name       _global.scss
+// * @desc       Global styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui
+//   ========================================================
+
+
+// * @section    Additional resets
+// * --------------------------------------------------------
+body {
+    line-height: 1;
+    @include clearfix;
+}
+
+legend {
+    white-space: normal;
+    display: inline-block;
+}
+
+
+// * @section    Browser inconsistencies
+// * @bugfix     Avoid box model inconsistencies
+// * --------------------------------------------------------
+*,
+*:after,
+*:before {
+    @include box-sizing;
+}

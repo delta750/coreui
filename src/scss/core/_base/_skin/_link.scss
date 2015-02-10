@@ -1,0 +1,25 @@
+//   ========================================================
+// * @name       _skin/_link.scss
+// * @desc       Skinning for anchor tag styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui
+//   ========================================================
+
+
+// * @section    Default link styles
+// * --------------------------------------------------------
+a,
+a:link,
+a:active,
+a:visited,
+a:focus {
+    color: $light-blue;
+    font-weight: $font-weight-semibold;
+    text-decoration: none;
+}
+
+a:hover,
+a:visited:hover {
+    text-decoration: underline;
+}

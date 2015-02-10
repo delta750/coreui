@@ -1,0 +1,150 @@
+//   ========================================================
+// * @name       _utilities/_mixins.scss
+// * @desc       sass mixins
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150204
+// * @see        https://github.com/nys-its/frg-coreui     
+//   ========================================================
+
+
+// * @section    General
+// * --------------------------------------------------------
+@mixin no-padding-margin {
+    padding: 0;
+    margin: 0;
+}
+
+@mixin input-shadow {
+    box-shadow: rgba(0,0,0,0.1) 0px 1px 1px 0px inset;
+}
+
+@mixin transition($val...) {
+    -webkit-transition: $val;
+            transition: $val;
+}
+
+@mixin transform($val) {
+    -webkit-transform: $val;
+        -ms-transform: $val;
+            transform: $val;
+}
+
+@mixin clearfix {
+    &:after {
+       content: "";
+       display: table;
+       clear: both;
+    }
+}
+
+// Hide an element in place. Try to use this as much as possible
+// (rather than `hide-off-screen`) because it won't cause side
+// effects with the viewport and doesn't resort to hacks
+@mixin hide {
+    display: block !important;
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip: rect(0 0 0 0) !important;
+}
+
+// Hide an element by pushing it out of the viewport, to the left
+// This is necessary in some cases where the element may change
+// state and cause undesirable side effects. For example, if you
+// used `hide` on an input field, tapping on its label in Android
+// would cause an odd, seamingly misplaced blue flash as the input
+// temporarily gained focus.
+// Note that this may cause performance issues due to some
+// browsers considering the page to be 9999em wide, thereby using
+// more memory for visual rendering.
+@mixin hide-left {
+    display: block !important;
+    position: absolute !important;
+    left: -9999em !important;
+    top: 0 !important;
+}
+
+// Hides the inner text of an element (e.g. for icons)
+@mixin hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@mixin box-sizing($val: border-box) {
+    -moz-box-sizing: $val;
+         box-sizing: $val;
+}
+
+// Simple 2-color gradient
+@mixin vertical-gradient($top: transparent, $bottom: transparent) {
+    background-image: -webkit-linear-gradient(top, $top, $bottom);
+    background-image:         linear-gradient(to bottom, $top, $bottom);
+}
+
+// Gradient with more than 2 color stops
+@mixin vertical-gradient-multiple($val...) {
+    background-image: -webkit-linear-gradient($val);
+    background-image:         linear-gradient($val);
+}
+
+// Enable GPU acceleration when available. Use only on
+// animated/transitioned elements (rather than `<body>`
+// or other large containers)
+@mixin enable-gpu {
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translate3d(0, 0, 0);
+}
+
+// Prevent the user from selecting text
+// http://caniuse.com/user-select-none
+@mixin user-select($type: none) {
+    -webkit-user-select: $type;
+       -moz-user-select: $type;
+        -ms-user-select: $type;
+            user-select: $type;
+}
+
+
+// * @section    Sticky positioning
+// * --------------------------------------------------------
+// Must specify a `top` value and no parent may have `overflow: hidden`
+@mixin position-sticky {
+    position: -webkit-sticky;
+    position:         sticky;
+}
+
+
+// * @section    Triangle ◄ ▲ ► ▼
+// * @see        http://css-tricks.com/snippets/css/css-triangle/
+// * --------------------------------------------------------
+// To make equilateral:
+// border-bottom-width = 0.866% * (border-left-width + border-right-width)
+@mixin triangle($dir: "down", $size: 10px, $color: black) {
+    width: 0;
+    height: 0;
+
+    @if $dir == "up" {
+        border-bottom: $size solid $color;
+        border-left:   $size solid transparent;
+        border-right:  $size solid transparent;
+        border-top:  none;
+    }
+    @elseif $dir == "right" {
+        border-left:   $size solid $color;
+        border-top:    $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right:  none;
+    }
+    @elseif $dir == "left" {
+        border-right:  $size solid $color;
+        border-top:    $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left:  none;
+    }
+    @else {
+        border-top:   $size solid $color;
+        border-left:  $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom:  none;
+    }
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Template - Core UI</title>
-    <link href="../../css/core/core.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../dist/css/core/core.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body>
     <!-- Skip navigation for accessibility purposes -->
@@ -125,7 +125,7 @@
                         Button:
                     </div>
                     <div class="cui-col-sm-12">
-                        <button class="cui-primary" value="abc" tabindex="1">Go</button>
+                        <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
                         <button type="button" value="xyz" tabindex="1">Cancel</button>
                     </div>
                 </div>
@@ -219,6 +219,13 @@
                             <input type="text" id="name_middle" size="1" maxlength="1" value="Q" tabindex="1">
                             <label for="name_last" class="cui-hide-from-screen">Last</label>
                             <input type="text" id="name_last" size="20" maxlength="30" value="Public" tabindex="1">
+                            <label for="name_suffix" class="cui-hide-from-screen">Suffix</label>
+                            <select id="name_suffix" tabindex="1">
+                                <option></option>
+                                <option>Sr</option>
+                                <option>Jr</option>
+                                <option selected>Ph.D.</option>
+                            </select>
                         </div>
                     </div>
                 </fieldset>
@@ -226,10 +233,10 @@
                 <div class="cui-row">
                     <div class="cui-col-sm-12">
                         <div class="cui-label">
-                            <label for="taxType">Tax type:</label>
+                            <label for="taxType2">Tax type:</label>
                         </div>
                         <div class="cui-data">
-                            <select id="taxType" tabindex="1">
+                            <select id="taxType2" tabindex="1">
                                 <option selected="selected" value="1">Personal income</option>
                                 <option value="2">Sales</option>
                                 <option value="3">Corporation</option>
@@ -243,7 +250,7 @@
                             Button:
                         </div>
                         <div class="cui-data">
-                            <button class="cui-primary" value="abc" tabindex="1">Go</button>
+                            <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
                             <button type="button" value="xyz" tabindex="1">Cancel</button>
                         </div>
                     </div>
@@ -284,6 +291,24 @@
                             <div class="cui-input-wrapper cui-currency">
                                 <span class="input-prepend">$</span>
                                 <input type="text" id="targetAmount4" value="1,908" tabindex="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-sm-12">
+                        <div class="cui-label">
+                            <label for="targetAmount5">Target Amount:</label>
+                        </div>
+                        <div class="cui-data">
+                            <div class="cui-input-wrapper cui-currency">
+                                <span class="input-prepend">$</span>
+                                <select id="targetAmount5" tabindex="1">
+                                    <option>1.00</option>
+                                    <option>2.00</option>
+                                    <option>3.00</option>
+                                    <option>4.00</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -413,7 +438,7 @@
             <section>
                 <div class="cui-row">
                     <div class="cui-col-sm-12 cui-center">
-                        <button class="cui-primary">Submit</button>
+                        <button class="cui-button-primary">Submit</button>
                     </div>
                 </div>
             </section>

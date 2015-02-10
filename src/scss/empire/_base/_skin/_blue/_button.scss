@@ -1,0 +1,44 @@
+//   ========================================================
+// * @name       _button.scss
+// * @desc       Skinning for empire buttons
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150206
+//   ========================================================
+
+
+// * @section    Button styles  
+// * --------------------------------------------------------
+[class*="emp-button-"] {
+    //
+}
+
+.emp-button-send-id,
+.emp-button-switch {
+    display: block;
+    width: 5.2em;
+    margin: 0.5em 0 0 0;  
+}
+
+.emp-button-XS {
+    width: 35px;
+}
+
+.emp-button-S {
+    min-width: 60px;
+}
+
+.emp-button-M {
+    width: 90px;
+}
+
+.emp-button-L {
+    width: 120px;
+}
+
+.emp-button-XL {
+    width: 150px;
+}
+
+.emp-button-XXL {
+    width: 200px;
+}

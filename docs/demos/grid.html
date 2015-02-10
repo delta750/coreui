@@ -1,568 +1,516 @@
 <!doctype html>
-
 <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Simple Grid</title>
+        <link href="../../dist/css/core/core.css" rel="stylesheet" type="text/css" media="all">
 
-	<head>
-		<title>Simple Grid</title>
-		<meta charset="utf-8">
-		<link href="../../css/core/core.css" rel="stylesheet" type="text/css" media="all">
+        <style>
+            body {
+                padding: 1em 0;
+            }
+            .content {
+                background: #ddd;
+                padding: 2px;
+                text-align: center;
+            }
+        </style>
+    </head>
 
-		<style>
-			.content {
-				background: #ccc;
-				padding: 10px;
-			}
-		</style>
-	</head>
+    <body>
+        <div class="cui-row">
+            <div class="cui-col-sm-12">
+                <p>Current breakpoint:
+                    <strong class="cui-hide-for-md cui-hide-for-lg">small</strong>
+                    <strong class="cui-hide-for-sm cui-hide-for-lg">medium</strong>
+                    <strong class="cui-hide-for-sm cui-hide-for-md">large</strong>
+                </p>
+            </div>
+        </div>
+        <!-- Grid 1/2 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-6">
+                <div class="content">6</div>
+            </div>
+            <div class="cui-col-sm-6">
+                <div class="content">6</div>
+            </div>
+        </div>
+        <!-- Grid 1/3 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+        </div>
+        <!-- Grid 1/4 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+        </div>
+        <!-- Grid 1/6 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+        </div>
+        <!-- Grid 1/12 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12">
+                <div class="content">12</div>
+            </div>
+        </div>
 
-	<body>
-		<!-- Grid 2/3 and 1/3-->
-		<div class="cui-row">
-			<div class="cui-col-1-1">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/2 -->
-		<div class="cui-row">
-			<div class="cui-col-1-2 mobile-cui-col-1-2">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-2 mobile-cui-col-1-2">
-				<div class="content">
-				</div>
-			</div>
+        <!-- Pairs -->
+        <div class="cui-row">
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-11">
+                <div class="content">11</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-10">
+                <div class="content">10</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-9">
+                <div class="content">9</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-8">
+                <div class="content">8</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-5">
+                <div class="content">5</div>
+            </div>
+            <div class="cui-col-sm-7">
+                <div class="content">7</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-6">
+                <div class="content">6</div>
+            </div>
+            <div class="cui-col-sm-6">
+                <div class="content">6</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-7">
+                <div class="content">7</div>
+            </div>
+            <div class="cui-col-sm-5">
+                <div class="content">5</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-8">
+                <div class="content">8</div>
+            </div>
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-9">
+                <div class="content">9</div>
+            </div>
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-10">
+                <div class="content">10</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-11">
+                <div class="content">11</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12">
+                <div class="content">12</div>
+            </div>
+        </div>
 
-			<div class="cui-col-1-2 mobile-cui-col-1-1">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-2 mobile-cui-col-1-2 hide-on-mobile">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/3 -->
-		<div class="cui-row">
-			<div class="cui-col-1-3 mobile-cui-col-1-3">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-3 mobile-cui-col-1-3">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-3 mobile-cui-col-1-3">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/3 -->
-		<div class="cui-row">
-			<div class="cui-col-1-3 mobile-cui-col-1-3 push-1-3">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-3 mobile-cui-col-1-3 push-1-3">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/4 -->
-		<div class="cui-row">
-			<div class="cui-col-1-4">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-4">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-4 hide-on-mobile">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-4 hide-on-mobile">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/5 -->
-		<div class="cui-row">
-			<div class="cui-col-1-5">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-5">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-5">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-5">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-5">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/6 -->
-		<div class="cui-row">
-			<div class="cui-col-1-6">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-6">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-6">
-				<div class="content">
+        <!-- Three columns with equal outer columns -->
+        <div class="cui-row">
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-4">
+                <div class="content">4</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-6">
+                <div class="content">6</div>
+            </div>
+            <div class="cui-col-sm-3">
+                <div class="content">3</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-8">
+                <div class="content">8</div>
+            </div>
+            <div class="cui-col-sm-2">
+                <div class="content">2</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-10">
+                <div class="content">10</div>
+            </div>
+            <div class="cui-col-sm-1">
+                <div class="content">1</div>
+            </div>
+        </div>
 
-				</div>
-			</div>
-			<div class="cui-col-1-6">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-6">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-6">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/7 -->
-		<div class="cui-row">
-			<div class="cui-col-1-7">
-				<div class="content">
+        <h2>Responsive</h2>
+                <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-6">
+                <div class="content">6</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-6">
+                <div class="content">6</div>
+            </div>
+        </div>
+        <!-- Grid 1/3 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+        </div>
+        <!-- Grid 1/4 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+        </div>
+        <!-- Grid 1/6 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+        </div>
+        <!-- Grid 1/12 -->
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-12">
+                <div class="content">12</div>
+            </div>
+        </div>
 
-				</div>
-			</div>
-			<div class="cui-col-1-7">
-				<div class="content">
+        <!-- Pairs -->
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-11">
+                <div class="content">11</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-10">
+                <div class="content">10</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-9">
+                <div class="content">9</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-8">
+                <div class="content">8</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-5">
+                <div class="content">5</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-7">
+                <div class="content">7</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-6">
+                <div class="content">6</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-6">
+                <div class="content">6</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-7">
+                <div class="content">7</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-5">
+                <div class="content">5</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-8">
+                <div class="content">8</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-9">
+                <div class="content">9</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-10">
+                <div class="content">10</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-11">
+                <div class="content">11</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-12">
+                <div class="content">12</div>
+            </div>
+        </div>
 
-				</div>
-			</div>
-			<div class="cui-col-1-7">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-7">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-7">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-7">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-7">
-				<div class="content">
-
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/8 -->
-		<div class="cui-row">
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-8">
-				<div class="content">
-
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/9 -->
-		<div class="cui-row">
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-9">
-				<div class="content">
-
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/10 -->
-		<div class="cui-row">
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-10">
-				<div class="content">
-
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/11 -->
-		<div class="cui-row">
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-11">
-				<div class="content">
-
-				</div>
-			</div>
-		</div>
-		<!-- Grid 1/12 -->
-		<div class="cui-row">
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-
-				</div>
-			</div>
-		</div>
-		<!-- 11/12 and 1/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-1-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-11-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 10/12 and 2/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-2-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-10-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 9/12 and 3/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-3-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-9-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 8/12 and 4/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-4-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-8-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 7/12 and 5/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-5-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-7-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 6/12 and 6/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-6-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-6-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 7/12 and 5/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-7-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-5-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 8/12 and 4/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-8-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-4-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 9/12 and 3/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-9-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-3-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 10/12 and 2/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-10-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-2-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- 11/12 and 1/12 layout -->
-		<div class="cui-row">
-			<div class="cui-col-11-12">
-				<div class="content">
-				</div>
-			</div>
-			<div class="cui-col-1-12">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-	</body>
-
+        <!-- Three columns with equal outer columns -->
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-4">
+                <div class="content">4</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-6">
+                <div class="content">6</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-3">
+                <div class="content">3</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-8">
+                <div class="content">8</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-2">
+                <div class="content">2</div>
+            </div>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-10">
+                <div class="content">10</div>
+            </div>
+            <div class="cui-col-sm-12 cui-col-lg-1">
+                <div class="content">1</div>
+            </div>
+        </div>
+    </body>
 </html>

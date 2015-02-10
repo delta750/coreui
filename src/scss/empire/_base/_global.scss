@@ -1,0 +1,15 @@
+//   ========================================================
+// * @name       _global.scss
+// * @desc       Global styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150206
+//   ========================================================
+
+
+// * @section    Logo
+// * --------------------------------------------------------
+#emp-logo {
+	background: transparent url($images-path + "logo.png") 10px 4px no-repeat;
+	min-width: 155px;
+	height: 60px;
+}
