@@ -32,7 +32,7 @@
 .cui-filler-col-sm {
     float: none;
     width: auto;
-    @include clearfix;
+    overflow: hidden;
 }
 
 .cui-row,
