@@ -93,6 +93,7 @@ module.exports = function(grunt) {
                 files: {
                     'dist/js/core/core.js': jsBuild,
                     'dist/js/empire/empire.js': jsEmpire,
+                    'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
                 },
             },
 
@@ -107,6 +108,7 @@ module.exports = function(grunt) {
                 files: {
                     'dist/js/core/core.js': jsBuild,
                     'dist/js/empire/empire.js': jsEmpire,
+                    'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
                 },
             },
         },
@@ -131,7 +133,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
+                    'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
             },
 
@@ -139,7 +142,8 @@ module.exports = function(grunt) {
             prod: {
                 files: {
                     'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
+                    'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
             },
         },
