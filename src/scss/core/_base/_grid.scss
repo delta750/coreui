@@ -15,6 +15,11 @@
 .cui-row {
     width: 100%;
     clear: both;
+    margin: $grid-row-margin;
+}
+
+[class*="cui-col-"] {
+    min-height: 1.5em;
 }
 
 [class*="cui-col-sm-"],
@@ -29,6 +34,14 @@
     @include clearfix;
 }
 
+[class*="cui-col-"],
+[class*="cui-fixed-col-"],
+[class*="cui-filler-col-"],
+section > header,
+nav > header {
+    padding: $grid-column-padding;
+}
+
 .cui-filler-col-sm {
     float: none;
     width: auto;
@@ -40,7 +53,6 @@
 .cui-clearfix {
     @include clearfix;
 }
-
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------

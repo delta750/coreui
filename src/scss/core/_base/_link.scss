@@ -3,7 +3,7 @@
 // * @desc       Anchor tag styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui     
+// * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
 
@@ -11,8 +11,15 @@
 // * --------------------------------------------------------
 a,
 a:link,
-a:visited,
 a:active,
-a:hover,
+a:visited,
 a:focus {
+    color: $light-blue;
+    font-weight: $font-weight-semibold;
+    text-decoration: none;
+}
+
+a:hover,
+a:visited:hover {
+    text-decoration: underline;
 }

@@ -12,6 +12,7 @@
 body {
     line-height: 1;
     @include clearfix;
+    color: $dark-gray;
 }
 
 legend {
