@@ -44,6 +44,22 @@ $emp-images-path:          "../../../src/images/empire/" !default;
 
 // * @section    Sections
 // * --------------------------------------------------------
+$section-padding:      0 !default;
+$section-margin:       0.7em 0.5em !default;
+
+$section-row-margin:   0 auto 10px auto !default;
+
+$section-border-color: $light-gray-alt !default;
+$section-border-width: 1px !default;
+$section-border-style: solid !default;
+$section-border:       $section-border-color $section-border-width $section-border-style !default;
+
+$section-header-border-color: darken($section-border-color, 10%) !default;
+$section-header-border-width: $section-border-width !default;
+$section-header-border-style: $section-border-style !default;
+$section-header-border:       $section-header-border-color $section-header-border-width $section-header-border-style !default;
+
+$section-header-bgcolor: $light-gray !default;
 
 
 // * @section    Text (<p>, free text, etc.)

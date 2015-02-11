@@ -4,7 +4,7 @@
  * @desc       Skinning section styles
  * @author     Manolo Farfan
  * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
+ * @see        https://github.com/nys-its/frg-coreui/coreui
  */
 
 /**
@@ -13,239 +13,38 @@
  * @todo       Extract eMPIRE-specific styles
  * --------------------------------------------------------
  */
-.cui-section {
-    padding: 0 !important;
-    border: 1px solid #97B5C1;
-}
+section {
+    border-color: #97B5C1;
 
-.cui-section-header {
-    padding: 0.35em 0 0.25em 0;
-    border-bottom: 1px solid #97B5C1;
-    background: #EBF0F3 url("../images/src/core/section-header-bg.png") top left repeat-x;
-}
+    & > header {
+        border-bottom-color: 1px solid #97B5C1;
+        background-color: #EBF0F3;
 
-.cui-section-header .cui-col {
-    padding: 0 !important;
-}
+        h3 {
+        }
+    }
 
-.cui-section-body {
-    width: auto;
-}
+    // Sub-section
+    section {
+        border-color: #BED0D8;
+    }
 
-/* This might vary if the padding/margin of line/col change */
-.cui-section-body .cui-empty-line {
-    height: 2.19em;
-    line-height: 2.19em;
-}
+    // Sub-sub-section
+    section section {
+        border-color: #CADADF;
 
-/* Changing this will affect cui-empty-line so make sure you update that too */
-.cui-section .cui-line,
-.cui-section-body .cui-line {
-    margin: 0;
-}
+        & > header {
+            border-bottom-color: #CADADF;
+            background-color: #F5F7F8;
+        }
+    }
 
-/* Changing this will affect cui-empty-line so make sure you update that too */
-.cui-section-body .cui-line .cui-col {
-    padding: 4px 0 2px 0;
-    margin: 1px 0;
-}
+    // Sub-sub-sub-section (level 4)
+    section section section {
+        & > header {
 
-.cui-section .cui-section {
-    border: 1px solid #BED0D8;
-}
-
-.cui-section .cui-section .cui-section-header {
-    padding: 0.25em 0 0.15em 0;
-}
-
-.cui-section-header-title {
-    margin-left: 0.3em !important;
-    border-bottom: 1px solid #BED0D8;
-    background: #E9EDEF url("../images/src/core/section-header-2-bg.png") top left repeat-x;
-}
-
-.cui-section .cui-section .cui-section-header-title {
-    font-size: 93%;
-}
-
-.cui-section .cui-section .cui-section {
-    border: 1px solid #CADADF;
-}
-
-.cui-section .cui-section .cui-section .cui-section-header {
-    padding: 0.15em 0 0.05em 0;
-    border-bottom: 1px solid #CADADF;
-    background: #F5F7F8 url("../images/src/core/section-header-3-bg.png") top left repeat-x;
-}
-
-.cui-section .cui-section .cui-section .cui-section-header-title {
-    font-size: 86%;
-}
-
-.cui-section .cui-section .cui-section .cui-section .cui-section-header {
-    padding: 0.05em 0 0 0;
-}
-
-.cui-section .cui-section .cui-section .cui-section .cui-section-header-title {
-    font-size: 79%;
-}
-
-.cui-section-footer {
-    width: auto;
-}
-
-/**
- * --------------------------------------------------------
- * @section    Widget (extends section) styles
- * @todo       Extract eMPIRE-specific styles
- * --------------------------------------------------------
- */
-.cui-widget {
-    margin-top: 8px;
-    border: none !important;
-    border-radius: 0;
-}
-
-.cui-widget .cui-section-header {
-    padding: 0;
-    font-size: 100% !important;
-}
-
-.cui-widget h2 {
-    margin: 0 0.3em;
-    padding: 0.5em 0.4em;
-    font-size: 100%;
-    font-weight: bold;
-}
-
-.cui-widget .cui-section-body {
-    margin: 0;
-    padding: 6px 10px;
-}
-
-.cui-widget-1 .cui-section-body {
-    border-style: solid;
-    border-color: #9FB0C1;
-    border-width: 0 1px;
-}
-
-.cui-widget-1 .cui-section-footer-middle {
-    border-bottom: 1px solid #9FB0C1;
-}
-
-.cui-widget-1 .cui-section-footer-middle,
-.cui-widget-2 .cui-section-footer-middle {
-    margin: 0 3px;
-    padding: 1px 0;
-}
-
-.cui-widget-1 .cui-section-header {
-    border-style: solid;
-    border-color: #9FB0C1;
-    border-width: 1px 0;
-}
-
-
-.cui-widget-1 .cui-section-header-left {
-    background: transparent url("../images/src/core/widget-top-left.png") top left no-repeat;
-}
-
-.cui-widget-1 .cui-section-header-right {
-    background: transparent url("../images/src/core/widget-top-right.png") top right no-repeat;
-}
-
-.cui-widget-1 .cui-section-footer-left {
-    background: transparent url("../images/src/core/widget-bottom-left.png") bottom left no-repeat;
-}
-
-.cui-widget-1 .cui-section-footer-right {
-    background: transparent url("../images/src/core/widget-bottom-right.png") bottom right no-repeat;
-}
-
-.cui-widget-1 h2 {
-    background: #DBE0E4 url("../images/src/core/widget-top-middle.png") top left repeat-x;
-    color: #364454;
-}
-
-
-.cui-widget .cui-widget .cui-section-header {
-    border-top: 0;
-    background: none;
-}
-
-.cui-widget-2 .cui-widget .cui-section-body {
-    padding: 0 0 0 18px;
-}
-
-.cui-widget-2 h2 {
-    background: #E9E9E9 url("../images/src/core/widget-top-middle-sub.png") top left repeat-x;
-    color: #505050;
-}
-
-.cui-widget-2 h3 {
-    margin: 0;
-    padding: 0.3em 0em !important;
-    font-size: 100%;
-    font-weight: bold !important;
-    border: 0;
-    color: #5F5F5F;
-}
-
-.cui-widget-2 h4 {
-    margin: 0;
-    padding: 1em 0em 0.3em 0;
-    font-size: 100%;
-    font-weight: bold !important;
-    border: 0;
-    color: #666666;
-}
-
-.cui-widget-2 .cui-section-header {
-    border-style: solid;
-    border-color: #BFBFBF !important;
-    border-width: 1px 0;
-}
-
-.cui-widget-2 .cui-widget .cui-section-header-left,
-.cui-widget-2 .cui-widget .cui-section-header-right {
-    background: none;
-}
-
-.cui-widget-2 .cui-section-header-left {
-    background: transparent url("../images/src/core/widget-top-left-sub.png") top left no-repeat;
-}
-
-.cui-widget-2 .cui-section-header-right {
-    background: transparent url("../images/src/core/widget-top-right-sub.png") top right no-repeat;
-}
-
-.cui-widget-2 .cui-section-body {
-    border-style: solid;
-    border-color: #BFBFBF;
-    border-width: 0 1px;
-}
-
-.cui-widget-2 .cui-widget .cui-section-body {
-    border: 0;
-}
-
-.cui-widget-2 .cui-section-footer-left {
-    background: transparent url("../images/src/core/widget-bottom-left-sub.png") bottom left no-repeat;
-}
-
-.cui-widget-2 .cui-section-footer-right {
-    background: transparent url("../images/src/core/widget-bottom-right-sub.png") bottom right no-repeat;
-}
-
-
-.cui-widget-2 .cui-section-footer-middle {
-    border-bottom: 1px solid #BFBFBF;
-}
-
-.cui-widget-2 .cui-widget .cui-section-footer-left, .cui-widget-2 .cui-widget .cui-section-footer-right {
-    background: none;
-}
-
-.cui-widget-2 .cui-widget .cui-section-footer-middle {
-    border-bottom: 0;
+            h3 {
+            }
+        }
+    }
 }

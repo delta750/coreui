@@ -82,6 +82,8 @@ $input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 
 // * @section    Grid
 // * --------------------------------------------------------
 $grid-gutter-width:    10px !default;
+$grid-row-margin:      0 auto $grid-gutter-width auto !default;
+$grid-column-padding:  0 $grid-gutter-width !default;
 
 
 // * @section    Headers
@@ -91,11 +93,11 @@ $header-padding:       0 0 0.4em 0 !default;
 
 // * @section    Sections
 // * --------------------------------------------------------
-$section-padding:      0.7em 0 !default;
 
 
 // * @section    Text (<p>, free text, etc.)
 // * --------------------------------------------------------
+
 $text-line-height:    1.4 !default;
 $paragraph-padding:   0.7em !default;
 
