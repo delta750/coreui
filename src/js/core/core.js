@@ -5,24 +5,21 @@
  Core script (mainly utilities) to be used across projects
 =======================================================================
 */
+define(['jquery'], function() {
 
-var cui = cui || {};
+  // Create the namespace
+  var cui = {};
 
-/* ----------------------------------------
-   .cui.namespace
-   ---------------------------------------- */
-
-/**
- * Non-destructive implementation for creating namespaces or adding properties inside of them
- *
- * @param   {String}  namespace  Namespace to be registered
- * @param   {Object}  parent     Parent of namespace
- *
- * @return  {Object}             Parent of namespace
- */
-cui.namespace = function _namespace(namespace, parent) {
-    var parts = namespace.split('.'),
-        i;
+  /**
+   * Non-destructive implementation for creating namespaces or adding properties inside of them
+   *
+   * @param   {String}  namespace  Namespace to be registered
+   * @param   {Object}  parent     Parent of namespace
+   *
+   * @return  {Object}             Parent of namespace
+   */
+  cui.namespace = function _namespace(namespace, parent) {
+    var parts = namespace.split('.'), i;
 
     parent = parent || cui;
 
@@ -41,6 +38,16 @@ cui.namespace = function _namespace(namespace, parent) {
     }
 
     return parent;
-};
 
-cui.namespace('component');
+  }
+
+  /**
+   * Simple script init function that needs to run on every page that uses the core ui framework
+   */
+  cui.init = function() {
+    console.log('Loaded cui namespace');
+  }
+
+  return cui;
+
+});

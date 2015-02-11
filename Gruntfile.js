@@ -11,38 +11,7 @@ module.exports = function(grunt) {
                    '<%= pkg.author.name %>\n */\n',
 
         // This banner will appear at the top style sheets
-        cssBanner = '@charset "utf-8";\n' + jsBanner,
-
-        //////////////////////////
-        // Lists of asset files //
-        //////////////////////////
-
-        jsCore = [
-            // Main file(s)
-            'src/js/core/**/*.js',
-        ],
-
-        jsComponents = [
-            'src/js/components/**/*.js'
-        ],
-
-        jsEmpire = [
-            'src/js/empire/**/*.js'
-        ],
-
-        // All JS files that will be included in the HTML (i.e. js/core.js)
-        jsBuild = [
-            // Libraries
-            'src/js/vendor/**/*.js',
-        ]
-        // Add Core files
-        .concat(jsCore),
-
-        // Scripts to be linted (i.e. every JS file that we hand-code)
-        jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
-
-        // Scripts to watch for changes (add compiled files to the main list)
-        jsToWatch = jsToLint;
+        cssBanner = '@charset "utf-8";\n' + jsBanner;
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -75,7 +44,7 @@ module.exports = function(grunt) {
                     Modernizr: true
                 },
             },
-            files: jsToLint,
+            files: '/src/js/core.js',
         },
 
         // Minify and concatenate JS files
@@ -90,23 +59,17 @@ module.exports = function(grunt) {
             },
 
             dev: {
-                files: {
-                    'dist/js/core.js': jsBuild,
-                },
+                files: [{
+                  expand: true,
+                  cwd: 'src/js',
+                  src: '**/*.js',
+                  dest: 'dist/js',
+                  flatten: true,
+                }]
             },
 
             // No source maps or console logging
-            prod: {
-                options: {
-                    sourceMap: false,
-                    compress: {
-                        drop_console: true,
-                    }
-                },
-                files: {
-                    'dist/js/core.js': jsBuild,
-                },
-            },
+            // prod will need to be handled by the grunt require too.
         },
 
         // Styles
@@ -128,16 +91,16 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/core/core.css':     'src/scss/core/core.scss'
+                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/core/core.css':     'src/scss/core/core.scss'
+                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
         },
@@ -166,7 +129,7 @@ module.exports = function(grunt) {
             },
 
             scripts: {
-                files: jsToWatch,
+                files: 'src/js/**/*.js',
                 tasks: [
                     'jshint',
                     'uglify:dev',
@@ -229,7 +192,7 @@ module.exports = function(grunt) {
         grunt.task.run([
             'sass:prod',
             'jshint',
-            'uglify:prod',
+            //'uglify:prod',
             'concat',
             'clean:prod',
         ]);
@@ -258,7 +221,7 @@ module.exports = function(grunt) {
     grunt.registerTask('server', 'Server', function(args) {
         grunt.task.run([
             'connect',
-            'watch:noop',
+            'watch',
         ]);
     });
 
