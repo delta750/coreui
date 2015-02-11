@@ -1,10 +1,6 @@
 // sass files
 // ---------------------------------
-// Need to start with these in order
-//    * _variables
-//    * _mixins
-//    * global
-
+@import "_settings";
 @import "../_settings";
 @import "../_utilities/_mixins";
 @import "_base/_global";

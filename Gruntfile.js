@@ -11,7 +11,44 @@ module.exports = function(grunt) {
                    '<%= pkg.author.name %>\n */\n',
 
         // This banner will appear at the top style sheets
+<<<<<<< HEAD
         cssBanner = '@charset "utf-8";\n' + jsBanner;
+=======
+        cssBanner = '@charset "utf-8";\n' + jsBanner,
+
+        //////////////////////////
+        // Lists of asset files //
+        //////////////////////////
+
+        jsCore = [
+            // Main file(s)
+            'src/js/core/**/*.js',
+        ],
+
+        jsComponents = [
+            'src/js/components/**/*.js'
+        ],
+
+        jsEmpire = [
+            'src/js/empire/**/*.js'
+        ],
+
+        // All JS files that will be included in the HTML (i.e. js/core.js)
+        jsBuild = [
+                // Libraries
+                'src/js/vendor/**/*.js',
+                // But not html5shiv
+                '!src/js/vendor/html5shiv.js',
+            ]
+            // Add Core files
+            .concat(jsCore),
+
+        // Scripts to be linted (i.e. every JS file that we hand-code)
+        jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
+
+        // Scripts to watch for changes (add compiled files to the main list)
+        jsToWatch = jsToLint;
+>>>>>>> master
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -69,6 +106,12 @@ module.exports = function(grunt) {
             },
 
             prod: {
+              options: {
+                  sourceMap: false,
+                  compress: {
+                      drop_console: true,
+                  }
+              },
               files: [{
                 expand: true,
                 cwd: 'src/js',
@@ -78,8 +121,6 @@ module.exports = function(grunt) {
               }]
             }
 
-            // No source maps or console logging
-            // prod will need to be handled by the grunt require too.
         },
 
         // Styles
@@ -232,6 +273,7 @@ module.exports = function(grunt) {
             'requirejs',
             'uglify:prod',
             'concat',
+            'copy',
             'clean:prod',
         ]);
     });
@@ -244,6 +286,7 @@ module.exports = function(grunt) {
             'jshint',
             'uglify:dev',
             'concat',
+            'copy',
             'connect',
             'watch'
         ]);
