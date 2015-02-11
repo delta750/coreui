@@ -32,11 +32,11 @@ module.exports = function(grunt) {
 
         // All JS files that will be included in the HTML (i.e. js/core.js)
         jsBuild = [
-            // Libraries
-            'src/js/vendor/**/*.js',
-        ]
-        // Add Core files
-        .concat(jsCore),
+                // Libraries
+                'src/js/vendor/**/*.js',
+            ]
+            // Add Core files
+            .concat(jsCore),
 
         // Scripts to be linted (i.e. every JS file that we hand-code)
         jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
@@ -91,7 +91,9 @@ module.exports = function(grunt) {
 
             dev: {
                 files: {
-                    'dist/js/core.js': jsBuild,
+                    'dist/js/core/core.js': jsBuild,
+                    'dist/js/empire/empire.js': jsEmpire,
+                    'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
                 },
             },
 
@@ -104,7 +106,9 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'dist/js/core.js': jsBuild,
+                    'dist/js/core/core.js': jsBuild,
+                    'dist/js/empire/empire.js': jsEmpire,
+                    'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
                 },
             },
         },
@@ -129,7 +133,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
+                    'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
             },
 
@@ -137,7 +142,8 @@ module.exports = function(grunt) {
             prod: {
                 files: {
                     'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
+                    'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
             },
         },
