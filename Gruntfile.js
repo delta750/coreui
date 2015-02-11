@@ -34,6 +34,8 @@ module.exports = function(grunt) {
         jsBuild = [
                 // Libraries
                 'src/js/vendor/**/*.js',
+                // But not html5shiv
+                '!src/js/vendor/html5shiv.js',
             ]
             // Add Core files
             .concat(jsCore),
@@ -91,9 +93,15 @@ module.exports = function(grunt) {
 
             dev: {
                 files: {
+                    // Core
                     'dist/js/core/core.js': jsBuild,
+
+                    // Empire
                     'dist/js/empire/empire.js': jsEmpire,
+
+                    //Components and  standalone scripts
                     'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
+                    'dist/js/vendor/html5shiv.js': 'src/js/vendor/html5shiv.js',
                 },
             },
 
@@ -106,9 +114,15 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
+                    // Core
                     'dist/js/core/core.js': jsBuild,
+
+                    // Empire
                     'dist/js/empire/empire.js': jsEmpire,
+
+                    //Components and standalone scripts
                     'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
+                    'dist/js/vendor/html5shiv.js': 'src/js/vendor/html5shiv.js',
                 },
             },
         },
@@ -247,6 +261,7 @@ module.exports = function(grunt) {
             'jshint',
             'uglify:prod',
             'concat',
+            'copy',
             'clean:prod',
         ]);
     });
@@ -259,6 +274,7 @@ module.exports = function(grunt) {
             'jshint',
             'uglify:dev',
             'concat',
+            'copy',
             'connect',
             'watch'
         ]);
