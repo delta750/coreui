@@ -10,6 +10,7 @@ require.config({
     // Included libraries
     paths: {
         'jquery': 'jquery',
+        'core': 'core'
     },
 
     // Libraries that need to be exposed in the global scope.
@@ -18,11 +19,4 @@ require.config({
             exports: '$'
         }
     }
-});
-
-require(['core'], function(cui) {
-
-  // Execute it right away!
-  cui.init();
-
 });

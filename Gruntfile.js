@@ -68,6 +68,16 @@ module.exports = function(grunt) {
                 }]
             },
 
+            prod: {
+              files: [{
+                expand: true,
+                cwd: 'src/js',
+                src: ['**/*.js', '!**/vendor/require.js', '!**/core/config.js'], // Ignore jquery and require because they are built together
+                dest: 'dist/js',
+                flatten: true
+              }]
+            }
+
             // No source maps or console logging
             // prod will need to be handled by the grunt require too.
         },
@@ -186,6 +196,23 @@ module.exports = function(grunt) {
             ],
         },
 
+        // Production build ofjavascript resources
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: "src/js",
+                    name: 'core/config',
+                    paths: {
+                        requireLib: 'vendor/requirejs',
+                        jquery: 'vendor/jquery'
+                    },
+                    include: 'requireLib',
+                    out: 'dist/js/core-opt.js'
+                }
+            }
+        },
+
+
     });
     // End of plugin configuration
     // Next we define the tasks we want to use
@@ -202,7 +229,8 @@ module.exports = function(grunt) {
         grunt.task.run([
             'sass:prod',
             'jshint',
-            //'uglify:prod',
+            'requirejs',
+            'uglify:prod',
             'concat',
             'clean:prod',
         ]);
