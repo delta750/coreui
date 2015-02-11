@@ -7,7 +7,7 @@
         "name": "New York State Finance, Regulation & Gaming Cluster",
         "email": "tax.dl.UISupport@its.ny.gov"
     },
-    "repository": "https://github.com/nys-its/frg-coreui",
+    "repository": "https://github.com/ny/frg-coreui",
     "devDependencies": {
         "grunt": "^0.4.5",
         "grunt-sass": "^0.16.1",
