@@ -454,9 +454,26 @@
 
     <script id="require" data-main="../../dist/js/config" src="../../dist/js/requirejs.js"></script>
     <script>
-      require(['core'], function(cui) {
+      require(['jquery', 'core'], function($, cui) {
 
-        cui.init();
+        $(document).ready(function(){
+
+          // Setup the default framework bindings
+          cui.init();
+
+          // Request our common application script file
+          require(['project'], function(app) {
+
+            app.init(function() {
+
+              console.log("page code should go here.");
+
+            });
+
+
+          });
+
+        });
 
       });
     </script>
