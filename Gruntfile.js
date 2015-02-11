@@ -2,53 +2,16 @@
 module.exports = function(grunt) {
     var
 
-        // Banner for JavaScript files
-        // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-        jsBanner = '/*! <%= pkg.title %>\n' +
-                   ' *  @description  <%= pkg.description %>\n' +
-                   ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-                   ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-                   '<%= pkg.author.name %>\n */\n',
+    // Banner for JavaScript files
+    // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
+    jsBanner = '/*! <%= pkg.title %>\n' +
+               ' *  @description  <%= pkg.description %>\n' +
+               ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+               ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+               '<%= pkg.author.name %>\n */\n',
 
-        // This banner will appear at the top style sheets
-<<<<<<< HEAD
-        cssBanner = '@charset "utf-8";\n' + jsBanner;
-=======
-        cssBanner = '@charset "utf-8";\n' + jsBanner,
-
-        //////////////////////////
-        // Lists of asset files //
-        //////////////////////////
-
-        jsCore = [
-            // Main file(s)
-            'src/js/core/**/*.js',
-        ],
-
-        jsComponents = [
-            'src/js/components/**/*.js'
-        ],
-
-        jsEmpire = [
-            'src/js/empire/**/*.js'
-        ],
-
-        // All JS files that will be included in the HTML (i.e. js/core.js)
-        jsBuild = [
-                // Libraries
-                'src/js/vendor/**/*.js',
-                // But not html5shiv
-                '!src/js/vendor/html5shiv.js',
-            ]
-            // Add Core files
-            .concat(jsCore),
-
-        // Scripts to be linted (i.e. every JS file that we hand-code)
-        jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
-
-        // Scripts to watch for changes (add compiled files to the main list)
-        jsToWatch = jsToLint;
->>>>>>> master
+    // This banner will appear at the top style sheets
+    cssBanner = '@charset "utf-8";\n' + jsBanner;
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
