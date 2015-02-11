@@ -154,6 +154,16 @@ module.exports = function(grunt) {
             },
         },
 
+        copy: {
+            fonts: {
+                expand: true,
+                cwd: 'src/fonts',
+                src: ['**'],
+                dest: 'dist/fonts/',
+                filter: 'isFile'
+            },
+        },
+
         // Local server
         // Go to http://localhost:8888 in your browser to use it
         // https://github.com/gruntjs/grunt-contrib-connect
