@@ -32,11 +32,11 @@ module.exports = function(grunt) {
 
         // All JS files that will be included in the HTML (i.e. js/core.js)
         jsBuild = [
-            // Libraries
-            'src/js/vendor/**/*.js',
-        ]
-        // Add Core files
-        .concat(jsCore),
+                // Libraries
+                'src/js/vendor/**/*.js',
+            ]
+            // Add Core files
+            .concat(jsCore),
 
         // Scripts to be linted (i.e. every JS file that we hand-code)
         jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
@@ -91,7 +91,8 @@ module.exports = function(grunt) {
 
             dev: {
                 files: {
-                    'dist/js/core.js': jsBuild,
+                    'dist/js/core/core.js': jsBuild,
+                    'dist/js/empire/empire.js': jsEmpire,
                 },
             },
 
@@ -104,7 +105,8 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'dist/js/core.js': jsBuild,
+                    'dist/js/core/core.js': jsBuild,
+                    'dist/js/empire/empire.js': jsEmpire,
                 },
             },
         },
