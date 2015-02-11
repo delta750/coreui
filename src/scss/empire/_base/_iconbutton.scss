@@ -44,6 +44,7 @@
     background: transparent url("../../../images/common/notifier-popup.png") center right no-repeat;
 }
 
+// General header indicators
 .emp-tpinfo .cui-data span {
     display: inline-block;
     line-height: 2;
@@ -51,11 +52,14 @@
 
 .emp-indicator-1, .emp-indicator-2 {
     position: relative;
-    border-radius: 3px;
-    font-weight: $font-weight-semibold;
     width: 1.5em;
     height: 1.5em;
-    margin-top: 0.2em;
+    background-color: #CC0000;
+    border: 1px solid #454545;
+    border-radius: 3px;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    margin: 0.2em 0 0 0.3em;
     vertical-align: top;
     @include hide-text;
 }
@@ -72,15 +76,4 @@
     color: $white;
     top: -0.1em;
     left: -0.1em;
-}
-
-.emp-indicator-1 {
-    background: #CC0000 url("../../../images/common/indicators.png") top left repeat-x;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#D88F81), to(#CC1500)) fixed;
-    background-image: -webkit-linear-gradient(top, #D88F81 0%, #CC1500 100%);
-    background-image:    -moz-linear-gradient(top, #D88F81 0%, #CC1500 100%);
-    background-image:     -ms-linear-gradient(top, #D88F81 0%, #CC1500 100%);
-    background-image:      -o-linear-gradient(top, #D88F81 0%, #CC1500 100%);
-    border: 1px solid #663333;
-    color: #FFF;
 }

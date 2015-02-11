@@ -69,10 +69,9 @@
 
 // Hides the inner text of an element (e.g. for icons)
 @mixin hide-text {
-    display: inline-block;
-    font-size: 0;
-    color: transparent;
-    text-indent: -9999em;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 // // Force an element to be displayed
