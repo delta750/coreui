@@ -80,3 +80,12 @@ section {
         }
     }
 }
+
+.emp-section-controls {
+    list-style: none outside none;
+
+    li {
+        display: block;
+        float: left;
+    }
+}
