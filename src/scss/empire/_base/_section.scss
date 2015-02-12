@@ -96,6 +96,35 @@ section {
             }
         }
     }
+
+    .cui-label {
+        width: 100%;
+        font-size: $font-size;
+
+        // Side-by-side with data (like .col-fixed-)
+        @include pointbreak($bp-desktop) {
+            text-align: right;
+            width: $emp-label-width;
+            overflow: hidden;
+        }
+    }
+
+    .cui-data {
+        width: 100%;
+
+        // Side-by-side with label (like .cui-filler)
+        @include pointbreak($bp-desktop) {
+            width: auto;
+            overflow: hidden;
+        }
+
+        &,
+        input:not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="reset"]),
+        select,
+        textarea {
+            font-size: $font-size;
+        }
+    }
 }
 
 .emp-section-controls {
@@ -141,34 +170,5 @@ section {
         @include pointbreak($bp-desktop) {
             text-align: left;
         }
-    }
-}
-
-.cui-label {
-    width: 100%;
-    font-size: $font-size;
-
-    // Side-by-side with data (like .col-fixed-)
-    @include pointbreak($bp-desktop) {
-        text-align: right;
-        width: $emp-label-width;
-        overflow: hidden;
-    }
-}
-
-.cui-data {
-    width: 100%;
-
-    // Side-by-side with label (like .cui-filler)
-    @include pointbreak($bp-desktop) {
-        width: auto;
-        overflow: hidden;
-    }
-
-    &,
-    input:not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="reset"]),
-    select,
-    textarea {
-        font-size: $font-size;
     }
 }
