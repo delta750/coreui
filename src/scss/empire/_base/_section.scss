@@ -14,9 +14,15 @@
  * --------------------------------------------------------
  */
 section {
-    border: $section-border;
+    border-top: $section-border;
+    border-bottom: $section-border;
     padding: $section-padding;
-    margin: $section-margin;
+
+    @include pointbreak($bp-tablet) {
+        border-left: $section-border;
+        border-right: $section-border;
+        margin: $section-margin;
+    }
 
     & > header {
         // padding: 0.35em 0 0.25em 0;
@@ -28,7 +34,9 @@ section {
         }
 
         h3 {
-            // margin-left: 0.3em !important;
+            font-size: 24px;
+            padding: 0;
+            margin: 0.25 0;
         }
     }
 
