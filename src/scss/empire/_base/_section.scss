@@ -18,7 +18,8 @@ section {
     border-bottom: $section-border;
     padding: $section-padding;
 
-    @include pointbreak($bp-tablet) {
+    // Add side borders and margin on larger screens
+    @include pointbreak($bp-desktop) {
         border-left: $section-border;
         border-right: $section-border;
         margin: $section-margin;
