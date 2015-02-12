@@ -50,7 +50,7 @@ $indicator-bg-color:           lighten($text-error, 10%);
 
 // * @section    Inputs
 // * --------------------------------------------------------
-
+$emp-label-width: 200px !default;
 
 // * @section    Headers
 // * --------------------------------------------------------
@@ -58,10 +58,17 @@ $indicator-bg-color:           lighten($text-error, 10%);
 
 // * @section    Sections
 // * --------------------------------------------------------
-$section-padding:      0 !default;
-$section-margin:       0.7em 0.5em !default;
+$section-padding:        0 !default;
+$section-margin:         0.75em 0 1em 0 !default;
+$section-margin-desktop: 0.75em 0.5em !default;
 
-$section-row-margin:   0 auto 10px auto !default;
+$section-row-padding-top:    0    !default;
+$section-row-padding-right:  5px  !default;
+$section-row-padding-bottom: 0 !default;
+$section-row-padding-left:   5px  !default;
+$section-row-padding:        $section-row-padding-top $section-row-padding-right $section-row-padding-bottom $section-row-padding-left !default;
+
+$section-row-padding-desktop: $section-row-padding-top 0 10px 0 !default;
 
 $section-border-color: $light-gray-alt !default;
 $section-border-width: 1px !default;
