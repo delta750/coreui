@@ -349,6 +349,116 @@
         <!-- ++++++++++++++++++++++++++++++++ -->
         <div class="emp-active-exceptions"></div>
 
+        <!-- ++++++++++++++++++++++++++++++++ -->
+        <!-- SECTION: .Simple section         -->
+        <!-- ++++++++++++++++++++++++++++++++ -->
+
+        <section>
+            <header>
+                <div class="cui-col-sm-10">
+                    <h3>Simple section</h3>
+                </div>
+
+                <ul class="cui-col-sm-2 emp-section-controls">
+                    <li><button type="button" class="cui-icon-button emp-section-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                </ul>
+            </header>
+
+            <!-- Second row of fields -->
+            <div class="cui-row">
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        <label for="E_CLOSED_REASON2">Closed Reason:</label>
+                    </div>
+                    <div class="cui-data">
+                        <select id="E_CLOSED_REASON2" tabindex="1">
+                            <option selected="selected" value="1">No Account</option>
+                            <option value='2'>Full Paid</option>
+                            <option value='3'>Full Paid Manual</option>
+                            <option value='4'>Manual Release</option>
+                            <option value='5'>No Account Balance</option>
+                            <option value='6'>No Assets Held</option>
+                            <option value='7'>No Account</option>
+                            <option value='8'>Payment Recieved</option>
+                            <option value='9'>Part Paid</option>
+                            <option value='10'>Restricted Bank Account</option>
+                            <option value='11'>Released</option>
+                            <option value='12'>System-Clsd-Reg-Levy</option>
+                            <option value='13'>Void-Never Served</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        <label for="E_GO_BUTTON_SAMPLE2">Go button example:</label>
+                    </div>
+                    <div class="cui-data">
+                        <input type="text" id="E_GO_BUTTON_SAMPLE2" size="20" maxlength="23" value="Some data" tabindex="1">
+                        <button type="button" value="1" tabindex="1">Go</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        Payment Status Reason:
+                    </div>
+                    <div class="cui-data">
+                        <span>ORIG PSTG</span>
+                    </div>
+                </div>
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        Target Amount ($):
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <span>987,765,432.12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-half cui-align-right">
+                    <div class="cui-label">
+                        IPA Amount ($):
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <span>987,765,432.12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-half cui-required">
+                    <div class="cui-label">
+                        <label for="E_PYMT_TYPE2">Payment Type:</label>
+                    </div>
+                    <div class="cui-data">
+                        <input type="text" id="E_PYMT_TYPE2" value="" aria-required="true" size="22" maxlength="20" tabindex="1">
+                    </div>
+                </div>
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        <label for="E_CURRENT_AMOUNT2">Current Amount ($):</label>
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <input type="text" id="E_CURRENT_AMOUNT2" size="20" maxlength="23" aria-required="true" value="1,345,789,123,567,901.34" tabindex="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row emp-button-group">
+                <div class="emp-col-half">
+                    <button type="button" name="E_BUTTON_LIABILITY_PERIOD_SECTION_1" tabindex="1">Liability Period</button>
+                </div>
+                <div class="emp-col-half cui-align-right">
+                    <button type="button" name="E_BUTTON_CANCEL_SECTION_1" tabindex="1">Cancel</button>
+                    <button type="button" name="E_BUTTON_UPDATE_SECTION_1" class="cui-primary" tabindex="1">Update</button>
+                </div>
+            </div>
+        </section>
+
         <!-- ++++++++++++++++++++++++++ -->
         <!-- SECTION: .Section elements -->
         <!-- ++++++++++++++++++++++++++ -->
