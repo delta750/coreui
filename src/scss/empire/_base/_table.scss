@@ -4,7 +4,7 @@
  * @desc       Table styles
  * @author     Manolo Farfan
  * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
+ * @see        https://github.com/nys-its/frg-coreui/coreui
  */
 
 /**
@@ -14,23 +14,22 @@
  *             Take out IE7 hacks
  * --------------------------------------------------------
  */
- .cui-table-section {
-    overflow: hidden;
-}
-
-.cui-table-div {
-    zoom: 1;
+.emp-table {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    // display: none;
 }
 
 table {
     empty-cells: show;
 }
 
-.cui-table-fixed {
-    table-layout: fixed;
-}
+// What's this for, frozen columns? (CP)
+// .cui-table-fixed {
+//     table-layout: fixed;
+// }
 
-.cui-table-sort {
+.cui-sortable {
     display: inline-block;
 }
 
