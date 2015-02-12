@@ -125,23 +125,50 @@ section {
             padding: 0;
         }
     }
+
+    // Right-aligned column with nothing to the left of it
+    // Sticks to the left for small
+    &.cui-pull-right {
+        text-align: left;
+
+        // Floats right for medium
+        @include pointbreak($bp-tablet) {
+            text-align: left;
+            float: right;
+        }
+
+        // Floats and aligns right for large
+        @include pointbreak($bp-desktop) {
+            text-align: left;
+        }
+    }
 }
 
 .cui-label {
-    font-size: 14px;
-    width: $emp-label-width;
-    text-align: right;
-    overflow: hidden;
+    width: 100%;
+    font-size: $font-size;
+
+    // Side-by-side with data (like .col-fixed-)
+    @include pointbreak($bp-desktop) {
+        text-align: right;
+        width: $emp-label-width;
+        overflow: hidden;
+    }
 }
 
 .cui-data {
-    width: auto;
-    overflow: hidden;
+    width: 100%;
+
+    // Side-by-side with label (like .cui-filler)
+    @include pointbreak($bp-desktop) {
+        width: auto;
+        overflow: hidden;
+    }
 
     &,
     input:not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="reset"]),
     select,
     textarea {
-        font-size: 14px;
+        font-size: $font-size;
     }
 }
