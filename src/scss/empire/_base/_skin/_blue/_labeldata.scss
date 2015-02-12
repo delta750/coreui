@@ -1,23 +1,11 @@
-@charset "UTF-8";
-/**
- * @name       _labeldataBasic.scss
- * @desc       Skinning for labels and data styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
- */
+//   ========================================================
+// * @name       _skin/_labeldata.scss
+// * @desc       Skinning for labels and data styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Label/data wrapper styles
- * @todo       Extract eMPIRE-specific styles
- *             Check if needed or old IE7 support
- * --------------------------------------------------------
- */
-.cui-label, label {
-    color: #0E4969;
-}
 
-.cui-required {
-    color: #EE3300;
-}
+// * @section    Label/data wrapper styles
+// * --------------------------------------------------------

@@ -1,27 +1,67 @@
-@charset "UTF-8";
-/**
- * @name       _iconbutton.scss
- * @desc       Icon-based button styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui
- */
+//   ========================================================
+// * @name       _iconbutton/_variables.scss
+// * @desc       sass variables
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150204
+// * @see        https://github.com/ny/frg-coreui
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Default icon-based button styles
- * @todo       Extract eMPIRE-specific styles
- * --------------------------------------------------------
- */
-.cui-icon-buttons {
+
+// * @section    Fonts
+// * --------------------------------------------------------
+// General header indicators
+.emp-tp-info .cui-data span {
+    display: inline-block;
+    line-height: 1.5;
+}
+
+.emp-indicator-1, .emp-indicator-2 {
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: $indicator-bg-color;
+    border: 1px solid #454545;
+    border-radius: 3px;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    margin: 0 0 0 0.2em;
+    vertical-align: top;
+    @include hide-text;
+}
+
+[class*="emp-indicator-"]:after {
+    display: block;
+    position: absolute;
+    content: attr(alt);
+    text-indent: 0;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    color: $white;
+    top: -0.1em;
+    left: -0.1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+.emp-icon-buttons {
     position: absolute;
 }
 
-.cui-icon-buttons li {
+.emp-icon-buttons li {
     float: left;
 }
 
-.cui-icon-buttons a {
+.emp-icon-buttons a {
     display: inline-block;
 }
 
@@ -44,36 +84,3 @@
     background: transparent url("../../../images/common/notifier-popup.png") center right no-repeat;
 }
 
-// General header indicators
-.emp-tpinfo .cui-data span {
-    display: inline-block;
-    line-height: 2;
-}
-
-.emp-indicator-1, .emp-indicator-2 {
-    position: relative;
-    width: 1.5em;
-    height: 1.5em;
-    background-color: #CC0000;
-    border: 1px solid #454545;
-    border-radius: 3px;
-    font-weight: $font-weight-semibold;
-    color: $white;
-    margin: 0.2em 0 0 0.3em;
-    vertical-align: top;
-    @include hide-text;
-}
-
-[class*="emp-indicator-"]:after {
-    display: block;
-    position: absolute;
-    content: attr(alt);
-    text-indent: 0;
-    width: 1.5em;
-    height: 1.5em;
-    line-height: 1.5em;
-    text-align: center;
-    color: $white;
-    top: -0.1em;
-    left: -0.1em;
-}

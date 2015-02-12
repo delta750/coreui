@@ -1,0 +1,53 @@
+//   ========================================================
+// * @name       _tabset.scss
+// * @desc       Specific tab styles (not really a tabstrip)
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150206
+//   ========================================================
+
+
+// * @section    Styles for empire's tabset
+// * --------------------------------------------------------
+.emp-tabset {
+    position: relative;
+}
+
+.emp-tabset li {
+	display: inline-block;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.emp-tabset li {
+    margin-left: 0;
+}
+
+.emp-tabset a {
+	display: inline-block;
+	font-weight: normal;
+    line-height: $touch-min-height;
+    min-height: $touch-min-height;
+    padding: 0 0.8em;
+    white-space: nowrap;
+    background-color: #E9E9E9;
+    border: 1px solid #757575;
+    border-bottom: 0px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: $dark-gray;
+}
+
+.emp-tabset a:hover {
+    color: #FFF;
+    background: #E9E9E9;
+}
+
+.emp-tabset a.selected {
+    padding-top: 8px;
+    margin-top: 0;
+	cursor: default;
+    background: #E4E4E4;
+    border-bottom: 0;
+    color: #454545;
+}

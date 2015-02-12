@@ -8,20 +8,52 @@
 
 // * @section    Styles for specific structures
 // * --------------------------------------------------------
-#form_tp_info {
-    width: auto;
-    padding: 0.8em;
-    margin: 0.8em;
-    border: 1px solid #BED0D8;
-    border-width: 1px;
-    border-radius: 2px;
-    background-color: #EFF3F5;   
+header {
+	min-height: $header-min-height;
+
+	#emp-logo {
+		background: transparent url($emp-images-path + "emp-logo.png") 26px 10px no-repeat;
+		min-height: $header-min-height;
+	}
+
+	div {
+		margin: 0 !important;
+		padding: 0;
+	}
+
+	.emp-tabset-title {
+		min-height: $touch-min-height;
+
+		h1 {
+			margin: 0 0 0 0;
+			padding: $tabset-title-padding-top 0 0 0;
+			line-height: ($touch-min-height - $tabset-title-padding-top);
+		}
+	}
+
+	.emp-preferences {
+		padding: $tabset-title-padding-top 0 0 0.8em;
+		line-height: ($touch-min-height - $tabset-title-padding-top - 1);
+		background-color: $light-gray-alt-3;
+		border-top: 1px solid $white;
+		@include box-sizing(border-box);
+	}
 }
 
-// * @section    Fixed width structures
-// * --------------------------------------------------------
-[class$="-100"] {
-    width: 100px;
-    min-width: 100px;
+// Temp until menu component is built
+#emp-menu-main {
+	background-color: $light-gray-alt-3;
+	padding: 0 0.8em;
+	min-height: $touch-min-height;
+	line-height: $touch-min-height;
 }
-    
+
+#general_header {
+    width: auto;
+    padding: 1.3em 0 0.3em 0;
+    margin: 0.4em 0.8em;
+    border: 1px solid $general-header-border-color;
+    border-width: 1px;
+    border-radius: 2px;
+    background-color: $general-header-bg-color;   
+}

@@ -1,19 +1,35 @@
-@charset "UTF-8";
-/**
- * @name       _labeldata.scss
- * @desc       Labels and data styles
- * @author     Manolo Farfan
- * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui
- */
+//   ========================================================
+// * @name       _labeldata.scss
+// * @desc       Skinning for labels and data styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/nys-its/frg-coreui
+//   ========================================================
 
-/**
- * --------------------------------------------------------
- * @section    Label/data wrapper styles
- * @todo       Extract eMPIRE-specific styles
- *             Check if needed or old IE7 support
- * --------------------------------------------------------
- */
+
+// * @section    Label/data wrapper styles
+// * --------------------------------------------------------
+.emp-field {
+    display: inline-block;
+}
+
+.emp-tp-info .cui-row {
+    margin: 0 0 0.25em 0;
+}
+
+.emp-tp-info .cui-label,
+.emp-tp-info .cui-data {
+    line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
 .cui-label-wrap, .cui-data-wrap {
     float: left;
     line-height: normal;
