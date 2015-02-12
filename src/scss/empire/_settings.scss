@@ -10,7 +10,7 @@
 
 // * @section    General
 // * --------------------------------------------------------
-$emp-images-path:          "../../../src/images/empire/" !default;
+$emp-images-path:          "../../../src/images/empire/";
 
 
 // * @section    Colors
@@ -50,37 +50,37 @@ $indicator-bg-color:           lighten($text-error, 10%);
 
 // * @section    Inputs
 // * --------------------------------------------------------
-$emp-label-width: 200px !default;
+$emp-label-width: 200px;
 
 // * @section    Headers
 // * --------------------------------------------------------
-
+$section-header-font-size: 20px;
 
 // * @section    Sections
 // * --------------------------------------------------------
-$section-padding:        0 !default;
-$section-margin:         0.75em 0 1em 0 !default;
-$section-margin-desktop: 0.75em 0.5em !default;
+$section-padding:        0;
+$section-margin:         0.75em 0 1em 0;
+$section-margin-desktop: 0.75em 0.5em;
 
-$section-row-padding-top:    0    !default;
-$section-row-padding-right:  5px  !default;
-$section-row-padding-bottom: 0 !default;
-$section-row-padding-left:   5px  !default;
-$section-row-padding:        $section-row-padding-top $section-row-padding-right $section-row-padding-bottom $section-row-padding-left !default;
+$section-row-padding-top:    0   ;
+$section-row-padding-right:  5px ;
+$section-row-padding-bottom: 0;
+$section-row-padding-left:   5px ;
+$section-row-padding:        $section-row-padding-top $section-row-padding-right $section-row-padding-bottom $section-row-padding-left;
 
-$section-row-padding-desktop: $section-row-padding-top 0 10px 0 !default;
+$section-row-padding-desktop: $section-row-padding-top 0 10px 0;
 
-$section-border-color: $light-gray-alt !default;
-$section-border-width: 1px !default;
-$section-border-style: solid !default;
-$section-border:       $section-border-color $section-border-width $section-border-style !default;
+$section-border-color: $light-gray-alt;
+$section-border-width: 1px;
+$section-border-style: solid;
+$section-border:       $section-border-color $section-border-width $section-border-style;
 
-$section-header-border-color: darken($section-border-color, 10%) !default;
-$section-header-border-width: $section-border-width !default;
-$section-header-border-style: $section-border-style !default;
-$section-header-border:       $section-header-border-color $section-header-border-width $section-header-border-style !default;
+$section-header-border-color: darken($section-border-color, 10%);
+$section-header-border-width: $section-border-width;
+$section-header-border-style: $section-border-style;
+$section-header-border:       $section-header-border-color $section-header-border-width $section-header-border-style;
 
-$section-header-bgcolor: $light-gray !default;
+$section-header-bgcolor: $light-gray;
 
 
 // * @section    Text (<p>, free text, etc.)
