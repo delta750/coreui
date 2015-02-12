@@ -8,27 +8,40 @@
 
 @import "../_settings";
 
-// * @section    Fonts
+// * @section    General
 // * --------------------------------------------------------
-$font-basic:           Arial, sans-serif !default;
-$font-family:          "Proxima Nova", $font-basic !default;
-$font-size:            14px !default;
-$font-weight-light:    400 !default;
-$font-weight-semibold: 600 !default;
-// Headings
-$font-heading:         $font-family !default;
-// Required *
-$font-required:        1.1em $font-basic !default;
+$emp-images-path:          "../../../src/images/empire/" !default;
 
 
 // * @section    Colors
 // * --------------------------------------------------------
+$empire-base-blue:     #002D72;
 
 
-
-// * @section    General
+// * @section    Fonts
 // * --------------------------------------------------------
-$emp-images-path:          "../../../src/images/empire/" !default;
+$font-size:            14px !default;
+
+
+// * @section    Empire header
+// * --------------------------------------------------------
+$header-min-height:    72px;
+
+
+// * @section    General header
+// * --------------------------------------------------------
+$general-header-border-color:  lighten($empire-base-blue, 62%);
+$general-header-bg-color:      lighten($empire-base-blue, 72%);
+
+
+// * @section    Tabset
+// * --------------------------------------------------------
+$tabset-title-padding-top:    2px;
+
+
+// * @section    Indicators
+// * --------------------------------------------------------
+$indicator-bg-color:           lighten($text-error, 10%);
 
 
 // * @section    Buttons
