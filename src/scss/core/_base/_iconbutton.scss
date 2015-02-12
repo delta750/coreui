@@ -9,11 +9,12 @@
 
 // * @section    Default icon-based button styles
 // * --------------------------------------------------------
-.cui-icon-button {
+.cui-icon {
     vertical-align: top;
     padding: $button-icon-padding;
     margin: 0;
     width: $button-icon-width;
     height: $button-icon-height;
+    background-repeat: no-repeat;
     @include hide-text;
 }

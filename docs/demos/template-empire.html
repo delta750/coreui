@@ -52,7 +52,7 @@
     <!-- GENERAL HEADER       -->
     <!-- ==================== -->
 
-    <div class="cui-row">
+    <div class="cui-row" id="general_header">
         <div class="cui-col-sm-12">
             <form class="cui-row" name="form_tp_info" id="form_tp_info" action="www.tax.ny.gov" method="post">
                 <!-- Buttons -->
@@ -63,10 +63,10 @@
 
                 <!-- Taxpayer info -->
                 <!-- The emp-tpinfo-* classes used at this level are for distinguishing buttons that may appear for both taxpayers (e.g. legal rep) -->
-                <div class="cui-filler-col-sm emp-tpinfo">
+                <div class="cui-filler-col-sm emp-tp-info">
                     <!-- Main taxpayer -->
                     <div class="cui-row">
-                        <div class="cui-col-sm-6 emp-tpinfo-main">
+                        <div class="cui-col-sm-6 emp-tp-info-main">
                             <div class="cui-row">
                                 <div class="cui-col-sm-12">
                                     <div class="cui-label">ID:</div>
@@ -75,7 +75,7 @@
                                         <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
                                         <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
                                         <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
-                                        <!--<button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>-->
+                                        <button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <!-- Joint taxpayer -->
-                        <div class="cui-col-sm-6 emp-tpinfo-joint">
+                        <div class="cui-col-sm-6 emp-tp-info-joint">
                             <div class="cui-row">
                                 <div class="cui-col-sm-12">
                                     <div class="cui-label">Associated ID:</div>
