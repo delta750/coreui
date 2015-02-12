@@ -6,11 +6,18 @@
 // * @see        https://github.com/nys-its/frg-coreui
 //   ========================================================
 
-@import "../_settings";
 
 // * @section    General
 // * --------------------------------------------------------
 $emp-images-path:          "../../../src/images/empire/";
+
+
+// * @section    Breakpoint
+// * --------------------------------------------------------
+$bp-tablet:        600px;
+$bp-tablet-minus:  $bp-tablet - 1px;
+$bp-desktop:       920px;
+$bp-desktop-minus: $bp-desktop - 1px;
 
 
 // * @section    Colors
