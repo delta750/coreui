@@ -13,5 +13,7 @@
     vertical-align: top;
     padding: $button-icon-padding;
     margin: 0;
+    width: $button-icon-width;
+    height: $button-icon-height;
     @include hide-text;
 }
