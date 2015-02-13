@@ -35,12 +35,19 @@ section {
 
         [class*="cui-col-"] {
             padding: 0;
+            min-height: $section-header-min-height;
+
+            > * {
+                margin-top: ($section-header-min-height - $font-size) / 2; // Top/bottom margin is half of the remainder of the min-height minus the font size (i.e. vertically center the h3)
+                margin-bottom: ($section-header-min-height - $font-size) / 2; // Top/bottom margin is half of the remainder of the min-height minus the font size (i.e. vertically center the h3)
+            }
         }
 
         h3 {
             font-size: $section-header-font-size;
             padding: 0;
-            margin: 0.25em 0;
+            margin-top: ($section-header-min-height - $section-header-font-size) / 2; // Top/bottom margin is half of the remainder of the min-height minus the font size (i.e. vertically center the h3)
+            margin-bottom: ($section-header-min-height - $section-header-font-size) / 2; // Top/bottom margin is half of the remainder of the min-height minus the font size (i.e. vertically center the h3)
         }
     }
 
