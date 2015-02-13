@@ -17,7 +17,7 @@ header {
 	}
 
 	div {
-		margin: 0 !important;
+		margin: 0; // !important;
 		padding: 0;
 	}
 
@@ -55,5 +55,5 @@ header {
     border: 1px solid $general-header-border-color;
     border-width: 1px;
     border-radius: 2px;
-    background-color: $general-header-bg-color;   
+    background-color: $general-header-bg-color;
 }

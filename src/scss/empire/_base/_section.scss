@@ -125,6 +125,10 @@ section {
         select,
         textarea {
             font-size: $font-size;
+
+            // Prevent the input from running off the edge of the screen (especially on smaller screens)
+            max-width: 100%;
+            display: inline-block; // Need this since `max-width` doesn't work for inline elements
         }
 
         button {
