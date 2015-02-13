@@ -6,5 +6,12 @@
 //   ========================================================
 
 
-// * @section    Button styles  
+// * @section    Button styles
 // * --------------------------------------------------------
+
+
+// * @section    Button containers
+// * --------------------------------------------------------
+section .emp-button-group {
+    display: table;
+}

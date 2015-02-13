@@ -153,11 +153,9 @@ section {
 
     // Inside button groups
     .emp-button-group & {
-        width: 50%;
-        float: left;
-
-        &.cui-pull-right {
-            // float:
-        }
+        // The left and right sides often have different amounts of buttons so a 50/50 split doesn't work (one side may wrap unnecessarily). So we use `table-cell` to let them divide the width as needed.
+        display: table-cell;
+        width: auto;
+        // margin: 0;
     }
 }
