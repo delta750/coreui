@@ -20,3 +20,12 @@
     background-repeat: no-repeat;
     @include hide-text;
 }
+
+// Undo button styles
+button.cui-icon {
+    font-size: 16px;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+    text-indent: -9999em;
+}

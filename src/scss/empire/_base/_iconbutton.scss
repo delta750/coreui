@@ -42,7 +42,12 @@
     left: -0.1em;
 }
 
-
+// Temp image
+.emp-section-instructions-toggle-expand,
+.emp-section-collapse {
+    background-image: url($emp-images-path + "emp-popup.png");
+    background-position: 4px 4px;
+}
 
 
 
