@@ -16,6 +16,13 @@ textarea,
 button {
     font-size: $font-size;
     font-family: $font-family;
+}
+
+body,
+input,
+select,
+textarea {
+    // Not for buttons
     -webkit-font-smoothing: antialiased;
 }
 
