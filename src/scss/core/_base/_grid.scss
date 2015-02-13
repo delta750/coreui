@@ -85,9 +85,12 @@ nav > header {
 
     // Make sure every column that begins a new "row" clears the elements before it.
     // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
-    //TODO: Copy this practice for other classes (e.g. every 4th col-sm-4)
-    &:nth-child(2n+3) {
-        clear: both;
+    // Using `max-width` media query so it doesn't affect a `.cui-col-sm-6.cui-col-md-*` element in a larger viewport
+    //TODO: Copy this practice for other classes (e.g. every 4th col-sm-4 should wrap to a new line)
+    @include pointbreak($bp-tablet, true) {
+        &:nth-child(2n+3) {
+            clear: both;
+        }
     }
 }
 
