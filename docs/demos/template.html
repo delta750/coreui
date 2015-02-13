@@ -452,28 +452,11 @@
         </div>
     </footer>
 
-    <script id="require" data-main="../../dist/js/config" src="../../dist/js/requirejs.js"></script>
+    <script id="require" src="../../dist/js/cui-opt.min.js"></script>
     <script>
-      require(['jquery', 'core'], function($, cui) {
+      require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
-        $(document).ready(function(){
-
-          // Setup the default framework bindings
-          cui.init();
-
-          // Request our common application script file
-          require(['project'], function(app) {
-
-            app.init(function() {
-
-              console.log("page code should go here.");
-
-            });
-
-
-          });
-
-        });
+          console.log("done");
 
       });
     </script>

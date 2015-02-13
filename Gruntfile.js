@@ -62,9 +62,9 @@ module.exports = function(grunt) {
                 files: [{
                   expand: true,
                   cwd: 'src/js',
-                  src: '**/*.js',
                   dest: 'dist/js',
-                  flatten: true,
+                  src: ['**/*.js', '!**/vendor/requirejs.js', '!**/vendor/jquery.js', '!**/vendor/domReady.js', '!**/settings.js'],
+                  flatten: false,
                 }]
             },
 
@@ -78,9 +78,9 @@ module.exports = function(grunt) {
               files: [{
                 expand: true,
                 cwd: 'src/js',
-                src: ['**/*.js', '!**/vendor/require.js', '!**/core/config.js'], // Ignore jquery and require because they are built together
+                src: ['**/*.js', '!**/vendor/requirejs.js', '!**/vendor/jquery.js', '!**/vendor/domReady.js', '!**/settings.js'], // Ignore jquery and require because they are built together
                 dest: 'dist/js',
-                flatten: true
+                flatten: false
               }]
             }
 
@@ -202,18 +202,20 @@ module.exports = function(grunt) {
 
         // Production build ofjavascript resources
         requirejs: {
-            compile: {
-                options: {
-                    baseUrl: "src/js",
-                    name: 'core/config',
-                    paths: {
-                        requireLib: 'vendor/requirejs',
-                        jquery: 'vendor/jquery'
-                    },
-                    include: 'requireLib',
-                    out: 'dist/js/core-opt.js'
-                }
+          compile: {
+            options: {
+              baseUrl: "src/js",
+              name: './settings',
+              paths: {
+                  requireLib: './cui/vendor/requirejs',
+                  jquery: './cui/vendor/jquery',
+                  domReady: './cui/vendor/domReady',
+                  cui: './cui/cui'
+              },
+              include: ['requireLib', 'jquery', 'domReady'],
+              out: 'dist/js/cui-opt.min.js'
             }
+          }
         },
 
 
@@ -247,6 +249,7 @@ module.exports = function(grunt) {
         grunt.task.run([
             'sass:dev',
             'jshint',
+            'requirejs',
             'uglify:dev',
             'concat',
             'copy',
