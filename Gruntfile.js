@@ -39,12 +39,15 @@ module.exports = function(grunt) {
                 scripturl: true,
                 evil: true,
                 globals: {
-                    UI: true,
                     jQuery: true,
                     Modernizr: true
                 },
             },
-            files: '/src/js/core.js',
+            files: ['src/js/**/*.js',
+                    '!src/js/settings.js',
+                    '!src/js/vendor/*.js',
+                    '!src/js/cui/vendor/*.js'
+                ]
         },
 
         // Minify and concatenate JS files
@@ -60,30 +63,29 @@ module.exports = function(grunt) {
 
             dev: {
                 files: [{
-                  expand: true,
-                  cwd: 'src/js',
-                  dest: 'dist/js',
-                  src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
-                  flatten: false,
+                    expand: true,
+                    cwd: 'src/js',
+                    dest: 'dist/js',
+                    src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
+                    flatten: false,
                 }]
             },
 
             prod: {
-              options: {
-                  sourceMap: false,
-                  compress: {
-                      drop_console: true,
-                  }
-              },
-              files: [{
-                expand: true,
-                cwd: 'src/js',
-                src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
-                dest: 'dist/js',
-                flatten: false
-              }]
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                    }
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/js',
+                    src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
+                    dest: 'dist/js',
+                    flatten: false
+                }]
             }
-
         },
 
         // Styles
@@ -202,22 +204,21 @@ module.exports = function(grunt) {
 
         // Production build ofjavascript resources
         requirejs: {
-          compile: {
-            options: {
-              baseUrl: "src/js",
-              name: './settings',
-              paths: {
-                  requireLib: './cui/vendor/requirejs',
-                  jquery: './cui/vendor/jquery',
-                  domReady: './cui/vendor/domReady',
-                  cui: './cui/cui'
-              },
-              include: ['requireLib', 'jquery', 'domReady'],
-              out: 'dist/js/cui.js'
+            compile: {
+                options: {
+                    baseUrl: "src/js",
+                    name: './settings',
+                    paths: {
+                        requireLib: './cui/vendor/requirejs',
+                        jquery: './cui/vendor/jquery',
+                        domReady: './cui/vendor/domReady',
+                        cui: './cui/cui'
+                    },
+                    include: ['requireLib', 'jquery', 'domReady'],
+                    out: 'dist/js/cui.js'
+                }
             }
-          }
         },
-
 
     });
     // End of plugin configuration
