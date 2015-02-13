@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                   expand: true,
                   cwd: 'src/js',
                   dest: 'dist/js',
-                  src: ['**/*.js', '!**/vendor/requirejs.js', '!**/vendor/jquery.js', '!**/vendor/domReady.js', '!**/settings.js'],
+                  src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
                   flatten: false,
                 }]
             },
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
               files: [{
                 expand: true,
                 cwd: 'src/js',
-                src: ['**/*.js', '!**/vendor/requirejs.js', '!**/vendor/jquery.js', '!**/vendor/domReady.js', '!**/settings.js'], // Ignore jquery and require because they are built together
+                src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
                 dest: 'dist/js',
                 flatten: false
               }]
@@ -213,7 +213,7 @@ module.exports = function(grunt) {
                   cui: './cui/cui'
               },
               include: ['requireLib', 'jquery', 'domReady'],
-              out: 'dist/js/cui-opt.min.js'
+              out: 'dist/js/cui.js'
             }
           }
         },

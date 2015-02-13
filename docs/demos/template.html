@@ -452,13 +452,17 @@
         </div>
     </footer>
 
-    <script id="require" src="../../dist/js/cui-opt.min.js"></script>
+    <script id="require" src="../../dist/js/cui.js"></script>
     <script>
-      require(['jquery', 'cui', 'domReady!'], function($, cui) {
+    require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
-          console.log("done");
+        console.log("done");
 
-      });
+        require(['datepicker'], function(dp) {
+              console.log('datepicker loaded: ', dp);
+        });
+
+    });
     </script>
 </body>
 </html>

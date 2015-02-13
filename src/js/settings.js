@@ -11,10 +11,10 @@ require.config({
     // These are core libs. DO NOT CHANGE!
     'jquery': 'cui/vendor/jquery-1.11.2.min',
     'domReady': 'cui/vendor/domReady',
-    'cui': 'cui/cui',
+    'datepicker': 'cui/components/datepicker/datepicker',
 
-    // Project Paths
-    'project': 'project/project'
+    // Project Components Paths
+    'project': 'project/components'
 
   },
 
@@ -26,6 +26,5 @@ require(['domReady!', 'jquery', 'cui'], function(domReady, $, cui) {
 
   // Declares the first document.ready to make sure this code runs first.
   cui.init();
-
 
 });
