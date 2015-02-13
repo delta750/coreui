@@ -30,24 +30,24 @@
 
 
 
-.cui-label-wrap, .cui-data-wrap {
-    float: left;
-    line-height: normal;
-}
+// .cui-label-wrap, .cui-data-wrap {
+//     float: left;
+//     line-height: normal;
+// }
 
-.cui-label-wrap {
-    text-align: right;
-    vertical-align: top;
-    padding-right: 17px; /* Careful with Chrome - doesn't like some ems (i.e. 1.3em is a no, 1.29em is a yes), pixels are ok */
-}
+// .cui-label-wrap {
+//     text-align: right;
+//     vertical-align: top;
+//     padding-right: 17px; // Careful with Chrome - doesn't like some ems (i.e. 1.3em is a no, 1.29em is a yes), pixels are ok
+// }
 
-.cui-data-wrap {
-    width: auto;
-}
+// .cui-data-wrap {
+//     width: auto;
+// }
 
-.cui-section-body .cui-data-wrap, .cui-widget .cui-section-body .cui-data-wrap {
-    float: none;
-}
+// .cui-section-body .cui-data-wrap, .cui-widget .cui-section-body .cui-data-wrap {
+//     float: none;
+// }
 
 /**
  * --------------------------------------------------------
@@ -85,25 +85,31 @@
  */
 .cui-section-body .cui-data-wrap, .cui-widget .cui-section-body .cui-data-wrap {
     display: table-cell;
-    *display: auto; /* IE7 */
     float: none;
-    *float: left; /* IE7 */
-    *padding-right: 0; /* IE7 */
 }
 
 /* Any .cui-w-*p added in the .Grid section should be found here too */
-.cui-w-100p .cui-label-wrap, .cui-w-99p .cui-label-wrap, .cui-w-95p .cui-label-wrap, .cui-w-90p .cui-label-wrap, .cui-w-80p .cui-label-wrap, .cui-w-75p .cui-label-wrap, .cui-w-70p .cui-label-wrap, .cui-w-66p .cui-label-wrap, .cui-w-60p .cui-label-wrap, .cui-w-50p .cui-label-wrap, .cui-w-49p .cui-label-wrap, .cui-w-45p .cui-label-wrap, .cui-w-40p .cui-label-wrap, .cui-w-33p .cui-label-wrap, .cui-w-30p .cui-label-wrap, .cui-w-20p .cui-label-wrap, .cui-w-10p .cui-label-wrap, .cui-w-5p .cui-label-wrap, .cui-w-2p .cui-label-wrap, .cui-w-1p .cui-label-wrap {
+.cui-w-100p .cui-label-wrap,
+.cui-w-99p .cui-label-wrap,
+.cui-w-95p .cui-label-wrap,
+.cui-w-90p .cui-label-wrap,
+.cui-w-80p .cui-label-wrap,
+.cui-w-75p .cui-label-wrap,
+.cui-w-70p .cui-label-wrap,
+.cui-w-66p .cui-label-wrap,
+.cui-w-60p .cui-label-wrap,
+.cui-w-50p .cui-label-wrap,
+.cui-w-49p .cui-label-wrap,
+.cui-w-45p .cui-label-wrap,
+.cui-w-40p .cui-label-wrap,
+.cui-w-33p .cui-label-wrap,
+.cui-w-30p .cui-label-wrap,
+.cui-w-20p .cui-label-wrap,
+.cui-w-10p .cui-label-wrap,
+.cui-w-5p .cui-label-wrap,
+.cui-w-2p .cui-label-wrap,
+.cui-w-1p .cui-label-wrap {
     float: left;
-}
-
-.cui-label {
-    position: relative;
-    display: inline-block;
-    font-weight: normal;
-}
-
-.cui-data {
-    padding: auto 0;
 }
 
 .cui-required .cui-label:after {
@@ -112,7 +118,7 @@
     right: -0.8em;
     top: 0;
     font-weight: bold;
-    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-family: $font-basic;
 }
 
 .cui-data-mask {
@@ -123,7 +129,6 @@
 .cui-label-top .cui-data-wrap {
     display: block !important;
     text-align: left;
-    *width: 100%; /* IE7 */
 }
 
 .cui-legend-text {
@@ -132,7 +137,9 @@
 
 /*     .Sizes
    ---------------------------------------- */
-.cui-label-auto .cui-label-wrap, .cui-label-auto .cui-data-wrap { width: auto; }
+.cui-label-auto .cui-label-wrap,
+.cui-label-auto .cui-data-wrap { width: auto; }
+
 .cui-label-XXS .cui-label-wrap { width: 10%; }
 .cui-label-XS .cui-label-wrap  { width: 15%; }
 .cui-label-S .cui-label-wrap   { width: 30%; }
@@ -140,6 +147,11 @@
 .cui-label-L .cui-label-wrap   { width: 60%; }
 .cui-label-XL .cui-label-wrap  { width: 75%; }
 
-.cui-label-XXS .cui-data-wrap, .cui-label-XS .cui-data-wrap, .cui-label-S .cui-data-wrap, .cui-label-M .cui-data-wrap, .cui-label-L .cui-data-wrap, .cui-label-XL .cui-data-wrap {
+.cui-label-XXS .cui-data-wrap,
+.cui-label-XS .cui-data-wrap,
+.cui-label-S .cui-data-wrap,
+.cui-label-M .cui-data-wrap,
+.cui-label-L .cui-data-wrap,
+.cui-label-XL .cui-data-wrap {
     width: auto;
 }
