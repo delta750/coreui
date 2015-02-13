@@ -45,7 +45,7 @@ section {
     }
 
     .cui-row {
-        padding: 0;
+        padding: $section-row-padding;
 
         @include pointbreak($bp-desktop) {
             padding: $section-row-padding;
@@ -98,6 +98,7 @@ section {
     }
 
     .cui-label {
+        position: relative;
         width: 100%;
         font-size: $font-size;
 
@@ -111,6 +112,7 @@ section {
 
     .cui-data {
         width: 100%;
+        padding: 0;
 
         // Side-by-side with label (like .cui-filler)
         @include pointbreak($bp-desktop) {
@@ -123,6 +125,10 @@ section {
         select,
         textarea {
             font-size: $font-size;
+        }
+
+        button {
+            padding: 6px 12px; // Match input height
         }
     }
 }
@@ -169,6 +175,16 @@ section {
         // Floats and aligns right for large
         @include pointbreak($bp-desktop) {
             text-align: left;
+        }
+    }
+
+    // Inside button groups
+    .emp-button-group & {
+        width: 50%;
+        float: left;
+
+        &.cui-pull-right {
+            // float:
         }
     }
 }
