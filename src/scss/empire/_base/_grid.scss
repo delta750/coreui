@@ -13,3 +13,65 @@
     width: 100px;
     min-width: 100px;
 }
+
+
+section {
+    .cui-row {
+        padding: $section-row-padding;
+
+        @include pointbreak($bp-desktop) {
+            padding: $section-row-padding;
+        }
+
+        [class*="cui-col-"],
+        [class*="emp-col-"] {
+            padding: 4px 0 2px 0;
+            margin: 1px 0;
+        }
+    }
+}
+
+.emp-col-half {
+    width: 100%;
+
+    // Side by side on large screens
+    @include pointbreak($bp-tablet) {
+        width: 50%;
+        float: left;
+    }
+
+
+    // Second col becomes a new "row"
+    & + .emp-col-half {
+        padding: $section-row-padding;
+
+        @include pointbreak($bp-tablet) {
+            padding: 0;
+        }
+    }
+
+    // Right-aligned column with nothing to the left of it
+    // Sticks to the left for small
+    &.cui-pull-right {
+        text-align: left;
+
+        // Floats right for medium
+        @include pointbreak($bp-tablet) {
+            text-align: left;
+            float: right;
+        }
+
+        // Floats and aligns right for large
+        @include pointbreak($bp-desktop) {
+            text-align: left;
+        }
+    }
+
+    // Inside button groups
+    .emp-button-group & {
+        // The left and right sides often have different amounts of buttons so a 50/50 split doesn't work (one side may wrap unnecessarily). So we use `table-cell` to let them divide the width as needed.
+        display: table-cell;
+        width: auto;
+        // margin: 0;
+    }
+}
