@@ -4,7 +4,7 @@ define(['jquery', 'core'], function($, cui) {
 
     app.init = function(cb) {
 
-        console.log("Application common script has just ran");
+        console.log('Application common script has just run');
 
         // ====
         // Do all the common stuff here

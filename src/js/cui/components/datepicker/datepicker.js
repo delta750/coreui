@@ -55,7 +55,7 @@ define(['jquery', 'core'], function($, cui) {
             // Private API
             _priv = {},
             _events = {},
-            _imgPath = cui.environment.getImagesPath('components') + 'datepicker/',
+            _imgPath = '../../dist/images/component/datepicker/',
             _defaultSettings = {
                 datePickers: [
                     {

@@ -9,8 +9,9 @@ require.config({
     baseUrl: baseUrl,
     paths: {
         // These are core libs. DO NOT CHANGE!
-        'jquery': 'cui/vendor/jquery-1.11.2.min',
-        'domReady': 'cui/vendor/domReady',
+        // 'jquery':     'cui/vendor/jquery-1.11.2.min',
+        'jquery':     'cui/vendor/jquery',
+        'domReady':   'cui/vendor/domReady',
         'datepicker': 'cui/components/datepicker/datepicker',
 
         // Project Components Paths
