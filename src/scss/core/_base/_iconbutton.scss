@@ -10,6 +10,8 @@
 // * @section    Default icon-based button styles
 // * --------------------------------------------------------
 .cui-icon {
+    position: relative;
+    display: inline-block;
     vertical-align: top;
     padding: $button-icon-padding;
     margin: 0;

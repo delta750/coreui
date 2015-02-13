@@ -50,7 +50,18 @@
 
 
 
+.emp-icon-redcheck {
+    &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
 
+        // Temp?
+        content: "\2713";
+        color: $required-red;
+        font-weight: bold;
+    }
+}
 
 .emp-icon-buttons {
     position: absolute;
