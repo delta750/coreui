@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * @name       _treeBasic.scss
  * @desc       Skinning for tree structure styles
@@ -16,7 +15,7 @@
 .cui-tree-list li {
     padding-left: 20px;
     margin: 0.3em 0;
-    background: transparent url("../images/src/cui/document.png") top left no-repeat;
+    background: transparent url($emp-images-path + "document.png") top left no-repeat;
 }
 
 .cui-tree-list div {
@@ -28,11 +27,11 @@
 }
 
 .cui-tree-list .cui-parent-open {
-    background: transparent url("../images/src/cui/folder-open.png") top left no-repeat;
+    background: transparent url($emp-images-path + "folder-open.png") top left no-repeat;
 }
 
 .cui-tree-list .cui-parent-close {
-    background: transparent url("../images/src/cui/folder-close.png") top left no-repeat;
+    background: transparent url($emp-images-path + "folder-close.png") top left no-repeat;
 }
 
 .cui-tree-list a, .cui-tree-list a:hover {

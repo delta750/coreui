@@ -73,59 +73,59 @@
 }
 
 .emp-sections-toggle {
-    background: transparent url("../images/src/cui/section-collapse-all.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-collapse-all.png") center left no-repeat;
 }
 
 .emp-sections-toggle-expand {
-    background: transparent url("../images/src/cui/section-expand-all.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-expand-all.png") center left no-repeat;
 }
 
 .emp-info-blocks-toggle {
-    background: transparent url("../images/src/cui/section-help-hide-all.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-help-hide-all.png") center left no-repeat;
 }
 
 .emp-info-blocks-toggle-expand {
-    background: transparent url("../images/src/cui/section-help-show-all.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-help-show-all.png") center left no-repeat;
 }
 
 .emp-section-toggle {
-    background: transparent url("../images/src/cui/section-collapse.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-collapse.png") center left no-repeat;
 }
 
 .emp-section-toggle-expand {
-    background: transparent url("../images/src/cui/section-expand.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-expand.png") center left no-repeat;
 }
 
 .emp-info-block-toggle {
-    background: transparent url("../images/src/cui/section-help-hide.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-help-hide.png") center left no-repeat;
 }
 
 .emp-info-block-toggle-expand {
-    background: transparent url("../images/src/cui/section-help-show.png") center left no-repeat;
+    background: transparent url($emp-images-path + "section-help-show.png") center left no-repeat;
 }
 
 .emp-print {
-    background: transparent url("../images/src/cui/printer.gif") center left no-repeat;
+    background: transparent url($emp-images-path + "printer.gif") center left no-repeat;
 }
 
 .emp-print-20 {
-    background: transparent url("../images/src/cui/printer-20.gif") center left no-repeat;
+    background: transparent url($emp-images-path + "printer-20.gif") center left no-repeat;
 }
 
 .emp-dollar {
-    background: transparent url("../images/src/cui/dollar.png") center left no-repeat;
+    background: transparent url($emp-images-path + "dollar.png") center left no-repeat;
 }
 
 .emp-pencil {
-    background: transparent url("../images/src/cui/pencil.png") center left no-repeat !important;
+    background: transparent url($emp-images-path + "pencil.png") center left no-repeat !important;
 }
 
 .emp-trash {
-    background: transparent url("../images/src/cui/delete.png") center left no-repeat !important;
+    background: transparent url($emp-images-path + "delete.png") center left no-repeat !important;
 }
 
 .emp-popup {
-    background: transparent url("../images/src/cui/popup.png") center left no-repeat !important;
+    background: transparent url($emp-images-path + "popup.png") center left no-repeat !important;
 }
 
 .emp-section .emp-section .emp-icon-buttons a {

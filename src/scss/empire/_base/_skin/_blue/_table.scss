@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * @name       _tableBasic.scss
  * @desc       Skinning for table styles
@@ -36,16 +35,14 @@ thead, tbody {
 }
 
 th {
-    background: #CDDEE4 url("../images/src/cui/table-header-bg.png") top left repeat-x;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#E2ECF0), to(#CDDEE4)) fixed;
+    background: #CDDEE4 url($emp-images-path + "table-header-bg.png") top left repeat-x;
     background-image: -webkit-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
-    background-image:    -moz-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
-    background-image:     -ms-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
-    background-image:      -o-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
+    background-image:         linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
     border-bottom-color: #517988;
 }
 
-th, td {
+th,
+td {
     padding: 4px 6px 3px 6px;
     font-weight: normal;
     text-align: left;
@@ -63,7 +60,8 @@ th img {
     margin-top: -3px;
 }
 
-.cui-table input[type="checkbox"], .cui-table input[type="radio"] {
+.cui-table input[type="checkbox"],
+.cui-table input[type="radio"] {
     *height: 17px;
 	padding: 0;
     margin-bottom: 3px;
@@ -71,7 +69,8 @@ th img {
     vertical-align: middle;
 }
 
-.cui-table-title, .cui-table-options {
+.cui-table-title,
+.cui-table-options {
     margin-top: 0 !important;
     min-height: 1.7em;
 }
@@ -81,7 +80,8 @@ th img {
     font-weight: bold;
 }
 
-.cui-table-options a, .cui-table-options input {
+.cui-table-options a,
+.cui-table-options input {
     vertical-align: middle;
 }
 
@@ -97,7 +97,7 @@ th img {
 
 .cui-table-sort {
     margin: 3px 0 0 0;
-    background: transparent url("../images/src/cui/column-sort.png") top left no-repeat;
+    background: transparent url($emp-images-path + "column-sort.png") top left no-repeat;
     width: 7px;
     height: 9px;
     vertical-align: text-top;
@@ -120,7 +120,7 @@ th img {
 }
 
 .cui-tr-selected {
-    background: #FFDC89 url("../images/src/cui/row-selected-bg.png") top left repeat-x;
+    background: #FFDC89 url($emp-images-path + "row-selected-bg.png") top left repeat-x;
 }
 
 .cui-tr-expanded {
@@ -138,7 +138,7 @@ th img {
 }
 
 .cui-row-mouse-over {
-    background: #F1F2F3 url("../images/src/cui/row-over-bg.png") top left repeat-x;
+    background: #F1F2F3 url($emp-images-path + "row-over-bg.png") top left repeat-x;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#F1F2F3), to(#D6DBDC)) fixed;
     background-image: -webkit-linear-gradient(top, #F1F2F3 0%, #D6DBDC 100%);
     background-image:    -moz-linear-gradient(top, #F1F2F3 0%, #D6DBDC 100%);
@@ -177,7 +177,7 @@ th img {
     margin-left: -8px;
     padding-left: 14px;
 	text-decoration: underline;
-    background: transparent url("../images/src/cui/menu-nav-down-arrow.png") center left no-repeat;
+    background: transparent url($emp-images-path + "menu-nav-down-arrow.png") center left no-repeat;
 }
 
 .cui-list-table img {

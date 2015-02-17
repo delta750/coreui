@@ -144,23 +144,23 @@ h1 {
 
 /* ----------------------------------------
    .Icon buttons
-   ---------------------------------------- */   
+   ---------------------------------------- */
 .activate-inactivate {
     background: transparent url("../../../images/common/activate-inactivate.png") center left no-repeat !important;
-} 
+}
 
 .add-event {
     background: transparent url("../../../images/common/comments-add.png") center left no-repeat !important;
-}   
-   
+}
+
 .calculator {
     background: transparent url("../../../images/common/calculator.png") center left no-repeat !important;
-} 
+}
 
 .comment {
     background: transparent url("../../../images/common/comments-view.png") center left no-repeat !important;
-}       
-   
+}
+
 .data-joint,
 .view-details,
 .taxpayer-data {
@@ -178,7 +178,7 @@ h1 {
 .form-order {
     background: transparent url("../../../images/common/form-order.png") center left no-repeat !important;
 }
-   
+
 .legal-rep {
     background: transparent url("../../../images/common/courthouse.png") center left no-repeat !important;
 }
@@ -315,9 +315,8 @@ h1 {
 
 
 /* Core UI's common.css */
-@charset "UTF-8";
 
-/* 
+/*
 =======================================================================
  New York State Department of Taxation and Finance
  User Interface Team
@@ -364,7 +363,7 @@ h1 {
 /* ----------------------------------------
    .Libraries
    ---------------------------------------- */
-   
+
 /*   .Reset
  -------------------------------------- */
 /* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
@@ -757,7 +756,7 @@ h5, h6, .its-h5, .its-h6 {
 /* ----------------------------------------
    .Spacing
    ---------------------------------------- */
-   
+
 /*   .Margins
    ---------------------------------------- */
 /* All margins */
@@ -858,7 +857,7 @@ h5, h6, .its-h5, .its-h6 {
 /* ----------------------------------------
    .Sections
    ---------------------------------------- */
-   
+
 /*   .Section
 ---------------------------------------- */
 .its-section {
@@ -982,7 +981,7 @@ h5, h6, .its-h5, .its-h6 {
 
 /*   .Labels/data
    ---------------------------------------- */
-   
+
 /*     .Wrappers
    ---------------------------------------- */
 .its-label-wrap, .its-data-wrap {
@@ -1006,15 +1005,15 @@ h5, h6, .its-h5, .its-h6 {
 
 /* Defaults section's/widget's body data containers to have a table-cell style so that data inside these can wrap and remain in place.
    For example:
-   
+
    My Label is a little    So is the data... when the data inside this container
    too long:               gets longer than the label, the data here should remain
-                           here and not move (or wrap) below the label. 
+                           here and not move (or wrap) below the label.
 
    These wrappers are defaulted to table-cell because we're assuming most labels will have a specific fixed width, like 200px or 100em, etc.
-   If the label is fixed in width, then the data wrapper will use width: auto to comply with liquid design. Because of this, we need 
+   If the label is fixed in width, then the data wrapper will use width: auto to comply with liquid design. Because of this, we need
    to use table-cell in order to keep both divs next to each other (left and right).
-   
+
    On the other hand, when the label and data containers use a variable width, like 20% or auto, the label-wrap must be floated left to gain layout. */
 .its-section-body .its-data-wrap, .its-widget .its-section-body .its-data-wrap {
     display: table-cell;
@@ -1245,7 +1244,7 @@ th img {
 /* ----------------------------------------
    .List
    ---------------------------------------- */
-   
+
 /*   .Horizontal/Vertical
  -------------------------------------- */
 .its-list-horizontal, .its-list-horizontal-block, .its-list-vertical {
@@ -1313,7 +1312,7 @@ th img {
 /* ----------------------------------------
    .Menu
    ---------------------------------------- */
-   
+
 /*   .Horizontal
  -------------------------------------- */
 .its-menu-horizontal {
@@ -1372,9 +1371,9 @@ th img {
     text-align: left;
     min-width: 174px;
 }
- 
+
 /*   .Vertical
- -------------------------------------- */    
+ -------------------------------------- */
 .its-menu-vertical {
     clear: both;
 }
@@ -1455,7 +1454,7 @@ th img {
  User Interface Team
  Styles to modify the appearance of all constructs.
  Version 1.0.0.20120324
-======================================================================= 
+=======================================================================
 
 ----------------------------------------
  Contents
@@ -1492,7 +1491,7 @@ th img {
 /* ----------------------------------------
    .Libraries
    ---------------------------------------- */
-   
+
 /*   .Reset
  -------------------------------------- */
 /* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
@@ -1608,7 +1607,7 @@ h4, .its-h4 {
 /* ----------------------------------------
    .Sections
    ---------------------------------------- */
-   
+
 /*   .Section
 ---------------------------------------- */
 .its-section {
@@ -1628,7 +1627,7 @@ h4, .its-h4 {
 .its-section .its-section .its-section-header {
     border-bottom: 1px solid #BED0D8;
     background: #E9EDEF url("../../../images/skin/default/section-header-2-bg.png") top left repeat-x;
-    
+
 }
 
 .its-section .its-section .its-section {
@@ -1638,11 +1637,11 @@ h4, .its-h4 {
 .its-section .its-section .its-section .its-section-header {
     border-bottom: 1px solid #CADADF;
     background: #F5F7F8 url("../../../images/skin/default/section-header-3-bg.png") top left repeat-x;
-    
+
 }
 
 /*   .Widget (extends its-section)
----------------------------------------- */  
+---------------------------------------- */
 .its-widget {
     border: none !important;
     border-radius: 0;
@@ -1755,7 +1754,7 @@ h4, .its-h4 {
 
 /*   .Labels/data
    ---------------------------------------- */
-   
+
 /*     .Wrappers
    ---------------------------------------- */
 .its-label, label {
@@ -1792,10 +1791,10 @@ th {
 tfoot td {
     border-width: 3px 0 0 0;
     border-style: solid;
-    border-color: #ABC4CD;  
+    border-color: #ABC4CD;
 }
 
-.its-footer-border { 
+.its-footer-border {
     border-width: 3px 1px 1px 1px !important;
 }
 
@@ -1881,7 +1880,7 @@ tfoot td {
     background-image: -webkit-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
     background-image:    -moz-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
     background-image:     -ms-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
-    background-image:      -o-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%); 
+    background-image:      -o-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
 }
 
 .its-button:hover, .its-button-XXS:hover, .its-button-XS:hover, .its-button-S:hover, .its-button-M:hover, .its-button-L:hover, .its-button-XL:hover, .its-button-XXL:hover, .its-button-short:hover, .its-button-inline:hover {
@@ -1891,7 +1890,7 @@ tfoot td {
     background-image: -webkit-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
     background-image:    -moz-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
     background-image:     -ms-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
-    background-image:      -o-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);      
+    background-image:      -o-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
 }
 
 .its-button-primary {
@@ -1903,7 +1902,7 @@ tfoot td {
     background-image: -webkit-linear-gradient(top, #7D94AA 0%, #405264 100%);
     background-image:    -moz-linear-gradient(top, #7D94AA 0%, #405264 100%);
     background-image:     -ms-linear-gradient(top, #7D94AA 0%, #405264 100%);
-    background-image:      -o-linear-gradient(top, #7D94AA 0%, #405264 100%);   
+    background-image:      -o-linear-gradient(top, #7D94AA 0%, #405264 100%);
 }
 
 .its-button-primary:hover {
@@ -1913,13 +1912,13 @@ tfoot td {
     background-image: -webkit-linear-gradient(top, #8FA2B5 0%, #516377 100%);
     background-image:    -moz-linear-gradient(top, #8FA2B5 0%, #516377 100%);
     background-image:     -ms-linear-gradient(top, #8FA2B5 0%, #516377 100%);
-    background-image:      -o-linear-gradient(top, #8FA2B5 0%, #516377 100%);      
+    background-image:      -o-linear-gradient(top, #8FA2B5 0%, #516377 100%);
 }
 
 
 /* ----------------------------------------
    .Icon buttons
-   ---------------------------------------- */   
+   ---------------------------------------- */
 .its-sections-toggle {
     background: transparent url("../../../images/common/section-collapse-all.png") center left no-repeat;
 }
@@ -1990,7 +1989,7 @@ tfoot td {
 /* ----------------------------------------
    .List
    ---------------------------------------- */
-   
+
 /*   .Bullets
  -------------------------------------- */
 .its-line-separator li {
@@ -2021,7 +2020,7 @@ tfoot td {
    ---------------------------------------- */
 
 /*   .Horizontal
----------------------------------------- */ 
+---------------------------------------- */
 .its-menu-horizontal li {
     border-top: 1px solid #9CAEBD;
     border-bottom: 1px solid #9CAEBD;
@@ -2078,7 +2077,7 @@ tfoot td {
 }
 
 /*   .Vertical
----------------------------------------- */    
+---------------------------------------- */
 .its-menu-vertical a, .its-menu-vertical .its-disabled {
     border-bottom: 1px solid #C9D2DC;
     background: #F5F5F5;

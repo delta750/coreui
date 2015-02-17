@@ -87,7 +87,7 @@ button.cui-icon {
    ---------------------------------------- */
 .page-indicators li {
     color: #FFF;
-    background: #D05029 url("../../../images/common/indicators-bg.png") bottom left repeat-x;
+    background: #D05029 url($emp-images-path + "indicators-bg.png") bottom left repeat-x;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#D05029), to(#CC1500)) fixed;
     background-image: -webkit-linear-gradient(top, #D05029 0%, #CC1500 100%);
     background-image:    -moz-linear-gradient(top, #D05029 0%, #CC1500 100%);
@@ -99,6 +99,6 @@ button.cui-icon {
 
 .page-indicators a {
     color: #FFF;
-    background: transparent url("../../../images/common/notifier-popup.png") center right no-repeat;
+    background: transparent url($emp-images-path + "notifier-popup.png") center right no-repeat;
 }
 
