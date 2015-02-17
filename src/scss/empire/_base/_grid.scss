@@ -74,6 +74,7 @@ section {
         // The left and right sides often have different amounts of buttons so a 50/50 split doesn't work (one side may wrap unnecessarily). So we use `table-cell` to let them divide the width as needed.
         display: table-cell;
         width: auto;
+        float: none;
         // margin: 0;
     }
 }
