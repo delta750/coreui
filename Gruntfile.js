@@ -146,7 +146,6 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/cui/cui.css':     'src/scss/cui/cui.scss',
                     'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
                     'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
@@ -155,7 +154,6 @@ module.exports = function(grunt) {
             // Production task
             prod: {
                 files: {
-                    'dist/css/cui/cui.css':     'src/scss/cui/cui.scss',
                     'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
                     'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
@@ -171,8 +169,8 @@ module.exports = function(grunt) {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['dist/css/cui/cui.css'],
-                dest: 'dist/css/cui/cui.css',
+                src: ['dist/css/empire/empire.css'],
+                dest: 'dist/css/empire/empire.css',
             },
         },
 

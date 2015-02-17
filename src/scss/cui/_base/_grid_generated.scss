@@ -111,6 +111,7 @@ $columns: 12;
     }
 
     @include build-grid("medium", $columns);
+    @include build-grid("medium", $columns);
 
     [class$="-200"] {
         width: 200px;
