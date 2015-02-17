@@ -181,7 +181,7 @@ textarea {
     }
 
     // When the input group is inside some other element besides `.cui-data`
-    // For example `.cui-col-sm-12` or some other basic container
+    // For example `.cui-col-small-12` or some other basic container
     // This is because `.cui-data` uses `display: table` which prevents the container from filling the entire width of its parent
     *:not(.cui-data) > & {
         .input-prepend,

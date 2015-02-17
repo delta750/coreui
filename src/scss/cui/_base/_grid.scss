@@ -20,7 +20,7 @@
     min-height: 1.5em;
 }
 
-[class*="cui-col-sm-"],
+[class*="cui-col-small-"],
 [class*="cui-fixed-col-"] {
     float: left;
 }
@@ -54,37 +54,37 @@ nav > header {
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
-.cui-col-sm-12 {
+.cui-col-small-12 {
     width: 100%;
 }
 
-.cui-col-sm-11 {
+.cui-col-small-11 {
     width: 91.66666667%;
 }
 
-.cui-col-sm-10 {
+.cui-col-small-10 {
     width: 83.33333333%;
 }
 
-.cui-col-sm-9 {
+.cui-col-small-9 {
     width: 75%;
 }
 
-.cui-col-sm-8 {
+.cui-col-small-8 {
     width: 66.66666667%;
 }
 
-.cui-col-sm-7 {
+.cui-col-small-7 {
     width: 58.33333333%;
 }
 
-.cui-col-sm-6 {
+.cui-col-small-6 {
     width: 50%;
 
     // Make sure every column that begins a new "row" clears the elements before it.
     // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
-    // Using `max-width` media query so it doesn't affect a `.cui-col-sm-6.cui-col-md-*` element in a larger viewport
-    //TODO: Copy this practice for other classes (e.g. every 4th col-sm-4 should wrap to a new line)
+    // Using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
+    //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
     @include pointbreak($bp-tablet, true) {
         &:nth-child(2n+3) {
             clear: both;
@@ -92,23 +92,23 @@ nav > header {
     }
 }
 
-.cui-col-sm-5 {
+.cui-col-small-5 {
     width: 41.66666667%;
 }
 
-.cui-col-sm-4 {
+.cui-col-small-4 {
     width: 33.33333333%;
 }
 
-.cui-col-sm-3 {
+.cui-col-small-3 {
     width: 25%;
 }
 
-.cui-col-sm-2 {
+.cui-col-small-2 {
     width: 16.66666667%;
 }
 
-.cui-col-sm-1 {
+.cui-col-small-1 {
     width: 8.33333333%;
 }
 
@@ -116,7 +116,7 @@ nav > header {
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
 @media only screen and (min-width:$bp-tablet) {
-    [class*="cui-col-md-"] {
+    [class*="cui-col-medium-"] {
         float: left;
     }
 
@@ -126,51 +126,51 @@ nav > header {
         overflow: hidden;
     }
 
-    .cui-col-md-12 {
+    .cui-col-medium-12 {
         width: 100%;
     }
 
-    .cui-col-md-11 {
+    .cui-col-medium-11 {
         width: 91.66666667%;
     }
 
-    .cui-col-md-10 {
+    .cui-col-medium-10 {
         width: 83.33333333%;
     }
 
-    .cui-col-md-9 {
+    .cui-col-medium-9 {
         width: 75%;
     }
 
-    .cui-col-md-8 {
+    .cui-col-medium-8 {
         width: 66.66666667%;
     }
 
-    .cui-col-md-7 {
+    .cui-col-medium-7 {
         width: 58.33333333%;
     }
 
-    .cui-col-md-6 {
+    .cui-col-medium-6 {
         width: 50%;
     }
 
-    .cui-col-md-5 {
+    .cui-col-medium-5 {
         width: 41.66666667%;
     }
 
-    .cui-col-md-4 {
+    .cui-col-medium-4 {
         width: 33.33333333%;
     }
 
-    .cui-col-md-3 {
+    .cui-col-medium-3 {
         width: 25%;
     }
 
-    .cui-col-md-2 {
+    .cui-col-medium-2 {
         width: 16.66666667%;
     }
 
-    .cui-col-md-1 {
+    .cui-col-medium-1 {
         width: 8.33333333%;
     }
 }
@@ -179,7 +179,7 @@ nav > header {
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
 @media only screen and (min-width:$bp-desktop) {
-    [class*="cui-col-lg-"] {
+    [class*="cui-col-large-"] {
         float: left;
     }
 
@@ -189,51 +189,51 @@ nav > header {
         overflow: hidden;
     }
 
-    .cui-col-lg-12 {
+    .cui-col-large-12 {
         width: 100%;
     }
 
-    .cui-col-lg-11 {
+    .cui-col-large-11 {
         width: 91.66666667%;
     }
 
-    .cui-col-lg-10 {
+    .cui-col-large-10 {
         width: 83.33333333%;
     }
 
-    .cui-col-lg-9 {
+    .cui-col-large-9 {
         width: 75%;
     }
 
-    .cui-col-lg-8 {
+    .cui-col-large-8 {
         width: 66.66666667%;
     }
 
-    .cui-col-lg-7 {
+    .cui-col-large-7 {
         width: 58.33333333%;
     }
 
-    .cui-col-lg-6 {
+    .cui-col-large-6 {
         width: 50%;
     }
 
-    .cui-col-lg-5 {
+    .cui-col-large-5 {
         width: 41.66666667%;
     }
 
-    .cui-col-lg-4 {
+    .cui-col-large-4 {
         width: 33.33333333%;
     }
 
-    .cui-col-lg-3 {
+    .cui-col-large-3 {
         width: 25%;
     }
 
-    .cui-col-lg-2 {
+    .cui-col-large-2 {
         width: 16.66666667%;
     }
 
-    .cui-col-lg-1 {
+    .cui-col-large-1 {
         width: 8.33333333%;
     }
 }

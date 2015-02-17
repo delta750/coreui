@@ -21,7 +21,7 @@
 // * @section    Small screen hide/show classes
 // * --------------------------------------------------------
 @media (max-width: $bp-tablet-minus) {
-    .cui-hide-for-sm {
+    .cui-hide-for-small {
         display: none !important;
     }
 }
@@ -30,7 +30,7 @@
 // * @section    Medium screen hide/show classes
 // * --------------------------------------------------------
 @media (min-width: $bp-tablet) and (max-width: $bp-desktop-minus) {
-    .cui-hide-for-md {
+    .cui-hide-for-medium {
         display: none !important;
     }
 }
@@ -39,7 +39,7 @@
 // * @section    Large screen hide/show classes
 // * --------------------------------------------------------
 @media (min-width: $bp-desktop) {
-    .cui-hide-for-lg {
+    .cui-hide-for-large {
         display: none !important;
     }
 }
