@@ -4,7 +4,7 @@
  * @desc       Skinning for table styles
  * @author     Manolo Farfan
  * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
+ * @see        https://github.com/ny/frg-coreui
  */
 
 /**
@@ -49,14 +49,14 @@ th, td {
     padding: 4px 6px 3px 6px;
     font-weight: normal;
     text-align: left;
-    border: 1px solid #ABC4CD;    
+    border: 1px solid #ABC4CD;
 }
 
 tfoot td {
     padding: 8px 6px;
     border-width: 3px 0 0 0;
     border-style: solid;
-    border-color: #ABC4CD;  
+    border-color: #ABC4CD;
 }
 
 th img {
@@ -103,7 +103,7 @@ th img {
     vertical-align: text-top;
 }
 
-.cui-footer-border { 
+.cui-footer-border {
     border-width: 3px 1px 1px 1px !important;
 }
 
