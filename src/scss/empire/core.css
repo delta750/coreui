@@ -24,7 +24,7 @@
     Custom container
         Label/data
     Page-specific
-    	IPA Bars
+        IPA Bars
 */
 
 
@@ -51,7 +51,7 @@ h1 {
 
 @media print {
     .print-only {
-    	display: block;
+        display: block;
     }
 }
 
@@ -77,7 +77,7 @@ h1 {
 /*   .Global header
    ---------------------------------------- */
 .global-header h2 {
-	margin-top: 1px;
+    margin-top: 1px;
 }
 
 /*   .General header
@@ -115,7 +115,7 @@ h1 {
     display: inline-block;
     padding: 0 !important;
     margin: 0 !important;
-	width: 22px !important;
+    width: 22px !important;
     height: 16px !important;
 }
 
@@ -134,14 +134,14 @@ h1 {
 .search-box .show-hide {
     bottom: -1px;
     right: 6px;
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
     z-index: 10;
 }
 
 .search-box .show-hide a {
-	display: inline-block;
-	width: 27px;
+    display: inline-block;
+    width: 27px;
     height: 16px;
 }
 
@@ -219,7 +219,7 @@ h1 {
 }
 
 .page-title li {
-	float: left;
+    float: left;
 }
 
 .page-title a {
@@ -229,9 +229,9 @@ h1 {
 /*   .Indicators
    ---------------------------------------- */
 .page-indicators li {
-	/*float: left;*/
-	padding: 1px 0.3em;
-	margin: 0 0.1em 0.25em 0.1em;
+    /*float: left;*/
+    padding: 1px 0.3em;
+    margin: 0 0.1em 0.25em 0.1em;
     white-space: nowrap;
 }
 
@@ -247,14 +247,14 @@ h1 {
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
-	line-height: 1.1em;
+    line-height: 1.1em;
 }
 
 /*   .As of
    ---------------------------------------- */
 .as-of input {
     *vertical-align: middle;
-	font: normal 120% Tahoma, Arial, Consolas, sans-serif;
+    font: normal 120% Tahoma, Arial, Consolas, sans-serif;
 }
 
 /*   .As of
@@ -296,13 +296,13 @@ h1 {
 }
 
 .ipa-bar-red {
-	width: 80%;
+    width: 80%;
 }
 
 .ipa-bar-yellow {
-	width: 60%;
+    width: 60%;
 }
 
 .ipa-bar-green {
-	width: 40%;
+    width: 40%;
 }

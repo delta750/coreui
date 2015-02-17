@@ -63,7 +63,7 @@ h1 {
 /*   .General header
    ---------------------------------------- */
 .general-header .content {
-	border: 1px solid #BED0D8;
+    border: 1px solid #BED0D8;
     border-width: 1px;
     border-radius: 2px;
     background-color: #EFF3F5;
@@ -72,7 +72,7 @@ h1 {
 /*   .Tab strip
    ---------------------------------------- */
 .its-tab-strip .show-hide a {
-	background: transparent url("../../../images/common/toggle-display-1.png") top left no-repeat !important;
+    background: transparent url("../../../images/common/toggle-display-1.png") top left no-repeat !important;
     border: 0;
 }
 
@@ -84,19 +84,19 @@ h1 {
 }
 
 .search-box .show-hide a {
-	background: transparent url("../../../images/common/search-box-toggle-up.png") top center no-repeat;
+    background: transparent url("../../../images/common/search-box-toggle-up.png") top center no-repeat;
 }
 
 .search-box .show-hide a:hover {
-	background: transparent url("../../../images/common/search-box-toggle-up-over.png") top center no-repeat;
+    background: transparent url("../../../images/common/search-box-toggle-up-over.png") top center no-repeat;
 }
 
 .search-box .show-hide a.expand {
-	background: transparent url("../../../images/common/search-box-toggle-down.png") top center no-repeat;
+    background: transparent url("../../../images/common/search-box-toggle-down.png") top center no-repeat;
 }
 
 .search-box .show-hide a.expand:hover {
-	background: transparent url("../../../images/common/search-box-toggle-down-over.png") top center no-repeat;
+    background: transparent url("../../../images/common/search-box-toggle-down-over.png") top center no-repeat;
 }
 
 .search-box .button-wrapper-left {
@@ -310,4 +310,1871 @@ h1 {
 
 .ipa-bar-green {
     background-color: #093;
+}
+
+
+
+/* Core UI's common.css */
+@charset "UTF-8";
+
+/* 
+=======================================================================
+ New York State Department of Taxation and Finance
+ User Interface Team
+ Common styles to be used across projects
+ Version 1.0.0.20120320
+=======================================================================
+
+----------------------------------------
+ Contents
+----------------------------------------
+    Libraries
+        Reset
+    Content
+        Global
+        Form elements
+        Special
+    Heading
+        H1-H6
+    Messages
+    Grid
+    Spacing
+        Margins
+        Padding
+    Sections
+        Section
+        Widget
+        Labels/data
+            Wrappers
+            Sizes
+    Table
+        List table
+    Button
+    List
+        Horizontal/Vertical
+        Bullets
+        Tree
+    Menu
+        Horizontal
+        Vertical
+    Tabstrip
+*/
+
+
+/* ----------------------------------------
+   .Libraries
+   ---------------------------------------- */
+   
+/*   .Reset
+ -------------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, em, img, strong, tt, fieldset, legend, b, u, i, center, ol, ul, li, form, label, table, tbody, tfoot, thead {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+
+legend {
+    white-space: normal;
+    display: inline-block;
+}
+
+
+/* ----------------------------------------
+   .Content
+   ---------------------------------------- */
+
+/*   .Global
+   ---------------------------------------- */
+body {
+    font: 0.8em "Segoe UI", Tahoma, Arial, Consolas, sans-serif;
+    color: #333;
+}
+
+form {
+    height: 1%;
+    display: inline;
+}
+
+/*   .Form elements
+   ---------------------------------------- */
+input, select, textarea {
+    font: 100% "Segoe UI", Tahoma, Arial, Consolas, sans-serif;
+}
+
+input, textarea {
+    padding: 2px 1px 2px 3px;
+    margin-top: -4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+select {
+    padding: 1px 1px 1px 3px;
+    margin-top: -2px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    margin-top: 0;
+}
+
+input[type="checkbox"], input[type="radio"], input[type="image"] {
+    border: none;
+}
+
+a {
+    text-decoration: underline;
+}
+
+a:hover, a:visited:hover {
+    text-decoration: underline;
+}
+
+/*   .Special
+   ---------------------------------------- */
+.its-col img {
+    vertical-align: middle;
+}
+
+.its-section img, .its-data img {
+    margin-top: -3px;
+    *margin-top: 0; /* IE7 */
+}
+
+.its-text {
+    padding: 0.3em 0;
+}
+
+.its-text a {
+    text-decoration: underline;
+}
+
+.its-money {
+    width: 12.45em;
+}
+
+.its-right-align, .its-money, .its-money input {
+    text-align: right;
+}
+
+.its-center-align {
+    text-align: center;
+}
+
+.its-hidden, .hidden {
+    display: none !important;
+}
+
+.its-hide-from-screen {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    width: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 0;
+}
+
+.its-icon-button {
+    display: inline-block;
+    font-size: 0 !important;
+    color: transparent !important;
+    text-indent: 1000em;
+    *text-indent: 0;
+    vertical-align: text-top;
+    height: 16px;
+    width: 16px;
+}
+
+.its-icon-button:active,
+.its-icon-button:hover,
+.its-icon-button:visited {
+    text-decoration: none !important;
+    color: transparent;
+}
+
+.its-bold {
+    font-weight: bold;
+}
+
+.its-not-bold {
+    font-weight: normal;
+}
+
+.its-display-block {
+    display: block;
+}
+
+.its-display-inline-block {
+    display: inline-block;
+}
+
+.its-vertical-align-middle {
+    vertical-align: middle;
+}
+
+.its-no-wrap {
+    white-space: nowrap;
+}
+
+.its-font-size-XXS {
+    font-size: 75%;
+}
+
+.its-font-size-XS {
+    font-size: 80%;
+}
+
+.its-font-size-S {
+    font-size: 90%;
+}
+
+.its-font-size-M {
+    font-size: 100%;
+}
+
+.its-font-size-L {
+    font-size: 110%;
+}
+
+.its-font-size-XL {
+    font-size: 120%;
+}
+
+.its-font-size-XXL {
+    font-size: 130%;
+}
+
+.its-font-size-XXXL {
+    font-size: 140%;
+}
+
+.its-width-auto {
+    width: auto !important;
+}
+
+.its-clear-left {
+    clear: left !important;
+}
+
+.its-clear-right {
+    clear: right !important;
+}
+
+.its-clear {
+    clear: both !important;
+}
+
+.its-no-border {
+    border: none !important;
+}
+
+.its-no-border-l {
+    border-left: none !important;
+}
+
+.its-no-border-r {
+    border-right: none !important;
+}
+
+.its-no-border-t {
+    border-top: none !important;
+}
+
+.its-no-border-b {
+    border-bottom: none !important;
+}
+
+.its-has-border {
+    border-width: 1px;
+    border-style: solid;
+}
+
+.its-scroll-auto {
+    overflow: auto !important;
+}
+
+.its-disabled {
+    cursor: default;
+}
+
+.its-overflow-visible {
+    overflow: visible !important;
+}
+
+.its-dashed-separator {
+    height: 1px;
+    margin: 0.5em 0px 0.4em 0px !important;
+}
+
+.its-accessible, .its-acc-type-1, .its-acc-type-2 {
+    /* Accessibility placeholders for JavaScript interaction
+       - its-acc-type-1: Sections
+       - its-acc-type-2: [B] Bankrupcy Exists
+    */
+}
+
+.its-italicized {
+    font-style: italic;
+}
+
+
+/* ----------------------------------------
+   .Heading
+   ---------------------------------------- */
+
+/*   .H1-H6
+   ---------------------------------------- */
+h1, h2, h3, h4, h5, h6, .its-h1, .its-h2, .its-h3, .its-h4, .its-h5, .its-h6 {
+    font-style: normal;
+    font-weight: normal;
+}
+
+h1, .its-h1 {
+    font-size: 170%;
+}
+
+h2, .its-h2 {
+    font-size: 150%;
+}
+
+h3, .its-h3 h4, .its-h3 h5, .its-h3 h6 {
+    font-size: 130%;
+    margin-bottom: 2px !important;
+}
+
+h4, .its-h4 {
+    font-size: 120%;
+}
+
+h3, h4, .its-h3 h4, .its-h3 h5, .its-h3 h6, .its-h4 {
+    padding-bottom: 1px;
+    text-indent: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+h5, h6, .its-h5, .its-h6 {
+    font-size: 100%;
+}
+
+
+/* ----------------------------------------
+   .Messages
+   ---------------------------------------- */
+.its-list-messages {
+    margin-left: 0.2em;
+    overflow: hidden;
+}
+
+.its-list-messages li {
+    float: left;
+    clear: both;
+    width: 100%;
+    margin-bottom: 0.2em;
+}
+
+.its-list-messages p {
+    margin: -1px 0 0 20px;
+}
+
+.its-type-error div, .its-type-warning div, .its-type-informational div, .its-type-success div {
+    float: left;
+    width: 14px;
+    height: 14px;
+    text-indent: -99999em;
+}
+
+
+/* ----------------------------------------
+   .Grid
+   ---------------------------------------- */
+.its-line {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+}
+
+.its-col {
+    float: left;
+}
+
+/* IMPORTANT: Make sure each .its-w-*p (only for percentages) is also added to the proper location inside the .Labels/Data > Wrappers section */
+.its-w-100p { width: 100%; }
+.its-w-99p  { width: 99%; }
+.its-w-95p  { width: 95%; }
+.its-w-90p  { width: 90%; }
+.its-w-85p  { width: 85%; }
+.its-w-80p  { width: 80%; }
+.its-w-75p  { width: 75%; }
+.its-w-70p  { width: 70%; }
+.its-w-66p  { width: 66.66666%; }
+.its-w-60p  { width: 60%; }
+.its-w-50p  { width: 50%; }
+.its-w-49p  { width: 49%; }
+.its-w-45p  { width: 45%; }
+.its-w-40p  { width: 40%; }
+.its-w-33p  { width: 33.33333%; }
+.its-w-30p  { width: 30%; }
+.its-w-25p  { width: 25%; }
+.its-w-20p  { width: 20%; }
+.its-w-10p  { width: 10%; }
+.its-w-5p   { width: 5%; }
+.its-w-2p   { width: 2%; }
+.its-w-1p   { width: 1%; }
+
+.its-w-200  { width: 200px; }
+
+.its-float-left {
+    float: left;
+}
+
+.its-float-right {
+    float: right;
+}
+
+.its-clear-item:after {
+    content: ".";
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    display: block;
+}
+
+
+/* ----------------------------------------
+   .Spacing
+   ---------------------------------------- */
+   
+/*   .Margins
+   ---------------------------------------- */
+/* All margins */
+.its-marg-None   { margin: 0 !important; }
+.its-marg-XXS    { margin: 2px !important; }
+.its-marg-XS     { margin: 4px !important; }
+.its-marg-S      { margin: 6px !important; }
+.its-marg-M      { margin: 10px !important; }
+.its-marg-L      { margin: 12px !important; }
+.its-marg-XL     { margin: 15px !important; }
+.its-marg-XXL    { margin: 20px !important; }
+/* Margin Top */
+.its-marg-t-None { margin-top: 0 !important; }
+.its-marg-t-XXS  { margin-top: 2px !important; }
+.its-marg-t-XS   { margin-top: 4px !important; }
+.its-marg-t-S    { margin-top: 6px !important; }
+.its-marg-t-M    { margin-top: 10px !important; }
+.its-marg-t-L    { margin-top: 12px !important; }
+.its-marg-t-XL   { margin-top: 15px !important; }
+.its-marg-t-XXL  { margin-top: 20px !important; }
+/* Margin Bottom */
+.its-marg-b-None { margin-bottom: 0 !important; }
+.its-marg-b-XXS  { margin-bottom: 2px !important; }
+.its-marg-b-XS   { margin-bottom: 4px !important; }
+.its-marg-b-S    { margin-bottom: 6px !important; }
+.its-marg-b-M    { margin-bottom: 10px !important; }
+.its-marg-b-L    { margin-bottom: 12px !important; }
+.its-marg-b-XL   { margin-bottom: 15px !important; }
+.its-marg-b-XXL  { margin-bottom: 20px !important; }
+/* Margin Left */
+.its-marg-l-None { margin-left: 0 !important; }
+.its-marg-l-XXS  { margin-left: 2px !important; }
+.its-marg-l-XS   { margin-left: 4px !important; }
+.its-marg-l-S    { margin-left: 6px !important; }
+.its-marg-l-M    { margin-left: 10px !important; }
+.its-marg-l-L    { margin-left: 12px !important; }
+.its-marg-l-XL   { margin-left: 15px !important; }
+.its-marg-l-XXL  { margin-left: 20px !important; }
+/* Margin Right */
+.its-marg-r-None { margin-right: 0 !important; }
+.its-marg-r-XXS  { margin-right: 2px !important; }
+.its-marg-r-XS   { margin-right: 4px !important; }
+.its-marg-r-S    { margin-right: 6px !important; }
+.its-marg-r-M    { margin-right: 10px !important; }
+.its-marg-r-L    { margin-right: 12px !important; }
+.its-marg-r-XL   { margin-right: 15px !important; }
+.its-marg-r-XXL  { margin-right: 20px !important; }
+
+/*   .Paddings
+   ---------------------------------------- */
+/* All paddings */
+.its-padd-None   { padding: 0 !important; }
+.its-padd-XXS    { padding: 2px !important; }
+.its-padd-XS     { padding: 4px !important; }
+.its-padd-S      { padding: 6px !important; }
+.its-padd-M      { padding: 10px !important; }
+.its-padd-L      { padding: 12px !important; }
+.its-padd-XL     { padding: 15px !important; }
+.its-padd-XXL    { padding: 20px !important; }
+/* Padding Top */
+.its-padd-t-None { padding-top: 0 !important; }
+.its-padd-t-XXS  { padding-top: 2px !important; }
+.its-padd-t-XS   { padding-top: 4px !important; }
+.its-padd-t-S    { padding-top: 6px !important; }
+.its-padd-t-M    { padding-top: 10px !important; }
+.its-padd-t-L    { padding-top: 12px !important; }
+.its-padd-t-XL   { padding-top: 15px !important; }
+.its-padd-t-XXL  { padding-top: 20px !important; }
+/* Padding Bottom */
+.its-padd-b-None { padding-bottom: 0 !important; }
+.its-padd-b-XXS  { padding-bottom: 2px !important; }
+.its-padd-b-XS   { padding-bottom: 4px !important; }
+.its-padd-b-S    { padding-bottom: 6px !important; }
+.its-padd-b-M    { padding-bottom: 10px !important; }
+.its-padd-b-L    { padding-bottom: 12px !important; }
+.its-padd-b-XL   { padding-bottom: 15px !important; }
+.its-padd-b-XXL  { padding-bottom: 20px !important; }
+/* Padding Left */
+.its-padd-l-None { padding-left: 0 !important; }
+.its-padd-l-XXS  { padding-left: 2px !important; }
+.its-padd-l-XS   { padding-left: 4px !important; }
+.its-padd-l-S    { padding-left: 6px !important; }
+.its-padd-l-M    { padding-left: 10px !important; }
+.its-padd-l-L    { padding-left: 12px !important; }
+.its-padd-l-XL   { padding-left: 15px !important; }
+.its-padd-l-XXL  { padding-left: 20px !important; }
+/* Padding right */
+.its-padd-r-None { padding-right: 0 !important; }
+.its-padd-r-XXS  { padding-right: 2px !important; }
+.its-padd-r-XS   { padding-right: 4px !important; }
+.its-padd-r-S    { padding-right: 6px !important; }
+.its-padd-r-M    { padding-right: 10px !important; }
+.its-padd-r-L    { padding-right: 12px !important; }
+.its-padd-r-XL   { padding-right: 15px !important; }
+.its-padd-r-XXL  { padding-right: 20px !important; }
+
+
+/* ----------------------------------------
+   .Sections
+   ---------------------------------------- */
+   
+/*   .Section
+---------------------------------------- */
+.its-section {
+    padding: 0 !important;
+}
+
+.its-section-header {
+    position: relative;
+    padding: 0.35em 0 0.25em 0;
+}
+
+.its-section-header .its-col {
+    padding: 0 !important;
+}
+
+.its-section-body {
+    clear: both;
+    overflow: hidden;
+    width: auto;
+}
+
+/* Changing this will affect its-empy-line so make sure you update that too */
+.its-section .its-line, .its-section-body .its-line {
+    margin: 0;
+}
+
+/* Changing this will affect its-empy-line so make sure you update that too */
+.its-section-body .its-line .its-col {
+    padding: 4px 0 2px 0;
+    margin: 1px 0;
+}
+
+/* This might vary if the padding/margin of line/col change */
+.its-section-body .its-empty-line {
+    height: 2.19em;
+    line-height: 2.19em;
+}
+
+.its-section .its-section .its-section-header {
+    padding: 0.25em 0 0.15em 0;
+}
+
+.its-section-header-title {
+    margin-left: 0.3em;
+}
+
+.its-section .its-section .its-section-header-title {
+    font-size: 93%;
+}
+
+.its-section .its-section .its-section .its-section-header {
+    padding: 0.15em 0 0.05em 0;
+}
+
+.its-section .its-section .its-section .its-section-header-title {
+    font-size: 86%;
+}
+
+.its-section .its-section .its-section .its-section .its-section-header {
+    padding: 0.05em 0 0 0;
+}
+
+.its-section .its-section .its-section .its-section .its-section-header-title {
+    font-size: 79%;
+}
+
+.its-section-footer {
+    width: auto;
+}
+
+/*   .Widget (extends its-section)
+---------------------------------------- */
+.its-widget {
+    margin-top: 8px;
+}
+
+.its-widget .its-section-header {
+    padding: 0;
+    font-size: 100% !important;
+}
+
+.its-widget h2 {
+    margin: 0 0.3em;
+    padding: 0.5em 0.4em;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.its-widget-2 h3 {
+    margin: 0;
+    padding: 0.3em 0em !important;
+    font-size: 100%;
+    font-weight: bold !important;
+}
+
+.its-widget-2 h4 {
+    margin: 0;
+    padding: 1em 0em 0.3em 0;
+    font-size: 100%;
+    font-weight: bold !important;
+}
+
+.its-widget .its-section-body {
+    margin: 0;
+    padding: 6px 10px;
+    overflow: hidden;
+}
+
+.its-widget-2 .its-widget .its-section-body {
+    padding: 0 0 0 18px;
+}
+
+.its-section-header, .its-section-footer {
+    clear: both;
+}
+
+.its-widget-1 .its-section-footer-middle, .its-widget-2 .its-section-footer-middle {
+    margin: 0 3px;
+    padding: 1px 0;
+}
+
+/*   .Labels/data
+   ---------------------------------------- */
+   
+/*     .Wrappers
+   ---------------------------------------- */
+.its-label-wrap, .its-data-wrap {
+    float: left;
+    line-height: normal;
+}
+
+.its-label-wrap {
+    text-align: right;
+    vertical-align: top;
+    padding-right: 17px; /* Careful with Chrome - doesn't like some ems (i.e. 1.3em is a no, 1.29em is a yes), pixels are ok */
+}
+
+.its-data-wrap {
+    width: auto;
+}
+
+.its-section-body .its-data-wrap, .its-widget .its-section-body .its-data-wrap {
+    float: none;
+}
+
+/* Defaults section's/widget's body data containers to have a table-cell style so that data inside these can wrap and remain in place.
+   For example:
+   
+   My Label is a little    So is the data... when the data inside this container
+   too long:               gets longer than the label, the data here should remain
+                           here and not move (or wrap) below the label. 
+
+   These wrappers are defaulted to table-cell because we're assuming most labels will have a specific fixed width, like 200px or 100em, etc.
+   If the label is fixed in width, then the data wrapper will use width: auto to comply with liquid design. Because of this, we need 
+   to use table-cell in order to keep both divs next to each other (left and right).
+   
+   On the other hand, when the label and data containers use a variable width, like 20% or auto, the label-wrap must be floated left to gain layout. */
+.its-section-body .its-data-wrap, .its-widget .its-section-body .its-data-wrap {
+    display: table-cell;
+    *display: auto; /* IE7 */
+    float: none;
+    *float: left; /* IE7 */
+    *padding-right: 0; /* IE7 */
+}
+
+/* Any .its-w-*p added in the .Grid section should be found here too */
+.its-w-100p .its-label-wrap, .its-w-99p .its-label-wrap, .its-w-95p .its-label-wrap, .its-w-90p .its-label-wrap, .its-w-80p .its-label-wrap, .its-w-75p .its-label-wrap, .its-w-70p .its-label-wrap, .its-w-66p .its-label-wrap, .its-w-60p .its-label-wrap, .its-w-50p .its-label-wrap, .its-w-49p .its-label-wrap, .its-w-45p .its-label-wrap, .its-w-40p .its-label-wrap, .its-w-33p .its-label-wrap, .its-w-30p .its-label-wrap, .its-w-25p .its-label-wrap, .its-w-20p .its-label-wrap, .its-w-10p .its-label-wrap, .its-w-5p .its-label-wrap, .its-w-2p .its-label-wrap, .its-w-1p .its-label-wrap {
+    float: left;
+}
+
+.its-label {
+    position: relative;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.its-data {
+    padding: auto 0;
+}
+
+.its-required {
+    display: inline;
+    position: absolute;
+    right: -0.8em;
+    top: 0;
+    font-weight: bold;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.its-data-mask {
+    margin-left: 0.3em;
+}
+
+.its-label-top .its-label-wrap,
+.its-label-top .its-data-wrap {
+    display: block !important;
+    text-align: left;
+    *width: 100%; /* IE7 */
+}
+
+.its-legend-text {
+    *float: left;
+}
+
+/*     .Sizes
+   ---------------------------------------- */
+.its-label-auto .its-label-wrap, .its-label-auto .its-data-wrap { width: auto; }
+.its-label-XXS .its-label-wrap { width: 10%; }
+.its-label-XS .its-label-wrap  { width: 15%; }
+.its-label-S .its-label-wrap   { width: 30%; }
+.its-label-M .its-label-wrap   { width: 50%; }
+.its-label-L .its-label-wrap   { width: 60%; }
+.its-label-XL .its-label-wrap  { width: 75%; }
+
+.its-label-XXS .its-data-wrap, .its-label-XS .its-data-wrap, .its-label-S .its-data-wrap, .its-label-M .its-data-wrap, .its-label-L .its-data-wrap, .its-label-XL .its-data-wrap {
+    width: auto;
+}
+
+
+/* ----------------------------------------
+   .Table
+   ---------------------------------------- */
+.its-table-section {
+    overflow: hidden;
+    margin-top: 2px;
+}
+
+.its-table-div {
+    margin: 0 !important;
+    padding: 0 !important;
+    zoom: 1;
+}
+
+table {
+    width: 100%;
+    empty-cells: show;
+}
+
+.its-table-fixed {
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 4px 6px 3px 6px;
+    font-weight: normal;
+    text-align: left;
+}
+
+tfoot td {
+    padding: 8px 6px;
+}
+
+th img {
+    margin-top: -3px;
+}
+
+.its-table input[type="checkbox"], .its-table input[type="radio"] {
+    *height: 17px;
+    padding: 0;
+    margin-bottom: 3px;
+    *margin: 0;
+    vertical-align: middle;
+}
+
+.its-table-title, .its-table-options {
+    margin-top: 0 !important;
+    min-height: 1.7em;
+}
+
+.its-table-title {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.its-table-options a, .its-table-options input {
+    vertical-align: middle;
+}
+
+.its-table-options input {
+    margin-top: -2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.its-table td a {
+    text-decoration: underline;
+}
+
+.its-table-sort {
+    display: inline-block;
+    margin: 3px 0 0 0;
+    background: transparent url("../../images/common/column-sort.png") top left no-repeat;
+    width: 7px;
+    height: 9px;
+    vertical-align: text-top;
+}
+
+/*   .List table
+ -------------------------------------- */
+.its-list-table th {
+    padding: 8px 6px;
+    font-weight: normal;
+}
+
+.its-list-table td {
+    padding: 6px 12px 6px 16px;
+}
+
+.its-list-table a {
+    margin-left: -8px;
+    padding-left: 14px;
+    text-decoration: underline;
+}
+
+.its-list-table img {
+    margin: 0px 5px 1px -12px;
+    vertical-align: baseline;
+}
+
+.its-list-table .its-sub-item td {
+    padding: 4px 0px 4px 30px !important;
+}
+
+/* ----------------------------------------
+   .Button
+   ---------------------------------------- */
+.its-button, .its-button-XXS, .its-button-XS, .its-button-S, .its-button-M, .its-button-L, .its-button-XL, .its-button-XXL, .its-button-short {
+    width: auto;
+    height: auto;
+    padding: 2px 6px;
+    *padding: 1px 6px 0 6px; /* IE7 */
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.its-button:hover, .its-button-XXS:hover, .its-button-XS:hover, .its-button-S:hover, .its-button-M:hover, .its-button-L:hover, .its-button-XL:hover, .its-button-XXL:hover, .its-button-short:hover {
+    text-decoration: none;
+}
+
+.its-table its-button, .its-table its-button-XXS, .its-table its-button-XS, .its-table its-button-S, .its-table its-button-M, .its-table its-button-L, .its-table its-button-XL, .its-table its-button-XXL, .its-button-short, .its-button-inline {
+    padding: 1px 5px;
+    *padding: 0;
+}
+
+.its-button-inline {
+    margin-top: -1px !important;
+    *margin-top: -4px !important; /* IE7 */
+    margin-bottom: -2px !important;
+    *margin-bottom: 0px !important; /* IE7 */
+}
+
+.its-button-XXS { width: 25px; }
+.its-button-XS  { width: 35px; }
+.its-button-S   { width: 60px; }
+.its-button-M   { width: 90px; }
+.its-button-L   { width: 120px; }
+.its-button-XL  { width: 150px; }
+.its-button-XXL { width: 200px; }
+
+
+/* ----------------------------------------
+   .Icon buttons
+   ---------------------------------------- */
+.its-icon-buttons {
+    position: absolute;
+    right: 0;
+    vertical-align: baseline;
+}
+
+.its-icon-buttons li {
+    float: left;
+    padding-left: 0.6em;
+}
+
+.its-icon-buttons a {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+}
+
+
+/* ----------------------------------------
+   .List
+   ---------------------------------------- */
+   
+/*   .Horizontal/Vertical
+ -------------------------------------- */
+.its-list-horizontal, .its-list-horizontal-block, .its-list-vertical {
+    overflow: hidden;
+}
+
+.its-list-horizontal li, .its-list-horizontal a {
+    float: left;
+}
+
+.its-list-horizontal-block a {
+    vertical-align: top;
+}
+
+.its-list-horizontal-block li, .its-list-horizontal-block a {
+    display: inline-block;
+    clear: none;
+    *display: inline; /* IE7 */
+    *zoom: 1; /* IE7 */
+}
+
+.its-list-horizontal img, .its-list-horizontal-block img, .its-list-vertical img {
+    vertical-align: middle;
+}
+
+/*   .Bullets
+ -------------------------------------- */
+.its-default-bullet {
+    list-style: disc inside none;
+}
+
+.its-default-bullet li {
+    margin-left: 1em;
+    padding: 0.4em 0;
+}
+
+.its-line-separator li {
+    padding: 0 6px 0 7px;
+}
+
+.its-line-separator-last-item {
+    padding-right: 0;
+}
+
+/*   .Tree
+ -------------------------------------- */
+.its-tree-list li {
+    padding-left: 20px;
+    margin: 0.3em 0;
+}
+
+.its-tree-list div {
+    margin: 0.4em 0;
+}
+
+.its-tree-list .its-parent-open, .its-tree-list .its-parent-close {
+    padding-left: 30px;
+}
+
+.its-tree-list a, .its-tree-list a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+/* ----------------------------------------
+   .Menu
+   ---------------------------------------- */
+   
+/*   .Horizontal
+ -------------------------------------- */
+.its-menu-horizontal {
+    z-index: 10;
+}
+
+.its-menu-horizontal-wrap {
+    float: left;
+    width: 100%;
+}
+
+.its-menu-horizontal li {
+    float: left;
+}
+
+.its-menu-horizontal a, .its-menu-horizontal .its-disabled, .its-menu-horizontal .its-filler {
+    float: left;
+    line-height: 2.4em;
+    height: 2.4em;
+    padding-bottom: 0.1em;
+    font-size: 110%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.its-menu-horizontal img {
+    position: absolute;
+    right: 0.75em;
+    top: 1.15em;
+}
+
+.its-menu-horizontal .its-disabled img {
+    opacity: 0.50;
+    filter: alpha(opacity=50);
+}
+
+.its-menu-horizontal .its-sub-menu {
+    position: absolute;
+    top: 2.85em;
+    left: -1px;
+    padding: 3px;
+    min-width: 184px;
+}
+
+.its-menu-horizontal .its-sub-menu li {
+    clear: both;
+    min-width: 184px;
+}
+
+.its-menu-horizontal .its-sub-menu a, .its-menu-horizontal .its-sub-menu .its-disabled {
+    line-height: normal;
+    height: auto;
+    padding: 3px 4px;
+    font-size: 100%;
+    font-weight: normal;
+    text-align: left;
+    min-width: 174px;
+}
+ 
+/*   .Vertical
+ -------------------------------------- */    
+.its-menu-vertical {
+    clear: both;
+}
+
+.its-menu-vertical li {
+}
+
+.its-menu-vertical a, .its-menu-vertical .its-disabled {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0.5em 22px 0.6em 12px;
+}
+
+.its-menu-vertical img {
+    display: inline;
+    position: absolute;
+    right: 9px;
+    top: 11px;
+}
+
+.its-menu-vertical ul li ul {
+    padding: 2px;
+}
+
+.its-menu-vertical ul li ul a, .its-menu-vertical ul li.its-selected ul a, .its-menu-vertical ul li ul .its-disabled {
+    line-height: normal;
+    height: normal;
+    padding: 0.3em 14px 0.3em 17px;
+}
+
+.its-menu-vertical .its-disabled img {
+    opacity: 0.70;
+    filter: alpha(opacity=70);
+}
+
+
+/* ----------------------------------------
+   .Tabstrip
+   ---------------------------------------- */
+.its-tab-strip {
+    position: relative;
+}
+
+.its-tab-strip li {
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.its-tab-strip li {
+    margin-left: 2px;
+}
+
+.its-tab-strip a {
+    display: inline-block;
+    padding: 4px 9px 6px 9px;
+    margin-top: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+.its-tab-strip a.selected {
+    padding-top: 8px;
+    margin-top: 0;
+    cursor: default;
+}
+
+
+
+
+
+
+/* Core UI's skin.css */
+/*
+=======================================================================
+ New York State Department of Taxation and Finance
+ User Interface Team
+ Styles to modify the appearance of all constructs.
+ Version 1.0.0.20120324
+======================================================================= 
+
+----------------------------------------
+ Contents
+----------------------------------------
+    Libraries
+        Reset
+    Content
+        Global
+        Form elements
+        Special
+    Heading
+        H1-H6
+    Messages
+    Sections
+        Section
+        Widget
+        Labels/data
+            Wrappers
+    Table
+        List table
+    Button
+    Icon buttons
+    List
+        Bullets
+        Tree
+    Menu
+        Horizontal
+        Vertical
+    Tabstrip
+    Palette
+*/
+
+
+/* ----------------------------------------
+   .Libraries
+   ---------------------------------------- */
+   
+/*   .Reset
+ -------------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, em, img, strong, tt, fieldset, legend, b, u, i, center, ol, ul, li, form, label, table, tbody, tfoot, thead {
+    border: 0;
+    background: transparent;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* ----------------------------------------
+   .Content
+   ---------------------------------------- */
+
+/*   .Global
+   ---------------------------------------- */
+body {
+    color: #333;
+}
+
+/*   .Form elements
+   ---------------------------------------- */
+input, select, textarea {
+    border: 1px solid #7F9DB9;
+}
+
+a {
+    color: #336699;
+}
+
+a:hover, a:visited:hover {
+    color: #CC6633;
+}
+
+a:visited {
+    color: #993399;
+}
+
+/*   .Special
+   ---------------------------------------- */
+.its-disabled {
+    color: #999 !important;
+}
+
+.its-dashed-separator {
+    border-bottom: 1px dashed #999;
+}
+
+.its-has-border {
+    border-color: #CCC;
+}
+
+
+/* ----------------------------------------
+   .Heading
+   ---------------------------------------- */
+
+/*   .H1-H6
+   ---------------------------------------- */
+h2 {
+    color: #3D5361;
+}
+
+h3, .its-h3 {
+    border-bottom: none;
+}
+
+h4, .its-h4 {
+    color: #454545;
+}
+
+
+/* ----------------------------------------
+   .Messages
+   ---------------------------------------- */
+.its-type-error {
+    color: #CC0000;
+}
+
+.its-type-warning, .its-type-informational {
+    color: #454545;
+}
+
+.its-type-success {
+    color: #009933;
+}
+
+.its-type-error div, .its-type-warning div, .its-type-informational div, .its-type-success div {
+    background: transparent url("../../../images/common/icons-sprite.png") top left no-repeat;
+}
+
+.its-type-error div {
+    background-position: -16px 0;
+}
+
+.its-type-warning div {
+    background-position: 0 0;
+}
+
+.its-type-informational div {
+    background-position: -32px 0;
+}
+
+.its-type-success div {
+    background-position: -48px 0;
+}
+
+
+/* ----------------------------------------
+   .Sections
+   ---------------------------------------- */
+   
+/*   .Section
+---------------------------------------- */
+.its-section {
+    border: 1px solid #97B5C1;
+    /* border-radius: 4px; /* IE9 causes issues at work not at home? */
+}
+
+.its-section-header {
+    border-bottom: 1px solid #97B5C1;
+    background: #EBF0F3 url("../../../images/skin/default/section-header-bg.png") top left repeat-x;
+}
+
+.its-section .its-section {
+    border: 1px solid #BED0D8;
+}
+
+.its-section .its-section .its-section-header {
+    border-bottom: 1px solid #BED0D8;
+    background: #E9EDEF url("../../../images/skin/default/section-header-2-bg.png") top left repeat-x;
+    
+}
+
+.its-section .its-section .its-section {
+    border: 1px solid #CADADF;
+}
+
+.its-section .its-section .its-section .its-section-header {
+    border-bottom: 1px solid #CADADF;
+    background: #F5F7F8 url("../../../images/skin/default/section-header-3-bg.png") top left repeat-x;
+    
+}
+
+/*   .Widget (extends its-section)
+---------------------------------------- */  
+.its-widget {
+    border: none !important;
+    border-radius: 0;
+}
+
+.its-widget .its-widget .its-section-header {
+    border-top: 0;
+    background: none;
+}
+
+.its-widget-1 .its-section-header {
+    border-style: solid;
+    border-color: #9FB0C1;
+    border-width: 1px 0;
+}
+
+.its-widget-1 .its-section-header-left {
+    background: transparent url("../../../images/skin/default/widget-top-left.png") top left no-repeat;
+}
+
+.its-widget-1 .its-section-header-right {
+    background: transparent url("../../../images/skin/default/widget-top-right.png") top right no-repeat;
+}
+
+.its-widget-2 .its-section-header {
+    border-style: solid;
+    border-color: #BFBFBF !important;
+    border-width: 1px 0;
+}
+
+.its-widget-2 .its-section-header-left {
+    background: transparent url("../../../images/skin/default/widget-top-left-sub.png") top left no-repeat;
+}
+
+.its-widget-2 .its-section-header-right {
+    background: transparent url("../../../images/skin/default/widget-top-right-sub.png") top right no-repeat;
+}
+
+.its-widget-2 .its-widget .its-section-header-left, .its-widget-2 .its-widget .its-section-header-right {
+    background: none;
+}
+
+.its-widget-1 h2 {
+    background: #DBE0E4 url("../../../images/skin/default/widget-top-middle.png") top left repeat-x;
+    color: #364454;
+}
+
+.its-widget-2 h2 {
+    background: #E9E9E9 url("../../../images/skin/default/widget-top-middle-sub.png") top left repeat-x;
+    color: #505050;
+}
+
+.its-widget-2 h3 {
+    border: 0;
+    color: #5F5F5F;
+}
+
+.its-widget-2 h4 {
+    border: 0;
+    color: #666666;
+}
+
+.its-widget-1 .its-section-body {
+    border-style: solid;
+    border-color: #9FB0C1;
+    border-width: 0 1px;
+}
+
+.its-widget-2 .its-section-body {
+    border-style: solid;
+    border-color: #BFBFBF;
+    border-width: 0 1px;
+}
+
+.its-widget-2 .its-widget .its-section-body {
+    border: 0;
+}
+
+.its-widget-1 .its-section-footer-left {
+    background: transparent url("../../../images/skin/default/widget-bottom-left.png") bottom left no-repeat;
+}
+
+.its-widget-1 .its-section-footer-right {
+    background: transparent url("../../../images/skin/default/widget-bottom-right.png") bottom right no-repeat;
+}
+
+.its-widget-2 .its-section-footer-left {
+    background: transparent url("../../../images/skin/default/widget-bottom-left-sub.png") bottom left no-repeat;
+}
+
+.its-widget-2 .its-section-footer-right {
+    background: transparent url("../../../images/skin/default/widget-bottom-right-sub.png") bottom right no-repeat;
+}
+
+.its-widget-1 .its-section-footer-middle {
+    border-bottom: 1px solid #9FB0C1;
+}
+
+.its-widget-2 .its-section-footer-middle {
+    border-bottom: 1px solid #BFBFBF;
+}
+
+.its-widget-2 .its-widget .its-section-footer-left, .its-widget-2 .its-widget .its-section-footer-right {
+    background: none;
+}
+
+.its-widget-2 .its-widget .its-section-footer-middle {
+    border-bottom: 0;
+}
+
+/*   .Labels/data
+   ---------------------------------------- */
+   
+/*     .Wrappers
+   ---------------------------------------- */
+.its-label, label {
+    color: #0E4969;
+}
+
+.its-required {
+    color: #EE3300;
+}
+
+/* ----------------------------------------
+   .Table
+   ---------------------------------------- */
+thead, tbody {
+    *border-width: 0 1px;
+    *border-style: solid;
+    *border-color: #ABC4CD;
+}
+
+th, td {
+    border: 1px solid #ABC4CD;
+}
+
+th {
+    background: #CDDEE4 url("../../../images/skin/default/table-header-bg.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#E2ECF0), to(#CDDEE4)) fixed;
+    background-image: -webkit-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
+    background-image:    -moz-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
+    background-image:     -ms-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
+    background-image:      -o-linear-gradient(top, #E2ECF0 0%, #E2ECF0 30%, #CDDEE4 100%);
+    border-bottom-color: #517988;
+}
+
+tfoot td {
+    border-width: 3px 0 0 0;
+    border-style: solid;
+    border-color: #ABC4CD;  
+}
+
+.its-footer-border { 
+    border-width: 3px 1px 1px 1px !important;
+}
+
+.its-normal-bg-color {
+    background-color: #FFF;
+}
+
+.its-alternate-bg-color {
+    background-color: #F0F3F4;
+}
+
+.its-table .its-bold {
+    color: #454545;
+}
+
+.its-tr-selected {
+    background: #FFDC89 url("../../../images/skin/default/row-selected-bg.png") top left repeat-x;
+}
+
+.its-tr-expanded {
+    border-width: 1px 1px 2px 1px !important;
+    border-style: solid !important;
+    border-color: #C0A38D #ABC4CD #FFD553 #ABC4CD !important;
+}
+
+.its-tr-expanded td {
+    padding: 4px 6px 6px 6px;
+    border: none;
+    *border-top: 1px solid #C0A38D !important;
+    *border-bottom: 2px solid #FFD553 !important;
+    background-color: #FFF8DF;
+}
+
+.its-row-mouse-over {
+    background: #F1F2F3 url("../../../images/skin/default/row-over-bg.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#F1F2F3), to(#D6DBDC)) fixed;
+    background-image: -webkit-linear-gradient(top, #F1F2F3 0%, #D6DBDC 100%);
+    background-image:    -moz-linear-gradient(top, #F1F2F3 0%, #D6DBDC 100%);
+    background-image:     -ms-linear-gradient(top, #F1F2F3 0%, #D6DBDC 100%);
+    background-image:      -o-linear-gradient(top, #F1F2F3 0%, #D6DBDC 100%);
+    cursor: pointer;
+}
+
+.its-table-title {
+    color: #3D556C;
+}
+
+/*   .List table
+---------------------------------------- */
+.its-list-table th {
+    background: #E3E7EA;
+    color: #CC3300;
+}
+
+.its-list-table th,
+.its-list-table td {
+    border: 1px solid #CCC;
+}
+
+.its-list-table a {
+    background: transparent url("../../../images/skin/default/menu-nav-down-arrow.png") center left no-repeat;
+}
+
+.its-list-table .its-sub-item td {
+    border-bottom: 1px dashed #CCC !important;
+    border-top: 0px;
+}
+
+.its-list-table tr.selectedItem {
+    background-color: #DFE2E5 !important;
+}
+
+
+/* ----------------------------------------
+   .Button
+   ---------------------------------------- */
+.its-button, .its-button-XXS, .its-button-XS, .its-button-S, .its-button-M, .its-button-L, .its-button-XL, .its-button-XXL, .its-button-short, .its-button-inline {
+    color: #333;
+    border: 1px solid #7589A2;
+    border-radius: 4px;
+    background: #CED5DD url("../../../images/skin/default/button-bg.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#F3F5F8), to(#CED5DD)) fixed;
+    background-image: -webkit-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
+    background-image:    -moz-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
+    background-image:     -ms-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%);
+    background-image:      -o-linear-gradient(top, #F3F5F8 0%, #CED5DD 100%); 
+}
+
+.its-button:hover, .its-button-XXS:hover, .its-button-XS:hover, .its-button-S:hover, .its-button-M:hover, .its-button-L:hover, .its-button-XL:hover, .its-button-XXL:hover, .its-button-short:hover, .its-button-inline:hover {
+    color: #333;
+    background: #D7DDE3 url("../../../images/skin/default/button-over-bg.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#F9FAFB), to(#D7DDE3)) fixed;
+    background-image: -webkit-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
+    background-image:    -moz-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
+    background-image:     -ms-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);
+    background-image:      -o-linear-gradient(top, #F9FAFB 0%, #D7DDE3 100%);      
+}
+
+.its-button-primary {
+    color: #FFF;
+    border: 1px solid #405264;
+    border-radius: 4px;
+    background: #405264 url("../../../images/skin/default/button-main-bg.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#7D94AA), to(#405264)) fixed;
+    background-image: -webkit-linear-gradient(top, #7D94AA 0%, #405264 100%);
+    background-image:    -moz-linear-gradient(top, #7D94AA 0%, #405264 100%);
+    background-image:     -ms-linear-gradient(top, #7D94AA 0%, #405264 100%);
+    background-image:      -o-linear-gradient(top, #7D94AA 0%, #405264 100%);   
+}
+
+.its-button-primary:hover {
+    color: #FFF;
+    background: #516377 url("../../../images/skin/default/button-main-over-bg.png") top left repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#8FA2B5), to(#516377)) fixed;
+    background-image: -webkit-linear-gradient(top, #8FA2B5 0%, #516377 100%);
+    background-image:    -moz-linear-gradient(top, #8FA2B5 0%, #516377 100%);
+    background-image:     -ms-linear-gradient(top, #8FA2B5 0%, #516377 100%);
+    background-image:      -o-linear-gradient(top, #8FA2B5 0%, #516377 100%);      
+}
+
+
+/* ----------------------------------------
+   .Icon buttons
+   ---------------------------------------- */   
+.its-sections-toggle {
+    background: transparent url("../../../images/common/section-collapse-all.png") center left no-repeat;
+}
+
+.its-sections-toggle-expand {
+    background: transparent url("../../../images/common/section-expand-all.png") center left no-repeat;
+}
+
+.its-info-blocks-toggle {
+    background: transparent url("../../../images/common/section-help-hide-all.png") center left no-repeat;
+}
+
+.its-info-blocks-toggle-expand {
+    background: transparent url("../../../images/common/section-help-show-all.png") center left no-repeat;
+}
+
+.its-section-toggle {
+    background: transparent url("../../../images/common/section-collapse.png") center left no-repeat;
+}
+
+.its-section-toggle-expand {
+    background: transparent url("../../../images/common/section-expand.png") center left no-repeat;
+}
+
+.its-info-block-toggle {
+    background: transparent url("../../../images/common/section-help-hide.png") center left no-repeat;
+}
+
+.its-info-block-toggle-expand {
+    background: transparent url("../../../images/common/section-help-show.png") center left no-repeat;
+}
+
+.its-print {
+    background: transparent url("../../../images/common/printer.gif") center left no-repeat;
+}
+
+.its-print-20 {
+    background: transparent url("../../../images/common/printer-20.gif") center left no-repeat;
+}
+
+.its-dollar {
+    background: transparent url("../../../images/common/dollar.png") center left no-repeat;
+}
+
+.its-pencil {
+    background: transparent url("../../../images/common/pencil.png") center left no-repeat !important;
+}
+
+.its-trash {
+    background: transparent url("../../../images/common/delete.png") center left no-repeat !important;
+}
+
+.its-popup {
+    background: transparent url("../../../images/common/popup.png") center left no-repeat !important;
+}
+
+.its-section .its-section .its-icon-buttons a {
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+.its-section .its-section .its-section .its-icon-buttons a {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+
+/* ----------------------------------------
+   .List
+   ---------------------------------------- */
+   
+/*   .Bullets
+ -------------------------------------- */
+.its-line-separator li {
+    border-right: 1px solid #999;
+}
+
+.its-line-separator-last-item {
+    border-right: 0 !important;
+}
+
+/*   .Tree
+ -------------------------------------- */
+.its-tree-list li {
+    background: transparent url("../../../images/common/document.png") top left no-repeat;
+}
+
+.its-tree-list .its-parent-open {
+    background: transparent url("../../../images/common/folder-open.png") top left no-repeat;
+}
+
+.its-tree-list .its-parent-close {
+    background: transparent url("../../../images/common/folder-close.png") top left no-repeat;
+}
+
+
+/* ----------------------------------------
+   .Menu
+   ---------------------------------------- */
+
+/*   .Horizontal
+---------------------------------------- */ 
+.its-menu-horizontal li {
+    border-top: 1px solid #9CAEBD;
+    border-bottom: 1px solid #9CAEBD;
+    border-right: 1px solid #B4C1CD;
+}
+
+.its-menu-horizontal a, .its-menu-horizontal .its-disabled, .its-menu-horizontal .its-filler {
+    color: #111;
+    background: #D0D7DE url("../../../images/skin/default/menu-normal-bg.png") top left repeat-x;
+}
+
+.its-menu-horizontal a:hover {
+    color: #111;
+    background: #9FAFC4 url("../../../images/skin/default/menu-over-bg.png") top left repeat-x;
+}
+
+.its-menu-horizontal .its-clicked a {
+    background: #9FAFC4 url("../../../images/skin/default/menu-over-bg.png") top left repeat-x;
+}
+
+.its-menu-horizontal .its-selected a {
+    color: #FFF;
+    background: #405264 url("../../../images/skin/default/menu-select-bg.png") top left repeat-x;
+}
+
+.its-menu-horizontal .its-sub-menu {
+    border: 1px solid #9CAEBD;
+    border-bottom-width: 2px;
+    background-color: #F5F5F5;
+}
+
+.its-menu-horizontal .its-sub-menu a, .its-menu-horizontal .its-sub-menu .its-disabled {
+    background: none;
+    border: 1px solid #F5F5F5;
+    color: #336699;
+}
+
+.its-menu-horizontal .its-sub-menu a:hover, .its-menu-horizontal .its-sub-menu a:visited:hover {
+    background: #DDE4E8;
+    border: 1px solid #B4C1CF;
+    color: #333;
+}
+
+.its-menu-horizontal .its-sub-menu a:visited {
+    color: #993399;
+}
+
+.its-menu-horizontal .its-disabled {
+    color: #999;
+}
+
+.its-menu-horizontal .its-sub-menu li .its-disabled {
+    color: #808080;
+}
+
+/*   .Vertical
+---------------------------------------- */    
+.its-menu-vertical a, .its-menu-vertical .its-disabled {
+    border-bottom: 1px solid #C9D2DC;
+    background: #F5F5F5;
+    color: #454545;
+}
+
+.its-menu-vertical a:hover {
+    background: #E0E5ED;
+}
+
+.its-menu-vertical li.its-selected a {
+    background: #546C83;
+    color: #FFF;
+}
+
+.its-menu-vertical ul li ul {
+    border-bottom: 1px solid #C9D2DC;
+    background: #FFF;
+}
+
+.its-menu-vertical ul li ul a, .its-menu-vertical ul li.its-selected ul a, .its-menu-vertical ul li ul .its-disabled {
+    border: 1px solid #FFF;
+    background: #FFF;
+    color: #336699;
+}
+
+.its-menu-vertical ul li ul a:hover, .its-menu-vertical ul li ul a:visited:hover {
+    border: 1px solid #B4C1CF;
+    background: #DDE4E8;
+    color: #454545;
+}
+
+.its-menu-vertical ul li ul a:visited {
+    color: #993399;
+}
+
+.its-menu-vertical ul li ul li.its-selected a {
+    background: #FFE6B7;
+    border: 1px solid #E2912B;
+    color: #333;
+}
+
+.its-menu-vertical .its-disabled {
+    color: #808080;
+}
+
+
+/* ----------------------------------------
+   .Tabstrip
+   ---------------------------------------- */
+.its-tab-strip {
+    background: #FFF url("../../../images/skin/default/tabstrip-bg.png") bottom left repeat-x;
+}
+
+.its-tab-strip a {
+    background: #E9E9E9 url("../../../images/skin/default/tabstrip-tab-bg.png") bottom left repeat-x !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FBFBFB), to(#DFDFDF)) fixed;
+    background-image: -webkit-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    background-image:    -moz-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    background-image:     -ms-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    background-image:      -o-linear-gradient(top, #FBFBFB 0%, #DFDFDF 100%);
+    border: 1px solid #757575;
+    border-bottom: 0px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #555;
+}
+
+.its-tab-strip a:hover {
+    color: #FFF;
+    background: #E9E9E9 url("../../../images/skin/default/tabstrip-tab-over-bg.png") bottom left repeat-x !important;
+}
+
+.its-tab-strip a.selected {
+    background: #E4E4E4 url("../../../images/skin/default/tabstrip-tab-selected-bg.png") top left repeat-x !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#B6B6B6), to(#E4E4E4)) fixed;
+    background-image: -webkit-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    background-image:    -moz-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    background-image:     -ms-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    background-image:      -o-linear-gradient(top, #B6B6B6 0%, #E4E4E4 100%);
+    border-bottom: 0;
+    color: #454545;
+}
+
+
+/* ----------------------------------------
+   .Palette
+   ---------------------------------------- */
+.its-color-orange {
+    color: #FF6600;
+}
+
+.its-color-red {
+    color: #EE3300;
+}
+
+.its-light-blue {
+    color: #28A1E2;
 }
