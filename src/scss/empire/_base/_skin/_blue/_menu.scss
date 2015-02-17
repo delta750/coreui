@@ -31,12 +31,12 @@
     text-align: center;
     text-decoration: none;
     color: #111;
-    background: #D0D7DE url("../images/src/core/menu-normal-bg.png") top left repeat-x;
+    background: #D0D7DE url("../images/src/cui/menu-normal-bg.png") top left repeat-x;
 }
 
 .cui-menu-horizontal a:hover {
     color: #111;
-    background: #9FAFC4 url("../images/src/core/menu-over-bg.png") top left repeat-x;
+    background: #9FAFC4 url("../images/src/cui/menu-over-bg.png") top left repeat-x;
 }
 
 .cui-menu-horizontal img {
@@ -108,12 +108,12 @@
 }
 
 .cui-menu-horizontal .cui-clicked a {
-    background: #9FAFC4 url("../images/src/core/menu-over-bg.png") top left repeat-x;
+    background: #9FAFC4 url("../images/src/cui/menu-over-bg.png") top left repeat-x;
 }
 
 .cui-menu-horizontal .cui-selected a {
     color: #FFF;
-    background: #405264 url("../images/src/core/menu-select-bg.png") top left repeat-x;
+    background: #405264 url("../images/src/cui/menu-select-bg.png") top left repeat-x;
 }
 
 /**

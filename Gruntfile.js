@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
         jsCore = [
             // Main file(s)
-            'src/js/core/**/*.js',
+            'src/js/cui/**/*.js',
         ],
 
         jsComponents = [
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
             'src/js/empire/**/*.js'
         ],
 
-        // All JS files that will be included in the HTML (i.e. js/core.js)
+        // All JS files that will be included in the HTML (i.e. js/cui.js)
         jsBuild = [
                 // Libraries
                 'src/js/vendor/**/*.js',
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
             dev: {
                 files: {
                     // Core
-                    'dist/js/core/core.js': jsBuild,
+                    'dist/js/cui/cui.js': jsBuild,
 
                     // Empire
                     'dist/js/empire/empire.js': jsEmpire,
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     // Core
-                    'dist/js/core/core.js': jsBuild,
+                    'dist/js/cui/cui.js': jsBuild,
 
                     // Empire
                     'dist/js/empire/empire.js': jsEmpire,
@@ -146,7 +146,7 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss',
+                    'dist/css/cui/cui.css':     'src/scss/cui/cui.scss',
                     'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
                     'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
             // Production task
             prod: {
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss',
+                    'dist/css/cui/cui.css':     'src/scss/cui/cui.scss',
                     'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
                     'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
                 },
@@ -171,8 +171,8 @@ module.exports = function(grunt) {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['dist/css/core/core.css'],
-                dest: 'dist/css/core/core.css',
+                src: ['dist/css/cui/cui.css'],
+                dest: 'dist/css/cui/cui.css',
             },
         },
 

@@ -2,7 +2,7 @@ cui.namespace('environment');
 
 cui.environment = (function environment() {
     var IMAGE_PATHS = {
-            core:       '../images/core/',
+            core:       '../images/cui/',
             components: '../../../../images/dist/components/',
             skin:       '../images/skin/',
             template:   '../images/template/'
