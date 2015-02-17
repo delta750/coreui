@@ -17,28 +17,26 @@
 .emp-indicator-1, .emp-indicator-2 {
     position: relative;
     width: 1.5em;
-    height: 1.5em;
+    max-height: 1.5em;
     background-color: $indicator-bg-color;
-    border: 1px solid #454545;
+    border: 1px solid $dark-gray-alt;
     border-radius: 3px;
     font-weight: $font-weight-semibold;
     color: $white;
-    margin: 0 0 0 0.2em;
+    margin: 0 0 0 0.4em;
     vertical-align: top;
     @include hide-text;
 }
 
 [class*="emp-indicator-"]:after {
-    display: block;
+    display: inline-block;
     position: absolute;
+    width: 1.5em;
     content: attr(alt);
     text-indent: 0;
-    width: 1.5em;
-    height: 1.5em;
-    line-height: 1.5em;
     text-align: center;
     color: $white;
-    top: -0.1em;
+    top: -0.8px; // Aligns FF, IE and Chrome at default font size (otherwise use -0.05em)
     left: -0.1em;
 }
 
@@ -47,6 +45,11 @@
 .emp-section-collapse {
     background-image: url($emp-images-path + "emp-popup.png");
     background-position: 4px 4px;
+}
+
+button.cui-icon {
+    background-position: center center;
+    margin: -0.05em 0 0 0.2em;
 }
 
 

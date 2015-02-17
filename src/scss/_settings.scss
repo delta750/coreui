@@ -24,11 +24,12 @@ $font-required:        1.1em $font-basic !default;
 // * --------------------------------------------------------
 $white:                #ffffff !default;
 $dark-gray:            #333333 !default;
+$dark-gray-alt:        #454545 !default;
+$dark-gray-alt-2:      #646460 !default;
 $light-gray:           #dededc !default;
 $light-gray-alt:       #eeeeec !default;
 $light-gray-alt-2:     #bfbfbd !default;
 $light-gray-alt-3:     #e7e7e5 !default;
-$dark-gray-alt:        #454545 !default;
 $text-error:           #b52c29 !default;
 $text-warning:         #ba7b05 !default;
 $text-information:     #1b2a5e !default;
@@ -56,7 +57,7 @@ $button-bg-color:      #d0d0ce !default;
 $button-text-shadow:   rgb(255, 255, 255) 0 1px 0 !default;
 // Primary button
 $button-primary-text-color:         $white !default;
-$button-primary-bg-color:           #646460 !default;
+$button-primary-bg-color:           $dark-gray-alt-2 !default;
 $button-primary-border-color:       #5a5a56 !default;
 $button-primary-border:             $button-border-width solid $button-primary-border-color !default;
 $button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;

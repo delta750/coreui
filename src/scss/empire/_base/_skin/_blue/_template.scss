@@ -38,11 +38,16 @@ header {
 		border-top: 1px solid $white;
 		@include box-sizing(border-box);
 	}
+
+	.cui-row {
+		margin: 0;
+	}
 }
 
 // Temp until menu component is built
 #emp-menu-main {
-	background-color: $light-gray-alt-3;
+	background-color: $dark-gray-alt-2;
+	color: $white;
 	padding: 0 0.8em;
 	min-height: $touch-min-height;
 	line-height: $touch-min-height;
@@ -56,4 +61,27 @@ header {
     border-width: 1px;
     border-radius: 2px;
     background-color: $general-header-bg-color;
+
+	#form_tp_info .cui-row {
+	    margin: 0 0 0.15em 0;
+	}
+
+	.emp-field {
+	    display: inline-block;
+	}
+
+	.emp-tp-info .cui-label,
+	.emp-tp-info .cui-data {
+	    line-height: 1.5;
+	}
+
+	#form_workflow {
+		ul, li {
+			vertical-align: middle
+		}
+
+		button.cui-icon {
+		    margin: -0.05em 0.2em 0 0;
+		}	
+	}
 }
