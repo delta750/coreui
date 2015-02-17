@@ -129,7 +129,7 @@ $list-inline-spacing: 1em !default;
 
 // * @section    Breakpoint
 // * --------------------------------------------------------
-$bp-tablet:        480px !default;
-$bp-tablet-minus:  $bp-tablet - 1px !default;
-$bp-desktop:       786px !default;
-$bp-desktop-minus: $bp-desktop - 1px !default;
+$bp-medium:        480px !default;
+$bp-medium-minus:  $bp-medium - 1px !default;
+$bp-large:       786px !default;
+$bp-large-minus: $bp-large - 1px !default;

@@ -238,7 +238,7 @@
 // Breakpoint wrapper
 @mixin pointbreak($size: "", $max: false) {
     @if $size == "" {
-        $size: $bp-tablet;
+        $size: $bp-medium;
     }
 
     @if $max == false {

@@ -19,7 +19,7 @@ section {
     margin: $section-margin;
 
     // Add side borders and margin on larger screens
-    @include pointbreak($bp-desktop) {
+    @include pointbreak($bp-large) {
         border-left: $section-border;
         border-right: $section-border;
         margin: $section-margin-desktop;

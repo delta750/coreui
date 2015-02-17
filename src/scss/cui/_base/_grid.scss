@@ -85,7 +85,7 @@ nav > header {
     // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
     // Using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
     //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
-    @include pointbreak($bp-tablet, true) {
+    @include pointbreak($bp-medium, true) {
         &:nth-child(2n+3) {
             clear: both;
         }
@@ -115,7 +115,7 @@ nav > header {
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:$bp-tablet) {
+@media only screen and (min-width:$bp-medium) {
     [class*="cui-col-medium-"] {
         float: left;
     }
@@ -178,7 +178,7 @@ nav > header {
 
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:$bp-desktop) {
+@media only screen and (min-width:$bp-large) {
     [class*="cui-col-large-"] {
         float: left;
     }

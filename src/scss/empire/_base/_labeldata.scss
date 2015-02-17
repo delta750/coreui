@@ -16,7 +16,7 @@ section {
         font-size: $font-size;
 
         // Side-by-side with data (like .col-fixed-)
-        @include pointbreak($bp-desktop) {
+        @include pointbreak($bp-large) {
             text-align: right;
             width: $emp-label-width;
             overflow: hidden;
@@ -28,7 +28,7 @@ section {
         padding: 0;
 
         // Side-by-side with label (like .cui-filler)
-        @include pointbreak($bp-desktop) {
+        @include pointbreak($bp-large) {
             width: auto;
             overflow: hidden;
         }

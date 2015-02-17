@@ -21,7 +21,7 @@ section {
     .cui-row {
         padding: $section-row-padding;
 
-        @include pointbreak($bp-desktop) {
+        @include pointbreak($bp-large) {
             padding: $section-row-padding;
         }
 
@@ -37,7 +37,7 @@ section {
     width: 100%;
 
     // Side by side on large screens
-    @include pointbreak($bp-tablet) {
+    @include pointbreak($bp-medium) {
         width: 50%;
         float: left;
     }
@@ -47,7 +47,7 @@ section {
     & + .emp-col-half {
         padding: $section-row-padding;
 
-        @include pointbreak($bp-tablet) {
+        @include pointbreak($bp-medium) {
             padding: 0;
         }
     }
@@ -58,13 +58,13 @@ section {
         text-align: left;
 
         // Floats right for medium
-        @include pointbreak($bp-tablet) {
+        @include pointbreak($bp-medium) {
             text-align: left;
             float: right;
         }
 
         // Floats and aligns right for large
-        @include pointbreak($bp-desktop) {
+        @include pointbreak($bp-large) {
             text-align: left;
         }
     }
