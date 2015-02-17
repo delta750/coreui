@@ -23,6 +23,7 @@ $bp-desktop-minus: $bp-desktop - 1px;
 // * @section    Colors
 // * --------------------------------------------------------
 $empire-base-blue:     #002D72;
+$emp-label-color:      #0E4969;
 
 
 // * @section    Fonts
@@ -66,9 +67,10 @@ $section-header-min-height: 36px;
 
 // * @section    Sections
 // * --------------------------------------------------------
-$section-padding:        0;
-$section-margin:         0.75em 0 1em 0;
-$section-margin-desktop: 0.75em 0.5em;
+$section-padding:           0;
+$section-margin:            0.75em 0 1em 0;
+$section-margin-desktop:    0.75em 0.5em;
+$section-subsection-margin: 0.75em 0.25em 1em 0.25em; // Same top/bottom as $section-margin
 
 $section-row-padding-top:    0   ;
 $section-row-padding-right:  5px ;
