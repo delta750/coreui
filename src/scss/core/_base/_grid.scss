@@ -13,9 +13,7 @@
 // *             - Clearfix to force new row
 // * --------------------------------------------------------
 .cui-row {
-    width: 100%;
-    clear: both;
-    margin: $grid-row-margin;
+    @include row;
 }
 
 [class*="cui-col-"] {

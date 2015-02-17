@@ -224,6 +224,14 @@
     text-shadow: $button-primary-text-shadow;
 }
 
+// * @section    Grid
+// * --------------------------------------------------------
+@mixin row() {
+    width: 100%;
+    clear: both;
+    margin: $grid-row-margin;
+}
+
 // * @section    Breakpoints
 // * --------------------------------------------------------
 
