@@ -1132,12 +1132,57 @@
             </div>
 
             <div class="cui-row emp-section-container">
-                <div class="cui-col-sm-12 cui-col-md-7">
+                <section class="cui-col-sm-12 cui-col-md-7">
+                    <header>
+                        <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
+                        <div class="cui-col-sm-12 cui-col-md-10">
+                            <h3>Section inside section 1</h3>
+                        </div>
+                        <div class="cui-col-sm-12 cui-col-md-2">
+                            <ul class="emp-section-controls">
+                                <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                            </ul>
+                        </div>
+                    </header>
+
+                    <div class="cui-row">
+                        <div class="emp-col-full">
+                            <div class="cui-label">
+                                <label for="E_SOME_AMOUNT">Some Amount ($):</label>
+                            </div>
+                            <div class="cui-data cui-currency">
+                                <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cui-row">
+                        <div class="emp-col-full">
+                            <div class="cui-label">
+                                Type something:
+                            </div>
+                            <div class="cui-data">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="cui-col-sm-12 cui-col-md-5">
+                    <header>
+                        <div class="cui-col-sm-12 cui-col-md-10">
+                            <h3>Section inside section 2</h3>
+                        </div>
+                        <div class="cui-col-sm-12 cui-col-md-2">
+                            <ul class="emp-section-controls">
+                                <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                            </ul>
+                        </div>
+                    </header>
+
                     <section>
                         <header>
-                            <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
                             <div class="cui-col-sm-12 cui-col-md-10">
-                                <h3>Section inside section 1</h3>
+                                <h3>Section inside section inside section 2</h3>
                             </div>
                             <div class="cui-col-sm-12 cui-col-md-2">
                                 <ul class="emp-section-controls">
@@ -1149,64 +1194,15 @@
                         <div class="cui-row">
                             <div class="emp-col-full">
                                 <div class="cui-label">
-                                    <label for="E_SOME_AMOUNT">Some Amount ($):</label>
-                                </div>
-                                <div class="cui-data cui-currency">
-                                    <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="cui-row">
-                            <div class="emp-col-full">
-                                <div class="cui-label">
-                                    Type something:
+                                    <label for="E_NAME">Name:</label>
                                 </div>
                                 <div class="cui-data">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                                    <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
                                 </div>
                             </div>
                         </div>
                     </section>
-                </div>
-                <div class="cui-col-sm-12 cui-col-md-5">
-                    <section>
-                        <header>
-                            <div class="cui-col-sm-12 cui-col-md-10">
-                                <h3>Section inside section 2</h3>
-                            </div>
-                            <div class="cui-col-sm-12 cui-col-md-2">
-                                <ul class="emp-section-controls">
-                                    <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
-                                </ul>
-                            </div>
-                        </header>
-
-                        <section>
-                            <header>
-                                <div class="cui-col-sm-12 cui-col-md-10">
-                                    <h3>Section inside section inside section 2</h3>
-                                </div>
-                                <div class="cui-col-sm-12 cui-col-md-2">
-                                    <ul class="emp-section-controls">
-                                        <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
-                                    </ul>
-                                </div>
-                            </header>
-
-                            <div class="cui-row">
-                                <div class="emp-col-full">
-                                    <div class="cui-label">
-                                        <label for="E_NAME">Name:</label>
-                                    </div>
-                                    <div class="cui-data">
-                                        <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </section>
-                </div>
+                </section>
             </div>
         </section>
 

@@ -26,6 +26,7 @@ section {
     }
 
     & > header {
+        @include row;
         padding: 0;
         // padding: 0.35em 0 0.25em 0;
         border-bottom: $section-header-border;
@@ -44,7 +45,7 @@ section {
 
         h3 {
             font-size: $section-header-font-size;
-            padding: 0;
+            padding: 0 0 0 0.25em;
             margin-top: ($section-header-min-height - $section-header-font-size) / 2; // Top/bottom margin is half of the remainder of the min-height minus the font size (i.e. vertically center the h3)
             margin-bottom: ($section-header-min-height - $section-header-font-size) / 2; // Top/bottom margin is half of the remainder of the min-height minus the font size (i.e. vertically center the h3)
         }
@@ -71,6 +72,7 @@ section {
     // Sub-sub-section
     section section {
         border: 1px solid #CADADF;
+        margin: $section-subsection-margin;
 
         & > header {
             padding: 0.15em 0 0.05em 0;
@@ -103,5 +105,24 @@ section {
     li {
         display: block;
         float: left;
+    }
+}
+
+// Side-by-side sections
+.emp-section-container {
+    display: table;
+
+    & > section {
+        float: none;
+        display: table-cell;
+        padding-top: 0 !important;
+
+        & > header {
+            display: inline-block;
+        }
+    }
+
+    & > section:not(:first-child) {
+        border-left: none;
     }
 }

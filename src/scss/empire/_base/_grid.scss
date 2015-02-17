@@ -15,6 +15,8 @@
 }
 
 
+// * @section    Section grids
+// * --------------------------------------------------------
 section {
     .cui-row {
         padding: $section-row-padding;
@@ -23,8 +25,8 @@ section {
             padding: $section-row-padding;
         }
 
-        [class*="cui-col-"],
-        [class*="emp-col-"] {
+        & > [class*="cui-col-"],
+        & > [class*="emp-col-"] {
             padding: 4px 0 2px 0;
             margin: 1px 0;
         }

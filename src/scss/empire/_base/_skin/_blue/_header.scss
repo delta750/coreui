@@ -4,7 +4,7 @@
  * @desc       Skinning for H1-H6 default styles
  * @author     Manolo Farfan
  * @version    1.0.0.20141231
- * @see        https://github.com/nys-its/frg-coreui/coreui     
+ * @see        https://github.com/nys-its/frg-coreui/coreui
  */
 
 /**
@@ -33,6 +33,9 @@ h2 {
     color: #3D5361;
 }
 
+
+// Since the items below only appear in sections, perhaps they should be moved? (CP)
+
 h3 {
     font-size: 1.5em;
     border-bottom: none;
@@ -46,7 +49,8 @@ h4 {
 h3,
 h4 {
     padding-bottom: 1px;
-    text-indent: 0.25em;
+    // text-indent: 0.25em; // Commented this out because when a title wraps only the first line is indented. Remove entirely if there are no side-effects of removing this. (CP 2/17/15)
+    padding-left: 0.25em; // Instead of text-indent
     margin-bottom: 0.5em;
 }
 
