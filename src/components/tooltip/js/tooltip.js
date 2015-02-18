@@ -1,4 +1,4 @@
-define(['jquery', 'core'], function($, cui) {
+define(['jquery', 'cui'], function($, cui) {
     cui.tooltip = (function tooltip() {
         var
             // Constants
