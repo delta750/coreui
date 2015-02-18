@@ -10,7 +10,7 @@
 // * @section    General
 // * --------------------------------------------------------
 
-$emp-images-path:          "../../../src/images/empire/";
+$emp-images-path:          "../../../src/empire/images/";
 // Change to this once grunt-copy is updated:
 // $emp-images-path:          "../../images/empire/";
 
@@ -19,8 +19,8 @@ $emp-images-path:          "../../../src/images/empire/";
 // * --------------------------------------------------------
 $bp-medium:        600px;
 $bp-medium-minus:  $bp-medium - 1px;
-$bp-large:       920px;
-$bp-large-minus: $bp-large - 1px;
+$bp-large:         920px;
+$bp-large-minus:   $bp-large - 1px;
 
 
 // * @section    Colors
