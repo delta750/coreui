@@ -3,7 +3,7 @@
 // * @desc       sass mixins
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20150204
-// * @see        https://github.com/nys-its/frg-coreui
+// * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
 // * @section    General
@@ -222,4 +222,29 @@
     color: $white; // Repeated for elements that only include this mixin and not the basic primary styles
     background-color: $button-primary-bg-color;
     text-shadow: $button-primary-text-shadow;
+}
+
+// * @section    Grid
+// * --------------------------------------------------------
+@mixin row() {
+    width: 100%;
+    clear: both;
+    margin: $grid-row-margin;
+}
+
+// * @section    Breakpoints
+// * --------------------------------------------------------
+
+// Breakpoint wrapper
+@mixin pointbreak($size: "", $max: false) {
+    @if $size == "" {
+        $size: $bp-medium;
+    }
+
+    @if $max == false {
+        @media (min-width: $size) { @content; }
+    }
+    @else {
+        @media (max-width: $size) { @content; }
+    }
 }

@@ -3,7 +3,7 @@
 // * @desc       sass variables
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20150204
-// * @see        https://github.com/nys-its/frg-coreui
+// * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
 
@@ -24,11 +24,12 @@ $font-required:        1.1em $font-basic !default;
 // * --------------------------------------------------------
 $white:                #ffffff !default;
 $dark-gray:            #333333 !default;
+$dark-gray-alt:        #454545 !default;
+$dark-gray-alt-2:      #646460 !default;
 $light-gray:           #dededc !default;
 $light-gray-alt:       #eeeeec !default;
 $light-gray-alt-2:     #bfbfbd !default;
 $light-gray-alt-3:     #e7e7e5 !default;
-$dark-gray-alt:        #454545 !default;
 $text-error:           #b52c29 !default;
 $text-warning:         #ba7b05 !default;
 $text-information:     #1b2a5e !default;
@@ -40,9 +41,11 @@ $light-blue:           #19a6e2 !default;
 // * @section    General
 // * --------------------------------------------------------
 $border-radius:        4px !default;
+$border-radius-small:  2px !default;
 $margin-center-h:      0 auto !default;
 $margin-center-v:      auto 0 !default;
-$images-path:          "../../src/images/core/" !default;
+$images-path:          "../../images/cui/" !default;
+$touch-min-height:     44px;
 
 
 // * @section    Buttons
@@ -55,7 +58,7 @@ $button-bg-color:      #d0d0ce !default;
 $button-text-shadow:   rgb(255, 255, 255) 0 1px 0 !default;
 // Primary button
 $button-primary-text-color:         $white !default;
-$button-primary-bg-color:           #646460 !default;
+$button-primary-bg-color:           $dark-gray-alt-2 !default;
 $button-primary-border-color:       #5a5a56 !default;
 $button-primary-border:             $button-border-width solid $button-primary-border-color !default;
 $button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;
@@ -63,6 +66,8 @@ $button-primary-border-hover-color: #444440 !default;
 $button-primary-bg-hover-color:     #50504b !default;
 
 $button-icon-padding:  7px 8px 8px 8px !default;
+$button-icon-width:    24px !default;
+$button-icon-height:   24px !default;
 
 
 // * @section    Inputs
@@ -82,6 +87,8 @@ $input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 
 // * @section    Grid
 // * --------------------------------------------------------
 $grid-gutter-width:    10px !default;
+$grid-row-margin:      0 auto $grid-gutter-width auto !default;
+$grid-column-padding:  0 $grid-gutter-width !default;
 
 
 // * @section    Headers
@@ -91,11 +98,11 @@ $header-padding:       0 0 0.4em 0 !default;
 
 // * @section    Sections
 // * --------------------------------------------------------
-$section-padding:      0.7em 0 !default;
 
 
 // * @section    Text (<p>, free text, etc.)
 // * --------------------------------------------------------
+
 $text-line-height:    1.4 !default;
 $paragraph-padding:   0.7em !default;
 
@@ -122,7 +129,7 @@ $list-inline-spacing: 1em !default;
 
 // * @section    Breakpoint
 // * --------------------------------------------------------
-$bp-tablet:        480px !default;
-$bp-tablet-minus:  $bp-tablet - 1px !default;
-$bp-desktop:       786px !default;
-$bp-desktop-minus: $bp-desktop - 1px !default;
+$bp-medium:        480px !default;
+$bp-medium-minus:  $bp-medium - 1px !default;
+$bp-large:       786px !default;
+$bp-large-minus: $bp-large - 1px !default;

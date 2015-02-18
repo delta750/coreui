@@ -3,7 +3,7 @@
 // * @desc       Messages styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui
+// * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
 
@@ -12,6 +12,12 @@
 
 // List containing messages
 .cui-messages {
+    li {
+        width: 100%;
+        text-indent: 0;
+        list-style-type: none;
+        margin-bottom: 0.4em;
+    }
 }
 
 // Message item
@@ -20,12 +26,20 @@
 
 // Error message item
 .cui-message-error {
+    color: $text-error;
 }
 
 // Warning message item
 .cui-message-warning {
+    color: $text-warning;
+}
+
+// Success message item
+.cui-message-success {
+    color: $text-success;
 }
 
 // Informational message item
 .cui-message-info {
+    color: $text-information;
 }

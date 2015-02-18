@@ -3,7 +3,7 @@
 // * @desc       Miscellaneous styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui
+// * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
 
@@ -11,4 +11,8 @@
 // * --------------------------------------------------------
 .cui-no-wrap {
     white-space: nowrap;
+}
+
+.cui-align-right {
+	text-align: right;
 }

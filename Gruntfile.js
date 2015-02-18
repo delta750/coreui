@@ -1,16 +1,16 @@
 module.exports = function(grunt) {
     var
 
-    // Banner for JavaScript files
-    // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-    jsBanner = '/*! <%= pkg.title %>\n' +
-               ' *  @description  <%= pkg.description %>\n' +
-               ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-               ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-               '<%= pkg.author.name %>\n */\n',
+        // Banner for JavaScript files
+        // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
+        jsBanner = '/*! <%= pkg.title %>\n' +
+                   ' *  @description  <%= pkg.description %>\n' +
+                   ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+                   ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+                   '<%= pkg.author.name %>\n */\n',
 
-    // This banner will appear at the top style sheets
-    cssBanner = '@charset "utf-8";\n' + jsBanner;
+        // This banner will appear at the top style sheets
+        cssBanner = '@charset "utf-8";\n' + jsBanner;
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
                         '!cui/utilities/**/*.js'
                     ],
                     flatten: true,
-                }]
+                }],
             },
 
             devComponents: {
@@ -82,26 +82,51 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'src',
                     dest: 'dist/js/components',
-                    src: [ 'components/**/*.js'],
+                    src: [
+                        'components/**/*.js'
+                    ],
                     flatten: true,
-                }]
+                }],
             },
 
-            // prod: {
-            //     options: {
-            //         sourceMap: false,
-            //         compress: {
-            //             drop_console: true,
-            //         }
-            //     },
-            //     files: [{
-            //         expand: true,
-            //         cwd: 'src/js',
-            //         src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
-            //         dest: 'dist/js',
-            //         flatten: false
-            //     }]
-            // },
+            prodCUI: {
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                    },
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    dest: 'dist/js/vendor',
+                    src: [
+                        'cui/js/vendor/**/*.js',
+                        '!cui/js/vendor/jquery.js',
+                        '!cui/js/vendor/requirejs.js',
+                        '!cui/js/vendor/domReady.js'
+                    ],
+                    flatten: true,
+                }],
+            },
+
+            prodComponents: {
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                    },
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    dest: 'dist/js/components',
+                    src: [
+                        'components/**/*.js'
+                    ],
+                    flatten: true,
+                }],
+            },
 
         },
 
@@ -124,16 +149,16 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/cui.css':     'src/project/scss/project.scss'
-                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
+                    'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss'
-                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
+                    'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
             },
         },
@@ -142,13 +167,21 @@ module.exports = function(grunt) {
         // The sass plugin doesn't allow us to add a banner so we need this to insert the version number at the top
         // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
-            css: {
+            core: {
                 options: {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['dist/css/cui.css'],
-                dest: 'dist/css/cui.css',
+                src: ['dist/css/cui/cui.css'],
+                dest: 'dist/css/cui/cui.css',
+            },
+            project: {
+                options: {
+                    // stripBanners: true,
+                    banner: cssBanner,
+                },
+                src: ['dist/css/project/project.css'],
+                dest: 'dist/css/project/project.css',
             },
         },
 
@@ -162,7 +195,7 @@ module.exports = function(grunt) {
             },
 
             scripts: {
-                files: 'src/js/**/*.js',
+                files: 'src/**/*.js',
                 tasks: [
                     'jshint',
                     'uglify:devCUI',
@@ -173,11 +206,12 @@ module.exports = function(grunt) {
 
             sass: {
                 files: [
-                    'src/scss/**/*.scss',
+                    'src/**/*.scss',
                 ],
                 tasks: [
                     'sass:dev',
-                    'concat:css',
+                    'concat:core',
+                    'concat:project',
                 ],
             },
 
@@ -192,9 +226,9 @@ module.exports = function(grunt) {
         copy: {
             fonts: {
                 expand: true,
-                cwd: 'src/fonts',
+                cwd: 'src/cui/fonts',
                 src: ['**'],
-                dest: 'dist/fonts/',
+                dest: 'dist/fonts',
                 filter: 'isFile'
             },
         },
@@ -228,7 +262,7 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: "src/cui/js/",
+                    baseUrl: 'src/cui/js/',
                     name: 'settings',
                     paths: {
                         requireLib: 'vendor/requirejs',
@@ -261,7 +295,8 @@ module.exports = function(grunt) {
             'sass:prod',
             'jshint',
             'requirejs',
-            'uglify:prod',
+            'uglify:prodCUI',
+            'uglify:prodComponents',
             'concat',
             'copy',
             'clean:prod',
@@ -294,7 +329,7 @@ module.exports = function(grunt) {
     grunt.registerTask('server', 'Server', function(args) {
         grunt.task.run([
             'connect',
-            'watch',
+            'watch:noop',
         ]);
     });
 
