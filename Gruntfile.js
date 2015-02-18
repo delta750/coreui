@@ -213,6 +213,15 @@ module.exports = function(grunt) {
                 ],
             },
 
+            markdown: {
+                files: [
+                    'docs/src/**/*.*',
+                ],
+                tasks: [
+                    'markdown',
+                ],
+            },
+
             // This effectively does nothing but keep Grunt "running" (e.g. so the local server doesn't quit)
             noop: {
                 files: [
@@ -274,6 +283,36 @@ module.exports = function(grunt) {
             }
         },
 
+        // Compile markdown files into HTML (e.g. for documentation)
+        // https://github.com/treasonx/grunt-markdown
+        markdown: {
+            options: {
+                highlight: 'auto',
+                template: 'docs/src/_includes/templates/default.html',
+                markdownOptions: {
+                    highlight: 'manual', // 'auto',
+                    gfm: true,
+                },
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'docs/src',
+                    src: ['**/*.md'],
+                    dest: 'docs/dist',
+                    ext: '.html',
+
+                    // This plugin has a bug making it impossible to put the files where we want them, so we rename the path that Grunt generates to move the file
+                    // See: https://github.com/treasonx/grunt-markdown/issues/43
+                    // HTML files should end up in the `Documentation` folder
+                    // rename: function (dest, src) {
+                    //     // Get the file name and prepend the directory name
+                    //     return 'docs/dist/' +  src.split('/').pop();
+                    // },
+                }]
+            }
+        },
+
     });
     // End of plugin configuration
     // Next we define the tasks we want to use
@@ -326,6 +365,15 @@ module.exports = function(grunt) {
         grunt.task.run([
             'connect',
             'watch:noop',
+        ]);
+    });
+
+    // Documentation
+    grunt.registerTask('docs', 'Documentation', function(args) {
+        grunt.task.run([
+            'markdown',
+            'connect',
+            'watch:markdown',
         ]);
     });
 
