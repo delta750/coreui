@@ -14,7 +14,10 @@
 </head>
 <body class="debug">
     <style>
-    [class^="cui-col-"]:not(.no-debug) {
+    [class^="cui-col-"]:not(.no-debug),
+    [class^="cui-filler-col-"]:not(.no-debug),
+    [class^="cui-fixed-col-"]:not(.no-debug),
+    [class^="cui-hide-col-"]:not(.no-debug) {
         background: silver;
         line-height: 1.5em;
         border: 1px dotted #fff;
@@ -176,7 +179,7 @@
         <div class="cui-col-small-3 cui-col-medium-4">
             sm-3, md-4
         </div>
-        <div class="cui-filler-col-sm cui-col-medium-8">
+        <div class="cui-filler-col-small cui-col-medium-8">
             sm-<span class="fill">fill</span>, md-8
         </div>
     </div>
@@ -191,7 +194,7 @@
         <div class="cui-col-small-3 cui-col-medium-4">
             sm-3, md-4
         </div>
-        <div class="cui-col-small-3 cui-filler-col-md">
+        <div class="cui-col-small-3 cui-filler-col-medium">
             sm-3, md-<span class="fill">fill</span>
         </div>
     </div>
@@ -250,7 +253,7 @@
                 <div class="cui-col-small-12 cui-col-medium-2">
                     sm-12 md-2 <span class="level">L2</span>
                 </div>
-                <div class="cui-col-small-12 cui-filler-col-md">
+                <div class="cui-col-small-12 cui-filler-col-medium">
                     sm-12 md-<span class="fill">fill</span> <span class="level">L2</span>
                 </div>
             </div>

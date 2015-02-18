@@ -29,6 +29,7 @@
 [class*="cui-fixed-col-"],
 [class*="cui-filler-col-"] {
     position: relative;
+    overflow: hidden;
     @include clearfix;
 }
 
@@ -40,7 +41,7 @@ nav > header {
     padding: $grid-column-padding;
 }
 
-.cui-filler-col-sm {
+.cui-filler-col-small {
     float: none;
     width: auto;
     overflow: hidden;
@@ -51,6 +52,7 @@ nav > header {
 .cui-clearfix {
     @include clearfix;
 }
+
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
@@ -120,7 +122,7 @@ nav > header {
         float: left;
     }
 
-    .cui-filler-col-md {
+    .cui-filler-col-medium {
         float: none;
         width: auto;
         overflow: hidden;
@@ -173,6 +175,10 @@ nav > header {
     .cui-col-medium-1 {
         width: 8.33333333%;
     }
+
+    [class$="medium-200"] {
+        width: 200px;
+    }
 }
 
 
@@ -183,7 +189,7 @@ nav > header {
         float: left;
     }
 
-    .cui-filler-col-lg {
+    .cui-filler-col-large {
         float: none;
         width: auto;
         overflow: hidden;
@@ -243,11 +249,4 @@ nav > header {
 // * --------------------------------------------------------
 .cui-pull-right {
     float: right;
-}
-
-
-// * @section    Fixed width example
-// * --------------------------------------------------------
-[class$="-200"] {
-    width: 200px;
 }
