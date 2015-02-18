@@ -149,7 +149,6 @@ module.exports = function(grunt) {
                 files: {
                     'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
-                    'dist/css/empire/empire.css': 'src/empire/scss/empire.scss'
                 },
             },
 
@@ -158,7 +157,6 @@ module.exports = function(grunt) {
                 files: {
                     'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
-                    'dist/css/empire/empire.css': 'src/empire/scss/empire.scss'
                 },
             },
         },
