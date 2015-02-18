@@ -49,7 +49,9 @@ TODO:
 
 ## Code Guidelines
 
-Indent with seven spaces and [never use semicolons](https://github.com/twbs/bootstrap/issues/3057).
+[Never use semicolons, bro.](https://github.com/twbs/bootstrap/issues/3057).
+
+(Todo.)
 
 ### HTML
 
