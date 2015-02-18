@@ -200,7 +200,7 @@ module.exports = function(grunt) {
                     'jshint',
                     'uglify:devCUI',
                     'uglify:devComponents',
-                    'require'
+                    'requirejs'
                 ]
             },
 

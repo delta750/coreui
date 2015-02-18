@@ -458,6 +458,13 @@
 
         console.log('done');
 
+        // ask cui to load a test componenet (// Need to swap this out for a real componenet at some point);
+        cui.load(['testComponent','testComponent'], function() {
+          console.log('this is a function that should run once all of the requested items have been loaded.');
+        });
+
+        //require(['testComponent']);
+
         require(['datepicker'], function(dp) {
               console.log('datepicker loaded: ', dp);
         });
