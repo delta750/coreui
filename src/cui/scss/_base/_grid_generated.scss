@@ -3,7 +3,7 @@
 // * @desc       Responsive grid styles
 // * @author     Manolo Farfan, Craig Patik
 // * @version    1.0.0.20141231
-// * @see        https://github.com/nys-its/frg-coreui
+// * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
 // * @section    Row and col structures
@@ -68,7 +68,7 @@ $columns: 12;
     @include clearfix;
 }
 
-[class*="cui-col-sm-"],
+[class*="cui-col-small-"],
 [class*="cui-fixed-col-"] {
     float: left;
 }
@@ -95,12 +95,12 @@ $columns: 12;
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
-@include build-grid("sm", $columns);
+@include build-grid("small", $columns);
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width: $bp-tablet) {
-    [class*="cui-col-md-"] {
+@media only screen and (min-width: $bp-medium) {
+    [class*="cui-col-medium-"] {
         float: left;
     }
 
@@ -110,7 +110,8 @@ $columns: 12;
         @include clearfix;
     }
 
-    @include build-grid("md", $columns);
+    @include build-grid("medium", $columns);
+    @include build-grid("medium", $columns);
 
     [class$="-200"] {
         width: 200px;
@@ -119,8 +120,8 @@ $columns: 12;
 
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width: $bp-desktop) {
-    [class*="cui-col-lg-"] {
+@media only screen and (min-width: $bp-large) {
+    [class*="cui-col-large-"] {
         float: left;
     }
 
@@ -130,7 +131,7 @@ $columns: 12;
         overflow: hidden;
     }
 
-    @include build-grid("lg", $columns);
+    @include build-grid("large", $columns);
 }
 
 // * @section    Push columns
