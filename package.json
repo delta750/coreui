@@ -1,10 +1,10 @@
 {
-    "name": "frg-coreui",
+    "name": "coreui",
     "title": "Core UI",
     "version": "0.0.1",
     "description": "Core UI Frontend Framework",
     "author": {
-        "name": "New York State Finance, Regulation & Gaming Cluster",
+        "name": "New York State Office of Information Technology Services",
         "email": "tax.dl.UISupport@its.ny.gov"
     },
     "repository": "https://github.com/ny/frg-coreui",
