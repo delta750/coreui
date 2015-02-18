@@ -1,50 +1,16 @@
-/*global module: false*/
 module.exports = function(grunt) {
     var
 
-        // Banner for JavaScript files
-        // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-        jsBanner = '/*! <%= pkg.title %>\n' +
-                   ' *  @description  <%= pkg.description %>\n' +
-                   ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-                   ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-                   '<%= pkg.author.name %>\n */\n',
+    // Banner for JavaScript files
+    // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
+    jsBanner = '/*! <%= pkg.title %>\n' +
+               ' *  @description  <%= pkg.description %>\n' +
+               ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+               ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+               '<%= pkg.author.name %>\n */\n',
 
-        // This banner will appear at the top style sheets
-        cssBanner = '@charset "utf-8";\n' + jsBanner,
-
-        //////////////////////////
-        // Lists of asset files //
-        //////////////////////////
-
-        jsCore = [
-            // Main file(s)
-            'src/js/core/**/*.js',
-        ],
-
-        jsComponents = [
-            'src/js/components/**/*.js'
-        ],
-
-        jsEmpire = [
-            'src/js/empire/**/*.js'
-        ],
-
-        // All JS files that will be included in the HTML (i.e. js/core.js)
-        jsBuild = [
-                // Libraries
-                'src/js/vendor/**/*.js',
-                // But not html5shiv
-                '!src/js/vendor/html5shiv.js',
-            ]
-            // Add Core files
-            .concat(jsCore),
-
-        // Scripts to be linted (i.e. every JS file that we hand-code)
-        jsToLint = (jsCore.concat(jsComponents)).concat(jsEmpire),
-
-        // Scripts to watch for changes (add compiled files to the main list)
-        jsToWatch = jsToLint;
+    // This banner will appear at the top style sheets
+    cssBanner = '@charset "utf-8";\n' + jsBanner;
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -72,12 +38,15 @@ module.exports = function(grunt) {
                 scripturl: true,
                 evil: true,
                 globals: {
-                    UI: true,
                     jQuery: true,
-                    Modernizr: true
+                    cui: true,
+                    module: true,
                 },
             },
-            files: jsToLint,
+            files: [
+                'src/**/*.js',
+                '!src/cui/js/vendor/*.js'
+            ]
         },
 
         // Minify and concatenate JS files
@@ -91,40 +60,47 @@ module.exports = function(grunt) {
                 mangle: false, // We need the variable names to be unchanged so other scripts (i.e. in-page `<script>` tags) can reference them
             },
 
-            dev: {
-                files: {
-                    // Core
-                    'dist/js/core/core.js': jsBuild,
-
-                    // Empire
-                    'dist/js/empire/empire.js': jsEmpire,
-
-                    //Components and  standalone scripts
-                    'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
-                    'dist/js/vendor/html5shiv.js': 'src/js/vendor/html5shiv.js',
-                },
+            devCUI: {
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    dest: 'dist/js/vendor',
+                    src: [
+                        'cui/js/vendor/**/*.js',
+                        '!cui/js/vendor/jquery.js',
+                        '!cui/js/vendor/requirejs.js',
+                        '!cui/js/vendor/domReady.js'
+                    ],
+                    flatten: true,
+                }]
             },
 
-            // No source maps or console logging
-            prod: {
-                options: {
-                    sourceMap: false,
-                    compress: {
-                        drop_console: true,
-                    }
-                },
-                files: {
-                    // Core
-                    'dist/js/core/core.js': jsBuild,
-
-                    // Empire
-                    'dist/js/empire/empire.js': jsEmpire,
-
-                    //Components and standalone scripts
-                    'dist/js/components/datepicker/datepicker.js': 'src/js/components/datepicker/datepicker.js',
-                    'dist/js/vendor/html5shiv.js': 'src/js/vendor/html5shiv.js',
-                },
+            devComponents: {
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    dest: 'dist/js/components',
+                    src: [ 'components/**/*.js'],
+                    flatten: true,
+                }]
             },
+
+            // prod: {
+            //     options: {
+            //         sourceMap: false,
+            //         compress: {
+            //             drop_console: true,
+            //         }
+            //     },
+            //     files: [{
+            //         expand: true,
+            //         cwd: 'src/js',
+            //         src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
+            //         dest: 'dist/js',
+            //         flatten: false
+            //     }]
+            // },
+
         },
 
         // Styles
@@ -146,18 +122,16 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
-                    'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
+                    'dist/css/cui.css':     'src/project/scss/project.scss'
+                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss',
-                    'dist/css/empire/empire.css': 'src/scss/empire/empire.scss',
-                    'dist/css/components/datepicker/datepicker.css': 'src/scss/components/datepicker/datepicker.scss'
+                    'dist/css/core/core.css':     'src/scss/core/core.scss'
+                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
         },
@@ -171,8 +145,8 @@ module.exports = function(grunt) {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['dist/css/core/core.css'],
-                dest: 'dist/css/core/core.css',
+                src: ['dist/css/cui.css'],
+                dest: 'dist/css/cui.css',
             },
         },
 
@@ -186,10 +160,12 @@ module.exports = function(grunt) {
             },
 
             scripts: {
-                files: jsToWatch,
+                files: 'src/js/**/*.js',
                 tasks: [
                     'jshint',
-                    'uglify:dev',
+                    'uglify:devCUI',
+                    'uglify:devComponents',
+                    'require'
                 ]
             },
 
@@ -241,6 +217,27 @@ module.exports = function(grunt) {
                 'dist/**/*.map',
                 '.sass-cache/',
             ],
+            dist: [
+              'dist'
+            ]
+        },
+
+        // Production build ofjavascript resources
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: "src/cui/js/",
+                    name: 'settings',
+                    paths: {
+                        requireLib: 'vendor/requirejs',
+                        jquery: 'vendor/jquery',
+                        domReady: 'vendor/domReady',
+                        cui: 'cui'
+                    },
+                    include: ['requireLib', 'jquery', 'domReady'],
+                    out: 'dist/js/cui.js'
+                }
+            }
         },
 
     });
@@ -259,6 +256,7 @@ module.exports = function(grunt) {
         grunt.task.run([
             'sass:prod',
             'jshint',
+            'requirejs',
             'uglify:prod',
             'concat',
             'copy',
@@ -272,7 +270,9 @@ module.exports = function(grunt) {
         grunt.task.run([
             'sass:dev',
             'jshint',
-            'uglify:dev',
+            'requirejs',
+            'uglify:devCUI',
+            'uglify:devComponents',
             'concat',
             'copy',
             'connect',
@@ -290,7 +290,7 @@ module.exports = function(grunt) {
     grunt.registerTask('server', 'Server', function(args) {
         grunt.task.run([
             'connect',
-            'watch:noop',
+            'watch',
         ]);
     });
 
