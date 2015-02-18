@@ -8,14 +8,11 @@ var scripts = document.getElementById("require"),
 require.config({
   baseUrl: baseUrl,
   paths: {
-    // These are core libs. DO NOT CHANGE!
-    'jquery': 'cui/vendor/jquery-1.11.2.min',
-    'domReady': 'cui/vendor/domReady',
-    'datepicker': 'cui/components/datepicker/datepicker',
+    // These are cui libs. DO NOT CHANGE!
+    'datepicker': 'components/datepicker',
 
     // Project Components Paths
-    'project': 'project/components'
-
+    'project': 'components'
   },
 
 });

@@ -58,31 +58,41 @@ module.exports = function(grunt) {
                 mangle: false, // We need the variable names to be unchanged so other scripts (i.e. in-page `<script>` tags) can reference them
             },
 
-            dev: {
+            devCUI: {
                 files: [{
                   expand: true,
-                  cwd: 'src/js',
-                  dest: 'dist/js',
-                  src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
-                  flatten: false,
+                  cwd: 'src',
+                  dest: 'dist/js/vendor',
+                  src: [ 'cui/js/vendor/**/*.js', '!cui/js/vendor/jquery.js', '!cui/js/vendor/requirejs.js', '!cui/js/vendor/domReady.js'],
+                  flatten: true,
                 }]
             },
 
-            prod: {
-              options: {
-                  sourceMap: false,
-                  compress: {
-                      drop_console: true,
-                  }
-              },
-              files: [{
-                expand: true,
-                cwd: 'src/js',
-                src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
-                dest: 'dist/js',
-                flatten: false
-              }]
+            devComponents: {
+                files: [{
+                  expand: true,
+                  cwd: 'src',
+                  dest: 'dist/js/components',
+                  src: [ 'components/**/*.js'],
+                  flatten: true,
+                }]
             }
+
+            //prod: {
+            //  options: {
+            //      sourceMap: false,
+            //      compress: {
+            //          drop_console: true,
+            //      }
+            //  },
+            //  files: [{
+            //    expand: true,
+            //    cwd: 'src/js',
+            //    src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
+            //    dest: 'dist/js',
+            //    flatten: false
+            //  }]
+            //}
 
         },
 
@@ -105,7 +115,7 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss'
+                    'dist/css/cui.css':     'src/project/scss/project.scss'
                     //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
                 },
             },
@@ -128,8 +138,8 @@ module.exports = function(grunt) {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['dist/css/core/core.css'],
-                dest: 'dist/css/core/core.css',
+                src: ['dist/css/cui.css'],
+                dest: 'dist/css/cui.css',
             },
         },
 
@@ -146,7 +156,9 @@ module.exports = function(grunt) {
                 files: 'src/js/**/*.js',
                 tasks: [
                     'jshint',
-                    'uglify:dev',
+                    'uglify:devCUI',
+                    'uglify:devComponents',
+                    'require'
                 ]
             },
 
@@ -198,19 +210,22 @@ module.exports = function(grunt) {
                 'dist/**/*.map',
                 '.sass-cache/',
             ],
+            dist: [
+              'dist'
+            ]
         },
 
         // Production build ofjavascript resources
         requirejs: {
           compile: {
             options: {
-              baseUrl: "src/js",
-              name: './settings',
+              baseUrl: "src/cui/js/",
+              name: 'settings',
               paths: {
-                  requireLib: './cui/vendor/requirejs',
-                  jquery: './cui/vendor/jquery',
-                  domReady: './cui/vendor/domReady',
-                  cui: './cui/cui'
+                  requireLib: 'vendor/requirejs',
+                  jquery: 'vendor/jquery',
+                  domReady: 'vendor/domReady',
+                  cui: 'cui'
               },
               include: ['requireLib', 'jquery', 'domReady'],
               out: 'dist/js/cui.js'
@@ -250,7 +265,8 @@ module.exports = function(grunt) {
             'sass:dev',
             'jshint',
             'requirejs',
-            'uglify:dev',
+            'uglify:devCUI',
+            'uglify:devComponents',
             'concat',
             'copy',
             'connect',
