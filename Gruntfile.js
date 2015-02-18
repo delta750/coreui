@@ -39,12 +39,15 @@ module.exports = function(grunt) {
                 scripturl: true,
                 evil: true,
                 globals: {
-                    UI: true,
                     jQuery: true,
                     Modernizr: true
                 },
             },
-            files: '/src/js/core.js',
+            files: ['src/js/**/*.js',
+                    '!src/js/settings.js',
+                    '!src/js/vendor/*.js',
+                    '!src/js/cui/vendor/*.js'
+                ]
         },
 
         // Minify and concatenate JS files
@@ -230,9 +233,7 @@ module.exports = function(grunt) {
               include: ['requireLib', 'jquery', 'domReady'],
               out: 'dist/js/cui.js'
             }
-          }
         },
-
 
     });
     // End of plugin configuration
