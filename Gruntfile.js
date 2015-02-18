@@ -1,16 +1,16 @@
 module.exports = function(grunt) {
     var
 
-    // Banner for JavaScript files
-    // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-    jsBanner = '/*! <%= pkg.title %>\n' +
-               ' *  @description  <%= pkg.description %>\n' +
-               ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-               ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-               '<%= pkg.author.name %>\n */\n',
+        // Banner for JavaScript files
+        // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
+        jsBanner = '/*! <%= pkg.title %>\n' +
+                   ' *  @description  <%= pkg.description %>\n' +
+                   ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+                   ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+                   '<%= pkg.author.name %>\n */\n',
 
-    // This banner will appear at the top style sheets
-    cssBanner = '@charset "utf-8";\n' + jsBanner;
+        // This banner will appear at the top style sheets
+        cssBanner = '@charset "utf-8";\n' + jsBanner;
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -122,16 +122,14 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/cui.css':     'src/project/scss/project.scss'
-                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/project/project.css': 'src/project/scss/project.scss'
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'dist/css/core/core.css':     'src/scss/core/core.scss'
-                    //'dist/css/empire/empire.css': 'src/scss/empire/empire.scss'
+                    'dist/css/project/project.css': 'src/project/scss/project.scss'
                 },
             },
         },
@@ -140,13 +138,21 @@ module.exports = function(grunt) {
         // The sass plugin doesn't allow us to add a banner so we need this to insert the version number at the top
         // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
-            css: {
+            core: {
                 options: {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
-                src: ['dist/css/cui.css'],
-                dest: 'dist/css/cui.css',
+                src: ['dist/css/cui/cui.css'],
+                dest: 'dist/css/cui/cui.css',
+            },
+            project: {
+                options: {
+                    // stripBanners: true,
+                    banner: cssBanner,
+                },
+                src: ['dist/css/project/project.css'],
+                dest: 'dist/css/project/project.css',
             },
         },
 
@@ -175,7 +181,8 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'sass:dev',
-                    'concat:css',
+                    'concat:core',
+                    'concat:project',
                 ],
             },
 
@@ -226,7 +233,7 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: "src/cui/js/",
+                    baseUrl: 'src/cui/js/',
                     name: 'settings',
                     paths: {
                         requireLib: 'vendor/requirejs',

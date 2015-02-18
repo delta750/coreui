@@ -1,0 +1,30 @@
+/**
+ * @name       _linkBasic.scss
+ * @desc       Skinning for anchor tag styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/ny/frg-coreui
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Default link styles
+ * @todo       Change to NYGOV palette
+ * --------------------------------------------------------
+ */
+a,
+a:link,
+a:active,
+a:focus {
+	text-decoration: underline;
+    color: rgb(35,119,185);
+}
+
+a:hover,
+a:visited:hover {
+    color: #CC6633;
+}
+
+a:visited {
+    color: #993399;
+}

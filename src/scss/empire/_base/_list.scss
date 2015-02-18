@@ -1,0 +1,40 @@
+/**
+ * @name       _listBasic.scss
+ * @desc       Skinning for list styles
+ * @author     Manolo Farfan
+ * @version    1.0.0.20141231
+ * @see        https://github.com/ny/frg-coreui
+ */
+
+/**
+ * --------------------------------------------------------
+ * @section    Lists and bullets
+ * @todo       Extract eMPIRE-specific styles
+ *             Take out IE7 hacks
+ * --------------------------------------------------------
+ */
+ol, ul {
+}
+
+.cui-list-horizontal, .cui-list-horizontal-block, .cui-list-vertical {
+    overflow: hidden;
+}
+
+.cui-list-horizontal li, .cui-list-horizontal a {
+    float: left;
+}
+
+.cui-list-horizontal-block li, .cui-list-horizontal-block a {
+	display: inline-block;
+    clear: none;
+    *display: inline; /* IE7 */
+    *zoom: 1; /* IE7 */
+}
+
+.cui-line-separator li {
+    border-right: 1px solid #999;
+}
+
+.cui-line-separator-last-item {
+    border-right: 0 !important;
+}

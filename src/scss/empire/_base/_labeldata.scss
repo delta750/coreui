@@ -1,0 +1,182 @@
+//   ========================================================
+// * @name       _labeldata.scss
+// * @desc       Skinning for labels and data styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/ny/frg-coreui
+//   ========================================================
+
+
+// * @section    Label/data wrapper styles
+// * --------------------------------------------------------
+section {
+    .cui-label {
+        position: relative;
+        width: 100%;
+        font-size: $font-size;
+
+        // Side-by-side with data (like .col-fixed-)
+        @include pointbreak($bp-large) {
+            text-align: right;
+            width: $emp-label-width;
+            overflow: hidden;
+        }
+    }
+
+    .cui-data {
+        width: 100%;
+        padding: 0;
+
+        // Side-by-side with label (like .cui-filler)
+        @include pointbreak($bp-large) {
+            width: auto;
+            overflow: hidden;
+        }
+
+        &,
+        input:not([type="button"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="reset"]),
+        select,
+        textarea {
+            font-size: $font-size;
+
+            // Prevent the input from running off the edge of the screen (especially on smaller screens)
+            max-width: 100%;
+            display: inline-block; // Need this since `max-width` doesn't work for inline elements
+        }
+
+        button {
+            padding: 6px 12px; // Match input height
+        }
+    }
+}
+
+
+
+
+
+
+// .cui-label-wrap, .cui-data-wrap {
+//     float: left;
+//     line-height: normal;
+// }
+
+// .cui-label-wrap {
+//     text-align: right;
+//     vertical-align: top;
+//     padding-right: 17px; // Careful with Chrome - doesn't like some ems (i.e. 1.3em is a no, 1.29em is a yes), pixels are ok
+// }
+
+// .cui-data-wrap {
+//     width: auto;
+// }
+
+// .cui-section-body .cui-data-wrap, .cui-widget .cui-section-body .cui-data-wrap {
+//     float: none;
+// }
+
+/**
+ * --------------------------------------------------------
+ * @section    Label/data wrapper styles
+ * @desc       Defaults section's/widget's body data
+ *             containers to have a table-cell style so
+ *             that data inside these can wrap and remain
+ *             in place.
+ *
+ *             Example:
+ *
+ *             My Label is    So is the data... When the
+ *             too long:      data inside this container
+ *                            gets longer than the label,
+ *                            the data here should remain
+ *                            in place and not move or wrap
+ *                            below the label.
+ *
+ *             These wrappers are defaulted to table-cell
+ *             because we're assuming most labels will have
+ *             a specific fixed width, like 200px or 100em.
+ *             If the label is fixed in width, then the
+ *             data wrapper will use width: auto to comply
+ *             with fluid design. Because of this, we need
+ *             to use table-cell in order to keep both divs
+ *             next to each other (left and right).
+ *             On the other hand, when the label and data
+ *             containers use a variable width, like 20% or
+ *             auto, the label-wrap must be floated left to
+ *             gain layout.
+ * @todo       Extract eMPIRE-specific styles
+ *             Check if needed or old IE7 support
+ *             Can we use clearfix to achieve @desc?
+ * --------------------------------------------------------
+ */
+.cui-section-body .cui-data-wrap, .cui-widget .cui-section-body .cui-data-wrap {
+    display: table-cell;
+    float: none;
+}
+
+/* Any .cui-w-*p added in the .Grid section should be found here too */
+.cui-w-100p .cui-label-wrap,
+.cui-w-99p .cui-label-wrap,
+.cui-w-95p .cui-label-wrap,
+.cui-w-90p .cui-label-wrap,
+.cui-w-80p .cui-label-wrap,
+.cui-w-75p .cui-label-wrap,
+.cui-w-70p .cui-label-wrap,
+.cui-w-66p .cui-label-wrap,
+.cui-w-60p .cui-label-wrap,
+.cui-w-50p .cui-label-wrap,
+.cui-w-49p .cui-label-wrap,
+.cui-w-45p .cui-label-wrap,
+.cui-w-40p .cui-label-wrap,
+.cui-w-33p .cui-label-wrap,
+.cui-w-30p .cui-label-wrap,
+.cui-w-20p .cui-label-wrap,
+.cui-w-10p .cui-label-wrap,
+.cui-w-5p .cui-label-wrap,
+.cui-w-2p .cui-label-wrap,
+.cui-w-1p .cui-label-wrap {
+    float: left;
+}
+
+.cui-required .cui-label:after {
+    display: inline;
+    position: absolute;
+    right: -0.8em;
+    top: 0;
+    font-weight: bold;
+    font-family: $font-basic;
+}
+
+.cui-data-mask {
+    margin-left: 0.3em;
+}
+
+.cui-label-top .cui-label-wrap,
+.cui-label-top .cui-data-wrap {
+    display: block !important;
+    text-align: left;
+}
+
+.cui-legend-text {
+    *float: left;
+}
+
+/*     .Sizes
+   ---------------------------------------- */
+.cui-label-auto .cui-label-wrap,
+.cui-label-auto .cui-data-wrap { width: auto; }
+
+.cui-label-XXS .cui-label-wrap { width: 10%; }
+.cui-label-XS .cui-label-wrap  { width: 15%; }
+.cui-label-S .cui-label-wrap   { width: 30%; }
+.cui-label-M .cui-label-wrap   { width: 50%; }
+.cui-label-L .cui-label-wrap   { width: 60%; }
+.cui-label-XL .cui-label-wrap  { width: 75%; }
+
+.cui-label-XXS .cui-data-wrap,
+.cui-label-XS .cui-data-wrap,
+.cui-label-S .cui-data-wrap,
+.cui-label-M .cui-data-wrap,
+.cui-label-L .cui-data-wrap,
+.cui-label-XL .cui-data-wrap {
+    width: auto;
+}

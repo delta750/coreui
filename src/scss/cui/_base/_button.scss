@@ -1,0 +1,39 @@
+//   ========================================================
+// * @name       _button.scss
+// * @desc       Button styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/ny/frg-coreui
+//   ========================================================
+
+
+// * @section    Default button styles
+// * --------------------------------------------------------
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+    display: inline-block;
+    line-height: 1;
+    @include button;
+    padding: $button-padding;
+
+    &:hover {
+        border-color: $button-border-color;
+        background-color: $button-bg-color;
+    }
+}
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    @include box-sizing;
+}
+
+
+// * @section   Specific button styles
+// * @desc      Primary button
+// * --------------------------------------------------------
+.cui-button-primary {
+    @include button-primary;
+}

@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Empire Template - Core UI</title>
-    <link href="../../dist/css/core/core.css" rel="stylesheet" type="text/css" media="all">
     <link href="../../dist/css/empire/empire.css" rel="stylesheet" type="text/css" media="all">
-    <script src="../../dist/js/dist/core.js"></script>
+    <!-- <script src="../../dist/js/cui.js"></script> -->
     <!-- <script src="../../dist/js/dist/empire.js"></script> -->
     <!--[if lt IE 9]><script src="../../dist/js/vendor/html5shiv.js"></script><![endif]-->
 
@@ -26,7 +25,7 @@
 
     <header>
         <!-- Main menu -->
-        <div class="cui-fixed-col-sm-200" id="emp-logo">
+        <div class="cui-fixed-col-small-200" id="emp-logo">
             <!-- Logo placeholder -->
             <span class="cui-hide-from-screen">eMPIRE logo placeholder</span>
         </div>
@@ -37,10 +36,10 @@
             </nav>
             <!-- Title and secondary menu -->
             <div class="cui-row">
-                <div class="cui-col-sm-8 emp-tabset-title">
+                <div class="cui-col-small-8 emp-tabset-title">
                     <h1>Tabset menu title</h1>
                 </div>
-                <div class="cui-col-sm-4 emp-preferences">
+                <div class="cui-col-small-4 emp-preferences">
                     <!-- Menu placeholder -->
                     Preferences menu placeholder
                 </div>
@@ -52,91 +51,95 @@
     <!-- GENERAL HEADER       -->
     <!-- ==================== -->
 
-    <form class="cui-row" name="form_tp_info" id="form_tp_info" action="www.tax.ny.gov" method="post">
-        <!-- Buttons -->
-        <div class="cui-fixed-col-sm-100">
-            <button class="emp-button-send-id" tabindex="1">Send ID</button>
-            <button class="emp-button-switch" tabindex="1">Switch</button>
-        </div>
+    <div class="cui-row" id="general_header">
+        <div class="cui-col-small-12">
+            <form class="cui-row" name="form_tp_info" id="form_tp_info" action="www.tax.ny.gov" method="post">
+                <!-- Buttons -->
+                <div class="cui-fixed-col-small-100">
+                    <button class="emp-button-send-id" tabindex="1">Send ID</button>
+                    <button class="emp-button-switch" tabindex="1">Switch</button>
+                </div>
 
-        <!-- Taxpayer info -->
-        <!-- The emp-tpinfo-* classes used at this level are for distinguishing buttons that may appear for both taxpayers (e.g. legal rep) -->
-        <div class="cui-filler-col-sm emp-tpinfo">
-            <!-- Main taxpayer -->
-            <div class="cui-row">
-                <div class="cui-col-sm-6 emp-tpinfo-main">
+                <!-- Taxpayer info -->
+                <!-- The emp-tpinfo-* classes used at this level are for distinguishing buttons that may appear for both taxpayers (e.g. legal rep) -->
+                <div class="cui-filler-col-sm emp-tp-info">
+                    <!-- Main taxpayer -->
                     <div class="cui-row">
-                        <div class="cui-col-sm-12">
-                            <div class="cui-label">ID:</div>
-                            <div class="cui-data">
-                                <span>123-45-6789 (IND)</span>
-                                <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
-                                <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
-                                <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
-                                <!--<button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>-->
+                        <div class="cui-col-small-6 emp-tp-info-main">
+                            <div class="cui-row">
+                                <div class="cui-col-small-12">
+                                    <div class="cui-label">ID:</div>
+                                    <div class="cui-data">
+                                        <span>123-45-6789 (IND)</span>
+                                        <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
+                                        <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
+                                        <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
+                                        <button type="button" class="cui-icon emp-icon-add-event" title="Popup add event" tabindex="1">Popup add event</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cui-row">
+                                <div class="cui-col-small-12">
+                                    <div class="cui-label">Name:</div>
+                                    <div class="cui-data">John H. Smith</div>
+                                </div>
+                            </div>
+                            <div class="cui-row">
+                                <div class="cui-col-small-12">
+                                    <div class="cui-label">Address:</div>
+                                    <div class="cui-data">
+                                        <span>1943 Crossing Stone Ct., Albany, NY 12227</span>
+                                        <button type="button" class="cui-icon emp-icon-diff-mail" title="Mailing address is different" tabindex="1">Mailing address is different</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cui-row">
-                        <div class="cui-col-sm-12">
-                            <div class="cui-label">Name:</div>
-                            <div class="cui-data">Peter L. Griffin</div>
-                        </div>
-                    </div>
-                    <div class="cui-row">
-                        <div class="cui-col-sm-12">
-                            <div class="cui-label">Address:</div>
-                            <div class="cui-data">
-                                <span>31 Spooner Street, Albany, NY 12227</span>
-                                <button type="button" class="cui-icon emp-icon-diff-mail" title="Mailing address is different" tabindex="1">Mailing address is different</button>
+                        <!-- Joint taxpayer -->
+                        <div class="cui-col-small-6 emp-tp-info-joint">
+                            <div class="cui-row">
+                                <div class="cui-col-small-12">
+                                    <div class="cui-label">Associated ID:</div>
+                                    <div class="cui-data">
+                                        <span>234-56-7890 (IND)</span>
+                                        <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
+                                        <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
+                                        <button type="button" class="cui-icon emp-icon-data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
+                                        <button type="button" class="cui-icon emp-icon-list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
+                                        <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
+                                    </div>
+                                </div>
+                                <div class="cui-row">
+                                    <div class="cui-col-small-12">
+                                        <div class="cui-label">Associated Name:</div>
+                                        <div class="cui-data">Jane M. Johnson-Smith</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Joint taxpayer -->
-                <div class="cui-col-sm-6 emp-tpinfo-joint">
-                    <div class="cui-row">
-                        <div class="cui-col-sm-12">
-                            <div class="cui-label">Associated ID:</div>
-                            <div class="cui-data">
-                                <span>234-56-7890 (IND)</span>
-                                <span class="emp-indicator-1" title="Bankruptcy exists" alt="B">Bankruptcy exists</span>
-                                <span class="emp-indicator-1" title="Identity theft" alt="I">Identity theft</span>
-                                <button type="button" class="cui-icon emp-icon-data-joint" title="Popup Data for Joint Taxpayer" tabindex="1">Popup Data for Joint Taxpayer</button>
-                                <button type="button" class="cui-icon emp-icon-list-joint" title="View Joint Taxpayer List" tabindex="1">View Joint Taxpayer List</button>
-                                <button type="button" class="cui-icon emp-icon-legal-rep" title="View legal representative" tabindex="1">View legal representative</button>
-                            </div>
-                        </div>
-                        <div class="cui-row">
-                            <div class="cui-col-sm-12">
-                                <div class="cui-label">Associated Name:</div>
-                                <div class="cui-data">Lois Griffin</div>
-                            </div>
-                        </div>
+            </form>
+
+            <!-- Workflow -->
+            <form class="cui-row" name="form_workflow" id="form_workflow" action="www.tax.ny.gov" method="post">
+                <div class="cui-col-small-12 cui-align-right">
+                    <ul>
+                        <li><button id="workflow_next" type="button" class="cui-icon emp-workflow-item-next" title="Get next workitem" tabindex="1">Get next workitem</button></li>
+                        <li><button id="workflow_view_comments" type="button" class="cui-icon emp-workflow-item-comments" title="View comments" tabindex="1">View comments</button></li>
+                        <li><button id="workflow_work_management" type="button" class="cui-icon emp-workflow-item-work-management" title="Go to work management" tabindex="1">Go to work management</button></li>
+                    </ul>
+                    <div class="emp-field">
+                        <label for="workflow_actions" class="cui-hide-from-screen">Workflow action</label>
+                        <select id="workflow_actions" tabindex="1">
+                            <option>Wokflow actions</option>
+                            <option>Wokflow actions 12345</option>
+                        </select>
+                        <button id="btn_workFlow_go" tabindex="1">Go</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
-
-    <!-- Workflow -->
-    <form class="cui-row" name="form_workflow" id="form_workflow" action="www.tax.ny.gov" method="post">
-        <div class="cui-col-sm-12 cui-align-right">
-            <ul>
-                <li><button id="workflow_next" class="cui-icon emp-workflow-item-next" title="Get next workitem" tabindex="1">Get next workitem</button></li>
-                <li><button id="workflow_view_comments" class="cui-icon emp-workflow-item-comments" title="View comments" tabindex="1">View comments</button></li>
-                <li><button id="workflow_work_management" class="cui-icon emp-workflow-item-work-management" title="Go to work management" tabindex="1">Go to work management</button></li>
-            </ul>
-            <div class="emp-field">
-                <label for="workflow_actions" class="cui-hide-from-screen">Workflow action</label>
-                <select id="workflow_actions" tabindex="1">
-                    <option>Wokflow actions</option>
-                    <option>Wokflow actions 12345</option>
-                </select>
-                <button id="btn_workFlow_go" tabindex="1">Go</button>
-            </div>
-        </div>
-    </form>
+    </div>
 
     <!-- ==================== -->
     <!-- TABSET               -->
@@ -144,7 +147,7 @@
 
     <div class="cui-row emp-tabset">
         <!-- Column for tabs -->
-        <ul class="cui-col-sm-11">
+        <ul class="cui-col-small-12">
             <li><a href="#" title="Taxpayer Summary" tabindex="1">TP Sum</a></li>
             <li><a href="#" title="Search by Name" tabindex="1">Srch by Name</a></li>
             <li class="emp-selected"><a href="#" title="Name History" tabindex="1">Name History</a></li>
@@ -165,9 +168,7 @@
             <li><a href="#" title="Correspondence" tabindex="1">Correspondence</a></li>-->
         </ul>
         <!-- Absolutely-positioned pane for showing/hiding the tabset -->
-        <div class="cui-col-sm-1">
-            <button type="button" class="cui-icon emp-icon-showhide" title="Show a full/partial tabset view" tabindex="1">Resize the tabset's height</button>
-        </div>
+        <button type="button" class="cui-icon emp-icon-showhide" title="Show a full/partial tabset view" tabindex="1">Resize the tabset's height</button>
     </div>
 
     <!-- ==================== -->
@@ -177,12 +178,12 @@
     <div class="emp-search">
         <form class="cui-row" name="form_search" id="form_search" action="www.tax.ny.gov" method="post">
             <!-- Column for Get ID button -->
-            <div class="cui-col-sm-2">
+            <div class="cui-col-small-2">
                 <button type="button" id="btn_get_id" tabindex="1">Get ID</button>
             </div>
-            <div class="cui-col-sm-8">
+            <div class="cui-col-small-8">
                 <div class="cui-row">
-                    <div class="cui-col-sm-12">
+                    <div class="cui-col-small-12">
                         <div class="cui-label">
                             <label for="HEADER_ID_TYPE" class="cui-hide-from-screen">Header ID type</label>
                             <select id="HEADER_ID_TYPE" tabindex="1">
@@ -203,7 +204,7 @@
                     </div>
                 </div>
                 <div class="cui-row">
-                    <div class="cui-col-sm-12 cui-required">
+                    <div class="cui-col-small-12 cui-required">
                         <div class="cui-label">
                             <label for="S_VIEW">View:</label>
                         </div>
@@ -214,7 +215,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="cui-col-sm-12 cui-required">
+                    <div class="cui-col-small-12 cui-required">
                         <div class="cui-label">
                             Tax Type:
                         </div>
@@ -223,7 +224,7 @@
                             <button type="button" class="cui-icon emp-tax-type" title="Tax type selection popup" tabindex="1">Tax type selection popup</button>
                         </div>
                     </div>
-                    <div class="cui-col-sm-12">
+                    <div class="cui-col-small-12">
                         <div class="cui-label">
                             Tax Sub Type Desc:
                         </div>
@@ -233,7 +234,7 @@
                     </div>
                 </div>
                 <div class="cui-row">
-                    <div class="cui-col-sm-12">
+                    <div class="cui-col-small-12">
                         <div class="cui-label">
                             <label for="S_LIABILITY_PERIOD_BEGIN">Liability Period Begin:</label>
                         </div>
@@ -242,7 +243,7 @@
                             <input type="text" id="S_LIABILITY_PERIOD_BEGIN" class="date" value="01/01/2007" maxlength="10" tabindex="1">
                         </div>
                     </div>
-                    <div class="cui-col-sm-12 cui-required">
+                    <div class="cui-col-small-12 cui-required">
                         <div class="cui-label">
                             <label for="S_LIABILITY_PERIOD_END">Liability Period End:</label>
                         </div>
@@ -254,7 +255,7 @@
                 </div>
             </div>
             <!-- Buttons -->
-            <div class="cui-col-sm-2">
+            <div class="cui-col-small-2">
                 <button type="submit" class="cui-button-primary" tabindex="1">Retrieve</button>
                 <button type="button" class="emp-search-clear" title="Leave ID and clear the rest" tabindex="1">Clear</button>
                 <button type="button" class="emp-search-clear-all" title="Clear all fields in search box" tabindex="1">Clear all</button>
@@ -262,7 +263,7 @@
         </form>
         <!-- Absolutely-positioned column for showing/hiding the search box -->
         <div class="cui-row">
-            <div class="cui-col-sm-12">
+            <div class="cui-col-small-12">
                 <button type="button" class="cui-icon emp-show-hide" title="Hide the search box" tabindex="1">Hide the search box</button>
             </div>
         </div>
@@ -295,12 +296,12 @@
 
     <div class="cui-row emp-page-title">
         <!-- Page title -->
-        <div class="cui-col-sm-10">
+        <div class="cui-col-small-10">
             <!-- Note that I took out the angled brackets and just use a span to separate the page mode so we have more flexibility in styling it -->
             <h2>Page title <span>Page mode</span></h2>
         </div>
         <!-- Page actions -->
-        <ul class="cui-col-sm-2">
+        <ul class="cui-col-small-2">
             <li><button type="button" class="cui-icon emp-sections-toggle" title="Hide all sections" tabindex="1">Hide all sections</button></li>
             <li><button type="button" class="cui-icon emp-info-blocks-toggle-expand" title="Show information for all sections" tabindex="1">Show information for all sections</button></li>
             <li><button type="button" class="cui-icon emp-print" title="Print page" tabindex="1">Print page</button></li>
@@ -335,7 +336,7 @@
     <!-- ==================== -->
     <!-- PAGE CONTENT         -->
     <!-- ==================== -->
-    <form name="form_content" id="form_content" action="www.tax.ny.gov" method="post">
+    <form name="form_content" id="form_content" action="www.tax.ny.gov" method="post" role="main">
         <!-- ==================== -->
         <!-- SECTIONS             -->
         <!-- ==================== -->
@@ -345,33 +346,147 @@
         <!-- ++++++++++++++++++++++++++++++++ -->
         <div class="emp-active-exceptions"></div>
 
+        <!-- ++++++++++++++++++++++++++++++++ -->
+        <!-- SECTION: .Simple section         -->
+        <!-- ++++++++++++++++++++++++++++++++ -->
+
+        <section>
+            <header>
+                <div class="cui-col-small-10">
+                    <h3>Simple section</h3>
+                </div>
+
+                <div class="cui-col-small-2">
+                    <ul class="emp-section-controls">
+                        <li><button type="button" class="cui-icon emp-section-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                    </ul>
+                </div>
+            </header>
+
+            <!-- Second row of fields -->
+            <div class="cui-row">
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        <label for="E_CLOSED_REASON2">Closed Reason:</label>
+                    </div>
+                    <div class="cui-data">
+                        <select id="E_CLOSED_REASON2" tabindex="1">
+                            <option selected="selected" value="1">No Account</option>
+                            <option value='2'>Full Paid</option>
+                            <option value='3'>Full Paid Manual</option>
+                            <option value='4'>Manual Release</option>
+                            <option value='5'>No Account Balance</option>
+                            <option value='6'>No Assets Held</option>
+                            <option value='7'>No Account</option>
+                            <option value='8'>Payment Recieved</option>
+                            <option value='9'>Part Paid</option>
+                            <option value='10'>Restricted Bank Account</option>
+                            <option value='11'>Released</option>
+                            <option value='12'>System-Clsd-Reg-Levy</option>
+                            <option value='13'>Void-Never Served</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        <label for="E_GO_BUTTON_SAMPLE2">Go button example:</label>
+                    </div>
+                    <div class="cui-data">
+                        <input type="text" id="E_GO_BUTTON_SAMPLE2" size="20" maxlength="23" value="Some data" tabindex="1">
+                        <button type="button" value="1" tabindex="1">Go</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        Payment Status Reason:
+                    </div>
+                    <div class="cui-data">
+                        <span>ORIG PSTG</span>
+                    </div>
+                </div>
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        Target Amount ($):
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <span>987,765,432.12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-half cui-pull-right">
+                    <div class="cui-label">
+                        IPA Amount ($):
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <span>987,765,432.12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row">
+                <div class="emp-col-half cui-required">
+                    <div class="cui-label">
+                        <label for="E_PYMT_TYPE2">Payment Type:</label>
+                    </div>
+                    <div class="cui-data">
+                        <input type="text" id="E_PYMT_TYPE2" value="" aria-required="true" size="22" maxlength="20" tabindex="1">
+                    </div>
+                </div>
+                <div class="emp-col-half">
+                    <div class="cui-label">
+                        <label for="E_CURRENT_AMOUNT2">Current Amount ($):</label>
+                    </div>
+                    <div class="cui-data cui-currency">
+                        <input type="text" id="E_CURRENT_AMOUNT2" size="20" maxlength="23" aria-required="true" value="1,345,789,123,567,901.34" tabindex="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="cui-row emp-button-group">
+                <div class="emp-col-half">
+                    <button type="button" name="E_BUTTON_LIABILITY_PERIOD_SECTION_1" tabindex="1">Liability Period</button>
+                </div>
+                <div class="emp-col-half cui-align-right">
+                    <button type="button" name="E_BUTTON_CANCEL_SECTION_1" tabindex="1">Cancel</button>
+                    <button type="button" name="E_BUTTON_UPDATE_SECTION_1" class="cui-primary" tabindex="1">Update</button>
+                </div>
+            </div>
+        </section>
+
         <!-- ++++++++++++++++++++++++++ -->
         <!-- SECTION: .Section elements -->
         <!-- ++++++++++++++++++++++++++ -->
         <section>
             <header>
-                <div class="cui-col-sm-6 cui-col-md-3">
+                <div class="cui-col-small-6 cui-col-medium-3">
                     <h3>Section elements <button type="button" class="cui-icon emp-view-image" title="View image" tabindex="1">View image</button></h3>
                 </div>
 
-                <div class="cui-col-sm-6 cui-col-md-3">
+                <div class="cui-col-small-6 cui-col-medium-3">
                     <div class="emp-field">
                         Total ($): 1,234.56
                     </div>
                 </div>
 
-                <div class="cui-col-sm-6 cui-col-md-3">
-                    <i class="cui-icon emp-icon-redcheck">Red check mark</i> Review Details
+                <div class="cui-col-small-6 cui-col-medium-3">
+                    <div class="emp-field"><i class="cui-icon emp-icon-redcheck">Red check mark</i> Review Details</div>
                 </div>
 
-                <ul class="cui-col-sm-6 cui-col-md-3 emp-section-controls">
-                    <li><button type="button" class="cui-icon emp-section-instructions-toggle-expand" title="Click to show section's instructions" tabindex="1">Click to show section's instructions</button></li>
-                    <li><button type="button" class="cui-icon emp-section-collapse" title="Hide section" tabindex="1">Hide section</button></li>
-                </ul>
+                <div class="cui-col-small-6 cui-col-medium-3">
+                    <ul class="emp-section-controls">
+                        <li><button type="button" class="cui-icon emp-section-instructions-toggle-expand" title="Click to show section's instructions" tabindex="1">Click to show section's instructions</button></li>
+                        <li><button type="button" class="cui-icon emp-section-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                    </ul>
+                </div>
             </header>
 
             <div class="cui-row emp-section-instructions">
-                <div class="cui-col-sm-12">
+                <div class="cui-col-small-12">
                     <p>Free text. Section instructions can go here. <a href="http://www.tax.ny.gov" title="This will open a new window" target="_blank" tabindex="1">Sample URL</a> too.</p>
                 </div>
             </div>
@@ -460,7 +575,7 @@
             </div>
 
             <div class="cui-row">
-                <div class="emp-col-half cui-align-right">
+                <div class="emp-col-half cui-pull-right">
                     <div class="cui-label">
                         IPA Amount ($):
                     </div>
@@ -652,10 +767,10 @@
                 <!-- `.emp-table header` inherits `.cui-row` styles -->
                 <!-- Or maybe all `<header>`s are rows, and then we just overwrite the styles for the exceptions to that rule? -->
                 <header>
-                    <div class="cui-col-sm-12 cui-col-md-8">
+                    <div class="cui-col-small-12 cui-col-medium-8">
                         <h4>Table 1 - Checkboxes</h4>
                     </div>
-                    <div class="cui-col-sm-12 cui-col-md-4">
+                    <div class="cui-col-small-12 cui-col-medium-4">
                         <button name="btn_Previous_table_1_section_1" value="Previous" tabindex="1">Previous</button>
                         <button name="btn_Next_table_1_section_1" value="Next" tabindex="1">Next</button>
                         <button type="button" class="cui-icon emp-table-resizer" title="Resize table" tabindex="1">Resize table</button>
@@ -758,10 +873,10 @@
             <!-- Table 2 -->
             <div class="emp-table">
                 <header>
-                    <div class="cui-col-sm-12 cui-col-md-10">
+                    <div class="cui-col-small-12 cui-col-medium-10">
                         <h4>Table 2 - Radio buttons</h4>
                     </div>
-                    <div class="cui-col-sm-12 cui-col-md-2">
+                    <div class="cui-col-small-12 cui-col-medium-2">
                         <button type="button" class="cui-icon emp-table-resizer" title="Resize table" tabindex="1">Resize table</button>
                     </div>
                 </header>
@@ -849,13 +964,15 @@
         <!-- +++++++++++++++++++++++ -->
         <section class="emp-section-collapsed">
             <header>
-                <div class="cui-col-sm-10">
+                <div class="cui-col-small-10">
                     <h3>Tree example <button id="E_BUTTON_GO_SECTION_2" value="" tabindex="1">Go</button></h3>
                 </div>
 
-                <ul class="cui-col-sm-2 emp-section-controls">
-                    <li><button type="button" class="cui-icon emp-section-toggle-expand" title="Show section" tabindex="1">Show section</button></li>
-                </ul>
+                <div class="cui-col-small-2">
+                    <ul class="emp-section-controls">
+                        <li><button type="button" class="cui-icon emp-section-toggle-expand" title="Show section" tabindex="1">Show section</button></li>
+                    </ul>
+                </div>
             </header>
 
             <!-- JavaScript will add ARIA attributes and IDs as necessary. The attributes are only needed for the dynamic aspects, and since the tree will only be dynamic if the JS component is running, there's no reason to put attributes in the HTML. -->
@@ -891,26 +1008,28 @@
         <section>
             <header>
                 <!-- I don't think any of these elements need IDs unless they will be dynamically updated -->
-                <div class="cui-col-sm-12 cui-col-md-5">
+                <div class="cui-col-small-12 cui-col-medium-5">
                     <h3>Liability period: <span id="E_LIABILITY_PERIOD">01/01/2004 - 12/31/2004</span></h3>
                 </div>
 
-                <div class="cui-col-sm-12 cui-col-md-2" id="E_TAX_TYPE_SHORT_DESCRIPTION">
+                <div class="cui-col-small-12 cui-col-medium-2" id="E_TAX_TYPE_SHORT_DESCRIPTION">
                     Income Personal Tax
                 </div>
 
-                <div class="cui-col-sm-12 cui-col-md-3" id="E_FROM_TAX_SUB_TYPE">
+                <div class="cui-col-small-12 cui-col-medium-3" id="E_FROM_TAX_SUB_TYPE">
                     22/30-601/1301/21
                 </div>
 
-                <div class="cui-col-sm-6 cui-col-md-3 emp-field">
+                <div class="cui-col-small-6 cui-col-medium-3 emp-field">
                     <input type="checkbox" id="E_RETAIN_DATA" value="true" tabindex="1">
                     <label for="E_RETAIN_DATA">Retain Data<span class="cui-hide-from-screen"> for this section</span></label>
                 </div>
 
-                <ul class="cui-col-sm-6 cui-col-md-1 emp-section-controls">
-                    <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
-                </ul>
+                <div class="cui-col-small-6 cui-col-medium-1">
+                    <ul class="emp-section-controls">
+                        <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
+                    </ul>
+                </div>
             </header>
 
             <!-- Section indicators -->
@@ -1012,88 +1131,90 @@
             </div>
 
             <div class="cui-row emp-section-container">
-                <div class="cui-col-sm-12 cui-col-md-7">
-                    <section>
-                        <header>
-                            <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
-                            <div class="cui-col-sm-12 cui-col-md-10">
-                                <h3>Section inside section 1</h3>
-                            </div>
-                            <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                <section class="cui-col-small-12 cui-col-medium-7">
+                    <header>
+                        <!-- IMO this is still an `<h3>` and not an `<h4>` even though it's a sub-section -->
+                        <div class="cui-col-small-12 cui-col-medium-10">
+                            <h3>Section inside section 1</h3>
+                        </div>
+                        <div class="cui-col-small-12 cui-col-medium-2">
+                            <ul class="emp-section-controls">
                                 <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
                             </ul>
-                        </header>
+                        </div>
+                    </header>
 
-                        <div class="cui-row">
-                            <div class="emp-col-full">
-                                <div class="cui-label">
-                                    <label for="E_SOME_AMOUNT">Some Amount ($):</label>
-                                </div>
-                                <div class="cui-data cui-currency">
-                                    <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
-                                </div>
+                    <div class="cui-row">
+                        <div class="emp-col-full">
+                            <div class="cui-label">
+                                <label for="E_SOME_AMOUNT">Some Amount ($):</label>
+                            </div>
+                            <div class="cui-data cui-currency">
+                                <input type="text" id="E_SOME_AMOUNT" maxlength="23" value="123,456.78" tabindex="1">
                             </div>
                         </div>
+                    </div>
 
-                        <div class="cui-row">
-                            <div class="emp-col-full">
-                                <div class="cui-label">
-                                    Type something:
-                                </div>
-                                <div class="cui-data">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-                                </div>
+                    <div class="cui-row">
+                        <div class="emp-col-full">
+                            <div class="cui-label">
+                                Type something:
+                            </div>
+                            <div class="cui-data">
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
                             </div>
                         </div>
-                    </section>
-                </div>
-                <div class="cui-col-sm-12 cui-col-md-5">
-                    <section>
-                        <header>
-                            <div class="cui-col-sm-12 cui-col-md-10">
-                                <h3>Section inside section 2</h3>
-                            </div>
-                            <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                    </div>
+                </section>
+                <section class="cui-col-small-12 cui-col-medium-5">
+                    <header>
+                        <div class="cui-col-small-12 cui-col-medium-10">
+                            <h3>Section inside section 2</h3>
+                        </div>
+                        <div class="cui-col-small-12 cui-col-medium-2">
+                            <ul class="emp-section-controls">
                                 <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
                             </ul>
-                        </header>
+                        </div>
+                    </header>
 
-                        <section>
-                            <header>
-                                <div class="cui-col-sm-12 cui-col-md-10">
-                                    <h3>Section inside section inside section 2</h3>
-                                </div>
-                                <ul class="cui-col-sm-12 cui-col-md-2 emp-section-controls">
+                    <section>
+                        <header>
+                            <div class="cui-col-small-12 cui-col-medium-10">
+                                <h3>Section inside section inside section 2</h3>
+                            </div>
+                            <div class="cui-col-small-12 cui-col-medium-2">
+                                <ul class="emp-section-controls">
                                     <li><button type="button" class="cui-icon emp-section-toggle-collapse" title="Hide section" tabindex="1">Hide section</button></li>
                                 </ul>
-                            </header>
+                            </div>
+                        </header>
 
-                            <div class="cui-row">
-                                <div class="emp-col-full">
-                                    <div class="cui-label">
-                                        <label for="E_NAME">Name:</label>
-                                    </div>
-                                    <div class="cui-data">
-                                        <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
-                                    </div>
+                        <div class="cui-row">
+                            <div class="emp-col-full">
+                                <div class="cui-label">
+                                    <label for="E_NAME">Name:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="text" id="E_NAME" size="20" maxlength="50" value="Manolo" tabindex="1">
                                 </div>
                             </div>
-                        </section>
+                        </div>
                     </section>
-                </div>
+                </section>
             </div>
         </section>
 
         <!-- Everything below the last section -->
         <footer>
-            <div class="cui-col-sm-12 cui-pull-right emp-page-controls">
+            <div class="cui-col-small-12 cui-pull-right emp-page-controls">
                 <div class="emp-field">
                     <input type="checkbox" id="E_OVERRIDE" tabindex="1">
                     <label for="E_OVERRIDE">Override</label>
                 </div>
             </div>
 
-            <div class="cui-col-sm-12 cui-pull-right emp-button-group">
+            <div class="cui-col-small-12 cui-pull-right emp-button-group">
                 <input type="button" name="btn_Reset" value="Reset" tabindex="1">
                 <input type="submit" name="btn_Submit" class="cui-primary" value="Submit" tabindex="1">
             </div>

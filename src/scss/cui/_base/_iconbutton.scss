@@ -1,0 +1,31 @@
+//   ========================================================
+// * @name       _iconbutton.scss
+// * @desc       Icon-based button styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/ny/frg-coreui
+//   ========================================================
+
+
+// * @section    Default icon-based button styles
+// * --------------------------------------------------------
+.cui-icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: $button-icon-padding;
+    margin: 0;
+    width: $button-icon-width;
+    height: $button-icon-height;
+    background-repeat: no-repeat;
+    @include hide-text;
+}
+
+// Undo button styles
+button.cui-icon {
+    font-size: 16px;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+    text-indent: -9999em;
+}

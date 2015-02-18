@@ -1,0 +1,212 @@
+//   ========================================================
+// * @name       _template.scss
+// * @desc       Specific structure styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20150206
+//   ========================================================
+
+
+// * @section    Styles for specific structures
+// * --------------------------------------------------------
+header {
+	min-height: $header-min-height;
+
+	#emp-logo {
+		background: transparent url($emp-images-path + "emp-logo.png") 26px 10px no-repeat;
+		min-height: $header-min-height;
+	}
+
+	div {
+		margin: 0; // !important;
+		padding: 0;
+	}
+
+	.emp-tabset-title {
+		min-height: $touch-min-height;
+
+		h1 {
+			margin: 0 0 0 0;
+			padding: $tabset-title-padding-top 0 0 0;
+			line-height: ($touch-min-height - $tabset-title-padding-top);
+		}
+	}
+
+	.emp-preferences {
+		padding: $tabset-title-padding-top 0 0 0.8em;
+		line-height: ($touch-min-height - $tabset-title-padding-top - 1);
+		background-color: $light-gray-alt-3;
+		border-top: 1px solid $white;
+		@include box-sizing(border-box);
+	}
+
+	.cui-row {
+		margin: 0;
+	}
+}
+
+// Temp until menu component is built
+#emp-menu-main {
+	background-color: $dark-gray-alt-2;
+	color: $white;
+	padding: 0 0.8em;
+	min-height: $touch-min-height;
+	line-height: $touch-min-height;
+}
+
+// General header
+#general_header {
+    width: auto;
+    padding: 1.3em 0 0.3em 0;
+    margin: 0.4em 0.8em;
+    border: 1px solid $general-header-border-color;
+    border-width: 1px;
+    border-radius: 2px;
+    background-color: $general-header-bg-color;
+
+	#form_tp_info .cui-row {
+	    margin: 0 0 0.15em 0;
+	}
+
+	.emp-field {
+	    display: inline-block;
+	}
+
+	.emp-tp-info .cui-label,
+	.emp-tp-info .cui-data {
+	    line-height: 1.5;
+	}
+
+	#form_workflow {
+		ul, li {
+			vertical-align: middle
+		}
+
+		button.cui-icon {
+		    margin: -0.05em 0.2em 0 0;
+		}	
+	}
+}
+
+// Search box
+.emp-search {
+    position: relative;
+}
+
+#form_search {
+    background: #ECECEC url("../../../images/skin/default/search-box-bg.png") top left repeat-x;
+    border-bottom: 1px dotted #D4D4D4;
+}
+
+
+.search-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    min-height: 15px;
+}
+
+.emp-search .show-hide {
+    bottom: -1px;
+    right: 6px;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+}
+
+.emp-search .show-hide a {
+    display: inline-block;
+    width: 27px;
+    height: 16px;
+}
+
+.emp-search .show-hide img {
+    vertical-align: top;
+}
+
+.emp-search .button-wrapper-left, .emp-search .button-wrapper-right {
+    position: absolute;
+    top: 0;
+    width: 6.3em;
+    height: 100%;
+}
+
+.emp-search .button-wrapper-left {
+    left: 0;
+}
+
+.emp-search .button-wrapper-right {
+    right: 0;
+}
+
+.emp-search .search-fields-wrapper {
+    position: relative;
+    min-height: 6.9em;  
+}
+
+.emp-search .search-fields {
+    position: relative;
+    float: right;
+    margin: 0 9em;
+    text-align: right;
+}
+
+.emp-search .search-fields .its-line {
+    *width: auto;
+}
+
+.emp-search .search-fields input, .emp-search .search-fields textarea {
+    *margin-top: -3px;
+}
+
+.emp-search .its-label-wrap, .emp-search .its-data-wrap {
+    line-height: 1.8em;
+}
+
+.emp-search .its-label {
+    margin-left: 25px;
+}
+
+.no-tab-strip {
+    border-top: 1px solid #757575;
+    margin-top: 4px; 
+}
+
+.emp-search .its-money {
+    width: 100%;
+}
+
+/* Hopefully these IE7 hacks will be here temporarily */
+.emp-search .search-fields > .its-line {
+    *margin-bottom: 0px !important;
+    *margin-top: -3px;
+}
+.emp-search .search-fields > .its-line .its-col {
+    *padding-top: 2px;
+    *padding-bottom: 2px;
+}
+
+/*   .Search box
+   ---------------------------------------- */
+
+.emp-search .show-hide a {
+    background: transparent url("../../../images/common/search-box-toggle-up.png") top center no-repeat;
+}
+
+.emp-search .show-hide a:hover {
+    background: transparent url("../../../images/common/search-box-toggle-up-over.png") top center no-repeat;
+}
+
+.emp-search .show-hide a.expand {
+    background: transparent url("../../../images/common/search-box-toggle-down.png") top center no-repeat;
+}
+
+.emp-search .show-hide a.expand:hover {
+    background: transparent url("../../../images/common/search-box-toggle-down-over.png") top center no-repeat;
+}
+
+.emp-search .button-wrapper-left {
+    border-right: 1px dashed #BFBFBF;
+}
+
+.emp-search .button-wrapper-right {
+    border-left: 1px dashed #BFBFBF;
+}

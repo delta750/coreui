@@ -1,0 +1,253 @@
+//   ========================================================
+// * @name       _grid.scss
+// * @desc       Responsive grid styles
+// * @author     Manolo Farfan, Craig Patik
+// * @version    1.0.0.20141231
+// * @see        https://github.com/ny/frg-coreui
+//   ========================================================
+
+
+// * @section    Row and col structures
+// * @desc       The grid's row and columns (default cols 12)
+// *             - Fluid & fixed + fluid layouts with fillers
+// *             - Clearfix to force new row
+// * --------------------------------------------------------
+.cui-row {
+    @include row;
+}
+
+[class*="cui-col-"] {
+    min-height: 1.5em;
+}
+
+[class*="cui-col-small-"],
+[class*="cui-fixed-col-"] {
+    float: left;
+}
+
+[class*="cui-col-"],
+[class*="cui-fixed-col-"],
+[class*="cui-filler-col-"] {
+    position: relative;
+    @include clearfix;
+}
+
+[class*="cui-col-"],
+[class*="cui-fixed-col-"],
+[class*="cui-filler-col-"],
+section > header,
+nav > header {
+    padding: $grid-column-padding;
+}
+
+.cui-filler-col-sm {
+    float: none;
+    width: auto;
+    overflow: hidden;
+}
+
+.cui-row,
+[class*="cui-filler-col-"],
+.cui-clearfix {
+    @include clearfix;
+}
+
+// * @section    Mobile-first (small) default column widths
+// * --------------------------------------------------------
+.cui-col-small-12 {
+    width: 100%;
+}
+
+.cui-col-small-11 {
+    width: 91.66666667%;
+}
+
+.cui-col-small-10 {
+    width: 83.33333333%;
+}
+
+.cui-col-small-9 {
+    width: 75%;
+}
+
+.cui-col-small-8 {
+    width: 66.66666667%;
+}
+
+.cui-col-small-7 {
+    width: 58.33333333%;
+}
+
+.cui-col-small-6 {
+    width: 50%;
+
+    // Make sure every column that begins a new "row" clears the elements before it.
+    // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
+    // Using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
+    //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
+    @include pointbreak($bp-medium, true) {
+        &:nth-child(2n+3) {
+            clear: both;
+        }
+    }
+}
+
+.cui-col-small-5 {
+    width: 41.66666667%;
+}
+
+.cui-col-small-4 {
+    width: 33.33333333%;
+}
+
+.cui-col-small-3 {
+    width: 25%;
+}
+
+.cui-col-small-2 {
+    width: 16.66666667%;
+}
+
+.cui-col-small-1 {
+    width: 8.33333333%;
+}
+
+
+// * @section    Tablet (medium) column widths
+// * --------------------------------------------------------
+@media only screen and (min-width:$bp-medium) {
+    [class*="cui-col-medium-"] {
+        float: left;
+    }
+
+    .cui-filler-col-md {
+        float: none;
+        width: auto;
+        overflow: hidden;
+    }
+
+    .cui-col-medium-12 {
+        width: 100%;
+    }
+
+    .cui-col-medium-11 {
+        width: 91.66666667%;
+    }
+
+    .cui-col-medium-10 {
+        width: 83.33333333%;
+    }
+
+    .cui-col-medium-9 {
+        width: 75%;
+    }
+
+    .cui-col-medium-8 {
+        width: 66.66666667%;
+    }
+
+    .cui-col-medium-7 {
+        width: 58.33333333%;
+    }
+
+    .cui-col-medium-6 {
+        width: 50%;
+    }
+
+    .cui-col-medium-5 {
+        width: 41.66666667%;
+    }
+
+    .cui-col-medium-4 {
+        width: 33.33333333%;
+    }
+
+    .cui-col-medium-3 {
+        width: 25%;
+    }
+
+    .cui-col-medium-2 {
+        width: 16.66666667%;
+    }
+
+    .cui-col-medium-1 {
+        width: 8.33333333%;
+    }
+}
+
+
+// * @section    Desktop (large) column widths
+// * --------------------------------------------------------
+@media only screen and (min-width:$bp-large) {
+    [class*="cui-col-large-"] {
+        float: left;
+    }
+
+    .cui-filler-col-lg {
+        float: none;
+        width: auto;
+        overflow: hidden;
+    }
+
+    .cui-col-large-12 {
+        width: 100%;
+    }
+
+    .cui-col-large-11 {
+        width: 91.66666667%;
+    }
+
+    .cui-col-large-10 {
+        width: 83.33333333%;
+    }
+
+    .cui-col-large-9 {
+        width: 75%;
+    }
+
+    .cui-col-large-8 {
+        width: 66.66666667%;
+    }
+
+    .cui-col-large-7 {
+        width: 58.33333333%;
+    }
+
+    .cui-col-large-6 {
+        width: 50%;
+    }
+
+    .cui-col-large-5 {
+        width: 41.66666667%;
+    }
+
+    .cui-col-large-4 {
+        width: 33.33333333%;
+    }
+
+    .cui-col-large-3 {
+        width: 25%;
+    }
+
+    .cui-col-large-2 {
+        width: 16.66666667%;
+    }
+
+    .cui-col-large-1 {
+        width: 8.33333333%;
+    }
+}
+
+
+// * @section    Push columns
+// * --------------------------------------------------------
+.cui-pull-right {
+    float: right;
+}
+
+
+// * @section    Fixed width example
+// * --------------------------------------------------------
+[class$="-200"] {
+    width: 200px;
+}
