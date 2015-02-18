@@ -122,14 +122,18 @@ module.exports = function(grunt) {
                     outputStyle: 'nested',
                 },
                 files: {
-                    'dist/css/project/project.css': 'src/project/scss/project.scss'
+                    'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
+                    'dist/css/project/project.css': 'src/project/scss/project.scss',
+                    'dist/css/empire/empire.css': 'src/empire/scss/empire.scss'
                 },
             },
 
             // Production task
             prod: {
                 files: {
-                    'dist/css/project/project.css': 'src/project/scss/project.scss'
+                    'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
+                    'dist/css/project/project.css': 'src/project/scss/project.scss',
+                    'dist/css/empire/empire.css': 'src/empire/scss/empire.scss'
                 },
             },
         },
@@ -166,7 +170,7 @@ module.exports = function(grunt) {
             },
 
             scripts: {
-                files: 'src/js/**/*.js',
+                files: 'src/**/*.js',
                 tasks: [
                     'jshint',
                     'uglify:devCUI',
@@ -177,7 +181,7 @@ module.exports = function(grunt) {
 
             sass: {
                 files: [
-                    'src/scss/**/*.scss',
+                    'src/**/*.scss',
                 ],
                 tasks: [
                     'sass:dev',
@@ -197,9 +201,9 @@ module.exports = function(grunt) {
         copy: {
             fonts: {
                 expand: true,
-                cwd: 'src/fonts',
+                cwd: 'src/cui/fonts',
                 src: ['**'],
-                dest: 'dist/fonts/',
+                dest: 'dist/fonts',
                 filter: 'isFile'
             },
         },
