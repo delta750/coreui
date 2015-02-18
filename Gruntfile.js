@@ -1,4 +1,3 @@
-/*global module: false*/
 module.exports = function(grunt) {
     var
 
@@ -40,7 +39,8 @@ module.exports = function(grunt) {
                 evil: true,
                 globals: {
                     jQuery: true,
-                    Modernizr: true
+                    cui: true,
+                    module: true,
                 },
             },
             files: [
