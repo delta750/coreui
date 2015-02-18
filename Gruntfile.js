@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                         '!cui/js/vendor/domReady.js'
                     ],
                     flatten: true,
-                }]
+                }],
             },
 
             devComponents: {
@@ -80,26 +80,51 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'src',
                     dest: 'dist/js/components',
-                    src: [ 'components/**/*.js'],
+                    src: [
+                        'components/**/*.js'
+                    ],
                     flatten: true,
-                }]
+                }],
             },
 
-            // prod: {
-            //     options: {
-            //         sourceMap: false,
-            //         compress: {
-            //             drop_console: true,
-            //         }
-            //     },
-            //     files: [{
-            //         expand: true,
-            //         cwd: 'src/js',
-            //         src: ['project/**/*.js', 'vendor/**/*.js', 'cui/components/**/*.js'],
-            //         dest: 'dist/js',
-            //         flatten: false
-            //     }]
-            // },
+            prodCUI: {
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                    },
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    dest: 'dist/js/vendor',
+                    src: [
+                        'cui/js/vendor/**/*.js',
+                        '!cui/js/vendor/jquery.js',
+                        '!cui/js/vendor/requirejs.js',
+                        '!cui/js/vendor/domReady.js'
+                    ],
+                    flatten: true,
+                }],
+            },
+
+            prodComponents: {
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                    },
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src',
+                    dest: 'dist/js/components',
+                    src: [
+                        'components/**/*.js'
+                    ],
+                    flatten: true,
+                }],
+            },
 
         },
 
@@ -268,7 +293,8 @@ module.exports = function(grunt) {
             'sass:prod',
             'jshint',
             'requirejs',
-            'uglify:prod',
+            'uglify:prodCUI',
+            'uglify:prodComponents',
             'concat',
             'copy',
             'clean:prod',
@@ -301,7 +327,7 @@ module.exports = function(grunt) {
     grunt.registerTask('server', 'Server', function(args) {
         grunt.task.run([
             'connect',
-            'watch',
+            'watch:noop',
         ]);
     });
 
