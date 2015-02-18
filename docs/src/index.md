@@ -6,18 +6,18 @@ Short blurb, even shorter than the current readme
 
 ## Usage
 
-- [Getting started](getting-started.md)
-- [Intro to Core UI](core/index.md)
-- [Project structure](project/index.md)
+- [Getting started](getting-started.html)
+- [Intro to Core UI](core/index.html)
+- [Project structure](project/index.html)
 
 ## Components
 
-- [Date picker](components/datepicker.md)
-- [Tooltip](components/tooltip.md)
-- [Table](components/table.md)
-    + [Paging](components/table-paging.md)
-    + [Sorting](components/table-sorting.md)
+- [Date picker](components/datepicker.html)
+- [Tooltip](components/tooltip.html)
+- [Table](components/table.html)
+    + [Paging](components/table-paging.html)
+    + [Sorting](components/table-sorting.html)
 
 ## Contributing
 
-[How to contribute](contributing.md)
+[How to contribute](contributing.html)

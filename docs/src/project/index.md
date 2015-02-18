@@ -67,6 +67,6 @@ repository/
 
 - When to create a project-level component versus when to augment a Core component
     + When to consider proposing your component "graduate" into a Core component
-    + See our [contribution guidelines](../contributing.md)
+    + See our [contribution guidelines](../contributing.html)
 - Where to put them
     + Folder structure and naming patterns
