@@ -233,6 +233,7 @@ module.exports = function(grunt) {
               include: ['requireLib', 'jquery', 'domReady'],
               out: 'dist/js/cui.js'
             }
+            }
         },
 
     });
