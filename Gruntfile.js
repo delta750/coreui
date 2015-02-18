@@ -69,7 +69,9 @@ module.exports = function(grunt) {
                         'cui/js/vendor/**/*.js',
                         '!cui/js/vendor/jquery.js',
                         '!cui/js/vendor/requirejs.js',
-                        '!cui/js/vendor/domReady.js'
+                        '!cui/js/vendor/domReady.js',
+                        '!cui/js/vendor/text.js',
+                        '!cui/utilities/**/*.js'
                     ],
                     flatten: true,
                 }]
@@ -232,9 +234,11 @@ module.exports = function(grunt) {
                         requireLib: 'vendor/requirejs',
                         jquery: 'vendor/jquery',
                         domReady: 'vendor/domReady',
+                        lazyLoader: 'utilities/lazyLoader',
+                        text: 'vendor/text',
                         cui: 'cui'
                     },
-                    include: ['requireLib', 'jquery', 'domReady'],
+                    include: ['requireLib', 'jquery', 'domReady', 'text'],
                     out: 'dist/js/cui.js'
                 }
             }
