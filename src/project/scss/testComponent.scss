@@ -1,7 +1,3 @@
 // Please reference the component setting file for a list of all the possible include styles values
-//$includeStyles = 'all';
-//@import '../../../components/testComponent/settings';
-
-.testFile {
-  display: block;
-}
+$includeStyles: 'all';
+@import '../../components/testComponent/settings';

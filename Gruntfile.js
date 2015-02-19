@@ -155,16 +155,18 @@ module.exports = function(grunt) {
             },
 
             devComponents: {
-              options: {
-                  sourceMap: true, // Enable source maps
-                  outputStyle: 'nested',
-              },
-              files: [{
-                cwd: 'src/project/scss/',
-                src: ['**/*.scss'],
-                dest: 'dist/css',
-                ext: '.css',
-              }]
+                options: {
+                    sourceMap: true, // Enable source maps
+                    outputStyle: 'nested',
+                },
+                files: [{
+                  expand: true,
+                  flatten: true,git
+                  cwd: 'src/project',
+                  src: ['scss/**/*.scss', '!scss/project.scss'],
+                  dest: 'dist/css/components/',
+                  ext: '.css',
+                }]
             },
 
             // Production task
@@ -174,6 +176,18 @@ module.exports = function(grunt) {
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
             },
+
+            prodComponents: {
+                files: [{
+                  expand: true,
+                  flatten: true,git
+                  cwd: 'src/project',
+                  src: ['scss/**/*.scss', '!scss/project.scss'],
+                  dest: 'dist/css/components/',
+                  ext: '.css',
+                }]
+            },
+
         },
 
         // Add banner to CSS files
@@ -306,6 +320,7 @@ module.exports = function(grunt) {
     grunt.registerTask('prod', 'Production', function(args) {
         grunt.task.run([
             'sass:prod',
+            'sass:prodComponents',
             'jshint',
             'requirejs',
             'uglify:prodCUI',
@@ -321,6 +336,7 @@ module.exports = function(grunt) {
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
             'sass:dev',
+            'sass:devComponents',
             'jshint',
             'requirejs',
             'uglify:devCUI',

@@ -1,9 +1,5 @@
 $includeStyles: 'none' !default;
 
-@if includeStyles = 'all' {
+@if $includeStyles == 'all' {
   @import 'scss/styles';
-}
-
-.settingsFile {
-  display: block;
 }
