@@ -154,6 +154,19 @@ module.exports = function(grunt) {
                 },
             },
 
+            devComponents: {
+              options: {
+                  sourceMap: true, // Enable source maps
+                  outputStyle: 'nested',
+              },
+              files: [{
+                cwd: 'src/project/scss/',
+                src: ['**/*.scss'],
+                dest: 'dist/css',
+                ext: '.css',
+              }]
+            },
+
             // Production task
             prod: {
                 files: {

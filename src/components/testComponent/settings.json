@@ -1,0 +1,6 @@
+{
+  'name':'testComponent'
+  'lazyLoadable': true,
+  'script': 'testComponent',
+  'dependancies': ['jquery']
+}
