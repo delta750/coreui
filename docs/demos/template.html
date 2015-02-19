@@ -458,10 +458,14 @@
 
         console.log('done');
 
+        //console.log(cui.load);
+
         // ask cui to load a test componenet (// Need to swap this out for a real componenet at some point);
-        cui.load(['testComponent','testComponent'], function() {
-          console.log('this is a function that should run once all of the requested items have been loaded.');
-        });
+        //cui.load(['testComponent2', 'testComponent'], function() {
+        //  console.log('this is a function that should run once all of the requested items have been loaded.');
+        //});
+
+        cui.load(['testComponent2'], function() { console.log("this is a second call on-purpose"); });
 
         //require(['testComponent']);
 

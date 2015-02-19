@@ -12,6 +12,7 @@
             // These are cui libs. DO NOT CHANGE!
             'datepicker': 'components/datepicker',
             'testComponent': 'components/testComponent',
+            'testComponent2': 'components/testComponent2',
 
             // Project Components Paths
             'project': 'components'

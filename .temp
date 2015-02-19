@@ -1,0 +1,36 @@
+    var waitList = [];
+
+    function processor(request) {
+
+      if (require.defined(request)) {
+
+        console.log('Item has been defined');
+
+      } else {
+
+        console.log('Item needs to be defined: ' + request);
+
+        require([request]);
+
+      }
+
+    }
+
+    if (typeof(request) === 'string') {
+
+      processor(request);
+
+    } else {
+
+      // Loop through each requested item
+      for (var i = 0, len = request.length; i < len; i++) {
+
+        processor(request[i]);
+
+      }
+
+    }
+
+    if (typeof(requestCallBack) === "function") {
+      requestCallBack();
+    }

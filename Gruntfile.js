@@ -161,7 +161,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                   expand: true,
-                  flatten: true,git
+                  flatten: true,
                   cwd: 'src/project',
                   src: ['scss/**/*.scss', '!scss/project.scss'],
                   dest: 'dist/css/components/',
@@ -180,7 +180,7 @@ module.exports = function(grunt) {
             prodComponents: {
                 files: [{
                   expand: true,
-                  flatten: true,git
+                  flatten: true,
                   cwd: 'src/project',
                   src: ['scss/**/*.scss', '!scss/project.scss'],
                   dest: 'dist/css/components/',
@@ -299,7 +299,8 @@ module.exports = function(grunt) {
                         text: 'vendor/text',
                         cui: 'cui'
                     },
-                    include: ['requireLib', 'jquery', 'domReady', 'text'],
+                    include: ['requireLib', 'jquery', 'domReady', 'text', 'lazyLoader'],
+                    optimize: "none",
                     out: 'dist/js/cui.js'
                 }
             }

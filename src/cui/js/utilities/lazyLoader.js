@@ -1,39 +1,52 @@
 define(['require'], function (require) {
 
+  // Module Object
   var lazyLoader = {};
 
-  lazyLoader.load = function(request) {
-    console.log(request);
+  // Module Load States
+  lazyLoader.states = {
+    unloaded: 0,
+    loading: 1,
+    loaded: 2
+  };
 
-    function processor(request) {
+  // Place to store request
+  lazyLoader.loadQueue = {};
 
+  // Create the function used to load scripts inline.
+  lazyLoader.load = function(request, requestCallBack) {
+
+    //var ll = this;
+
+    var processor = function(request) {
+
+      // Check to see if the requested library is already been defined in requirejs
       if (require.defined(request)) {
 
-        console.log('Item has been defined');
+        console.log('request was already defined');
 
       } else {
 
-        console.log('Item needs to be defined');
-
-        require([request]);
+        console.log('request was not already defined');
 
       }
 
-    }
+    };
 
-    if (typeof(request) === 'string') {
+    // Check what type of request we have
+    if (typeof(request) === "string") {
 
+      // Handle the one off request.
       processor(request);
 
     } else {
 
       for (var i = 0, len = request.length; i < len; i++) {
-
         processor(request[i]);
-
       }
 
     }
+
 
   };
 
