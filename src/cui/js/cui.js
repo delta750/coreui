@@ -46,7 +46,7 @@ define(['jquery'], function() {
      * Simple script init function that needs to run on every page that uses the core ui framework
      */
     cui.init = function() {
-        console.log('Loaded cui namespace');
+        // `cui` namespace is now loaded
     };
 
     return cui;
