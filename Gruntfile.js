@@ -10,7 +10,15 @@ module.exports = function(grunt) {
                    '<%= pkg.author.name %>\n */\n',
 
         // This banner will appear at the top style sheets
-        cssBanner = '@charset "utf-8";\n' + jsBanner;
+        cssBanner = '@charset "utf-8";\n' + jsBanner,
+
+        // Insert the Live Reload script
+        liveReloadInjection =
+            '\n(function(){' +
+                'var s = document.createElement("script");' +
+                's.src="//localhost:35729/livereload.js";' +
+                'document.head.appendChild(s);' +
+            '}());';
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -210,6 +218,15 @@ module.exports = function(grunt) {
                 src: ['dist/css/project/project.css'],
                 dest: 'dist/css/project/project.css',
             },
+
+            // Development only
+            devJS: {
+                options: {
+                    footer: liveReloadInjection,
+                },
+                src: ['dist/js/cui.js'],
+                dest: 'dist/js/cui.js',
+            },
         },
 
         // Watch for file changes and recompile the applicable files
@@ -329,7 +346,8 @@ module.exports = function(grunt) {
             'requirejs',
             'uglify:prodCUI',
             'uglify:prodComponents',
-            'concat',
+            'concat:core',
+            'concat:project',
             'copy',
             'clean:prod',
         ]);

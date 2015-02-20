@@ -46,7 +46,7 @@ define(['jquery', 'lazyLoader', 'json!library.json'], function($, lazyLoader, li
      * Simple script init function that needs to run on every page that uses the core ui framework
      */
     cui.init = function() {
-        console.log('Loaded cui namespace');
+        // `cui` namespace is now loaded
     };
 
     // Load the component library code into cui namespace.
