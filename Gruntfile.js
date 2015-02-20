@@ -297,9 +297,12 @@ module.exports = function(grunt) {
                         domReady: 'vendor/domReady',
                         lazyLoader: 'utilities/lazyLoader',
                         text: 'vendor/text',
+                        json: 'vendor/json',
+                        css: 'vendor/css',
+                        //library: 'library',
                         cui: 'cui'
                     },
-                    include: ['requireLib', 'jquery', 'domReady', 'text', 'lazyLoader'],
+                    include: ['requireLib', 'jquery', 'domReady', 'text', 'lazyLoader', 'json', 'css'],
                     optimize: "none",
                     out: 'dist/js/cui.js'
                 }

@@ -3,31 +3,66 @@ define(['require'], function (require) {
   // Module Object
   var lazyLoader = {};
 
-  // Module Load States
-  lazyLoader.states = {
-    unloaded: 0,
-    loading: 1,
-    loaded: 2
-  };
-
   // Place to store request
   lazyLoader.loadQueue = {};
 
   // Create the function used to load scripts inline.
-  lazyLoader.load = function(request, requestCallBack) {
+  lazyLoader.load = function(request, requestCb) {
 
-    //var ll = this;
+    var que = {};
 
-    var processor = function(request) {
+    var processor = function(request, requestCb) {
+
+      // Function to handle callbacks in the order they are recieved.
+      var requestFunctions = function(arrayCb) {
+
+        if (arrayCb.length > 0) {
+
+          var nextFunc = arrayCb[0];
+          arrayCb.shift();
+
+          // Make sure the item is a function, if not skip it.
+          if (typeof(nextFunc) === 'function') {
+            nextFunc();
+          }
+
+          requestFunctions(arrayCb);
+
+        } else {
+
+          return;
+
+        }
+
+      };
+
 
       // Check to see if the requested library is already been defined in requirejs
       if (require.defined(request)) {
 
-        console.log('request was already defined');
+        // The item being requested already exists in requie. Just call its callback
+
+        if (typeof(requestCb) === 'function') {
+          requestCb();
+        }
 
       } else {
 
-        console.log('request was not already defined');
+        // Check for the item que already exits
+        if (que[request]) {
+
+          que[request].push(requestCb);
+        } else {
+
+          // Create a que for this request
+          que[request] = [requestCb];
+
+          // Request the item
+          require([request], function() {
+            requestFunctions(que[request]);
+          });
+
+        }
 
       }
 
@@ -37,7 +72,7 @@ define(['require'], function (require) {
     if (typeof(request) === "string") {
 
       // Handle the one off request.
-      processor(request);
+      processor(request, requestCallBack);
 
     } else {
 

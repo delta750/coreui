@@ -12,6 +12,7 @@
             // These are cui libs. DO NOT CHANGE!
             'datepicker': 'components/datepicker',
             'testComponent': 'components/testComponent',
+            'testComponentStyles': '../css/components/testComponent',
             'testComponent2': 'components/testComponent2',
 
             // Project Components Paths
@@ -28,4 +29,5 @@
         cui.init();
 
     });
+
 }());
