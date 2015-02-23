@@ -58,6 +58,7 @@ $button-border-color:  #a5a5a3 !default;
 $button-border-width:  1px !default;
 $button-bg-color:      #d0d0ce !default;
 $button-text-shadow:   rgb(255, 255, 255) 0 1px 0 !default;
+
 // Primary button
 $button-primary-text-color:         $white !default;
 $button-primary-bg-color:           $dark-gray-alt-2 !default;
@@ -67,7 +68,13 @@ $button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;
 $button-primary-border-hover-color: #444440 !default;
 $button-primary-bg-hover-color:     #50504b !default;
 
-$button-icon-padding:  7px 8px 8px 8px !default;
+// Icon buttons
+$button-icon-padding-top:    7px !default;
+$button-icon-padding-right:  8px !default;
+$button-icon-padding-bottom: 8px !default;
+$button-icon-padding-left:   8px !default;
+$button-icon-padding:        $button-icon-padding-top $button-icon-padding-right $button-icon-padding-bottom $button-icon-padding-left !default;
+
 $button-icon-width:    24px !default;
 $button-icon-height:   24px !default;
 
@@ -79,7 +86,11 @@ $input-border-width:   1px !default;
 $input-border:         $input-border-width solid $input-border-color !default;
 $input-border-color-focus:   #66afe9 !default;
 $input-border-radius:  $border-radius !default;
-$input-padding:        4px 10px 4px 10px !default;
+$input-padding-top:     4px !default;
+$input-padding-right:  10px  !default;
+$input-padding-bottom:  4px  !default;
+$input-padding-left:   10px !default;
+$input-padding:        $input-padding-top $input-padding-right $input-padding-bottom $input-padding-left !default;
 $input-bg-hover-color: $light-gray !default;
 $input-font-size:      14px !default;
 $input-font-weight:    $font-weight-light !default;
@@ -133,5 +144,5 @@ $list-inline-spacing: 1em !default;
 // * --------------------------------------------------------
 $bp-medium:        480px !default;
 $bp-medium-minus:  $bp-medium - 1px !default;
-$bp-large:       786px !default;
-$bp-large-minus: $bp-large - 1px !default;
+$bp-large:         786px !default;
+$bp-large-minus:   $bp-large - 1px !default;
