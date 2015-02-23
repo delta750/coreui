@@ -266,22 +266,60 @@
         </div>
     </div>
     <div class="cui-row">
-        <div class="cui-col-small-6">
-            sm-6. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <div class="cui-col-small-6 cui-col-medium-4">
+            sm-6 md-4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </div>
-        <div class="cui-col-small-6">
-            sm-6
+        <div class="cui-col-small-6 cui-col-medium-2">
+            sm-6 md-2
+        </div>
+        <div class="cui-col-small-4 cui-col-medium-2">
+            sm-4 md-2
+        </div>
+        <div class="cui-col-small-4 cui-col-medium-2">
+            sm-4 md-2
+        </div>
+        <div class="cui-col-small-4 cui-col-medium-2">
+            sm-4 md-2
         </div>
     </div>
     <div class="cui-row">
-        <div class="cui-col-small-6">
-            sm-6
+        <div class="cui-col-small-12 no-debug">
+            <h2>Inline content</h2>
+            <p>Do this when you need to avoid using small, medium or large column because you need blocks of content that just stack next to each other. In the example below, I want the three inline blocks contiguous and right aligned to its parent container on large.</p>
         </div>
-        <div class="cui-col-small-4">
-            sm-4
-        </div>
-        <div class="cui-col-small-2">
-            sm-2
+    </div>
+    <div class="cui-row cui-align-right">
+        <div class="cui-col-small-12">
+            <div class="cui-col-small-12 cui-col-medium-7 cui-inline-col-large cui-required">
+                <div class="cui-label">
+                    <label for="age">sm-12 md-6 lg-auto:</label>
+                </div>
+                <div class="cui-data">
+                    <select name="age" id="age" tabindex="1" aria-required="true">
+                        <option></option>
+                        <option selected="selected">A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cui-col-small-12 cui-col-medium-5 cui-inline-col-large">
+                <div class="cui-label">
+                    sm-12 md-6 lg-auto:
+                </div>
+                <div class="cui-data">
+                    <span>B</span>
+                </div>
+            </div>
+            <div class="cui-col-small-12 cui-col-medium-12 cui-inline-col-large">
+                <div class="cui-label">
+                   sm-12 md-12 lg-inline:
+                </div>
+                <div class="cui-data">
+                    <span>C</span>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

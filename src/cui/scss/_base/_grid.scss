@@ -57,6 +57,12 @@ nav > header {
     @include hide-voluntary;
 }
 
+.cui-inline-col-small {
+    display: inline-block;
+    float: none;
+    width: auto;
+}
+
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
@@ -140,6 +146,12 @@ nav > header {
         display: block;
     }
 
+    .cui-inline-col-medium {
+        display: inline-block;
+        float: none;
+        width: auto;
+    }
+
     .cui-col-medium-12 {
         width: 100%;
     }
@@ -213,6 +225,12 @@ nav > header {
 
     .cui-hide-col-small, .cui-hide-col-medium {
         display: block;
+    }
+
+    .cui-inline-col-large {
+        display: inline-block;
+        float: none;
+        width: auto;
     }
 
     .cui-col-large-12 {
