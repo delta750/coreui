@@ -62,5 +62,6 @@ table tbody tr:nth-child(even):hover {
 // * --------------------------------------------------------
 
 .cui-width-icon {
-    width: 1px;
+    // This should be wide enough to actually contain an icon (no hacks like 1%) otherwise the page can get a horizontal scroll bar
+    width: $button-icon-width + $table-cell-padding-left + $table-cell-padding-right;
 }
