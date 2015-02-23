@@ -26,6 +26,7 @@ td {
 th {
     padding: $table-header-padding;
     background-color: $table-header-bg-color;
+    vertical-align: top;
 }
 
 td {
