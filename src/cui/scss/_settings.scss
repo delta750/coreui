@@ -53,7 +53,11 @@ $touch-min-height:     44px;
 // * @section    Buttons
 // * --------------------------------------------------------
 $button-hover-color:   $light-gray !default;
-$button-padding:       8px 12px !default;
+$button-padding-top:     8px !default;
+$button-padding-right:   12px !default;
+$button-padding-bottom:  8px !default;
+$button-padding-left:    12px !default;
+$button-padding:         $button-padding-top $button-padding-right $button-padding-bottom $button-padding-left !default;
 $button-border-color:  #a5a5a3 !default;
 $button-border-width:  1px !default;
 $button-bg-color:      #d0d0ce !default;
