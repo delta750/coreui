@@ -36,6 +36,11 @@
     }
 }
 
+// Hide item but let it be overriden if needed
+@mixin hide-voluntary {
+    display: none;
+}
+
 // Force an item to be completely hidden
 @mixin hide-forced {
     display: none !important;

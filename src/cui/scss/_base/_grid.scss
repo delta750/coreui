@@ -53,6 +53,10 @@ nav > header {
     @include clearfix;
 }
 
+.cui-hide-col-small {
+    @include hide-voluntary;
+}
+
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
@@ -128,6 +132,14 @@ nav > header {
         overflow: hidden;
     }
 
+    .cui-hide-col-medium {
+        @include hide-voluntary;
+    }
+
+    .cui-hide-col-small, .cui-hide-col-large {
+        display: block;
+    }
+
     .cui-col-medium-12 {
         width: 100%;
     }
@@ -195,6 +207,14 @@ nav > header {
         overflow: hidden;
     }
 
+    .cui-hide-col-large {
+        @include hide-voluntary;
+    }
+
+    .cui-hide-col-small, .cui-hide-col-medium {
+        display: block;
+    }
+
     .cui-col-large-12 {
         width: 100%;
     }
@@ -247,6 +267,6 @@ nav > header {
 
 // * @section    Push columns
 // * --------------------------------------------------------
-.cui-pull-right {
+.cui-push-right {
     float: right;
 }
