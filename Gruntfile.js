@@ -79,7 +79,10 @@ module.exports = function(grunt) {
                         '!cui/js/vendor/requirejs.js',
                         '!cui/js/vendor/domReady.js',
                         '!cui/js/vendor/text.js',
-                        '!cui/utilities/**/*.js'
+                        '!cui/js/vendor/json.js',
+                        '!cui/js/vendor/css.js',
+                        '!cui/utilities/**/*.js',
+                        '!cui/includes/**/*.js'
                     ],
                     flatten: true,
                 }],
@@ -91,7 +94,8 @@ module.exports = function(grunt) {
                     cwd: 'src',
                     dest: 'dist/js/components',
                     src: [
-                        'components/**/*.js'
+                        'components/**/*.js',
+                        '!components/**/settings.js'
                     ],
                     flatten: true,
                 }],
@@ -130,7 +134,8 @@ module.exports = function(grunt) {
                     cwd: 'src',
                     dest: 'dist/js/components',
                     src: [
-                        'components/**/*.js'
+                        'components/**/*.js',
+                        '!components/**/settings.js'
                     ],
                     flatten: true,
                 }],
@@ -227,6 +232,26 @@ module.exports = function(grunt) {
                 src: ['dist/js/cui.js'],
                 dest: 'dist/js/cui.js',
             },
+
+            // Require JS Settings File
+            // These are the core tasks for generating the core setting files used by require js.
+            pathWrapper: {
+              options: {
+                banner: "require.config({ baseUrl: baseUrl, paths:",
+                footer: "});"
+              },
+              src: ['src/cui/js/paths.json'],
+              dest: 'src/cui/js/settings.js'
+            },
+
+            settingsWrapper: {
+              options: {
+                banner: "(function () {",
+                footer: "}());"
+              },
+              src: ['src/cui/js/includes/pre-config.js','src/cui/js/settings.js','src/cui/js/includes/kick-off-script.js'],
+              dest: 'src/cui/js/settings.js'
+            }
         },
 
         // Watch for file changes and recompile the applicable files
@@ -308,27 +333,25 @@ module.exports = function(grunt) {
                 options: {
                     baseUrl: 'src/cui/js/',
                     name: 'settings',
-                    paths: {
-                        requireLib: 'vendor/requirejs',
-                        jquery: 'vendor/jquery',
-                        domReady: 'vendor/domReady',
-                        lazyLoader: 'utilities/lazyLoader',
-                        text: 'vendor/text',
-                        json: 'vendor/json',
-                        css: 'vendor/css',
-                        //library: 'library',
-                        cui: 'cui'
-                    },
-                    include: ['requireLib', 'jquery', 'domReady', 'text', 'lazyLoader', 'json', 'css'],
+                    paths: (grunt.file.readJSON('src/cui/js/build.json')).libs,
+                    include: (grunt.file.readJSON('src/cui/js/build.json')).include,
                     optimize: "none",
                     out: 'dist/js/cui.js'
                 }
             }
         },
 
+        // Task will generate the build and library json files used for components and requirejs
+        settingsCrawler: {
+          componentSettings: ['src/components/**/settings.json']
+        }
+
     });
     // End of plugin configuration
     // Next we define the tasks we want to use
+
+    // Project Specfic tasks
+    grunt.loadTasks('tasks');
 
     ////////////////
     // Main tasks //
@@ -340,6 +363,7 @@ module.exports = function(grunt) {
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function(args) {
         grunt.task.run([
+            'settingsCrawler:componentSettings',
             'sass:prod',
             'sass:prodComponents',
             'jshint',
@@ -357,9 +381,12 @@ module.exports = function(grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
+            'settingsCrawler:componentSettings',
             'sass:dev',
             'sass:devComponents',
             'jshint',
+            'concat:pathWrapper',
+            'concat:settingsWrapper',
             'requirejs',
             'uglify:devCUI',
             'uglify:devComponents',

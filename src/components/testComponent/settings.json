@@ -1,6 +1,6 @@
 {
-  'name':'testComponent'
-  'lazyLoadable': true,
-  'script': 'testComponent',
-  'dependancies': ['jquery']
+  "name":"testComponent",
+  "lazyLoadable": true,
+  "script": "testComponent",
+  "style": "testComponent"
 }

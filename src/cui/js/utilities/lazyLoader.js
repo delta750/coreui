@@ -3,9 +3,6 @@ define(['require'], function (require) {
   // Module Object
   var lazyLoader = {};
 
-  // Place to store request
-  lazyLoader.loadQueue = {};
-
   // Create the function used to load scripts inline.
   lazyLoader.load = function(request, requestCb) {
 
@@ -13,7 +10,7 @@ define(['require'], function (require) {
 
     var processor = function(request, requestCb) {
 
-      // Function to handle callbacks in the order they are recieved.
+      // Function to handle request que callback and executes them in the order they were recieved.
       var requestFunctions = function(arrayCb) {
 
         if (arrayCb.length > 0) {
@@ -41,7 +38,6 @@ define(['require'], function (require) {
       if (require.defined(request)) {
 
         // The item being requested already exists in requie. Just call its callback
-
         if (typeof(requestCb) === 'function') {
           requestCb();
         }
@@ -51,7 +47,9 @@ define(['require'], function (require) {
         // Check for the item que already exits
         if (que[request]) {
 
+          // Add request callback to existing queue
           que[request].push(requestCb);
+
         } else {
 
           // Create a que for this request
@@ -68,7 +66,7 @@ define(['require'], function (require) {
 
     };
 
-    // Check what type of request we have
+    // Check what type of request we have string single load vs array for multiload.
     if (typeof(request) === "string") {
 
       // Handle the one off request.
@@ -76,6 +74,7 @@ define(['require'], function (require) {
 
     } else {
 
+      // We have a array so loop through and request each item in the array
       for (var i = 0, len = request.length; i < len; i++) {
         processor(request[i]);
       }

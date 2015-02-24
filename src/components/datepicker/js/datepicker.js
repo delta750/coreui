@@ -1,4 +1,4 @@
-define(['jquery', 'cui'], function($, cui) {
+define(['jquery', 'cui', 'datepickerStyle'], function($, cui) {
     cui.datepicker = (function datepicker() {
         var
             // Constants

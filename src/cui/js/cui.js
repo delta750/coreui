@@ -5,7 +5,7 @@
  Core script (mainly utilities) to be used across projects
 =======================================================================
 */
-define(['jquery', 'lazyLoader', 'json!library.json'], function($, lazyLoader, library) {
+define(['jquery', 'lazyLoader'], function($, lazyLoader) {
 
     // Create the namespace
     var cui = {};
@@ -48,9 +48,6 @@ define(['jquery', 'lazyLoader', 'json!library.json'], function($, lazyLoader, li
     cui.init = function() {
         // `cui` namespace is now loaded
     };
-
-    // Load the component library code into cui namespace.
-    cui.library = library;
 
     // Place the lazyloader into the cui namespace.
     cui.load = lazyLoader.load;

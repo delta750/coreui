@@ -1,0 +1,6 @@
+{
+  "name":"datepicker",
+  "lazyLoadable": true,
+  "script": "datepicker",
+  "style": "datepicker"
+}
