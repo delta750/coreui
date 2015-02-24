@@ -10,7 +10,7 @@
 // * @section    Additional resets
 // * --------------------------------------------------------
 body {
-    line-height: 1;
+    line-height: $line-height;
     @include clearfix;
     color: $dark-gray;
 }

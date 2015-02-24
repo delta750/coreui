@@ -32,7 +32,7 @@ form {
             padding: $button-padding;
             border: $input-border;
             text-shadow: $white 0px 1px 0px;
-            line-height: 1;
+            line-height: $line-height;
 
             // Keep this line (must come after default `border` definition)
             border-right: none;
@@ -170,7 +170,7 @@ textarea {
 
     .input-prepend,
     .input-append {
-        line-height: 1;
+        line-height: $line-height;
         border: $input-border;
         @include box-sizing(content-box);
         background: $input-bg-hover-color;
