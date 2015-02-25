@@ -106,6 +106,10 @@ select {
     }
 }
 
+select {
+    padding: ($input-padding-top - $input-difference-in-padding-value) $input-padding-right ($input-padding-bottom - $input-difference-in-padding-value) $input-padding-left;
+}
+
 input[type="checkbox"],
 input[type="radio"] {
     position: relative;

@@ -78,11 +78,17 @@ $input-border-width:   1px !default;
 $input-border:         $input-border-width solid $input-border-color !default;
 $input-border-color-focus:   #66afe9 !default;
 $input-border-radius:  $border-radius !default;
-$input-padding:        4px 10px 4px 10px !default;
+$input-padding-top:    4px !default;
+$input-padding-right:  10px !default;
+$input-padding-bottom: $input-padding-top !default;
+$input-padding-left:   $input-padding-right !default;
+$input-padding:        $input-padding-top $input-padding-right $input-padding-bottom $input-padding-left !default;
 $input-bg-hover-color: $light-gray !default;
 $input-font-size:      14px !default;
 $input-font-weight:    $font-weight-light !default;
 $input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
+
+$input-difference-in-padding-value: 1px !default;
 
 
 // * @section    Grid
