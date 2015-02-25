@@ -344,6 +344,16 @@ module.exports = function(grunt) {
         // Task will generate the build and library json files used for components and requirejs
         settingsCrawler: {
           componentSettings: ['src/components/**/settings.json']
+      },
+
+      requireManager: {
+            components: {
+                files: [{
+                    cwd: 'src/components/',
+                    src: '*',
+                    dest: '/dist/js/components'
+                }]
+            }
         }
 
     });
