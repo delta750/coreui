@@ -1,13 +1,136 @@
-var async = require('async');
+// Node native libs
 var path = require('path');
-var fs = require('fs');
+
+// Node third party libs
+var chalk = require('chalk');
 
 exports.init = function(grunt) {
     'use strict';
 
-    // Global Export Variables
-    var globalPaths = {};
-    var includeComponents = {};
+    // Object to hold lazy component paths
+    var lazyComponents = {};
+
+    // Function to handle defined assets
+    function findAsset(assetName, componentDef, options) {
+
+      // Function will recursively search a path until it files a filename that matches the search criteria.
+      function recursiveSearch(name, path) {
+
+        // Array results
+        var results = [];
+
+        grunt.file.recurse(path, function(abspath, rootdir, subdir, filename) {
+
+          if (filename === name) {
+            results.push(abspath);
+          }
+
+        });
+
+        // Return the results.
+        return results;
+
+      }
+
+      // Check to see if we have one conponent or multiple to lookup
+      if (typeof(assetName) === "string") {
+
+        // Specific file lookup
+        var file = recursiveSearch(assetName, componentDef.rootPath);
+
+        // Recursivly search for the rootPath
+        if (file.length === 1) {
+            return file[0];
+        }
+
+      } else {
+
+        // Loop throught the name array
+        var results = [];
+
+        // Loop through all the other names ( we take the first one we can get!)
+        assetName.every(function(name){
+
+          // Search each iteration
+          var file = recursiveSearch(name, componentDef.rootPath);
+
+          // Check for value
+          if (file.length === 1) {
+
+            // We found something, so go with it.
+            results.push(file[0]);
+            return;
+          }
+
+        });
+
+        return results[0];
+
+      }
+
+    }
+
+    // Function to construct the defineable asset names from component settings and the folder name.
+    function generateAssetName(componentDef, assetObject, type) {
+
+      var assetName;
+
+      // Check to see if the asset type had object defined name and construct it.
+      if (componentDef.settings && componentDef.settings.definedAssets[type]) {
+
+        // A seconday name was defined, so look for that
+        assetName = componentDef.settings.definedAssets[type] + assetObject.extension;
+
+        // Check to see if a override name was applied
+      } else if (componentDef.name) {
+
+        assetName = componentDef.name + assetObject.extension;
+
+        // Result to the folder name
+      } else {
+
+        // There was not a defined name so we can assume its the folder name first.
+        assetName = componentDef.rootFolder + assetObject.extension;
+
+      };
+
+      return assetName;
+    }
+
+    // Simple copy function
+    function moveComponent(src, dest, name) {
+
+      function copyCommand(src, destFolder, destFile) {
+
+        // Check if dest folder exists
+        if (grunt.file.exists(dest)) {
+          grunt.file.mkdir(dest)
+        }
+
+        grunt.file.copy(src, dest);
+
+      };
+
+      if (typeof(src) === "string") {
+
+        console.log(name);
+
+        copyCommand(src, destFolder, destFile);
+
+      } else {
+
+      }
+
+    };
+
+    // Function for fixing paths
+    var unixifyPath = function(filepath) {
+        if (process.platform === 'win32') {
+            return filepath.replace(/\\/g, '/');
+        } else {
+            return filepath;
+        }
+    };
 
     // Simple functio to help merge objects
     var mergeObject = function(obj1, obj2) {
@@ -38,249 +161,158 @@ exports.init = function(grunt) {
       return obj1;
     };
 
-    // Function is used to manually lookup files of a specified extension type.
-    var manualLookup = function(type, componentPath) {
-
-        // Setup the results return array
-        var results = [];
-
-        // Create th proper path
-        var componentPath = path.join(componentPath, type);
-
-        // Check to see if the search path exists
-        if (grunt.file.exists(componentPath)) {
-
-            // since the asset folder exists check to see if any files with the same name exists.
-            grunt.file.recurse(componentPath, function(abspath, rootdir, subdir, filename) {
-
-                // Check to make sure the file has the right extension type, just in case.
-                if (filename.indexOf('.' + type) !== -1) {
-
-                    var file = (subdir !== undefined) ? path.join(subdir, filename) : filename;
-                    results.push(file);
-                }
-
-            });
-
-        }
-
-        // Return results array
-        return results;
-
-    };
-
-    var getFilePath = function(componentPath, file, type) {
-
-        // Generate the full name for comparison
-        var fullname = file + "." + type;
-
-        // Create th proper path
-        var componentPath = path.join(componentPath, type);
-
-        // Storage variable
-        var filePath;
-
-        // Singe we know the filename 100% we just need to look for it.
-        grunt.file.recurse(componentPath, function(abspath, rootdir, subdir, filename) {
-
-            //console.log(filename + ":" + fullname);
-
-            // Check to make sure the file has the right extension type, just in case.
-            if (filename === fullname) {
-
-                filePath = (subdir !== undefined) ? path.join(subdir, filename) : filename;
-
-            }
-
-        });
-
-        return filePath;
-
-
-    };
-
-    var checkComponents = function(assetSettings, componentName, componentFolder, options, type) {
-
-        function assetPath(type, options, lazyLoad, currentPath) {
-
-            var temp;
-
-            // Check if lazyload to verify correct pathing
-            if (lazyLoad) {
-
-                // Check to see if its a style as relative pathing needs to be added.
-                if (type === "scss") {
-
-                    // First add Realtive Pathing
-                    temp = path.relative(options.destDir, 'css');
-
-                    // Now add back on absolute (this order is required)
-                    temp = path.join(temp, options.destDir, currentPath);
-                    
-                } else {
-                    temp = path.join(options.destDir, currentPath);
-                }
-
-            } else {
-
-            }
-
-            // return path with no extension.
-            return temp.replace(/\.[^/.]+$/, "")
-
-        }
-
-
-        if (type === "js") {
-            var assetDefine = assetSettings.script;
-        } else {
-            var assetDefine = assetSettings.style;
-        }
-
-        var lazyloadable = assetSettings.lazyLoadable;
-
-        // Check to see if asset setting were defined.
-        if (assetDefine) {
-
-            // Asset of some kind was defined, so if it was a JS file lets look it up.
-            if (type === "js") {
-
-                var filePath = getFilePath(componentFolder, assetDefine, type)
-
-                // Make sure the filepath is not defined
-                if (filePath !== undefined) {
-
-                    // Check the components loading status.
-                    if (lazyloadable) {
-
-                        // Its lazyloadable so the path is from the dest directory.
-                        globalPaths[componentName] = assetPath(type, options, lazyloadable, filePath);
-
-                    } else {
-
-                        // Its not lazy loadable, so we are going to assume its part of the setting file.
-                        includeComponents[componentName] = path.join(option.internalPath, '../css');
-
-                    }
-
-                } else {
-                    grunt.log.error("Missing component file: " + componentName );
-                }
-
-            } else {
-
-                // A style was defined. Under the current structure that means we will simply assume that file will be in place
-
-                // Simplye check if we need to make a globalPath for it
-                if (lazyloadable) {
-                    globalPaths[componentName] = assetPath(type, options, lazyloadable, componentName);
-                }
-
-            }
-
-
-        } else {
-
-            // Either the script property is missing or underifned, so lets double check to see if there is a singlar
-            // Javascript file in the js directory with the same name as the component. If not we will assume it does not exists.
-            var temp = manualLookup(type, componentFolder);
-
-            // Check to make sure only one result exists. If more exists, error and skip to next. If none exist do nothing it could be lazy styles.
-            if (temp.length === 1) {
-
-
-                // Check the components loading status.
-                if (lazyloadable) {
-
-                    // Its lazyloadable so the path is from the dest directory.
-                    globalPaths[componentName] = path.join(options.destDir, temp[0]);
-
-                }  else {
-
-                    // Its not lazy loadable, so we are going to assume its part of the setting file.
-                    includeComponents[componentName] = path.join(option.internalPath, temp[0]);
-
-                }
-
-
-            } else if (temp.length > 1) {
-
-                grunt.log.error("Could not identify files proper component javascript file for component: " + componentName + "SKIPPING");
-
-            }
-
-        }
-
-    }
 
     // This is the main function used to look for components
-    exports.buildComponentList = function(components, done) {
+    exports.components = function(components, done) {
 
-        var options = {
-            settingsFile: "settings.json", // Default Settings file path and name
-            destDir: "components/",
-            internalPath: "../../components/"
+      // Component Manager Options
+      var options = {
+        settingsFile: 'component.json',
+        acceptableAssets: {
+          script: {
+            extension: '.js',
+            alternativeNames: ['script.js', 'main.js'],
+            distFolder: "/dist/js/components",
+            pathFromBase: "components/"
+          },
+          style: {
+            extension: '.scss',
+            alternativeNames: ['styles.scss', 'main.scss']
+          }
+        },
+        destDirectory: {
+          js: 'dist/js',
+          css: 'dist/css'
         }
+      }
 
-        // Loop through all of the component sources.
-        components.forEach(function(f) {
+      // Storage location for all confirmed components.
+      var definedComponents = {};
 
-            var componentSrc = f.src.filter(function(filepath) {
+      // Loop through all of the component folders
+      components.forEach(function(c) {
+        c.src.filter(function(componentName) {
 
-                var componentFolder = path.join(f.cwd, filepath);
+          // Component Definition
+          var componentDef =  {
+            rootFolder: componentName,
+            rootPath: path.join(c.cwd, componentName),
+            files: {}
+          };
 
-                // Check to make sure we are looking at component directories and
-                // not files in the root component folder
-                if (grunt.file.isDir(componentFolder)) {
+          // ===
+          // Check for component settings file
+          // ===
 
-                    // Create a variable for were the settings file should be found
-                    var settingFile = path.join(componentFolder, options.settingsFile);
+          // Check for settings file on in the component root.
+          if (grunt.file.exists(path.join(componentDef.rootPath, options.settingsFile))) {
 
-                    // Check the component settings file
-                    if (grunt.file.exists(settingFile)) {
+            // We have a setting file so read it in
+            componentDef['settings'] = grunt.file.readJSON(path.join(componentDef.rootPath, options.settingsFile));
 
-                        // Load the component settings file.
-                        var componentSettings = grunt.file.readJSON(settingFile);
+          } else {
 
-                        // Now that we have a setting file we need to check for some
-                        // overrideable settings
+            // We have no setting file for the component.
+            grunt.log.warn(chalk.yellow("Component folder " + componentDef.rootPath + " does not contain a setting file."));;
 
-                        // Check to see if the component has a preferred name property in settings or use the folder name
-                        var componentName = (componentSettings.name) ? componentSettings.name : filepath;
+          }
 
-                        // Now check for known asset files (we allow for one script file and one style asset per component)
-                        var scriptPath, stylePath;
+          // ===
+          // Set Component Demographics
+          // ===
 
-                        // ===
-                        // Script Assets
-                        // ===
-                        checkComponents(componentSettings, componentName, componentFolder, options, 'js');
+          // Save off the proper component name if the setting has an override, otherwise use the rootFolder as the name
+          componentDef.name = (componentDef.settings && componentDef.settings.name) ? componentDef.settings.name : componentDef.rootFolder;
 
-                        // Check if the componentName is already being used by a script, if so add "Styles" to the end, otherwise the component name is fine.
-                        if (globalPaths.hasOwnProperty(componentName) || includeComponents.hasOwnProperty(componentName)) {
-                            var componentStyleName = componentName + "Style";
-                        } else {
-                            var componentStyleName = componentName
-                        }
+          // Lets check to see if the developer defined a array or object for assets they want to inlude
+          if (componentDef.settings && componentDef.settings.definedAssets) {
 
-                        // ===
-                        // Style Assets
-                        // ===
-                        checkComponents(componentSettings, componentStyleName, componentFolder, options, 'scss');
+              // Developer defined an object, so get its keys
+              var assetTypes = (grunt.util.kindOf(componentDef.settings.definedAssets) === "array") ? componentDef.settings.definedAssets : Object.keys(componentDef.settings.definedAssets);
 
-                        console.log(globalPaths);
+          } else {
 
+            // The setting did not define any specific asset types, so we need to assume all are present and find out otherwise
+            var assetTypes = Object.keys(options.acceptableAssets);
+          }
 
-                    } else {
+          // ===
+          // Lookup potential assets
+          // ===
 
-                        console.log(filepath + " is missing a settings file");
-                    }
-                }
+          // Loop through and look for all the different asset types that could exist.
+          assetTypes.forEach(function(type) {
 
-            })
+            var typeOptions = options.acceptableAssets[type];
+
+            // Get a shortcut to acceptable asset type object
+            var assetName = generateAssetName(componentDef, typeOptions, type);
+
+            // Now that we have the default name of the file go look for it
+            var assetFile = findAsset(assetName, componentDef, options);
+
+            // Check to see if the predefined name retures a path is so we have all we need to know here
+            if (!assetFile) {
+
+              // Check to see if the file was defined asset and let them know of the error.
+              if (componentDef.settings && componentDef.settings.definedAssets[type]) {
+                grunt.log.warn(chalk.yellow("Component " + componentDef.name + " defined " + type + " file: " + assetName + " does not exist. Check your component.json"));
+              }
+
+              // Stange, we couldnt find anything with the defined names, lets check for other good defaults, just in case, if defined.
+              if (typeOptions.alternativeNames) {
+                  assetFile = findAsset(typeOptions.alternativeNames, componentDef, options);
+              }
+
+            }
+
+            // Check the assetFile one last time after the alterative search
+            if (assetFile) {
+
+              // We have something so we should save it off.
+              componentDef.files[type] = assetFile;
+            }
+
+          });
+
+          // Save off the defined object it assets were found
+          if (Object.keys(componentDef.files).length > 0) {
+
+            definedComponents[componentDef.name] = componentDef;
+
+          }
 
         });
 
+      });
+
+      // ===
+      // Processing Components
+      // ===
+
+      Object.keys(definedComponents).forEach(function(componentName) {
+
+        // Make a shortcut to this component definition
+        var component = definedComponents[componentName];
+
+        // loop through the different asset types
+        Object.keys(component.files).forEach(function(type) {
+
+          console.log(type);
+
+          switch (type) {
+
+            case "script":
+              console.log(component.files[type]);
+              break;
+
+          }
+
+        });
+
+      });
+
+      //console.log(definedComponents);
 
     };
 

@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         var options = this.options({});
 
         // Run the require component manager peice
-        componentManager.buildComponentList(this.files, done);
+        componentManager.components(this.files, done);
 
 
     });

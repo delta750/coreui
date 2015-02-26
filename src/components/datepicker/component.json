@@ -1,6 +1,5 @@
 {
   "name":"datepicker",
   "lazyLoadable": true,
-  "script": "datepicker",
-  "style": "datepicker"
+  "definedAssets": ["script", "style"]
 }

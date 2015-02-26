@@ -1,0 +1,8 @@
+{
+  "name":"testComponent",
+  "lazyLoadable": true,
+  "definedAssets": {
+    "script": "test",
+    "style": "styles"
+  }
+}
