@@ -1,9 +1,0 @@
-{
-    "datepicker": "components/datepicker",
-    "datepickerStyle": "../css/components/datepicker",
-    "testComponent": "components/testComponent",
-    "testComponentStyle": "../css/components/testComponent",
-    "testComponent2": "components/testComponent2",
-    "tooltip": "components/tooltip",
-    "tooltipStyle": "../css/components/tooltip"
-}

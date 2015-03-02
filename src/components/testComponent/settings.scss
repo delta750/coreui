@@ -1,5 +1,0 @@
-$includeStyles: 'none' !default;
-
-@if $includeStyles == 'all' {
-  @import 'scss/styles';
-}

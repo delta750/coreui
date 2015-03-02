@@ -4,318 +4,263 @@ var path = require('path');
 // Node third party libs
 var chalk = require('chalk');
 
-exports.init = function(grunt) {
-    'use strict';
 
-    // Object to hold lazy component paths
-    var lazyComponents = {};
+exports.init = (function(grunt) {
 
-    // Function to handle defined assets
-    function findAsset(assetName, componentDef, options) {
+  var exports = {};
 
-      // Function will recursively search a path until it files a filename that matches the search criteria.
-      function recursiveSearch(name, path) {
+  exports.components = function(options, taskSrc) {
 
-        // Array results
-        var results = [];
+     // Internal Libraries
+    var _utility = require('./utility');
+    var writeSettings = require('./writeSettings');
+    var buildDefinition = require('./buildDefinition');
 
-        grunt.file.recurse(path, function(abspath, rootdir, subdir, filename) {
+    var lazyComponents = [];
+    var includeComponents = [];
+    var excludedComponents = [];
 
-          if (filename === name) {
-            results.push(abspath);
-          }
-
-        });
-
-        // Return the results.
-        return results;
-
-      }
-
-      // Check to see if we have one conponent or multiple to lookup
-      if (typeof(assetName) === "string") {
-
-        // Specific file lookup
-        var file = recursiveSearch(assetName, componentDef.rootPath);
-
-        // Recursivly search for the rootPath
-        if (file.length === 1) {
-            return file[0];
-        }
-
-      } else {
-
-        // Loop throught the name array
-        var results = [];
-
-        // Loop through all the other names ( we take the first one we can get!)
-        assetName.every(function(name){
-
-          // Search each iteration
-          var file = recursiveSearch(name, componentDef.rootPath);
-
-          // Check for value
-          if (file.length === 1) {
-
-            // We found something, so go with it.
-            results.push(file[0]);
-            return;
-          }
-
-        });
-
-        return results[0];
-
-      }
-
-    }
-
-    // Function to construct the defineable asset names from component settings and the folder name.
-    function generateAssetName(componentDef, assetObject, type) {
-
-      var assetName;
-
-      // Check to see if the asset type had object defined name and construct it.
-      if (componentDef.settings && componentDef.settings.definedAssets[type]) {
-
-        // A seconday name was defined, so look for that
-        assetName = componentDef.settings.definedAssets[type] + assetObject.extension;
-
-        // Check to see if a override name was applied
-      } else if (componentDef.name) {
-
-        assetName = componentDef.name + assetObject.extension;
-
-        // Result to the folder name
-      } else {
-
-        // There was not a defined name so we can assume its the folder name first.
-        assetName = componentDef.rootFolder + assetObject.extension;
-
-      };
-
-      return assetName;
-    }
-
-    // Simple copy function
-    function moveComponent(src, dest, name) {
-
-      function copyCommand(src, destFolder, destFile) {
-
-        // Check if dest folder exists
-        if (grunt.file.exists(dest)) {
-          grunt.file.mkdir(dest)
-        }
-
-        grunt.file.copy(src, dest);
-
-      };
-
-      if (typeof(src) === "string") {
-
-        console.log(name);
-
-        copyCommand(src, destFolder, destFile);
-
-      } else {
-
-      }
-
-    };
-
-    // Function for fixing paths
-    var unixifyPath = function(filepath) {
-        if (process.platform === 'win32') {
-            return filepath.replace(/\\/g, '/');
-        } else {
-            return filepath;
-        }
-    };
-
-    // Simple functio to help merge objects
-    var mergeObject = function(obj1, obj2) {
-
-      for (var p in obj2) {
-
-        try {
-          // Property in destination object set; update its value.
-          if ( obj2[p].constructor === Object ) {
-
-            if (obj1[p].constructor !== Object) {
-                obj1[p] = {};
-            }
-            obj1[p] = mergeObject(obj1[p], obj2[p]);
-
-          } else {
-            obj1[p] = obj2[p];
-          }
-
-        } catch(e) {
-
-          // Property in destination object not set; create it and set its value.
-          obj1[p] = obj2[p];
-
-        }
-      }
-
-      return obj1;
-    };
-
-
-    // This is the main function used to look for components
-    exports.components = function(components, done) {
-
-      // Component Manager Options
-      var options = {
-        settingsFile: 'component.json',
-        acceptableAssets: {
-          script: {
-            extension: '.js',
-            alternativeNames: ['script.js', 'main.js'],
-            distFolder: "/dist/js/components",
-            pathFromBase: "components/"
-          },
-          style: {
-            extension: '.scss',
-            alternativeNames: ['styles.scss', 'main.scss']
-          }
+    var processOrder = {
+        "lazy": {
+            processor: require('./lazyProcessor')
         },
-        destDirectory: {
-          js: 'dist/js',
-          css: 'dist/css'
+        "include": {
+            processor: require('./includeProcessor')
+        },
+        "exclude": {
+            // Nothing defined yet!
         }
+    }
+
+    // Objects to hold final definitions
+    var lazyLoadDefinitions = {};
+    var includeLoadDefinitions = {};
+
+    // Settings developer can not change for now.
+    var requireSettings = {
+      assetTypes: {
+        script: {
+          process: "singleFile", // Marks that process type allowed
+          moveAssets: false, // Indicates if this function should move the script files
+          loadSource: "components/", // Location where lazy load components should appear
+          flatten: true // Tell the load path to ignore sub directorys
+        },
+        style: {
+          process: "singleFile",
+          moveAssets: false,
+          loadSource: "css/components/",
+          flatten: true
+        },
+      },
+      requireOutput: {
+        settingsFile: 'cui.js'
+      }
+    }
+
+    // Global task options and values
+    var taskOptions = {};
+
+    // Merge the public and private settings.
+    var options = _utility.merge(options, requireSettings);
+
+    // Function to sort the different components according to settings and detection
+    function sortComponents(def, loc) {
+
+      switch (loc) {
+        case "lazy":
+          lazyComponents.push(def);
+          break;
+
+        case "include":
+          includeComponents.push(def);
+          break;
+
+        default:
+          excludedComponents.push(def);
+          break;
       }
 
-      // Storage location for all confirmed components.
-      var definedComponents = {};
+    }
 
-      // Loop through all of the component folders
-      components.forEach(function(c) {
-        c.src.filter(function(componentName) {
+    // Function handles saving off all valid results
+    function saveComponent(type, kind, results) {
 
-          // Component Definition
-          var componentDef =  {
-            rootFolder: componentName,
-            rootPath: path.join(c.cwd, componentName),
-            files: {}
-          };
+        var refObj;
 
-          // ===
-          // Check for component settings file
-          // ===
+        // Check for results
+        if (results) {
 
-          // Check for settings file on in the component root.
-          if (grunt.file.exists(path.join(componentDef.rootPath, options.settingsFile))) {
+            // Get a reference to the correct object.
+            switch (type) {
 
-            // We have a setting file so read it in
-            componentDef['settings'] = grunt.file.readJSON(path.join(componentDef.rootPath, options.settingsFile));
+              case "lazy":
+                refObj = lazyLoadDefinitions;
+                break;
 
-          } else {
-
-            // We have no setting file for the component.
-            grunt.log.warn(chalk.yellow("Component folder " + componentDef.rootPath + " does not contain a setting file."));;
-
-          }
-
-          // ===
-          // Set Component Demographics
-          // ===
-
-          // Save off the proper component name if the setting has an override, otherwise use the rootFolder as the name
-          componentDef.name = (componentDef.settings && componentDef.settings.name) ? componentDef.settings.name : componentDef.rootFolder;
-
-          // Lets check to see if the developer defined a array or object for assets they want to inlude
-          if (componentDef.settings && componentDef.settings.definedAssets) {
-
-              // Developer defined an object, so get its keys
-              var assetTypes = (grunt.util.kindOf(componentDef.settings.definedAssets) === "array") ? componentDef.settings.definedAssets : Object.keys(componentDef.settings.definedAssets);
-
-          } else {
-
-            // The setting did not define any specific asset types, so we need to assume all are present and find out otherwise
-            var assetTypes = Object.keys(options.acceptableAssets);
-          }
-
-          // ===
-          // Lookup potential assets
-          // ===
-
-          // Loop through and look for all the different asset types that could exist.
-          assetTypes.forEach(function(type) {
-
-            var typeOptions = options.acceptableAssets[type];
-
-            // Get a shortcut to acceptable asset type object
-            var assetName = generateAssetName(componentDef, typeOptions, type);
-
-            // Now that we have the default name of the file go look for it
-            var assetFile = findAsset(assetName, componentDef, options);
-
-            // Check to see if the predefined name retures a path is so we have all we need to know here
-            if (!assetFile) {
-
-              // Check to see if the file was defined asset and let them know of the error.
-              if (componentDef.settings && componentDef.settings.definedAssets[type]) {
-                grunt.log.warn(chalk.yellow("Component " + componentDef.name + " defined " + type + " file: " + assetName + " does not exist. Check your component.json"));
-              }
-
-              // Stange, we couldnt find anything with the defined names, lets check for other good defaults, just in case, if defined.
-              if (typeOptions.alternativeNames) {
-                  assetFile = findAsset(typeOptions.alternativeNames, componentDef, options);
-              }
+              case "include":
+                refObj = includeLoadDefinitions;
+                break;
 
             }
 
-            // Check the assetFile one last time after the alterative search
-            if (assetFile) {
+            // Loop through all the keys and correct where needed
+            Object.keys(results).forEach(function(k) {
 
-              // We have something so we should save it off.
-              componentDef.files[type] = assetFile;
-            }
+                // Look for this key
+                if (!refObj.hasOwnProperty(k)) {
+                  refObj[k] = results[k];
+                } else {
+                  var kindStr = kind.charAt(0).toUpperCase() + kind.substring(1, kind.length);
+                  refObj[k+kindStr] = results[k];
+                }
 
-          });
+            });
 
-          // Save off the defined object it assets were found
-          if (Object.keys(componentDef.files).length > 0) {
+        }
+    }
 
-            definedComponents[componentDef.name] = componentDef;
+    // Loop through all folder and idenify the component base information
+    taskSrc.forEach(function(folders) {
 
+      // Save off task options.
+      taskOptions.baseSrc = folders.cwd;
+      taskOptions.baseDest = folders.dest;
+
+      // Loop through all the individual folders
+      folders.src.forEach(function(component){
+
+        // Setup the component definition
+        var compDefinition = {
+          rootFolder: component, // Just the folder name
+          rootFolderPath: path.join(taskOptions.baseSrc, component), // The component source folder from the root
+          settingsPath: path.join(taskOptions.baseSrc, component, options.configName) // Location where the settings file should exist
+        }
+
+        // Pull component setting in if they exist
+        if (grunt.file.exists(compDefinition.settingsPath)) {
+
+          // We have a settings file so attempt to pull it in
+          compDefinition.settings = grunt.file.readJSON(compDefinition.settingsPath);
+
+          // Setup the actual component make based on the name property
+          compDefinition.name = (compDefinition.settings.name) ? compDefinition.settings.name : component;
+
+        } else {
+
+          // We dont have setting so set it to false
+          compDefinition.settings = false,
+
+          // Generate the component default name
+          compDefinition.name = component;
+
+        }
+
+        // Now we need to seperate the component list based on what is going to happen to the data.
+        if (compDefinition.settings) {
+
+          if (compDefinition.settings.lazy) {
+            sortComponents(compDefinition, "lazy");
+          } else {
+            sortComponents(compDefinition, "include");
           }
 
-        });
+        } else {
+
+          // Not config file was specified for the component. Check to see it they are required, otherwise assume they
+          // can be lazy loaded
+          if (!options.requiredConfig) {
+            sortComponents(compDefinition, "lazy");
+          } else {
+            sortComponents(compDefinition, "exclude");
+          }
+
+        }
 
       });
 
-      // ===
-      // Processing Components
-      // ===
+    });
 
-      Object.keys(definedComponents).forEach(function(componentName) {
+    // Loop through the process order
+    Object.keys(processOrder).forEach(function (step) {
 
-        // Make a shortcut to this component definition
-        var component = definedComponents[componentName];
+        var workArray;
 
-        // loop through the different asset types
-        Object.keys(component.files).forEach(function(type) {
+        switch (step) {
 
-          console.log(type);
+            case "lazy":
+                workArray = lazyComponents;
+                break;
 
-          switch (type) {
+            case "include":
+                workArray = includeComponents;
+                break;
 
-            case "script":
-              console.log(component.files[type]);
-              break;
+            case "exclude":
+                workArray = excludedComponents;
+                break;
+        }
 
-          }
+        // Pull the processor local.
+        var processor = processOrder[step].processor;
 
-        });
+        // Check to see if anything is to be done.
+        if (workArray.length && processor) {
 
-      });
+            // Handle asset lookup.
+            workArray.forEach(function(component) {
 
-      //console.log(definedComponents);
+              // So for each component we need to process assets according to the proper definitions
+              // First lets see if assets have defined a definition
+              if (component.settings.assets) {
 
-    };
+                // Since assets were defined, we will only process the assets listed.
+                var assets = (grunt.util.kindOf(component.settings.assets) === "array") ? component.settings.assets : Object.keys(component.settings.assets);
 
-    // Return all public functions
-    return exports;
-};
+                // Loop all the defined asset types.
+                assets.forEach(function(type) {
+
+                  // Check to see if this specific component had defined a specific process method
+                  if (grunt.util.kindOf(component.settings.assets[type]) === "object" && component.settings.assets[type].process) {
+
+                      processor[component.settings.assets[type].process].call(this, type, taskOptions, component, options.assetTypes[type], saveComponent);
+
+                  } else {
+
+                    // No defined process method was picked, default to the default option
+                    processor[options.assetTypes[type].process].call(this, type, taskOptions, component, options.assetTypes[type], saveComponent);
+
+                  }
+
+                });
+
+              } else {
+
+                // Specific types were not defined, so we will use the default method defined in options
+                // Loop all the defined asset types.
+                Object.keys(options.assetTypes).forEach(function(type) {
+
+                    // Since nothing was defined about the component its automatically a lazy load item.
+                    processor[options.assetTypes[type].process].call(this, type, taskOptions, component, options.assetTypes[type], saveComponent);
+
+                });
+
+              }
+
+            });
+
+        }
+
+    });
+
+    // Write Settings File and pass it the paths of all the lazy load components
+    writeSettings.settingsFile(lazyLoadDefinitions, options, taskOptions);
+
+    // Write the r.js build definition json file.
+    buildDefinition.buildFile(includeLoadDefinitions, options, taskOptions);
+
+  };
+
+  // Return the module
+  return exports;
+
+});

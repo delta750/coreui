@@ -2,9 +2,7 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    // Pull in the actual require manager node file.
-    //var requireManager = require('requireManager');
-
+    // Load the component manager plugin
     var componentManager = require('./libs/requireComponentManager').init(this, grunt);
 
     // Define the Grunt Multitask for the Require Manager Task;
@@ -13,11 +11,22 @@ module.exports = function(grunt) {
         'Special task for manageing requireJS components and base settings file',
         function() {
 
-        var done = this.async();
-        var options = this.options({});
+        // Merge task specific options with defaults.
+        var options = this.options({
+          assetTypes: { // Acceptable Asset Types to manage.
+            script: {
+              extension: ["js"],
+            },
+            style: {
+              extension: ['scss', 'css']
+            }
+          },
+          requireConfig: false,
+          configName: "component.json"
+        });
 
         // Run the require component manager peice
-        componentManager.components(this.files, done);
+        componentManager.components(options, this.files);
 
 
     });

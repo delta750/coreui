@@ -68,35 +68,12 @@ module.exports = function(grunt) {
                 mangle: false, // We need the variable names to be unchanged so other scripts (i.e. in-page `<script>` tags) can reference them
             },
 
-            devCUI: {
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    dest: 'dist/js/vendor',
-                    src: [
-                        'cui/js/vendor/**/*.js',
-                        '!cui/js/vendor/jquery.js',
-                        '!cui/js/vendor/requirejs.js',
-                        '!cui/js/vendor/domReady.js',
-                        '!cui/js/vendor/text.js',
-                        '!cui/js/vendor/json.js',
-                        '!cui/js/vendor/css.js',
-                        '!cui/utilities/**/*.js',
-                        '!cui/includes/**/*.js'
-                    ],
-                    flatten: true,
-                }],
-            },
-
             devComponents: {
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    dest: 'dist/js/components',
-                    src: [
-                        'components/**/*.js',
-                        '!components/**/settings.js'
-                    ],
+                    dest: 'dist/js/components/',
+                    src: ['components/*/js/**/*.js'],
                     flatten: true,
                 }],
             },
@@ -120,26 +97,7 @@ module.exports = function(grunt) {
                     ],
                     flatten: true,
                 }],
-            },
-
-            prodComponents: {
-                options: {
-                    sourceMap: false,
-                    compress: {
-                        drop_console: true,
-                    },
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    dest: 'dist/js/components',
-                    src: [
-                        'components/**/*.js',
-                        '!components/**/settings.js'
-                    ],
-                    flatten: true,
-                }],
-            },
+            }
 
         },
 
@@ -175,8 +133,8 @@ module.exports = function(grunt) {
                 files: [{
                   expand: true,
                   flatten: true,
-                  cwd: 'src/project',
-                  src: ['scss/**/*.scss', '!scss/project.scss'],
+                  cwd: 'src/components/',
+                  src: ['**/*.scss'],
                   dest: 'dist/css/components/',
                   ext: '.css',
                 }]
@@ -194,8 +152,8 @@ module.exports = function(grunt) {
                 files: [{
                   expand: true,
                   flatten: true,
-                  cwd: 'src/project',
-                  src: ['scss/**/*.scss', '!scss/project.scss'],
+                  cwd: 'src/components/',
+                  src: ['**/*.scss'],
                   dest: 'dist/css/components/',
                   ext: '.css',
                 }]
@@ -231,26 +189,6 @@ module.exports = function(grunt) {
                 },
                 src: ['dist/js/cui.js'],
                 dest: 'dist/js/cui.js',
-            },
-
-            // Require JS Settings File
-            // These are the core tasks for generating the core setting files used by require js.
-            pathWrapper: {
-              options: {
-                banner: "require.config({ baseUrl: baseUrl, paths:",
-                footer: "});"
-              },
-              src: ['src/cui/js/paths.json'],
-              dest: 'src/cui/js/settings.js'
-            },
-
-            settingsWrapper: {
-              options: {
-                banner: "(function () {",
-                footer: "}());"
-              },
-              src: ['src/cui/js/includes/pre-config.js','src/cui/js/settings.js','src/cui/js/includes/kick-off-script.js'],
-              dest: 'src/cui/js/settings.js'
             }
         },
 
@@ -300,6 +238,14 @@ module.exports = function(grunt) {
                 dest: 'dist/fonts',
                 filter: 'isFile'
             },
+            images: {
+              expand: true,
+              cwd: 'src/',
+              src: ['cui/images/**.*','project/images/**.*','components/*/images/**.*'],
+              dest: 'dist/images',
+              filter: 'isFile',
+              flatten: true
+            }
         },
 
         // Local server
@@ -327,33 +273,27 @@ module.exports = function(grunt) {
             ]
         },
 
-        // Production build ofjavascript resources
+        // Builds the default javascript cui library using r.js compilar
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: 'src/cui/js/',
-                    name: 'settings',
-                    paths: (grunt.file.readJSON('src/cui/js/build.json')).libs,
-                    include: (grunt.file.readJSON('src/cui/js/build.json')).include,
-                    optimize: "none",
-                    out: 'dist/js/cui.js'
+                    baseUrl: 'src/', // Where all our resources will be
+                    name: '../tasks/libs/temp/settings', // Where the generated temp file will be
+                    paths: (grunt.file.readJSON('tasks/libs/temp/build.json')).libs, // Generate build file
+                    include: (grunt.file.readJSON('tasks/libs/temp/build.json')).include, // Generate build file
+                    out: 'dist/js/cui.js' // Where the final project will be outputted.
                 }
             }
         },
 
-        // Task will generate the build and library json files used for components and requirejs
-        settingsCrawler: {
-          componentSettings: ['src/components/**/settings.json']
-      },
-
-      requireManager: {
-            components: {
-                files: [{
-                    cwd: 'src/components/',
-                    src: '*',
-                    dest: '/dist/js/components'
-                }]
-            }
+        requireManager: {
+              components: {
+                  files: [{
+                      cwd: 'src/components/',
+                      src: '*',
+                      dest: 'dist/js/components'
+                  }]
+              }
         }
 
     });
@@ -373,12 +313,11 @@ module.exports = function(grunt) {
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function(args) {
         grunt.task.run([
-            'settingsCrawler:componentSettings',
+            'jshint',
+            'requireManager',
+            'requirejs',
             'sass:prod',
             'sass:prodComponents',
-            'jshint',
-            'requirejs',
-            'uglify:prodCUI',
             'uglify:prodComponents',
             'concat:core',
             'concat:project',
@@ -391,14 +330,11 @@ module.exports = function(grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
-            'settingsCrawler:componentSettings',
+            'jshint',
+            'requireManager',
+            'requirejs',
             'sass:dev',
             'sass:devComponents',
-            'jshint',
-            'concat:pathWrapper',
-            'concat:settingsWrapper',
-            'requirejs',
-            'uglify:devCUI',
             'uglify:devComponents',
             'concat',
             'copy',
