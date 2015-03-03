@@ -1,4 +1,4 @@
-define(['jquery', 'cui'], function($, cui) {
+define(['jquery', 'cui', 'tooltipStyle'], function($, cui) {
     cui.tooltip = (function tooltip() {
         var
             // Constants
@@ -291,7 +291,7 @@ define(['jquery', 'cui'], function($, cui) {
                 $containers = $body;
             }
 
-            $containers.each(function (oContainer) {
+            $containers.each(function () {
                 var $container = $(this),
                     configId, c,
                     prepareLink = function _prepareLink() {
@@ -333,13 +333,13 @@ define(['jquery', 'cui'], function($, cui) {
         ///<param name="tooltipElem" type="DOM Element">div.tooltip</param>
         ///<param name="aLinks" type="Array">Links within the tooltip (Optional; they're often already known)</param>
         _events.setup.tooltip = function _events_setup_tooltip(tooltipElem, aLinks) {
+            var $tooltipElem;
+
             if (kind(tooltipElem) !== 'element') {
                 return false;
             }
 
-            var $tooltipElem = $(tooltipElem),
-                elem = null,
-                $elem = null;
+            $tooltipElem = $(tooltipElem);
 
             $tooltipElem
                 .on('focus', _events.onFocus)
