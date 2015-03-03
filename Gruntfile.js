@@ -33,12 +33,6 @@ module.exports = function(grunt) {
         // All Grunt modules must be listed in the `package.json` file
         pkg: grunt.file.readJSON('package.json'),
 
-        // Object to hold the requireBuilds.
-        requireBuild: {
-          paths: {},
-          includes: []
-        },
-
         // JS linting
         // https://github.com/gruntjs/grunt-contrib-jshint
         jshint: {
