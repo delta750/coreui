@@ -49,8 +49,6 @@ buildDefinition.buildFile = function(includeObj, options, taskOptions) {
 
     return (baseBuild);
 
-    console.log("Build file created!");
-
   };
 
 }

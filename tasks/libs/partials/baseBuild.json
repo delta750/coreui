@@ -1,21 +1,22 @@
 {
     "libs": {
-        "requireLib": "cui/js/vendor/requirejs",
+        "requirejs": "cui/js/vendor/requirejs",
         "jquery": "cui/js/vendor/jquery",
         "domReady": "cui/js/vendor/domReady",
         "text": "cui/js/vendor/text",
-        "lazyLoader": "cui/js/utilities/lazyLoader",
         "json": "cui/js/vendor/json",
         "css": "cui/js/vendor/css",
+        "lazyLoader": "cui/js/utilities/lazyLoader",
         "cui": "cui/js/cui"
     },
     "include": [
-        "requireLib",
+        "requirejs",
         "jquery",
         "domReady",
         "text",
-        "lazyLoader",
         "json",
-        "css"
+        "css",
+        "lazyLoader",
+        "cui"
     ]
 }

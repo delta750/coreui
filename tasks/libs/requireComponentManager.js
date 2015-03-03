@@ -263,11 +263,10 @@ exports.init = (function(grunt) {
 
     // Add the library and include definitions
     requireOptions.paths = build.libs;
-    requireOptions.includes = build.include;
+    requireOptions.include = build.include;
 
     // Reset options for the build.
     grunt.config.set('requirejs.compile.options', requireOptions);
-
 
   };
 
