@@ -136,8 +136,8 @@ writeSettings.settingsFile = function(lazyObjs, options, taskOptions) {
   } else {
 
     // Check to see if the setting folder exists so files can be properly made.
-    if (!grunt.file.exists(tempfolder)) {
-      grunt.file.mkdir(tempfolder);
+    if (!grunt.file.exists(writeOptions.tempfolder)) {
+      grunt.file.mkdir(writeOptions.tempfolder);
     }
 
   }
