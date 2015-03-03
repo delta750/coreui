@@ -228,7 +228,7 @@ module.exports = function(grunt) {
                     'jshint',
                     'uglify:devVendor',
                     'uglify:devComponents',
-                    'requirejs'
+                    'requireManager'
                 ]
             },
 
