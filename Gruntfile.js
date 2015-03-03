@@ -226,7 +226,7 @@ module.exports = function(grunt) {
                 files: 'src/**/*.js',
                 tasks: [
                     'jshint',
-                    'uglify:devCUI',
+                    'uglify:devVendor',
                     'uglify:devComponents',
                     'requirejs'
                 ]
@@ -260,12 +260,15 @@ module.exports = function(grunt) {
                 filter: 'isFile'
             },
             images: {
-              expand: true,
-              cwd: 'src/',
-              src: ['cui/images/**.*','project/images/**.*','components/*/images/**.*'],
-              dest: 'dist/images',
-              filter: 'isFile',
-              flatten: true
+                expand: true,
+                cwd: 'src/',
+                src: ['cui/images/**.*',
+                      'project/images/**.*',
+                      'components/*/images/**.*'
+                    ],
+                dest: 'dist/images',
+                filter: 'isFile',
+                flatten: true
             }
         },
 
@@ -296,7 +299,7 @@ module.exports = function(grunt) {
 
         // Builds the default javascript cui library using r.js compilar
         requirejs: {
-          compile: {
+            compile: {
                 options: {
                     baseUrl: 'src/', // Where all our resources will be
                     name: '../tasks/libs/temp/settings', // Where the generated temp file will be
@@ -311,14 +314,14 @@ module.exports = function(grunt) {
         },
 
         requireManager: {
-              components: {
-                  files: [{
-                      cwd: 'src/components/',
-                      src: '*',
-                      dest: 'dist/js/components'
-                  }]
-              }
-        }
+            components: {
+                files: [{
+                    cwd: 'src/components/',
+                    src: '*',
+                    dest: 'dist/js/components'
+                }]
+            }
+        },
 
     });
     // End of plugin configuration
