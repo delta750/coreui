@@ -33,6 +33,12 @@ module.exports = function(grunt) {
         // All Grunt modules must be listed in the `package.json` file
         pkg: grunt.file.readJSON('package.json'),
 
+        // Object to hold the requireBuilds.
+        requireBuild: {
+          paths: {},
+          includes: []
+        },
+
         // JS linting
         // https://github.com/gruntjs/grunt-contrib-jshint
         jshint: {
@@ -68,6 +74,13 @@ module.exports = function(grunt) {
                 mangle: false, // We need the variable names to be unchanged so other scripts (i.e. in-page `<script>` tags) can reference them
             },
 
+            devVendor: {
+              files: {
+                'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
+                'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
+              }
+            },
+
             devComponents: {
                 files: [{
                     expand: true,
@@ -78,26 +91,34 @@ module.exports = function(grunt) {
                 }],
             },
 
-            prodCUI: {
+            prodVendor: {
                 options: {
                     sourceMap: false,
                     compress: {
                         drop_console: true,
                     },
                 },
+                files: {
+                  'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
+                  'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
+                }
+            },
+
+            prodComponents: {
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                      },
+                },
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    dest: 'dist/js/vendor',
-                    src: [
-                        'cui/js/vendor/**/*.js',
-                        '!cui/js/vendor/jquery.js',
-                        '!cui/js/vendor/requirejs.js',
-                        '!cui/js/vendor/domReady.js'
-                    ],
+                    dest: 'dist/js/components/',
+                    src: ['components/*/js/**/*.js'],
                     flatten: true,
                 }],
-            }
+            },
 
         },
 
@@ -275,12 +296,12 @@ module.exports = function(grunt) {
 
         // Builds the default javascript cui library using r.js compilar
         requirejs: {
-            compile: {
+          compile: {
                 options: {
                     baseUrl: 'src/', // Where all our resources will be
                     name: '../tasks/libs/temp/settings', // Where the generated temp file will be
-                    paths: (grunt.file.readJSON('tasks/libs/temp/build.json')).libs, // Generate build file
-                    include: (grunt.file.readJSON('tasks/libs/temp/build.json')).include, // Generate build file
+                    paths: {}, // Generate build file
+                    include: [], // Generate build file
                     out: 'dist/js/cui.js' // Where the final project will be outputted.
                 }
             }
@@ -315,9 +336,9 @@ module.exports = function(grunt) {
         grunt.task.run([
             'jshint',
             'requireManager',
-            'requirejs',
             'sass:prod',
             'sass:prodComponents',
+            'uglify:prodVendor',
             'uglify:prodComponents',
             'concat:core',
             'concat:project',
@@ -332,9 +353,9 @@ module.exports = function(grunt) {
         grunt.task.run([
             'jshint',
             'requireManager',
-            'requirejs',
             'sass:dev',
             'sass:devComponents',
+            'uglify:devVendor',
             'uglify:devComponents',
             'concat',
             'copy',

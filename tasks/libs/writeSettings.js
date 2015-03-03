@@ -121,6 +121,7 @@ writeSettings.settingsFile = function(lazyObjs, options, taskOptions) {
   var writeOptions = {
     wrapper: true,
     baseURL: true,
+    tempfolder: 'tasks/libs/temp',
     file: 'tasks/libs/temp/settings.js',
     cuiInit: 'tasks/libs/partials/init.js',
     paths: lazyObjs
@@ -131,6 +132,13 @@ writeSettings.settingsFile = function(lazyObjs, options, taskOptions) {
 
       // Delete the item if we dont need it.
       grunt.file.delete(writeOptions.file);
+
+  } else {
+
+    // Check to see if the setting folder exists so files can be properly made.
+    if (!grunt.file.exists(tempfolder)) {
+      grunt.file.mkdir(tempfolder);
+    }
 
   }
 

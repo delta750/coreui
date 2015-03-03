@@ -47,6 +47,8 @@ buildDefinition.buildFile = function(includeObj, options, taskOptions) {
 
     fs.writeFileSync(buildSettings.output, buffer);
 
+    return (baseBuild);
+
     console.log("Build file created!");
 
   };

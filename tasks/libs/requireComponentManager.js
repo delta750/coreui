@@ -255,8 +255,19 @@ exports.init = (function(grunt) {
     // Write Settings File and pass it the paths of all the lazy load components
     writeSettings.settingsFile(lazyLoadDefinitions, options, taskOptions);
 
-    // Write the r.js build definition json file.
-    buildDefinition.buildFile(includeLoadDefinitions, options, taskOptions);
+    // Write the r.js build definition json file. (for debugging)
+    var build = buildDefinition.buildFile(includeLoadDefinitions, options, taskOptions);
+
+    // Get the base requireJS options
+    var requireOptions = grunt.config.get('requirejs.compile.options');
+
+    // Add the library and include definitions
+    requireOptions.paths = build.libs;
+    requireOptions.includes = build.include;
+
+    // Reset options for the build.
+    grunt.config.set('requirejs.compile.options', requireOptions);
+
 
   };
 

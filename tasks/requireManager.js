@@ -28,6 +28,8 @@ module.exports = function(grunt) {
         // Run the require component manager peice
         componentManager.components(options, this.files);
 
+        // Run the requirejs build process.
+        grunt.task.run('requirejs');
 
     });
 
