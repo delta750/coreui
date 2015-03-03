@@ -42,20 +42,13 @@ module.exports = function(grunt) {
         // JS linting
         // https://github.com/gruntjs/grunt-contrib-jshint
         jshint: {
+            // Supported options: http://jshint.com/docs/
+            // Help with debugging common error messages: http://jslinterrors.com/
             options: {
                 curly: true,
                 eqeqeq: true,
-                eqnull: true,
                 browser: true,
-                expr: true,
-                unused: false,
-                scripturl: true,
-                evil: true,
-                globals: {
-                    jQuery: true,
-                    cui: true,
-                    module: true,
-                },
+                unused: 'vars',
             },
             files: [
                 'src/**/*.js',

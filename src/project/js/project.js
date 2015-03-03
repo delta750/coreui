@@ -1,7 +1,8 @@
-define(['domReady','jquery','cui'], function(domReady, $, cui) {
+/*jshint unused: false */
+define(['domReady', 'jquery', 'cui'], function(domReady, $, cui) {
 
-  var app = {};
+    var app = {};
 
-  return app;
+    return app;
 
 });

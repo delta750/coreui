@@ -1,0 +1,8 @@
+{
+    // Supported options: http://jshint.com/docs/
+    // Help with debugging common error messages: http://jslinterrors.com/
+    "curly": true,
+    "eqeqeq": true,
+    "browser": true,
+    "unused": "vars"
+}
