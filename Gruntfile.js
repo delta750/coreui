@@ -238,6 +238,7 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'sass:dev',
+                    'sass:devComponents',
                     'concat:core',
                     'concat:project',
                 ],
@@ -262,9 +263,10 @@ module.exports = function(grunt) {
             images: {
                 expand: true,
                 cwd: 'src/',
-                src: ['cui/images/**.*',
-                      'project/images/**.*',
-                      'components/*/images/**.*'
+                src: [
+                        'cui/images/**.*',
+                        'project/images/**.*',
+                        'components/*/images/**.*'
                     ],
                 dest: 'dist/images',
                 filter: 'isFile',
@@ -369,7 +371,6 @@ module.exports = function(grunt) {
             'watch'
         ]);
     });
-
 
     ///////////////////
     // Miscellaneous //
