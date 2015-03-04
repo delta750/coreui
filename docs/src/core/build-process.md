@@ -1,12 +1,12 @@
 # Build Process
 
-Core UI is heavily dependent on GruntJS to build all of the files needed to create robust sites and applications. Below are explanations to all of the different tasks found inside of the `Gruntfile.js`
+Core UI uses GruntJS to build all of the files needed to create robust sites and applications. Below are explanations to all of the different tasks found inside of the `Gruntfile.js`
 
-##JSHint
+## JSHint
 
 JSHint is a JavaScript linting tool. By default all JavaScript files are linted with the exceptions for the js files stored in the `src/cui/js/vendor` folder. JSHint is run on both the production and development builds and will prevent the build process from continuing if any errors are found.
 
-##Uglify
+## Uglify
 
 Uglify is a JavaScript minification tool. By default all compiled JavaScript files in Core UI or in the project folders are minified. This is to ensure proper serving asset files come production time. The only difference between a production and a development build is the addition of `sourcemap` files. Source map files should be auto discovered when developing in chrome and link developers directly to any errors that might exist in minified files.
 
