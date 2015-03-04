@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     grunt.registerMultiTask(
         'subGrunt',
         'This multitaks handles the calling of component that have their own build processes',
-        function() {
+        function () {
 
             var gruntFile = 'Gruntfile.js';
 
@@ -17,13 +17,13 @@ module.exports = function(grunt) {
 
                 var sourcePath = folders.cwd;
 
-                folders.src.forEach(function(folder){
+                folders.src.forEach(function(folder) {
 
                     var componentFolder = path.join(sourcePath, folder);
                     var gruntFilePath = path.join(componentFolder, gruntFile);
 
                     if (grunt.file.exists(gruntFilePath)) {
-                        grunt.log.ok("Gruntfile file found in component folder: " + componentFolder);
+                        grunt.log.ok('Gruntfile file found in component folder: ' + componentFolder);
 
                         grunt.task.run('componentBuild:' + componentFolder);
                     }
@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 
             });
 
-    });
+        }
+    );
 
-}
+};

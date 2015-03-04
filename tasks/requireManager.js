@@ -9,28 +9,28 @@ module.exports = function(grunt) {
     grunt.registerMultiTask(
         'requireManager',
         'Special task for manageing requireJS components and base settings file',
-        function() {
+        function () {
 
-        // Merge task specific options with defaults.
-        var options = this.options({
-          assetTypes: { // Acceptable Asset Types to manage.
-            script: {
-              extension: ["js"],
-            },
-            style: {
-              extension: ['scss', 'css']
-            }
-          },
-          requireConfig: false,
-          configName: "component.json"
-        });
+            // Merge task specific options with defaults.
+            var options = this.options({
+                assetTypes: { // Acceptable Asset Types to manage.
+                    script: {
+                        extension: ['js'],
+                    },
+                    style: {
+                        extension: ['scss', 'css']
+                    }
+                },
+                requireConfig: false,
+                configName: 'component.json'
+            });
 
-        // Run the require component manager peice
-        componentManager.components(options, this.files);
+            // Run the require component manager peice
+            componentManager.components(options, this.files);
 
-        // Run the requirejs build process.
-        grunt.task.run('requirejs');
+            // Run the requirejs build process.
+            grunt.task.run('requirejs');
 
-    });
-
-}
+        }
+    );
+};

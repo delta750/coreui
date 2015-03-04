@@ -1,4 +1,4 @@
-var path = require('path');
+// var path = require('path');
 var fs = require('fs');
 
 // Third Party Libs
@@ -14,30 +14,32 @@ var util = module.exports = {};
 // Merge two javascript objects into the first.
 util.merge = function(obj1, obj2) {
 
-  for (var p in obj2) {
+    for (var p in obj2) {
 
-    try {
-      // Property in destination object set; update its value.
-      if ( obj2[p].constructor === Object ) {
+        try {
+            // Property in destination object set; update its value.
+            if (obj2[p].constructor === Object) {
 
-        if (obj1[p].constructor !== Object) {
-            obj1[p] = {};
+                if (obj1[p].constructor !== Object) {
+                    obj1[p] = {};
+                }
+                obj1[p] = util.merge(obj1[p], obj2[p]);
+
+            }
+            else {
+                obj1[p] = obj2[p];
+            }
+
         }
-        obj1[p] = util.merge(obj1[p], obj2[p]);
+        catch (e) {
 
-      } else {
-        obj1[p] = obj2[p];
-      }
+            // Property in destination object not set; create it and set its value.
+            obj1[p] = obj2[p];
 
-    } catch(e) {
-
-      // Property in destination object not set; create it and set its value.
-      obj1[p] = obj2[p];
-
+        }
     }
-  }
 
-  return obj1;
+    return obj1;
 
 };
 
@@ -49,9 +51,10 @@ util.merge = function(obj1, obj2) {
 util.unixifyPath = function(filepath) {
 
     if (process.platform === 'win32') {
-          return filepath.replace(/\\/g, '/');
-    } else {
-          return filepath;
+        return filepath.replace(/\\/g, '/');
+    }
+    else {
+        return filepath;
     }
 
 };
@@ -70,8 +73,9 @@ util.writeString = function(filepath, data, cb) {
 
     // Create buffer of string
     if (!Buffer.isBuffer(data)) {
-        buffer = new Buffer(data, "utf-8");
-    } else {
+        buffer = new Buffer(data, 'utf-8');
+    }
+    else {
         buffer = data;
     }
 
@@ -82,12 +86,12 @@ util.writeString = function(filepath, data, cb) {
     fs.appendFileSync(filepath, buffer);
 
     // Check to see if the callback is safe to call.
-    if(typeof(cb) === "function") {
+    if (typeof(cb) === 'function') {
 
         cb();
     }
 
-}
+};
 
 util.mergeFile = function(source, target, cb) {
 
@@ -101,11 +105,11 @@ util.mergeFile = function(source, target, cb) {
     this.writeString(target, content, function() {
 
         // Check to see if the callback is safe to call.
-        if(typeof(cb) === "function") {
+        if (typeof(cb) === 'function') {
 
             cb();
         }
 
     });
 
-}
+};
