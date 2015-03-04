@@ -8,7 +8,7 @@ Components are standalone modules consisting of JavaScript and/or CSS. Each comp
 
 Download the component you want to add to your project and place it in its own folder under `/src/components/`. It will be compiled automatically when you use [Grunt](../core/build-process.html).
 
-A component's code may be included in two ways: bundled with `cui.js` and/or `cui.css`; or as separate `myComponent.js` and `myComponent.css` files which must be conditionally loaded.
+A component's code may be included in two ways: bundled with `cui.js` and/or `cui.css`; or as separate `myComponent.js` and `myComponent.css` files which must be conditionally loaded. Components that you will use regularly on most pages should be bundled, while less frequently used components should be loaded conditionally.
 
 ## Conditional loading
 

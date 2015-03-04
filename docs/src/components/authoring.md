@@ -1,8 +1,10 @@
-# Components
+# Creating Components
 
-A component should be used whenever a particular feature or function can be abstracted enough to live and work on its own. By default components are self-contained and should not need to many external dependencies. jQuery and the CUI namespace will likely cover most external dependencies.
+A component should be used whenever a particular feature or function can be abstracted enough to live and work on its own. By default components are self-contained and should not need to many external dependencies. jQuery and the `cui.` namespace will likely cover most external dependencies.
 
-## Usage
+*This documentation is meant for advanced developers who are already familiar with [using components](index.html) in Core UI.*
+
+## Structure
 
 Each component resides in its own folder under `/src/components/`. This folder follows a standardized structure that makes development simple and flexible.
 
@@ -23,61 +25,27 @@ src/
             ├─ _settings.scss
 ```
 
-Since this follows a standard naming structure (all files are named `validator`) this component will be compiled automatically when you use Grunt. This structure should be sufficient for most components.
+Since this follows a standard naming structure (all files are named `validator`) the component will be compiled automatically by Grunt. This structure should be sufficient for most components.
 
-The `component.json` file contains information about how the component should be built. You can find a [sample file and read about more configuration options](#component-json).
+The `component.json` file contains information about how the component should be built. You can find a [sample file and read about more configuration options](#component-json) below.
 
-The `_settings.scss` file defines...... ?
+The `_settings.scss` file allows developers to customize your component's style. You should put any customizable styles (i.e. Sass variables) into this file that a developer may want to change.
 
-### Advanced example
-
-TODO. A component with mulitple JS files, etc.
+Ideally, a developer should never have to change your `js/validator.js` or `scss/validator.scss` files to suit their needs &mdash; the component should be completely configurable by changing `component.json` and `_settings.scss` and should inherit the project's look and feel as much as possible.
 
 ## `component.json`
 
-This file defines how your component will be built.
+This file defines how your component will be built. By including the `component.json` file, developers have a few options they can customize.
+
+If this file is not present the default options will be applied. Also, if the build process can find a `.js` or `.scss` file with the same name as the component folder it will be built as a lazy loadable component.
 
 ### Options
 
-- `name` (string)
-    + The name of the component which should match the folder and JS/SCSS file names
-- `lazy` (Boolean)
-    + Whether or not the component will be lazy-loaded. If `true`, separate `myComponent.js` and `myComponent.css` files will be generated and you will need to include them in your project manually. If `false`, the JS and CSS will be bundled with `cui.js`.
-- `assets` (array of string)
-    + This should list the types of assets your component has (e.g. `script` and `style`).
-
-### Installation
-
-To install a component drop the component folder into the `src/components/` directory. Please note file system directories must all be different names. Simple adding a component (that is in the proper component strucutre) should be all that is needed to make the component to your project. Simply rebuild your project using the command `grunt` or `grunt dev` and the component should be included. If a component is a core part of your project (meaning the component is used heavely through-out the project in question) you may want to consider making the component part of your default `cui` bundle. To do this see the section below outlining component configs.
-
-### Folder structure
-
-Components should have a very specific folder structure. By default a component folder should look similar to:
-
-```
-[component_name]
-   L images
-   L js
-      L [component_name].js
-   L scss
-      L [component_name].scss
-   L component.json
-   L _settings.scss
-```
-
-#### component.json
-
-The `component.json` file is the components level setting file. If this file is not present, it is assumed that if the component is a lazyloadable component with no special settings. This means that if the build process can find a script or stylesheet file with the same name as the component folder, it will be added as a lazy loadable item.
-
-By including the `component.json` file, developers have a few items they can customize. Please see the next section for all the current component.json options.
-
-##### Component options
-
 Option        | Data Type    | Description
 --------------|--------------|-------------
+**lazy**      | Boolean | Indicates that this component should be lazy-loadable or not. If `true`, separate `myComponent.js` and `myComponent.css` files will be generated and you will need to include them in your project manually. If `false`, the JS and CSS will be bundled with `cui.js`. *(Default: `true`)*
 **name**      | String       | Overrides the component folder name with a developer-defined name. Please note this does not prevent or override other items with the same name. It also does not override the default concatenation of defined names when components have multiple asset types. For example, component called `alpha` the script would be defined as `alpha` but the stylesheet would still be defined as `alphaStyle`.
-**lazy**      | Boolean | Indicates that this component should be lazy loadable or not. Default if this option is missing is `true`
-**assets**    | Array | Indicates the asset types the component should be looking for come build time. IE. If the component has styles that do not need to be included at build, then a value of `["script"] will ensure the styles (sass file) are ignored.
+**assets**    | Array | Indicates the asset types the component should include when built. For example, if a component has styles that do not need to be included with the build you would set this to `["script"]` to ensure the styles (Sass file) are ignored.
 
 Sample file:
 
@@ -89,53 +57,32 @@ Sample file:
 }
 ```
 
-### _settings.scss
+## JavaScript
 
-This allows developers to customize the component's style. Component developers should include this file with any customizable styles (i.e. Sass variables) that apply to the component directly.
+When creating script files, be sure to use the proper RequireJS [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) ceremony.
 
-### How to create a custom component
-
-When creating a component follow the defined structure above. Include only the folders and files that you need, also be sure to include the component.json file as its a best practice.
-
-When creating script files, be sure to use the proper RequireJS AMD ceremony:
+Consider this example:
 
 ```js
 define(['jquery', 'cui', 'css!styles'], function($, cui) {
-    // Component script code.
+    // Write your component script code here
 });
 ```
 
-In the above example, this component is defines itself and says its dependent on 3 other assets. The first being `jquery` and the second being the `cui` object. Note that these two items match up with the arguements listed in its anonymous function found after the array. In this particular example, we define jquery and it is made accessible to the component through the standard `$` shortcut. For the `cui` object the `cui` argument is its access point. In the case of this component these variable names could be anything, but for the sake of best practice, these arguments reflect the standard way developer should be interacting with both jQuery and cui.
+This component is dependent on 3 other assets. The first two are `jquery` and the `cui` object. These two items match up with the arguments listed in its anonymous callback function found after the array. You may choose any variable names, but for the best practice is to reflect the standard way developers should be interacting with the dependencies (e.g. jQuery is accessed with `$()`).
 
-Developers might also notice that the `css!styles` dependancy is declared but is not accessilbe or have a defined argument. This is because this simply flags the asset as a stylesheet depedancy. We dont provide an argument because the argument would not have any usable content in the end.
+Developers might also notice that the `css!styles` dependency is declared but is not accessible and does not have a defined argument. This is because the `css!` prefix identifies the asset as a stylesheet which is not applicable in a JavaScript function. Prefixes are discussed further in the next section.
 
-#### Loading different asset types.
+### Loading different asset types
 
-By default, by declaring the name of file in a define statement, requireJS assumes that the item being defined is a JavaScript asset. This is not always the case. In-fact CUI has bundled 3 additional load and definable types. These are `css!`, `json!` and `text!`.
+By default, declaring the name of file in `define()` implies that it is a JavaScript asset. However this is not always the case so Core UI has bundled 3 additional load and definable types:
 
-Load Types | Description
----------- | -----------
-css!       | use when declaring `css` dependancies
-json!      | use when declaring `json` specific file. For this type, be sure to add `.json` to the name of the define, if its not know to th standard build system
-text!      | use when loading any other type of text base assets. Examples include `.html`, `.hbs`, etc. Also be sure to define the proper extention with this item.
+Load Type | Description
+--------- | -----------
+css!      | Use when declaring `css` dependencies
+json!     | Use when declaring `json` specific file. For this type, be sure to add `.json` to the name of the define
+text!     | Use when loading any other type of text-based assets, including HTML, `.hbs` templates, etc. Also be sure to define the proper file extention with this item.
 
-### Bundling with your project
+## Advanced example
 
-TODO:
-
-- How to update the gruntfile to spit out the JS file (that's how we do it, right?)
-- How to `@import` the Sass file in your `project.scss`
-    + Do they need to use `@include` as well?
-
-### Conditional loading
-
-Once a page loads the components that load by default are only those included in the `cui` bundle. To load addtional components based on logic or existance of specific elements use the `cui.load()` function. Only lazy loadable components defined during the build time are currently avaliable. Below shows a simple example of `cui.load()` in use:
-
-```js
-// Check for specific element
-if ($('.tooltip').length) {
-    cui.load(['tooltip']); // Loads the tooltip component.
-}
-```
-
-Based on the example above, as long as the `tooltip` component was part of the project `dist` folder when it was compiled, require should already know about the component and load it onto the page. Because requireJS is still managing our resources, even if the `tooltip` load is called multiple times throught out the script based on different conditions, it wil still ensure that it is only loaded once. Also if `tooltip` has additional dependancies, as long as those dependancies are also know to require a build tip, require will make sure all of the proper components are loaded into memory and will only execute the script once all those depedancies have been meet.
+TODO. A component with mulitple JS files, etc.
