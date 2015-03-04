@@ -1,3 +1,3 @@
 define(['testComponent','testComponent2Sub'], function() {
-  console.log("test component 2");
+    console.log('Test component 2, step 2');
 });

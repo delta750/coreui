@@ -1,5 +1,5 @@
 define(['css!testComponentStyle'], function() {
 
-  console.log("test component has been loaded!");
+  console.log('Test component 1 has been loaded!');
 
 });

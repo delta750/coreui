@@ -2,7 +2,7 @@
 var path = require('path');
 
 // Node third party libs
-var chalk = require('chalk');
+// var chalk = require('chalk');
 
 exports.init = (function(grunt) {
 

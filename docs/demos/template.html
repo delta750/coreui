@@ -456,24 +456,26 @@
     <script>
     require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
-        console.log('done');
-        console.log(cui.load);
+        console.log('Ready...');
+        // console.log(cui.load);
 
-        // ask cui to load a test componenet (// Need to swap this out for a real componenet at some point);
+        // Ask cui to load a test componenet (Need to swap this out for a real componenet at some point)
         cui.load(['testComponent2', 'testComponent'], function() {
-          console.log('this is a function that should run once all of the requested items have been loaded.');
+            console.log('this is a function that should run once all of the requested items have been loaded.');
         });
 
-        //console.log(cui.library);
+        // console.log(cui.library);
 
-        cui.load(['testComponent2'], function() { console.log("this is a second call on-purpose"); });
+        cui.load(['testComponent2'], function() {
+            console.log('This is a second call on purpose to make sure it\'s not loaded twice');
+        });
 
-        //cui.load(['testComponent']);
+        // cui.load(['testComponent']);
 
-        //require(['testComponent']);
+        // require(['testComponent']);
 
-        cui.load('datepicker', function(dp) {
-              console.log('datepicker loaded: ', dp);
+        cui.load('datepicker', function() {
+            console.log('datepicker loaded: ', cui.datepicker);
         });
 
     });

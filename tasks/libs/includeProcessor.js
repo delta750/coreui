@@ -1,12 +1,12 @@
 // Native Node Libraries
-var path = require('path');
+// var path = require('path');
 
 // Third Party Libraries
 var chalk = require('chalk');
 var grunt = require('grunt');
 
 // Internal Libraries
-var _utility = require('./utility');
+// var _utility = require('./utility');
 
 // Function will recursively search for a specific file in a give root directory
 function findSingleFile(haystake, needle) {

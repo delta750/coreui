@@ -1,9 +1,9 @@
 // Native Node Libraries
-var path = require('path');
-var fs = require('fs');
+// var path = require('path');
+// var fs = require('fs');
 
 // Third Party Libraries
-var chalk = require('chalk');
+// var chalk = require('chalk');
 var grunt = require('grunt');
 
 // Internal Libraries
