@@ -100,6 +100,8 @@ lazy.singleFile = function(type, taskOptions, component, assetOptions, cb) {
           // Pull the result out of the array.
           potentialFiles = potentialFiles[0];
 
+          console.log(potentialFiles);
+
           // Check to see if the end destination is a flat location.
           if (assetOptions.flatten || potentialFiles.subdir.length === 0) {
 

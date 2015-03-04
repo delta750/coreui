@@ -73,7 +73,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'src',
                     dest: 'dist/js/components/',
-                    src: ['components/*/js/**/*.js'],
+                    src: ['components/**/js/**/*.js'],
                     flatten: true,
                 }],
             },
@@ -210,9 +210,13 @@ module.exports = function(grunt) {
             },
 
             scripts: {
-                files: 'src/**/*.js',
+                files: [
+                    'src/**/*.js',
+                    '!src/components/*/dist/**/*.js' // To ignore generated component files
+                ],
                 tasks: [
                     'jshint',
+                    'subGrunt',
                     'uglify:devVendor',
                     'uglify:devComponents',
                     'requireManager'
@@ -312,6 +316,15 @@ module.exports = function(grunt) {
             }
         },
 
+        subGrunt: {
+            components: {
+                files: [{
+                    cwd: 'src/components/',
+                    src: '*'
+                }]
+            }
+        }
+
     });
     // End of plugin configuration
     // Next we define the tasks we want to use
@@ -330,6 +343,7 @@ module.exports = function(grunt) {
     grunt.registerTask('prod', 'Production', function(args) {
         grunt.task.run([
             'jshint',
+            'subGrunt',
             'requireManager',
             'sass:prod',
             'sass:prodComponents',
@@ -347,6 +361,7 @@ module.exports = function(grunt) {
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
             'jshint',
+            'subGrunt',
             'requireManager',
             'sass:dev',
             'sass:devComponents',
@@ -357,6 +372,38 @@ module.exports = function(grunt) {
             'connect',
             'watch'
         ]);
+    });
+
+    // Task used to camm component builds on subfolders.
+    grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function(dir) {
+
+        var done = this.async();
+
+        grunt.log.ok(dir);
+
+        //var options = JSON.stringify(componentOptions)
+
+        grunt.util.spawn({
+            grunt: true,
+            args:['componentBuild', "--path=" + dir ],
+            opts: {
+                cwd: dir
+            }
+        },
+
+        function(err, result, code) {
+            if (err == null) {
+                grunt.log.writeln('processed ' + dir);
+                grunt.log.writeln(result);
+                done();
+            }
+            else {
+                grunt.log.writeln('processing ' + dir + ' failed: ' + code);
+                grunt.log.writeln(result);
+                done(false);
+            }
+        });
+
     });
 
     ///////////////////

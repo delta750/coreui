@@ -465,15 +465,17 @@
 
         //console.log(cui.library);
 
-        //cui.load(['testComponent2'], function() { console.log("this is a second call on-purpose"); });
+        cui.load(['testComponent2'], function() { console.log("this is a second call on-purpose"); });
 
-        cui.load(['testComponent']);
+        //cui.load(['testComponent']);
 
         //require(['testComponent']);
 
+        /*
         require(['datepicker'], function(dp) {
               console.log('datepicker loaded: ', dp);
         });
+        */
 
     });
     </script>

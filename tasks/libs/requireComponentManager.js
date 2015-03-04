@@ -127,7 +127,7 @@ exports.init = (function(grunt) {
       taskOptions.baseDest = folders.dest;
 
       // Loop through all the individual folders
-      folders.src.forEach(function(component){
+      folders.src.forEach(function(component) {
 
         // Setup the component definition
         var compDefinition = {
