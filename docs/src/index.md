@@ -15,7 +15,11 @@ Core UI is designed for easy development of web applications and static web page
 
 ## Components
 
-[General overview](components/)
+[Using components](components/)
+
+[Authoring your own component](components/authoring.html)
+
+### Core components
 
 - [Date picker](components/components/datepicker.html)
 - [Tooltip](components/components/tooltip.html)
