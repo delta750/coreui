@@ -1,8 +1,6 @@
 # Components
 
-Components are standalone modules consisting of JavaScript and/or CSS. Each component is completely independent and may be bundled with the project's JS/CSS or loaded separately (e.g. based on some condition).
-
-*This guide is for **implementing** a pre-made component in your project. For creating your own component, see the [authoring documentation](authoring.html)*
+A component should be used whenever a particular feature or function can be abstracted enough to live and work on its own. By default components are self-contained and should not need to many external dependencies. jQuery and the CUI namespace will likely cover most external dependencies.
 
 ## Usage
 
