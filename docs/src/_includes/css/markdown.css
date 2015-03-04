@@ -1,0 +1,404 @@
+/*
+Adapted from Kevin Burke's Markdown.css project: http://kevinburke.bitbucket.org/markdowncss
+
+blue:   #3A87AD
+navy:   #005580 (or #1E347B)
+green:  #468847
+red:    #B94A48
+yellow: #C09853
+
+*/
+
+body {
+    margin: 0 auto;
+    /*font-family: "Segoe UI", Calibri, "Myriad Pro", Verdana, sans-serif;
+    color: #444444;
+    line-height: 1;*/
+    max-width: 980px;
+    padding: 5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    /*color: #005580;*/
+    /*font-weight: 400;*/
+}
+/*
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    margin-bottom: 16px;
+    padding: 0;
+}
+
+h1 {
+    font-size: 32px;
+    border-bottom: 1px solid #ddd;
+}
+
+h2 {
+    font-size: 28px;
+    margin: 20px 0 6px;
+    font-weight: normal;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+h4 {
+    font-size: 20px;
+    font-style: italic;
+}
+
+h5 {
+    font-size: 16px;
+}*/
+
+/* Separation between major sections */
+p + h1,
+p + h2 {
+    margin-top: 1em;
+}
+
+a,
+a:link {
+    /*color: #3A87AD;*/ /* same as rgb(58, 135, 173) */
+    /*margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    text-decoration: none;
+    border-bottom: 1px solid #3A87AD;
+    border-bottom-color: rgba(58, 135, 173, 0.5);
+    transition: border-color 150ms ease-in, color 150ms ease-in;*/
+}
+
+a:active,
+a:focus,
+a:hover {
+    /*text-decoration: underline;*/
+    /*border-bottom-color: transparent;
+    color: rgb(128, 0, 128);*/
+}
+
+a:visited {
+    /*color: rgb(128, 0, 128); // standard purple*/
+    /*border-bottom-color: white;*/
+}
+/*
+ul,
+ol {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    line-height: 24px;
+    margin-left: 24px;
+}
+
+li ul {
+    margin-left: 0;
+}
+
+p,
+ul,
+ol {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+p code {
+    line-height: 20px;
+}
+
+pre {
+    padding: 8px 16px;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    box-shadow: 0 0 2px 0px rgba(128, 128, 128, 0.2) inset;
+    background-color: #F7F7F9;
+    border: 1px solid #E1E1E8;
+    border-radius: 4px;
+}
+
+code {
+    font-family: "Source Code Pro", Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.4;
+    font-size: 14px;
+    color: #3A87AD;
+}
+
+img {
+    max-width: 100%;
+}*/
+
+/* Standalone images (usually screenshots) are centered */
+/*body > p > img {
+    display: block;
+    margin: 0 auto;
+}
+
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+
+blockquote {
+    border-left: .5em solid #eee;
+    padding: 0 2em;
+    margin-left: 0;
+    max-width: 476px;
+}
+
+blockquote cite {
+    font-size: 14px;
+    line-height: 20px;
+    color: #bfbfbf;
+}
+
+blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+blockquote p {
+    color: #666;
+    max-width: 460px;
+}
+
+hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+}
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+    *vertical-align: middle;
+}
+
+button,
+input {
+    line-height: normal;
+    *overflow: visible;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    cursor: pointer;
+}*/
+
+/* override default chrome & firefox settings */
+
+/*input:not([type="image"]),
+textarea {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+label,
+input,
+select,
+textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: normal;
+    margin-bottom: 18px;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+input[type=text],
+input[type=password],
+textarea,
+select {
+    display: inline-block;
+    width: 210px;
+    padding: 4px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    height: 18px;
+    color: #808080;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+select,
+input[type=file] {
+    height: 27px;
+    line-height: 27px;
+}
+
+textarea {
+    height: auto;
+}*/
+
+/* grey out placeholders */
+
+/*:-moz-placeholder {
+    color: #bfbfbf;
+}
+
+::-webkit-input-placeholder {
+    color: #bfbfbf;
+}
+
+input[type=text],
+input[type=password],
+select,
+textarea {
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+textarea:focus {
+    outline: none;
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+button {
+    display: inline-block;
+    padding: 4px 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: #0064cd;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+    background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+    background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+    background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+    background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+    background-image: linear-gradient(top, #049cdb, #0064cd);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border: 1px solid #004b9a;
+    border-bottom-color: #003f81;
+    -webkit-transition: 0.1s linear all;
+    transition: 0.1s linear all;
+    border-color: #0064cd #0064cd #003f81;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+    color: #fff;
+    background-position: 0 -15px;
+    text-decoration: none;
+}
+
+button:active {
+    box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}*/
+
+
+/*custom*/
+
+
+.markdown-body {
+    color: #444;
+    max-width: 980px;
+    margin: 1em auto;
+}
+
+/*html .markdown-body h1,*/
+/*html .markdown-body h2,*/
+html .markdown-body h3,
+html .markdown-body h4,
+html .markdown-body h5,
+html .markdown-body h6 {
+    font-weight: normal;
+}
+
+/* Code blocks */
+
+html .markdown-body > pre { /* `html` for specifitity */
+    /*background-color: #fff;*/ /*#fafafa;*/ /*#fff;*/
+}
+
+.lang-html {
+    color: #333;
+}
+
+.lang-html .tag { /* Brackets and equals signs */
+    /*color: #333; Github does this, but I like having the same color as the tag name */
+    color: #63a35c;
+}
+
+.lang-html .title { /* Tag name */
+    color: #63a35c;
+}
+
+.lang-html .attribute {
+    color: #795da3;
+}
+
+.lang-html .value {
+    color: #df5000;
+}
+
+.lang-html .javascript {
+    color: #0086b3;
+}
+
+.lang-html .comment {
+    color: #969896;
+}
