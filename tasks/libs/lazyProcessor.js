@@ -35,28 +35,6 @@ function findSingleFile(haystake, needle) {
 
 }
 
-// Function will make a copy of a file so we dont have to use another soruce
-function moveAsset(src, dest, filename) {
-
-    function copyFile(src, dest) {
-
-        grunt.file.copy(src, dest, {encode: 'utf8'});
-
-    }
-
-    // Cleanup path names for the correct platforms.
-    src = _utility.unixifyPath(src);
-    destFile = _utility.unixifyPath(path.join(dest, filename));
-
-    // Check to make sure the directory exists, if not make it
-    if (!grunt.file.exists(dest)) {
-        grunt.file.mkdir(dest);
-    }
-
-    copyFile(src, destFile);
-
-}
-
 // Define the module
 var lazy = module.exports = {};
 
@@ -100,8 +78,6 @@ lazy.singleFile = function(type, taskOptions, component, assetOptions, cb) {
           // Pull the result out of the array.
           potentialFiles = potentialFiles[0];
 
-          console.log(potentialFiles);
-
           // Check to see if the end destination is a flat location.
           if (assetOptions.flatten || potentialFiles.subdir.length === 0) {
 
@@ -112,11 +88,6 @@ lazy.singleFile = function(type, taskOptions, component, assetOptions, cb) {
              // We need to keep the subpath, plus we are adding the component folder
              var destPath = path.join(taskOptions.baseDest, assetOptions.loadSource, component.rootFolder, potentialFiles.subdir );
 
-          }
-
-          // Now check to see if we need to move files in this task for this asset.
-          if (assetOptions.moveAssets) {
-              moveAsset(potentialFiles.srcPath, destPath, potentialFiles.filename);
           }
 
           // Correct the pathing based on the type

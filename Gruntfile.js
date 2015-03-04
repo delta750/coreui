@@ -332,7 +332,7 @@ module.exports = function(grunt) {
                     src: '*'
                 }]
             }
-        }
+        },
 
         // Compile markdown files into HTML (e.g. for documentation)
         // https://github.com/treasonx/grunt-markdown

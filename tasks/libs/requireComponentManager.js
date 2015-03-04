@@ -41,13 +41,11 @@ exports.init = (function(grunt) {
       assetTypes: {
         script: {
           process: "singleFile", // Marks that process type allowed
-          moveAssets: false, // Indicates if this function should move the script files
           loadSource: "components/", // Location where lazy load components should appear
           flatten: true // Tell the load path to ignore sub directorys
         },
         style: {
           process: "singleFile",
-          moveAssets: false,
           loadSource: "css/components/",
           flatten: true
         },

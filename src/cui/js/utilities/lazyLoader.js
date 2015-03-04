@@ -70,7 +70,7 @@ define(['require'], function (require) {
     if (typeof(request) === "string") {
 
       // Handle the one off request.
-      processor(request, requestCallBack);
+      processor(request, requestCb);
 
     } else {
 
