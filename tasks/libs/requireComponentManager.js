@@ -14,7 +14,6 @@ exports.init = (function(grunt) {
         var _utility = require('./utility');
         var writeSettings = require('./writeSettings');
         var buildDefinition = require('./buildDefinition');
-
         var lazyComponents = [];
         var includeComponents = [];
         var excludedComponents = [];

@@ -11,26 +11,17 @@ module.exports = function(grunt) {
         'Special task for manageing requireJS components and base settings file',
         function () {
 
-            // Merge task specific options with defaults.
-            var options = this.options({
-                assetTypes: { // Acceptable Asset Types to manage.
-                    script: {
-                        extension: ['js'],
-                    },
-                    style: {
-                        extension: ['scss', 'css']
-                    }
-                },
-                requireConfig: false,
-                configName: 'component.json'
-            });
+          var requireManager = require('./libs/requireManager/manager');
+          var collectComponents = require('./libs/requireManager/collect');
+          var process = require('./libs/requireManager/process');
 
-            // Run the require component manager peice
-            componentManager.components(options, this.files);
-
-            // Run the requirejs build process.
-            grunt.task.run('requirejs');
-
+          // Setup the manager by giving it access to the task and grunt namespaces
+          requireManager.init(this, grunt)
+            .addStep(collectComponents.findAll)
+            .addStep(collectComponents.sortComponents)
+            .addStep(process.components)
+            .execute();
         }
+
     );
 };

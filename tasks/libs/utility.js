@@ -43,6 +43,12 @@ util.merge = function(obj1, obj2) {
 
 };
 
+util.kindOf = function(obj) {
+
+    return grunt.util.kindOf(obj);
+
+}
+
 /***
  * Path Cleanup Utilties
  ***/
@@ -118,11 +124,13 @@ util.mergeFile = function(source, target, cb) {
  * Search File Utilities
  ***/
 
- // Function will recursively search for a specific file in a give root directory
- util.findSingleFile = function(haystake, needle) {
+// Function will recursively search for a specific file in a give root directory
+util.singleFile = function(haystake, needle) {
 
+    // Collect everything from here.
     var results = [];
 
+    // use the grunt utility to find the file being requrest
     grunt.file.recurse(haystake, function(abspath, rootdir, subdir, filename) {
 
         if (filename === needle) {
@@ -137,6 +145,11 @@ util.mergeFile = function(source, target, cb) {
 
     });
 
-    return results;
+    if (results.length === 1) {
+        return results[0];
+    }
 
- }
+    return false;
+
+
+}
