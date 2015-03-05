@@ -1,15 +1,16 @@
 module.exports = function(grunt) {
 
-    //grunt.file.setBase('../../../');
-
     // Project configuration.
     grunt.initConfig({
         distPath: '',
         concat: {
             // Development only
             devJS: {
-                src: ['js/partial2.js', 'js/partial1.js'],
-                dest: 'dist/js/testComponent2.js',
+                src: [
+                        'js/partial2.js',
+                        'js/partial1.js'
+                    ],
+                dest: 'dist/js/components/testComponent2.js',
             }
 
         }
@@ -22,7 +23,7 @@ module.exports = function(grunt) {
     grunt.registerTask('componentBuild', 'This task is called only when main gruntfile calls for it.', function() {
 
         // Get passed arguments found in the option flags
-        var path = grunt.option.flags()[0].split("--path=")[1];
+        var path = grunt.option.flags()[0].split('--path=')[1];
 
         // Need to change the base path to match where the actual project root is located
         grunt.file.setBase('../../../');
