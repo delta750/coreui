@@ -2,7 +2,7 @@
 var fs = require('fs');
 
 // Third Party Libs
-// var grunt = require('grunt');
+var grunt = require('grunt');
 
 // Declare this module
 var util = module.exports = {};
@@ -113,3 +113,30 @@ util.mergeFile = function(source, target, cb) {
     });
 
 };
+
+/***
+ * Search File Utilities
+ ***/
+
+ // Function will recursively search for a specific file in a give root directory
+ util.findSingleFile = function(haystake, needle) {
+
+    var results = [];
+
+    grunt.file.recurse(haystake, function(abspath, rootdir, subdir, filename) {
+
+        if (filename === needle) {
+
+            // Add a full object of info to results
+            results.push({
+                srcPath: abspath,
+                subdir: subdir,
+                filename: filename
+            });
+        }
+
+    });
+
+    return results;
+
+ }

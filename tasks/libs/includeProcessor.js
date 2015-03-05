@@ -1,37 +1,9 @@
-// Native Node Libraries
-// var path = require('path');
-
 // Third Party Libraries
 var chalk = require('chalk');
 var grunt = require('grunt');
 
 // Internal Libraries
-// var _utility = require('./utility');
-
-// Function will recursively search for a specific file in a give root directory
-function findSingleFile(haystake, needle) {
-
-    var results = [];
-
-    grunt.file.recurse(haystake, function(abspath, rootdir, subdir, filename) {
-
-        if (filename === needle) {
-
-            // Add a full object of info to results
-            results.push(temp = {
-                srcPath: abspath,
-                subdir: subdir,
-                filename: filename
-            });
-
-        }
-
-    });
-
-    return results;
-
-}
-
+var _utility = require('./utility');
 
 // Define the module
 var include = module.exports = {};
@@ -61,7 +33,7 @@ include.singleFile = function(type, taskOptions, component, assetOptions, cb) {
         var tempName = srcFilename + '.' + ext;
 
         // Go find the needle
-        var returnList = findSingleFile(component.rootFolderPath, tempName);
+        var returnList = _utility.findSingleFile(component.rootFolderPath, tempName);
 
         if (returnList.length > 0) {
 

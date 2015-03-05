@@ -2,7 +2,12 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        distPath: '',
+
+        // Flush dist file every build.
+        clean: {
+            dist: ['dist']
+        },
+
         concat: {
             // Development only
             devJS: {
@@ -17,7 +22,7 @@ module.exports = function(grunt) {
     });
 
     // Default task(s).
-    grunt.registerTask('default', ['concat']);
+    grunt.registerTask('default', ['clean', 'concat']);
 
     // Special grunt task that should be used only when this component is being called by core ui.
     grunt.registerTask('componentBuild', 'This task is called only when main gruntfile calls for it.', function() {
