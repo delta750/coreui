@@ -15,9 +15,19 @@ var requireManager = function() {
         requireSetting: false,
         settingFileName: 'component.json',
         buildFileName: 'Gruntfile.js',
+        distFolder: 'dist/',
+        tempFolder: 'tasks/libs/requireManager/temp/',
+        partialFolder: 'tasks/libs/requireManager/_partials',
         defaultSetting: {
-          lazy: true,
-          settings: false
+              lazy: true,
+              settings: false
+        },
+        requireSettings: {
+              anonymousWrapper: true,
+              baseUrl: true,
+              fileName: 'settings.js',
+              customInit: false,
+              baseInitFile: 'init.js'
         }
     });
 

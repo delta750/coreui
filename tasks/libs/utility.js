@@ -74,61 +74,6 @@ util.unixifyPath = function(filepath) {
 
 };
 
-
-/***
- * File Writing Utilities
- ***/
-
-// Function for writing strings to files.
-util.writeString = function(filepath, data, cb) {
-
-    //console.log(filepath);
-
-    var buffer;
-
-    // Create buffer of string
-    if (!Buffer.isBuffer(data)) {
-        buffer = new Buffer(data, 'utf-8');
-    }
-    else {
-        buffer = data;
-    }
-
-    // Fix the pathing
-    filepath = this.unixifyPath(filepath);
-
-    // Create or append to the file.
-    fs.appendFileSync(filepath, buffer);
-
-    // Check to see if the callback is safe to call.
-    if (typeof(cb) === 'function') {
-
-        cb();
-    }
-
-};
-
-util.mergeFile = function(source, target, cb) {
-
-    // Get the source file path and clean it up
-    source = this.unixifyPath(source);
-
-    // Pull the content out of the file
-    var content = fs.readFileSync(source);
-
-    // Call the writeString function to append the contents of the source file onto the target.
-    this.writeString(target, content, function() {
-
-        // Check to see if the callback is safe to call.
-        if (typeof(cb) === 'function') {
-
-            cb();
-        }
-
-    });
-
-};
-
 /***
  * Search File Utilities
  ***/
@@ -161,5 +106,43 @@ util.singleFile = function(haystake, needle, source) {
 
     return false;
 
+}
+
+/***
+ * Write File utilites
+ ***/
+
+util.appendToFile = function(filePath, data) {
+
+    var buffer;
+
+    // Create buffer of string
+    if (!Buffer.isBuffer(data)) {
+        buffer = new Buffer(data, 'utf-8');
+    }
+    else {
+        buffer = data;
+    }
+
+    // Fix the pathing
+    filePath = this.unixifyPath(filePath);
+
+    // Create or append to the file.
+    fs.appendFileSync(filePath, buffer);
 
 }
+
+util.mergeFile = function(target, source) {
+
+    console.log("merge called");
+
+    // Get the source file path and clean it up
+    source = this.unixifyPath(source);
+
+    // Pull the content out of the file
+    var content = fs.readFileSync(source);
+
+    // Merge by using append.
+    this.appendToFile(target, content);
+
+};

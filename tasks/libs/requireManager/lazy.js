@@ -28,17 +28,15 @@ var lazy = function() {
                 defintionName = component.name;
 
             // Check to see if the lazy definition tagged with asset type is defined.
-            } else if (!lazyDefinitions[componnet.name + type]) {
+            } else if (!lazyDefinitions[component.name + _util.uCaseFirst(type)]) {
 
-                defintionName = componnet.name + _util.uCaseFirst(type);
+                defintionName = component.name + _util.uCaseFirst(type);
 
             }
 
             lazyDefinitions[defintionName] = path.join(typeDef.lazyLoadPath, component.name);
 
         });
-
-        console.log(lazyDefinitions);
 
     }
 

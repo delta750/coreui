@@ -31,6 +31,9 @@ var collectComponents = function() {
                     var componentFile = path.join(folderPath, options.settingFileName);
                     var componentBuild = path.join(folderPath, options.buildFileName);
 
+                    // Lets get generic component settings
+                    var component = _util.merge({}, options.defaultSetting);
+
                     // Check to see if a component settings file exists, if it does, load it,
                     // if not load a default object from the task options
                     if (grunt.file.exists(componentFile)) {
@@ -38,18 +41,12 @@ var collectComponents = function() {
                         // Get a copy of the default settings JSON
                         var temp = grunt.file.readJSON(componentFile);
 
-                        // Merge our settings with the component settings
-                        var component = _util.merge({}, options.defaultSetting);
-
                         component = _util.merge(component, temp);
 
                         // Indicate settings file was found
                         component.settings = true;
 
                     } else {
-
-                        // No setting file so pull in a default object from settings
-                        var component = _util.merge({}, options.defaultSetting);
 
                         // Set the component name to match the name.
                         component.name = folder;
@@ -62,6 +59,11 @@ var collectComponents = function() {
 
                     // Check to see if the component has its own build
                     component.build = (grunt.file.exists(componentBuild)) ? true : false;
+
+                    // Alter the source path based on build status
+                    if (component.build) {
+                        component.srcPath = path.join(component.srcPath, options.distFolder);
+                    }
 
                     // Check for an assets property.
                     if (component.assets) {
