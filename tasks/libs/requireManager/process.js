@@ -29,7 +29,7 @@ var process = function() {
 
                             case "lazy":
 
-                                lazy.saveAsset(rm, assetRequest, componentAssets[type], components[component]);
+                                lazy.saveAsset(rm, assetRequest, type, componentAssets[type], components[component]);
 
                                 break;
 

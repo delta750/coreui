@@ -14,24 +14,31 @@ var assets = function() {
     var singleFile = function(component, type, typeDef) {
 
         // Check to see if a user defined a different filename, just in case otherwise use component name
-        var requestedFile = (typeDef.differentName) ? typeDef.differentName : component.name;
+        var sourceFile = (typeDef.differentName) ? typeDef.differentName : component.name;
 
         // Regular expression for filename
         var re = /(?:\.([^.]+))?$/;
 
 
         // Check to make sure this is a valid filename
-        if (re.exec(requestedFile)) {
+        if (re.exec(sourceFile)) {
 
             // Add the default extention to the filename
-            requestedFile += "." + typeDef.ext;
+            var requestedFile = sourceFile + "." + typeDef.ext;
+
+        } else {
+
+            var requestedFile = sourceFile;
+
+            // We want to preserve the name of the file without the
+            sourceFile = sourceFile.split(".")[0];
 
         }
 
         // Attempt to go find the resource.
-        var file = _util.singleFile(component.srcPath, requestedFile);
+        var file = _util.singleFile(component.srcPath, requestedFile, sourceFile);
 
-        return file; 
+        return file;
     }
 
 

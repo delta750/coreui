@@ -8,6 +8,15 @@ var grunt = require('grunt');
 var util = module.exports = {};
 
 /***
+ * String Functions
+ ***/
+
+// Capitialize the first letter of a string
+util.uCaseFirst = function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+/***
  * Object Functions
  ***/
 
@@ -125,7 +134,7 @@ util.mergeFile = function(source, target, cb) {
  ***/
 
 // Function will recursively search for a specific file in a give root directory
-util.singleFile = function(haystake, needle) {
+util.singleFile = function(haystake, needle, source) {
 
     // Collect everything from here.
     var results = [];
@@ -137,6 +146,7 @@ util.singleFile = function(haystake, needle) {
 
             // Add a full object of info to results
             results.push({
+                source: source,
                 srcPath: abspath,
                 subdir: subdir,
                 filename: filename

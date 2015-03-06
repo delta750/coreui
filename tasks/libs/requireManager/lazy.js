@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 
 // Inculde our utility object
 var _util = require('../utility');
@@ -6,7 +7,7 @@ var _util = require('../utility');
 var lazy = function() {
 
     // Function to handle
-    var saveAsset = function(rm, assets, type, component) {
+    var saveAsset = function(rm, assets, type, typeDef, component) {
 
         var lazyDefinitions = rm.lazyDefinitions;
 
@@ -18,11 +19,22 @@ var lazy = function() {
         // Iterate all assets
         assets.forEach(function(asset) {
 
+            var defintionName;
+
+            // Check to see if a definition already exists
             if (!lazyDefinitions[component.name]) {
 
-                lazyDefinitions[component.name] = type.lazyLoadPath;
+                // Create the path
+                defintionName = component.name;
+
+            // Check to see if the lazy definition tagged with asset type is defined.
+            } else if (!lazyDefinitions[componnet.name + type]) {
+
+                defintionName = componnet.name + _util.uCaseFirst(type);
 
             }
+
+            lazyDefinitions[defintionName] = path.join(typeDef.lazyLoadPath, component.name);
 
         });
 

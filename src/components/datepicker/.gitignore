@@ -2,7 +2,6 @@ node_modules/
 dist/
 *.sublime-*
 *.log
-*/.gitignore
 
 # Temp
 local_docs/
