@@ -13,10 +13,6 @@ var assets = function() {
     // Function recieved basic component information and will attempt to find addest with the same name.
     var singleFile = function(component, type, typeDef) {
 
-        console.log(component);
-
-        console.log("Requesting component: " + component.name + " is looking for a specifc " + type);
-
         // Check to see if a user defined a different filename, just in case otherwise use component name
         var requestedFile = (typeDef.differentName) ? typeDef.differentName : component.name;
 
@@ -35,8 +31,7 @@ var assets = function() {
         // Attempt to go find the resource.
         var file = _util.singleFile(component.srcPath, requestedFile);
 
-        return
-
+        return file; 
     }
 
 

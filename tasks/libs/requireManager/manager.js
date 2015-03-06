@@ -25,17 +25,21 @@ var requireManager = function() {
     this.assets = {
         script: {
             ext: 'js',
-            process: 'singleFile'
+            process: 'singleFile',
+            lazyLoadPath: 'components/'
         },
         style: {
             ext: 'css',
-            process: 'singleFile'
+            process: 'singleFile',
+            lazyLoadPath: '../css/components/'
         }
     }
 
     // Object to hold the different components.
     this.lazyComponents = {};
+    this.lazyDefinitions = {};
     this.includeComponents = {};
+    this.includeDefinitions = {};
 
     // Object to hold the component namespace
     this.components = {};

@@ -1,51 +1,39 @@
 'use strict';
 
-// Include our asset finder utility
-var assets = require('./assets');
-
 // Inculde our utility object
 var _util = require('../utility');
 
-var process = function() {
+var lazy = function() {
 
     // Function to handle
-    var components = function(rm, next) {
+    var saveAsset = function(rm, assets, type, component) {
 
-        // Pull the lazy components out
-        var lazy = rm.lazyComponents;
+        var lazyDefinitions = rm.lazyDefinitions;
 
-        // Loop through each component and process the best way possible
-        Object.keys(lazy).forEach(function(component) {
+        // Check to see if this is an asset array, if not make it one.
+        if (_util.kindOf(assets) === "object") {
+            assets = [assets];
+        }
 
-            // Pull out an array of all the asset types we need to find/process
-            var assets = (_util.kindOf(lazy[component].assets) === "object") ? Object.keys(lazy[component].assets) : lazy[component].assets;
+        // Iterate all assets
+        assets.forEach(function(asset) {
 
-            // Loop through each asset type.
-            assets.forEach(function(type) {
+            if (!lazyDefinitions[component.name]) {
 
-                console.log("Processing: " + component + " " + type + " asset.");
+                lazyDefinitions[component.name] = type.lazyLoadPath;
 
-                var processMethod = lazy[component].assets[type].process;
-
-                // Check to see if the process method exists
-                if (assets[processMethod]) {
-
-
-
-                } else {
-
-                }
-
-            });
+            }
 
         });
+
+        console.log(lazyDefinitions);
 
     }
 
 
     return {
-        components: components
+        saveAsset: saveAsset
     }
 }
 
-module.exports = exports = new lazyHandler();
+module.exports = exports = new lazy();

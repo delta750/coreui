@@ -2,10 +2,11 @@
 
 // Include our asset finder utility
 var assets = require('./assets');
+var lazy = require('./lazy');
 
 var process = function() {
 
-    function iterateComponents(components) {
+    function iterateComponents(rm, system, components) {
 
         Object.keys(components).forEach(function(component) {
 
@@ -19,7 +20,28 @@ var process = function() {
 
                     // We have a know process method in the assets module, so execute it.
                     // The results should be the specific files related to the requested asset type.
-                    assets[componentAssets[type].process].call(this, components[component], type, componentAssets[type]);
+                    var assetRequest = assets[componentAssets[type].process].call(this, components[component], type, componentAssets[type]);
+
+                    // Check to make sure asset request was not in vain
+                    if (assetRequest) {
+
+                        switch (system) {
+
+                            case "lazy":
+
+                                lazy.saveAsset(rm, assetRequest, componentAssets[type], components[component]);
+
+                                break;
+
+                            default:
+
+                                console.log("Unknown component system sent: " + system);
+
+                                break;
+
+                        }
+
+                    }
 
                 } else {
 
@@ -42,10 +64,10 @@ var process = function() {
         var include = rm.includeComponents;
 
         // Start by iterating lazy load components
-        iterateComponents(lazy);
+        iterateComponents(rm, "lazy", lazy);
 
         // Now process included base components
-        iterateComponents(include);
+        iterateComponents(rm, "include", include);
 
         // Move to the next
         next(rm);

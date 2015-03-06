@@ -36,7 +36,6 @@ module.exports = function(grunt) {
         // Load all its node modules so we dont have to do it in the sub directory.
         require('load-grunt-tasks')(grunt);
 
-
         // Reset the path for internal actions
         grunt.file.setBase(path);
 
