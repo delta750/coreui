@@ -8,6 +8,20 @@ module.exports = function(grunt) {
             dist: ['dist']
         },
 
+        uglify: {
+            component: {
+                options: {
+                    sourceMap: false,
+                    compress: {
+                        drop_console: true,
+                    },
+                },
+                files: {
+                  'dist/js/datepicker.js': ['js/datepicker.js'],
+                }
+            },
+        },
+
         sass: {
             // Global options
             options: {
@@ -19,7 +33,7 @@ module.exports = function(grunt) {
             },
 
             // Production task
-            prod: {
+            component: {
                 files: {
                     'dist/css/datepicker.css': 'scss/datepicker.scss',
                 },
@@ -28,7 +42,13 @@ module.exports = function(grunt) {
         }
     });
 
+    // Load resources locally
+    require('load-grunt-tasks')(grunt);
+
+    // Local tasks
+    grunt.loadTasks('tasks');
+
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'sass']);
+    grunt.registerTask('default', ['clean', 'uglify', 'sass']);
 
 };
