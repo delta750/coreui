@@ -3,6 +3,7 @@
 // Include our asset finder utility
 var assets = require('./assets');
 var lazy = require('./lazy');
+var include = require('./include');
 
 var process = function() {
 
@@ -30,7 +31,10 @@ var process = function() {
                             case "lazy":
 
                                 lazy.saveAsset(rm, assetRequest, type, componentAssets[type], components[component]);
+                                break;
 
+                            case "include":
+                                include.saveAsset(rm, assetRequest, type, componentAssets[type], components[component]);
                                 break;
 
                             default:
