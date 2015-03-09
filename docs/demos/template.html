@@ -457,7 +457,7 @@
     require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
         console.log('Ready...');
-        console.log(cui.load);
+        //console.log(cui.load);
 
         // Ask cui to load a test componenet (Need to swap this out for a real componenet at some point)
         //cui.load(['testComponent2', 'testComponent'], function() {
@@ -470,9 +470,7 @@
         //    console.log('This is a second call on purpose to make sure it\'s not loaded twice');
         //});
 
-        // cui.load(['testComponent']);
-
-        // require(['testComponent']);
+        cui.load(['testComponent']);
 
         cui.load('datepicker', function() {
             console.log('datepicker loaded: ', cui.datepicker);
