@@ -264,7 +264,7 @@ module.exports = function(grunt) {
                     '!*/dist/**/*.css',
                     '!*/node_modules/**/*.css', // Ignore node_moudles
                 ],
-                dest: 'dist/components/css',
+                dest: 'dist/css/components',
                 filter: 'isFile',
                 flatten: true
             },
