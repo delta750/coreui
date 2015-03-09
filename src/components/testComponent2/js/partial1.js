@@ -1,3 +1,3 @@
-define([], function() {
-    console.log('Test component 2, step 2');
+define(['partial2'], function() {
+    console.log('This is the first sub module for test component 2');
 });

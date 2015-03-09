@@ -1,5 +1,5 @@
-define('testComponent2Sub', [], function() {
+define([], function($, cui) {
 
-    console.log('test component 2, step 1 ');
+    console.log('this is the second sub module for test component 2');
 
 });

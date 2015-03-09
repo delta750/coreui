@@ -47,8 +47,8 @@ module.exports = function(grunt) {
             files: [
                 'src/**/*.js',
                 '!src/cui/js/vendor/*.js',
-                '!src/components/*/dist/**/*.js',
-                '!tasks/**.*js'
+                '!src/components/**/*.js',
+                '!tasks/**/*.js'
             ]
         },
 
@@ -255,6 +255,19 @@ module.exports = function(grunt) {
         },
 
         copy: {
+            // Copy rule handes modules that do now have dist folders.
+            css: {
+                expand: true,
+                cwd: 'src/components',
+                src: [
+                    '**/*.css',
+                    '!*/dist/**/*.css',
+                    '!*/node_modules/**/*.css', // Ignore node_moudles
+                ],
+                dest: 'dist/components/css',
+                filter: 'isFile',
+                flatten: true
+            },
             fonts: {
                 expand: true,
                 cwd: 'src/cui/fonts',
