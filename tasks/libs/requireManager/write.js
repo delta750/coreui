@@ -17,7 +17,7 @@ var write = function() {
 
     var baseUrl = 'var scripts = document.getElementById("require"),\n' +
         'src = scripts.src,\n' +
-        'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));\n';
+        'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));console.log(baseUrl);\n';
 
     function writeHeader(settings) {
 
@@ -38,9 +38,9 @@ var write = function() {
 
         _util.appendToFile(settingFile, requireStart);
 
-        lazyDefinitions = {};
-
         if (Object.keys(lazyDefinitions).length > 0) {
+
+            console.log("greater than 0");
 
             var buffer = new Buffer(JSON.stringify(lazyDefinitions, null, 4));
 
@@ -70,8 +70,6 @@ var write = function() {
     }
 
     var settings = function(rm, next) {
-
-        console.log("Settings write was called");
 
         // Pull the settings closer
         settings = rm.options.requireSettings;

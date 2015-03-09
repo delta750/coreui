@@ -17,7 +17,6 @@ var include = function() {
         // Iterate all assets
         assets.forEach(function(asset) {
 
-            console.log(asset);
             var defintionName;
 
             // Check to see if a definition already exists
@@ -33,11 +32,10 @@ var include = function() {
 
             }
 
-            var srcPath = assets.srcPath.replace('src/', '');
+            var srcPath = asset.srcPath.replace('src/','');
 
-            console.log(srcPath);
-
-            console.log(defintion)
+            // Add the include definition to the to master list.
+            includeDefinitions[defintionName] = srcPath;
 
 
         });

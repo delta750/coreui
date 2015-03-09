@@ -2,8 +2,6 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    var path = require('path');
-
     // Define the Grunt Multitask for the Require Manager Task;
     grunt.registerTask(
         'componentBuild',

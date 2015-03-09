@@ -18,6 +18,7 @@ var requireManager = function() {
         distFolder: 'dist/',
         tempFolder: 'tasks/libs/requireManager/temp/',
         partialFolder: 'tasks/libs/requireManager/_partials',
+        baseBuild: 'build.json',
         defaultSetting: {
               lazy: true,
               settings: false

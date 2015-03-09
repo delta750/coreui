@@ -29,7 +29,6 @@ var process = function() {
                         switch (system) {
 
                             case "lazy":
-
                                 lazy.saveAsset(rm, assetRequest, type, componentAssets[type], components[component]);
                                 break;
 
@@ -38,11 +37,8 @@ var process = function() {
                                 break;
 
                             default:
-
                                 console.log("Unknown component system sent: " + system);
-
                                 break;
-
                         }
 
                     }

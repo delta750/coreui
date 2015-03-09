@@ -46,7 +46,9 @@ module.exports = function(grunt) {
             },
             files: [
                 'src/**/*.js',
-                '!src/cui/js/vendor/*.js'
+                '!src/cui/js/vendor/*.js',
+                '!src/components/*/dist/**/*.js',
+                '!tasks/**.*js'
             ]
         },
 
@@ -304,10 +306,10 @@ module.exports = function(grunt) {
             compile: {
                 options: {
                     baseUrl: 'src/', // Where all our resources will be
-                    name: '../tasks/libs/temp/settings', // Where the generated temp file will be
+                    name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
                     paths: {}, // Generate build file
                     include: [], // Generate build file
-                    optimize: 'uglify2',
+                    optimize: 'none',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
                     out: 'dist/js/cui.js' // Where the final project will be outputted.

@@ -134,8 +134,6 @@ util.appendToFile = function(filePath, data) {
 
 util.mergeFile = function(target, source) {
 
-    console.log("merge called");
-
     // Get the source file path and clean it up
     source = this.unixifyPath(source);
 
