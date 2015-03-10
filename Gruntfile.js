@@ -221,12 +221,7 @@ module.exports = function(grunt) {
                     'subGrunt',
                     'uglify:devVendor',
                     'uglify:devComponents',
-<<<<<<< HEAD
-                    'require',
-                    'concat:devJS',
-=======
                     'requireManager'
->>>>>>> lazyloading
                 ]
             },
 
@@ -419,11 +414,6 @@ module.exports = function(grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
-<<<<<<< HEAD
-            'connect',
-            'sass:dev',
-=======
->>>>>>> lazyloading
             'jshint',
             'subGrunt',
             'requireManager',
