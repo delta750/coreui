@@ -1,4 +1,4 @@
-@import "../../_settings";
+@import "../_settings";
 
 // Calendar icon
 .calendar {
@@ -6,7 +6,7 @@
     width: 20px;
     height: 19px;
     border: 1px solid transparent;
-    background: transparent url("#{$images-path}datepicker/CalendarSprite.png") 0 0 no-repeat;
+    background: transparent url("CalendarSprite.png") 0 0 no-repeat;
     vertical-align: middle;
     border-radius: 4px;
     margin: 0;

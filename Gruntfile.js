@@ -46,7 +46,9 @@ module.exports = function(grunt) {
             },
             files: [
                 'src/**/*.js',
-                '!src/cui/js/vendor/*.js'
+                '!src/cui/js/vendor/*.js',
+                '!src/components/**/*.js',
+                '!tasks/**/*.js'
             ]
         },
 
@@ -61,52 +63,34 @@ module.exports = function(grunt) {
                 mangle: false, // We need the variable names to be unchanged so other scripts (i.e. in-page `<script>` tags) can reference them
             },
 
-            devCUI: {
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    dest: 'dist/js/vendor',
-                    src: [
-                        'cui/js/vendor/**/*.js',
-                        '!cui/js/vendor/jquery.js',
-                        '!cui/js/vendor/requirejs.js',
-                        '!cui/js/vendor/domReady.js'
-                    ],
-                    flatten: true,
-                }],
+            devVendor: {
+              files: {
+                'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
+                'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
+              }
             },
 
             devComponents: {
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    dest: 'dist/js/components',
-                    src: [
-                        'components/**/*.js'
-                    ],
+                    dest: 'dist/js/components/',
+                    src: ['components/**/js/**/*.js'],
                     flatten: true,
                 }],
             },
 
-            prodCUI: {
+            prodVendor: {
                 options: {
                     sourceMap: false,
                     compress: {
                         drop_console: true,
                     },
                 },
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    dest: 'dist/js/vendor',
-                    src: [
-                        'cui/js/vendor/**/*.js',
-                        '!cui/js/vendor/jquery.js',
-                        '!cui/js/vendor/requirejs.js',
-                        '!cui/js/vendor/domReady.js'
-                    ],
-                    flatten: true,
-                }],
+                files: {
+                  'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
+                  'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
+                }
             },
 
             prodComponents: {
@@ -114,15 +98,13 @@ module.exports = function(grunt) {
                     sourceMap: false,
                     compress: {
                         drop_console: true,
-                    },
+                      },
                 },
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    dest: 'dist/js/components',
-                    src: [
-                        'components/**/*.js'
-                    ],
+                    dest: 'dist/js/components/',
+                    src: ['components/*/js/**/*.js'],
                     flatten: true,
                 }],
             },
@@ -153,6 +135,21 @@ module.exports = function(grunt) {
                 },
             },
 
+            devComponents: {
+                options: {
+                    sourceMap: true, // Enable source maps
+                    outputStyle: 'nested',
+                },
+                files: [{
+                  expand: true,
+                  flatten: true,
+                  cwd: 'src/components/',
+                  src: ['**/*.scss'],
+                  dest: 'dist/css/components/',
+                  ext: '.css',
+                }]
+            },
+
             // Production task
             prod: {
                 files: {
@@ -160,6 +157,18 @@ module.exports = function(grunt) {
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
             },
+
+            prodComponents: {
+                files: [{
+                  expand: true,
+                  flatten: true,
+                  cwd: 'src/components/',
+                  src: ['**/*.scss'],
+                  dest: 'dist/css/components/',
+                  ext: '.css',
+                }]
+            },
+
         },
 
         // Add banner to CSS files
@@ -190,7 +199,7 @@ module.exports = function(grunt) {
                 },
                 src: ['dist/js/cui.js'],
                 dest: 'dist/js/cui.js',
-            },
+            }
         },
 
         // Watch for file changes and recompile the applicable files
@@ -203,13 +212,21 @@ module.exports = function(grunt) {
             },
 
             scripts: {
-                files: 'src/**/*.js',
+                files: [
+                    'src/**/*.js',
+                    '!src/components/*/dist/**/*.js' // To ignore generated component files
+                ],
                 tasks: [
                     'jshint',
-                    'uglify:devCUI',
+                    'subGrunt',
+                    'uglify:devVendor',
                     'uglify:devComponents',
+<<<<<<< HEAD
                     'require',
                     'concat:devJS',
+=======
+                    'requireManager'
+>>>>>>> lazyloading
                 ]
             },
 
@@ -219,8 +236,18 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'sass:dev',
+                    'sass:devComponents',
                     'concat:core',
                     'concat:project',
+                ],
+            },
+
+            markdown: {
+                files: [
+                    'docs/src/**/*.*',
+                ],
+                tasks: [
+                    'markdown',
                 ],
             },
 
@@ -233,6 +260,19 @@ module.exports = function(grunt) {
         },
 
         copy: {
+            // Copy rule handes modules that do now have dist folders.
+            css: {
+                expand: true,
+                cwd: 'src/components',
+                src: [
+                    '**/*.css',
+                    '!*/dist/**/*.css',
+                    '!*/node_modules/**/*.css', // Ignore node_moudles
+                ],
+                dest: 'dist/css/components',
+                filter: 'isFile',
+                flatten: true
+            },
             fonts: {
                 expand: true,
                 cwd: 'src/cui/fonts',
@@ -240,6 +280,18 @@ module.exports = function(grunt) {
                 dest: 'dist/fonts',
                 filter: 'isFile'
             },
+            images: {
+                expand: true,
+                cwd: 'src/',
+                src: [
+                        'cui/images/**.*',
+                        'project/images/**.*',
+                        'components/*/images/**.*'
+                    ],
+                dest: 'dist/images',
+                filter: 'isFile',
+                flatten: true
+            }
         },
 
         // Local server
@@ -267,27 +319,77 @@ module.exports = function(grunt) {
             ]
         },
 
-        // Production build ofjavascript resources
+        // Builds the default javascript cui library using r.js compilar
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: 'src/cui/js/',
-                    name: 'settings',
-                    paths: {
-                        requireLib: 'vendor/requirejs',
-                        jquery: 'vendor/jquery',
-                        domReady: 'vendor/domReady',
-                        cui: 'cui'
-                    },
-                    include: ['requireLib', 'jquery', 'domReady'],
-                    out: 'dist/js/cui.js'
+                    baseUrl: 'src/', // Where all our resources will be
+                    name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
+                    paths: {}, // Generate build file
+                    include: [], // Generate build file
+                    optimize: 'none',
+                    generateSourceMaps: true,
+                    preserveLicenseComments: false,
+                    out: 'dist/js/cui.js' // Where the final project will be outputted.
                 }
+            }
+        },
+
+        requireManager: {
+            components: {
+                files: [{
+                    cwd: 'src/components/',
+                    src: '*',
+                    dest: 'dist/js/components'
+                }]
+            }
+        },
+
+        subGrunt: {
+            components: {
+                files: [{
+                    cwd: 'src/components/',
+                    src: '*'
+                }]
+            }
+        },
+
+        // Compile markdown files into HTML (e.g. for documentation)
+        // https://github.com/treasonx/grunt-markdown
+        markdown: {
+            options: {
+                highlight: 'auto',
+                template: 'docs/src/_includes/templates/default.html',
+                markdownOptions: {
+                    highlight: 'manual', // 'auto',
+                    gfm: true,
+                },
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'docs/src',
+                    src: ['**/*.md'],
+                    dest: 'docs/dist',
+                    ext: '.html',
+
+                    // This plugin has a bug making it impossible to put the files where we want them, so we rename the path that Grunt generates to move the file
+                    // See: https://github.com/treasonx/grunt-markdown/issues/43
+                    // HTML files should end up in the `Documentation` folder
+                    // rename: function (dest, src) {
+                    //     // Get the file name and prepend the directory name
+                    //     return 'docs/dist/' +  src.split('/').pop();
+                    // },
+                }]
             }
         },
 
     });
     // End of plugin configuration
     // Next we define the tasks we want to use
+
+    // Project Specfic tasks
+    grunt.loadTasks('tasks');
 
     ////////////////
     // Main tasks //
@@ -299,10 +401,12 @@ module.exports = function(grunt) {
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function(args) {
         grunt.task.run([
-            'sass:prod',
             'jshint',
-            'requirejs',
-            'uglify:prodCUI',
+            'subGrunt',
+            'requireManager',
+            'sass:prod',
+            'sass:prodComponents',
+            'uglify:prodVendor',
             'uglify:prodComponents',
             'concat:core',
             'concat:project',
@@ -315,11 +419,17 @@ module.exports = function(grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
+<<<<<<< HEAD
             'connect',
             'sass:dev',
+=======
+>>>>>>> lazyloading
             'jshint',
-            'requirejs',
-            'uglify:devCUI',
+            'subGrunt',
+            'requireManager',
+            'sass:dev',
+            'sass:devComponents',
+            'uglify:devVendor',
             'uglify:devComponents',
             'concat',
             'copy',
@@ -327,6 +437,37 @@ module.exports = function(grunt) {
         ]);
     });
 
+    // Task used to camm component builds on subfolders.
+    grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function(dir) {
+
+        var done = this.async();
+
+        grunt.log.ok(dir);
+
+        //var options = JSON.stringify(componentOptions)
+
+        grunt.util.spawn({
+            grunt: true,
+            args:['componentBuild', "--path=" + dir ],
+            opts: {
+                cwd: dir
+            }
+        },
+
+        function(err, result, code) {
+            if (err == null) {
+                grunt.log.writeln('processed ' + dir);
+                grunt.log.writeln(result);
+                done();
+            }
+            else {
+                grunt.log.writeln('processing ' + dir + ' failed: ' + code);
+                grunt.log.writeln(result);
+                done(false);
+            }
+        });
+
+    });
 
     ///////////////////
     // Miscellaneous //
@@ -338,6 +479,15 @@ module.exports = function(grunt) {
         grunt.task.run([
             'connect',
             'watch:noop',
+        ]);
+    });
+
+    // Documentation
+    grunt.registerTask('docs', 'Documentation', function(args) {
+        grunt.task.run([
+            'markdown',
+            'connect',
+            'watch:markdown',
         ]);
     });
 

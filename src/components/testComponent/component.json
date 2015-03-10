@@ -1,0 +1,5 @@
+{
+  "name":"testComponent",
+  "lazy": true,
+  "assets": ["script", "style"]
+}

@@ -2,8 +2,7 @@ node_modules/
 dist/
 *.sublime-*
 *.log
-*/.gitignore
 
 # Temp
 local_docs/
-tasks/libs/requireManager/temp
+tasks/
