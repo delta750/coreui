@@ -208,7 +208,8 @@ module.exports = function(grunt) {
                     'jshint',
                     'uglify:devCUI',
                     'uglify:devComponents',
-                    'require'
+                    'require',
+                    'concat:devJS',
                 ]
             },
 
@@ -314,6 +315,7 @@ module.exports = function(grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
+            'connect',
             'sass:dev',
             'jshint',
             'requirejs',
@@ -321,7 +323,6 @@ module.exports = function(grunt) {
             'uglify:devComponents',
             'concat',
             'copy',
-            'connect',
             'watch'
         ]);
     });
