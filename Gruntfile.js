@@ -414,6 +414,7 @@ module.exports = function(grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
         grunt.task.run([
+            'connect',
             'jshint',
             'subGrunt',
             'requireManager',
@@ -423,7 +424,7 @@ module.exports = function(grunt) {
             'uglify:devComponents',
             'concat',
             'copy',
-            'watch'
+            'watch',
         ]);
     });
 
