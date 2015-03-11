@@ -410,6 +410,7 @@ module.exports = function(grunt) {
         grunt.config.set('prodBuild', false);
 
         grunt.task.run([
+            'connect',
             'jshint',
             'subGrunt',
             'requireManager',
@@ -419,7 +420,7 @@ module.exports = function(grunt) {
             'uglify:devComponents',
             'concat',
             'copy',
-            'watch'
+            'watch',
         ]);
     });
 
