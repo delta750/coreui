@@ -86,6 +86,15 @@ module.exports = function(grunt) {
                 }
             },
 
+            devComponents: {
+                files: [{
+                    expand: true,
+                    dest: 'dist/js/components/',
+                    src: [],
+                    flatten: true,
+                }],
+            },
+
             prodComponents: {
                 options: {
                     sourceMap: false,
