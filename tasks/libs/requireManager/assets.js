@@ -34,7 +34,7 @@ var assets = function() {
             sourceFile = sourceFile.split(".")[0];
 
         }
-
+        
         // Attempt to go find the resource.
         var file = _util.singleFile(component.srcPath, requestedFile, sourceFile);
 

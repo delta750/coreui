@@ -40,8 +40,6 @@ var write = function() {
 
         if (Object.keys(lazyDefinitions).length > 0) {
 
-            console.log("greater than 0");
-
             var buffer = new Buffer(JSON.stringify(lazyDefinitions, null, 4));
 
             _util.appendToFile(settingFile, buffer);

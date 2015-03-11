@@ -56,6 +56,7 @@ var collectComponents = function() {
                     // Add some additional object information into the component
                     component.folder = folder;
                     component.srcPath = folderPath;
+                    component.files = [];
 
                     // Check to see if the component has its own build
                     component.build = (grunt.file.exists(componentBuild)) ? true : false;

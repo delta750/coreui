@@ -39,14 +39,18 @@ var process = function() {
                             default:
                                 console.log("Unknown component system sent: " + system);
                                 break;
-                        }
+                        };
+
+                        // Save files back to component definition
+                        components[component].files.push(assetRequest.srcPath);
 
                     }
+
 
                 } else {
 
                     // Error out.
-                    console.log("Component: " + component.name + " listed an unknow process method of: " + componentAssets.process + " for the asset type of " + type);
+                    console.log("Component: " + component.name + " listed an unknown process method of: " + componentAssets.process + " for the asset type of " + type);
 
                 }
 

@@ -11,24 +11,25 @@ module.exports = function(grunt) {
         'Special task for manageing requireJS components and base settings file',
         function () {
 
-          var requireManager = require('./libs/requireManager/manager');
-          var collectComponents = require('./libs/requireManager/collect');
+          var manager = require('./libs/requireManager/manager');
+          var collect = require('./libs/requireManager/collect');
           var process = require('./libs/requireManager/process');
           var write = require('./libs/requireManager/write');
           var build = require('./libs/requireManager/build');
 
           // Setup the manager by giving it access to the task and grunt namespaces
-          requireManager.init(this, grunt)
-            .addStep(collectComponents.findAll)
-            .addStep(collectComponents.sortComponents)
+          manager.init(this, grunt)
+            .addStep(collect.findAll)
+            .addStep(collect.sortComponents)
             .addStep(process.components)
             .addStep(write.settings)
-            .addStep(build.configs)
+            .addStep(build.assetConfigs)
+            .addStep(build.requireConfigs)
             .execute();
 
 
           // Call the require build information has been generated
-          grunt.task.run('requirejs');
+          //grunt.task.run('requirejs');
         }
 
     );

@@ -84,21 +84,31 @@ util.singleFile = function(haystake, needle, source) {
     // Collect everything from here.
     var results = [];
 
-    // use the grunt utility to find the file being requrest
-    grunt.file.recurse(haystake, function(abspath, rootdir, subdir, filename) {
 
-        if (filename === needle) {
+    // Try to search the file recursively, if it failes just return false.
+    try {
 
-            // Add a full object of info to results
-            results.push({
-                source: source,
-                srcPath: abspath,
-                subdir: subdir,
-                filename: filename
-            });
-        }
+        // use the grunt utility to find the file being requrest
+        grunt.file.recurse(haystake, function(abspath, rootdir, subdir, filename) {
 
-    });
+            if (filename === needle) {
+
+                // Add a full object of info to results
+                results.push({
+                    source: source,
+                    srcPath: abspath,
+                    subdir: subdir,
+                    filename: filename
+                });
+            }
+
+        });
+
+    } catch (err) {
+
+        // Error occured, likely the directory doesnt exists, so we can assume this component is a bust.
+        return false;
+    }
 
     if (results.length === 1) {
         return results[0];

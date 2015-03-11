@@ -33,6 +33,9 @@ module.exports = function(grunt) {
         // All Grunt modules must be listed in the `package.json` file
         pkg: grunt.file.readJSON('package.json'),
 
+        // Flag for dynamic tasks.
+        prodBuild: true,
+
         // JS linting
         // https://github.com/gruntjs/grunt-contrib-jshint
         jshint: {
@@ -68,17 +71,7 @@ module.exports = function(grunt) {
                 'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
                 'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
               }
-            },
-
-            devComponents: {
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    dest: 'dist/js/components/',
-                    src: ['components/**/js/**/*.js'],
-                    flatten: true,
-                }],
-            },
+          },
 
             prodVendor: {
                 options: {
@@ -102,9 +95,8 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src',
                     dest: 'dist/js/components/',
-                    src: ['components/*/js/**/*.js'],
+                    src: [],
                     flatten: true,
                 }],
             },
@@ -413,6 +405,10 @@ module.exports = function(grunt) {
     // Development: compile script.js and style.css, start a local server, and watch for file changes
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function(args) {
+
+        // Dynamic flag
+        grunt.config.set('prodBuild', false);
+
         grunt.task.run([
             'jshint',
             'subGrunt',

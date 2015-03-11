@@ -7,7 +7,7 @@ var _util = require('../utility');
 
 var build = function() {
 
-    var configs = function(rm, next) {
+    var requireConfigs = function(rm, next) {
 
         var grunt = rm.grunt;
 
@@ -44,8 +44,6 @@ var build = function() {
         requireOptions.paths = base.libs;
         requireOptions.include = base.include;
 
-        //console.log(requireOptions);
-
         //console.log(rm.options.tempFolder, rm.options.requireSettings.fileName);
         var settingsFile = path.join('../', rm.options.tempFolder, rm.options.requireSettings.fileName).split('.js')[0];
 
@@ -58,11 +56,84 @@ var build = function() {
 
         // Move to the next;
         next(rm);
-    }
+    };
+
+    // Functionm handles updating the uglify task so only components that are reconized as actual componets are shipped to the dist folder.
+    // Only used on JS files right now.
+    var assetConfigs = function(rm, next) {
+
+        // Lazy components are the problem here, so lets get the object
+        var lazyComponents = rm.lazyComponents;
+
+        // pull the prod/dev flag used to determine proper tasks.
+        var buildType = rm.grunt.config.get('prodBuild');
+
+        // Variables to hold all the different asset types
+        var jsTask = [];
+
+        Object.keys(lazyComponents).forEach(function(component) {
+
+            // verify that compont has files.
+            if (lazyComponents[component].files.length > 0) {
+                var componentFiles = lazyComponents[component].files
+
+                // Loop through all the differnt files.
+                componentFiles.forEach(function(file) {
+
+                    // pull apart file paths for testing
+                    var filepath = file.substring(0, file.lastIndexOf("/"));
+                    var filename = file.substring(file.lastIndexOf('/')+1);
+                    var extension = filename.substring(filename.lastIndexOf('.')+1);
+
+                    //console.log(extension);
+
+                    switch (extension) {
+                        case "js":
+
+                            jsTask.push(file);
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                });
+
+            }
+
+        });
+
+        // Check to see if js task has any item
+        if (jsTask.length > 0) {
+
+            var gruntTask;
+
+            // Based on the build type, pull the right configs.
+            if (buildType) {
+                gruntTask = rm.grunt.config.get('uglify.prodComponents');
+            } else {
+                gruntTask = rm.grunt.config.get('uglify.devComponents');
+            }
+
+            // Add the file to the config
+            gruntTask.files[0].src = jsTask;
+
+            // Now put the new configs in place.
+            if (buildType) {
+                rm.grunt.config.set('uglify.prodComponents', gruntTask);
+            } else {
+                rm.grunt.config.set('uglify.devComponents', gruntTask);
+            }
+
+        }
+
+    };
 
     return {
-        configs: configs
-    }
+        requireConfigs: requireConfigs,
+        assetConfigs: assetConfigs
+    };
 }
 
 module.exports = exports = new build();
