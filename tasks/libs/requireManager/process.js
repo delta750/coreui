@@ -9,6 +9,8 @@ var process = function() {
 
     function iterateComponents(rm, system, components) {
 
+        console.log("Processing " + system + " Components:");
+
         Object.keys(components).forEach(function(component) {
 
             // Quick reference to the assets directly

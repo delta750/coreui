@@ -27,9 +27,10 @@ module.exports = function(grunt) {
             .addStep(build.requireConfigs)
             .execute();
 
+            console.log("RequireManager Done!");
 
           // Call the require build information has been generated
-          //grunt.task.run('requirejs');
+          grunt.task.run('requirejs');
         }
 
     );

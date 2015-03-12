@@ -70,6 +70,8 @@ var write = function () {
 
     settings = function (rm, next) {
 
+        console.log("Writing RequireJS Settings File:");
+
         // Pull the settings closer
         settings = rm.options.requireSettings;
         tempFolder = rm.options.tempFolder;

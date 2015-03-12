@@ -6,10 +6,6 @@ var _util = require('../utility');
 // Function used to find specific asset files.
 var assets = function () {
 
-    // function properName() {
-
-    // }
-
     // Function recieved basic component information and will attempt to find addest with the same name.
     var singleFile = function (component, type, typeDef) {
 

@@ -323,7 +323,7 @@ module.exports = function (grunt) {
                     name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
                     paths: {}, // Generate build file
                     include: [], // Generate build file
-                    optimize: 'none',
+                    optimize: 'uglify2',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
                     out: 'dist/js/cui.js' // Where the final project will be outputted.

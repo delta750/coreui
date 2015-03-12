@@ -9,7 +9,8 @@ var collectComponents = function () {
 
     var findAll = function (rm, next) {
 
-        //console.log(rm.task);
+        console.log("Generating Componnent List:");
+
         var options = rm.options;
         var grunt = rm.grunt;
 
@@ -117,6 +118,8 @@ var collectComponents = function () {
     };
 
     var sortComponents = function (rm, next) {
+
+        console.log("Sorting Components:");
 
         // Get all of the components
         var components = rm.components;

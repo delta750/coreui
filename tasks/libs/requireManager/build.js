@@ -9,9 +9,14 @@ var build = function() {
 
     var requireConfigs = function(rm, next) {
 
+        console.log("Building RequireJS Configs for Grunt:");
+
         var grunt = rm.grunt;
 
         var baseBuildFile = path.join(rm.options.partialFolder, rm.options.baseBuild);
+
+        // pull the prod/dev flag used to determine proper tasks.
+        var buildType = grunt.config.get('prodBuild');
 
         // Read in the basic build requirements
         var base = grunt.file.readJSON(baseBuildFile);
@@ -44,6 +49,11 @@ var build = function() {
         requireOptions.paths = base.libs;
         requireOptions.include = base.include;
 
+        // Check to see if the build type is production, if so turn off the source map item and turn on
+        if (buildType) {
+            requireOptions.generateSourceMaps = false;
+        }
+
         //console.log(rm.options.tempFolder, rm.options.requireSettings.fileName);
         var settingsFile = path.join('../', rm.options.tempFolder, rm.options.requireSettings.fileName).split('.js')[0];
 
@@ -61,6 +71,8 @@ var build = function() {
     // Functionm handles updating the uglify task so only components that are reconized as actual componets are shipped to the dist folder.
     // Only used on JS files right now.
     var assetConfigs = function(rm, next) {
+
+        console.log("Building Asset Configs for Grunt:");
 
         // Lazy components are the problem here, so lets get the object
         var lazyComponents = rm.lazyComponents;
@@ -129,6 +141,9 @@ var build = function() {
             }
 
         }
+
+        // Move to next step.
+        next(rm);
 
     };
 
