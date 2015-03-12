@@ -5,22 +5,24 @@ var path = require('path');
 // Inculde our utility object
 var _util = require('../utility');
 
-var collectComponents = function() {
+var collectComponents = function () {
 
-    var findAll = function(rm, next) {
+    var findAll = function (rm, next) {
 
-        //console.log(rm.task);
+        console.log("Generating Componnent List:");
+
         var options = rm.options;
         var grunt = rm.grunt;
 
         // Loop through all the file folder specified in the Grunt task.
-        rm.task.files.forEach(function(folders) {
+        rm.task.files.forEach(function (folders) {
 
             // Save off the component root folder
             var crf = folders.cwd;
 
             // Loop each folder inside
-            folders.src.forEach(function(folder) {
+            folders.src.forEach(function (folder) {
+                var temp;
 
                 // Create the full folder path
                 var folderPath = path.join(crf, folder);
@@ -39,14 +41,15 @@ var collectComponents = function() {
                     if (grunt.file.exists(componentFile)) {
 
                         // Get a copy of the default settings JSON
-                        var temp = grunt.file.readJSON(componentFile);
+                        temp = grunt.file.readJSON(componentFile);
 
                         component = _util.merge(component, temp);
 
                         // Indicate settings file was found
                         component.settings = true;
 
-                    } else {
+                    }
+                    else {
 
                         // Set the component name to match the name.
                         component.name = folder;
@@ -56,6 +59,7 @@ var collectComponents = function() {
                     // Add some additional object information into the component
                     component.folder = folder;
                     component.srcPath = folderPath;
+                    component.files = [];
 
                     // Check to see if the component has its own build
                     component.build = (grunt.file.exists(componentBuild)) ? true : false;
@@ -68,17 +72,18 @@ var collectComponents = function() {
                     // Check for an assets property.
                     if (component.assets) {
 
-                        if (_util.kindOf(component.assets) === "object") {
+                        if (_util.kindOf(component.assets) === 'object') {
 
                             // Copy of the defaults
-                            var temp = _util.merge({}, rm.assets);
+                            temp = _util.merge({}, rm.assets);
 
-                        } else {
+                        }
+                        else {
 
-                            var temp = {};
+                            temp = {};
 
                             // user defined what they needed by nothing else (Array)
-                            component.assets.forEach(function(type) {
+                            component.assets.forEach(function (type) {
 
                                 // Pull this specific definition out
                                 temp[type] = rm.assets[type];
@@ -90,7 +95,8 @@ var collectComponents = function() {
                         // Merge back in the correct asset definitions
                         component.assets = _util.merge(temp, rm.assets);
 
-                    } else {
+                    }
+                    else {
 
                         // Merge in default asset information.
                         component.assets = _util.merge({}, rm.assets);
@@ -109,37 +115,40 @@ var collectComponents = function() {
         // Move to next task
         next(rm);
 
-    }
+    };
 
-    var sortComponents = function(rm, next) {
+    var sortComponents = function (rm, next) {
 
-      // Get all of the components
-      var components = rm.components;
+        console.log("Sorting Components:");
 
-      // Loop through all of the components based on load status
-      Object.keys(components).forEach(function(component) {
+        // Get all of the components
+        var components = rm.components;
 
-        // Sort based on lazy load status.
-        if (components[component].lazy) {
+        // Loop through all of the components based on load status
+        Object.keys(components).forEach(function (component) {
 
-          rm.lazyComponents[component] = components[component];
+            // Sort based on lazy load status.
+            if (components[component].lazy) {
 
-        } else {
+                rm.lazyComponents[component] = components[component];
 
-          rm.includeComponents[component] = components[component];
-        }
+            }
+            else {
 
-      });
+                rm.includeComponents[component] = components[component];
+            }
 
-      // Move to next task
-      next(rm);
-    }
+        });
+
+        // Move to next task
+        next(rm);
+    };
 
     return {
-      findAll: findAll,
-      sortComponents: sortComponents
-    }
+        findAll: findAll,
+        sortComponents: sortComponents
+    };
 
-}
+};
 
 module.exports = exports = new collectComponents();

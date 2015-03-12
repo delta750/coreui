@@ -7,17 +7,17 @@ var _util = require('../utility');
 var lazy = function() {
 
     // Function to handle
-    var saveAsset = function(rm, assets, type, typeDef, component) {
+    var saveAsset = function (rm, assets, type, typeDef, component) {
 
         var lazyDefinitions = rm.lazyDefinitions;
 
         // Check to see if this is an asset array, if not make it one.
-        if (_util.kindOf(assets) === "object") {
+        if (_util.kindOf(assets) === 'object') {
             assets = [assets];
         }
 
         // Iterate all assets
-        assets.forEach(function(asset) {
+        assets.forEach(function (asset) {
 
             var defintionName;
 
@@ -38,12 +38,11 @@ var lazy = function() {
 
         });
 
-    }
-
+    };
 
     return {
         saveAsset: saveAsset
-    }
-}
+    };
+};
 
 module.exports = exports = new lazy();

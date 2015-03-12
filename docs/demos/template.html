@@ -459,18 +459,18 @@
         console.log('Ready...');
         //console.log(cui.load);
 
-        // Ask cui to load a test componenet (Need to swap this out for a real componenet at some point)
-        cui.load(['testComponent2', 'testComponent']);
-
-        cui.load('testComponent2', function() {
-            console.log('This is a second call on purpose to make sure it\'s not loaded twice please check the console!');
-        });
-
         // console.log(cui.library);
 
+        // Ask cui to load a test component
         cui.load('datepicker', function() {
-            console.log('datepicker loaded: ', cui.datepicker);
+            console.log('Loaded datepicker: ', cui.datepicker);
         });
+
+        // cui.load(['testComponent2', 'testComponent']);
+
+        // cui.load('testComponent2', function() {
+        //     console.log('This is a second call on purpose to make sure it\'s not loaded twice please check the console!');
+        // });
 
     });
     </script>

@@ -9,6 +9,8 @@ var process = function() {
 
     function iterateComponents(rm, system, components) {
 
+        console.log("Processing " + system + " Components:");
+
         Object.keys(components).forEach(function(component) {
 
             // Quick reference to the assets directly
@@ -28,25 +30,30 @@ var process = function() {
 
                         switch (system) {
 
-                            case "lazy":
+                            case 'lazy':
                                 lazy.saveAsset(rm, assetRequest, type, componentAssets[type], components[component]);
                                 break;
 
-                            case "include":
+                            case 'include':
                                 include.saveAsset(rm, assetRequest, type, componentAssets[type], components[component]);
                                 break;
 
                             default:
-                                console.log("Unknown component system sent: " + system);
+                                console.log('Unknown component system sent: ' + system);
                                 break;
                         }
 
+                        // Save files back to component definition
+                        components[component].files.push(assetRequest.srcPath);
+
                     }
 
-                } else {
+
+                }
+                else {
 
                     // Error out.
-                    console.log("Component: " + component.name + " listed an unknow process method of: " + componentAssets.process + " for the asset type of " + type);
+                    console.log('Component: ' + component.name + ' listed an unknown process method of: ' + componentAssets.process + ' for the asset type of ' + type);
 
                 }
 
@@ -64,19 +71,19 @@ var process = function() {
         var include = rm.includeComponents;
 
         // Start by iterating lazy load components
-        iterateComponents(rm, "lazy", lazy);
+        iterateComponents(rm, 'lazy', lazy);
 
         // Now process included base components
-        iterateComponents(rm, "include", include);
+        iterateComponents(rm, 'include', include);
 
         // Move to the next
         next(rm);
-    }
+    };
 
 
     return {
         components: components
-    }
-}
+    };
+};
 
 module.exports = exports = new process();

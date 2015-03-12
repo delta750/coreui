@@ -5,5 +5,12 @@
     "curly": true,
     "eqeqeq": true,
     "quotmark": true,
-    "unused": "vars"
+    "unused": "vars",
+    "globals": {
+        "require": false,
+        "module": true,
+        "exports": true,
+        "Buffer": true,
+        "console": false
+    }
 }
