@@ -6,7 +6,7 @@ var path = require('path');
 var _util = require('../utility');
 
 // Function used to find specific asset files.
-var write = function() {
+var write = function () {
 
     /***
      * Settings file variables.
@@ -16,8 +16,8 @@ var write = function() {
     var wrapperEnd = '}());';
 
     var baseUrl = 'var scripts = document.getElementById("require"),\n' +
-        'src = scripts.src,\n' +
-        'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));console.log(baseUrl);\n';
+                    'src = scripts.src,\n' +
+                    'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));console.log(baseUrl);\n';
 
     function writeHeader(settings) {
 
@@ -34,7 +34,7 @@ var write = function() {
 
     function writeConfig(lazyDefinitions) {
         var requireStart = 'require.config({ baseUrl: baseUrl, paths:';
-        var requireEnd = '\n});\n'
+        var requireEnd = '\n});\n';
 
         _util.appendToFile(settingFile, requireStart);
 
@@ -44,8 +44,9 @@ var write = function() {
 
             _util.appendToFile(settingFile, buffer);
 
-        } else {
-            _util.appendToFile(settingFile, "{}");
+        }
+        else {
+            _util.appendToFile(settingFile, '{}');
         }
 
         _util.appendToFile(settingFile, requireEnd);
@@ -67,7 +68,7 @@ var write = function() {
 
     }
 
-    var settings = function(rm, next) {
+    settings = function (rm, next) {
 
         // Pull the settings closer
         settings = rm.options.requireSettings;
@@ -82,13 +83,14 @@ var write = function() {
         if (grunt.file.exists(settingFile)) {
             grunt.file.delete(settingFile);
 
-        } else {
+        }
+        else {
 
             // Check to make sure the temp directory is in place.
             if (!grunt.file.exists(tempFolder)) {
                 grunt.file.mkdir(tempFolder);
             }
-        };
+        }
 
         // Write the for the settings file.
         writeHeader(settings);
@@ -105,13 +107,15 @@ var write = function() {
 
             // Check to make sure the init file path exists.
             if (grunt.file.exists(settings.baseInitFile)) {
-                initPath = settings.baseInitFile
-            } else {
+                initPath = settings.baseInitFile;
+            }
+            else {
                 // ERORR
-                console.log("Settings init missing, Please check to make sure it exists in declared path");
+                console.log('Settings init missing, Please check to make sure it exists in declared path');
             }
 
-        } else {
+        }
+        else {
 
             initPath = path.join(rm.options.partialFolder, settings.baseInitFile);
 
@@ -125,12 +129,12 @@ var write = function() {
 
         // Move to the next step
         next(rm);
-    }
+    };
 
     return {
         settings: settings
-    }
+    };
 
-}
+};
 
 module.exports = exports = new write();

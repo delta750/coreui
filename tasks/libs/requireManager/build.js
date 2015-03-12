@@ -3,7 +3,7 @@
 var path = require('path');
 
 // Inculde our utility object
-var _util = require('../utility');
+// var _util = require('../utility');
 
 var build = function() {
 
@@ -22,7 +22,7 @@ var build = function() {
         if (customIncludes.length > 0) {
 
             // Loop through all of the includes
-            customIncludes.forEach(function(include) {
+            customIncludes.forEach(function (include) {
 
                 // Pull the extension out of the module path
                 var modulePath = rm.includeDefinitions[include].split('.')[0];
@@ -33,7 +33,7 @@ var build = function() {
                 // Add the library to the include array
                 base.include.push(include);
 
-            })
+            });
 
         }
 
@@ -75,20 +75,20 @@ var build = function() {
 
             // verify that compont has files.
             if (lazyComponents[component].files.length > 0) {
-                var componentFiles = lazyComponents[component].files
+                var componentFiles = lazyComponents[component].files;
 
                 // Loop through all the differnt files.
                 componentFiles.forEach(function(file) {
 
                     // pull apart file paths for testing
-                    var filepath = file.substring(0, file.lastIndexOf("/"));
+                    // var filepath = file.substring(0, file.lastIndexOf('/'));
                     var filename = file.substring(file.lastIndexOf('/')+1);
                     var extension = filename.substring(filename.lastIndexOf('.')+1);
 
                     //console.log(extension);
 
                     switch (extension) {
-                        case "js":
+                        case 'js':
 
                             jsTask.push(file);
 
@@ -112,7 +112,8 @@ var build = function() {
             // Based on the build type, pull the right configs.
             if (buildType) {
                 gruntTask = rm.grunt.config.get('uglify.prodComponents');
-            } else {
+            }
+            else {
                 gruntTask = rm.grunt.config.get('uglify.devComponents');
             }
 
@@ -122,7 +123,8 @@ var build = function() {
             // Now put the new configs in place.
             if (buildType) {
                 rm.grunt.config.set('uglify.prodComponents', gruntTask);
-            } else {
+            }
+            else {
                 rm.grunt.config.set('uglify.devComponents', gruntTask);
             }
 
@@ -134,6 +136,6 @@ var build = function() {
         requireConfigs: requireConfigs,
         assetConfigs: assetConfigs
     };
-}
+};
 
 module.exports = exports = new build();

@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         function () {
 
             var gruntFile = 'Gruntfile.js';
-            var componentBuildTask = 'componentBuild.js'
+            var componentBuildTask = 'componentBuild.js';
 
             // Function to run the components default task
             function runComponentBuild(folder) {
@@ -43,7 +43,8 @@ module.exports = function(grunt) {
 
                             runComponentBuild(componentFolder);
 
-                        } else {
+                        }
+                        else {
 
                             var source = _util.unixifyPath('tasks/componentBuild.js');
                             var dest = _util.unixifyPath(componentBuild);

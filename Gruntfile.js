@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     var
 
         // Banner for JavaScript files
@@ -67,11 +67,11 @@ module.exports = function(grunt) {
             },
 
             devVendor: {
-              files: {
-                'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
-                'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
-              }
-          },
+                files: {
+                    'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
+                    'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js'],
+                }
+            },
 
             prodVendor: {
                 options: {
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                   'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
-                  'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js']
+                  'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js'],
                 }
             },
 
@@ -395,7 +395,7 @@ module.exports = function(grunt) {
 
     // Production: package main files for distribution
     // This is the default task (when you just type "grunt" at the command prompt)
-    grunt.registerTask('prod', 'Production', function(args) {
+    grunt.registerTask('prod', 'Production', function (args) {
         grunt.task.run([
             'jshint',
             'subGrunt',
@@ -413,7 +413,7 @@ module.exports = function(grunt) {
 
     // Development: compile script.js and style.css, start a local server, and watch for file changes
     // Only use this on your local machine while developing
-    grunt.registerTask('dev', 'Development', function(args) {
+    grunt.registerTask('dev', 'Development', function (args) {
 
         // Dynamic flag
         grunt.config.set('prodBuild', false);
@@ -434,7 +434,7 @@ module.exports = function(grunt) {
     });
 
     // Task used to camm component builds on subfolders.
-    grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function(dir) {
+    grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function (dir) {
 
         var done = this.async();
 
@@ -444,14 +444,14 @@ module.exports = function(grunt) {
 
         grunt.util.spawn({
             grunt: true,
-            args:['componentBuild', "--path=" + dir ],
+            args:['componentBuild', '--path=' + dir ],
             opts: {
                 cwd: dir
             }
         },
 
-        function(err, result, code) {
-            if (err == null) {
+        function (err, result, code) {
+            if (!err) {
                 grunt.log.writeln('processed ' + dir);
                 grunt.log.writeln(result);
                 done();
@@ -471,7 +471,7 @@ module.exports = function(grunt) {
 
     // Start a local server
     // e.g. http://localhost:8888/Pages/Template/Template.html
-    grunt.registerTask('server', 'Server', function(args) {
+    grunt.registerTask('server', 'Server', function (args) {
         grunt.task.run([
             'connect',
             'watch:noop',
@@ -479,7 +479,7 @@ module.exports = function(grunt) {
     });
 
     // Documentation
-    grunt.registerTask('docs', 'Documentation', function(args) {
+    grunt.registerTask('docs', 'Documentation', function (args) {
         grunt.task.run([
             'markdown',
             'connect',
