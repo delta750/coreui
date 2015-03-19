@@ -1,19 +1,30 @@
-// var path = require('path');
 var fs = require('fs');
+var path = require('path');
 
 // Third Party Libs
 var grunt = require('grunt');
+var chalk = require('chalk');
 
 // Declare this module
 var util = module.exports = {};
 
 /***
- * String Functions
+ * Logging Functions
  ***/
 
-// Capitialize the first letter of a string
-util.uCaseFirst = function (string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+util.console = function(type, msg) {
+
+    switch (type) {
+
+        case "ok":
+            console.log(chalk.green('%s'), msg);
+            break;
+
+        case "warnig":
+            console.log(chalk.yellow('%s'), msg);
+            break;
+    }
+
 };
 
 /***
@@ -53,18 +64,41 @@ util.merge = function (obj1, obj2) {
 
 };
 
+/***
+ * Type (Kind) Functions
+ ***/
+
 util.kindOf = function (obj) {
-
     return grunt.util.kindOf(obj);
-
 };
+
+/***
+ * String Functions
+ ***/
+
+util.lastPart = function(str, delim) {
+    return str.substring(str.lastIndexOf(delim)+1);
+}
+
+util.removeExt = function(str) {
+    return str.substr(0, str.lastIndexOf('.'));
+}
+
+util.removeSpecialChar = function(str) {
+    return str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+}
+
+util.uCaseFirst = function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 
 /***
  * Path Cleanup Utilties
  ***/
 
 // Function converts all paths into a common unix like structure.
-util.unixifyPath = function (filepath) {
+util.unixifyPath = function(filepath) {
 
     if (process.platform === 'win32') {
         return filepath.replace(/\\/g, '/');
@@ -76,54 +110,20 @@ util.unixifyPath = function (filepath) {
 };
 
 /***
- * Search File Utilities
- ***/
-
-// Function will recursively search for a specific file in a give root directory
-util.singleFile = function (haystake, needle, source) {
-
-    // Collect everything from here.
-    var results = [];
-
-
-    // Try to search the file recursively, if it failes just return false.
-    try {
-
-        // use the grunt utility to find the file being requrest
-        grunt.file.recurse(haystake, function (abspath, rootdir, subdir, filename) {
-
-            if (filename === needle) {
-
-                // Add a full object of info to results
-                results.push({
-                    source: source,
-                    srcPath: abspath,
-                    subdir: subdir,
-                    filename: filename
-                });
-            }
-
-        });
-
-    } catch (err) {
-
-        // Error occured, likely the directory doesnt exists, so we can assume this component is a bust.
-        return false;
-    }
-
-    if (results.length === 1) {
-        return results[0];
-    }
-
-    return false;
-
-};
-
-/***
  * Write File utilites
  ***/
+util.flushFile = function(filePath) {
 
-util.appendToFile = function (filePath, data) {
+    var buffer = new Buffer("", 'utf-8');
+
+    // Fix the pathing
+    var filePath = this.unixifyPath(filePath);
+
+    // Use write file to over write the orignal
+    fs.writeFileSync(filePath, buffer);
+}
+
+util.appendToFile = function(filePath, data) {
 
     var buffer;
 
@@ -141,9 +141,9 @@ util.appendToFile = function (filePath, data) {
     // Create or append to the file.
     fs.appendFileSync(filePath, buffer);
 
-};
+}
 
-util.mergeFile = function (target, source) {
+util.mergeFile = function(target, source) {
 
     // Get the source file path and clean it up
     source = this.unixifyPath(source);
@@ -155,3 +155,11 @@ util.mergeFile = function (target, source) {
     this.appendToFile(target, content);
 
 };
+
+util.writeJSON = function(target, data) {
+
+    //data = JSON.stringify(data, null, 4);
+    //grunt.file.write(target, JSON.stringify(data, null, 4));
+    fs.writeFileSync(target, JSON.stringify(data, null, 4));
+
+}

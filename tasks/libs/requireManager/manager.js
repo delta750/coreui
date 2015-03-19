@@ -1,123 +1,151 @@
+/***
+ * ===
+ *  Manager.js
+ *  ----------
+ *  The manager module is responspible for provideing require manager with a basic way of iterating steps,
+ *  storing and importing default options, and capturing user defined task options and values.
+ * ===
+ ***/
+
 'use strict';
 
-var requireManager = function () {
+var _util = require('../utility');
+
+var requireManager = function() {
 
     // Array to hold all the different steps that need to be executes
     var steps = [];
 
-    var init = function (task, grunt) {
-
-        this.grunt = grunt;
-        this.task = task;
-
-        // Task Options
-        this.options = task.options({
-            requireSetting: false,
-            settingFileName: 'component.json',
-            buildFileName: 'Gruntfile.js',
-            distFolder: 'dist/',
-            tempFolder: 'tasks/libs/requireManager/temp/',
-            partialFolder: 'tasks/libs/requireManager/_partials',
-            baseBuild: 'build.json',
-            defaultSetting: {
-                  lazy: true,
-                  settings: false
+    // Object to hold default grunt task options.
+    var defaultOptions = {
+        components: {
+            cwd: 'components/',
+            src: "*",
+            files: {
+                settings: {
+                    component: "component.json",
+                    script: "settings.json",
+                    style: "settings.scss",
+                },
+                build: "Gruntfile.js",
+                includeStyle: "includeStyles.scss"
             },
-            requireSettings: {
-                  anonymousWrapper: true,
-                  baseUrl: true,
-                  fileName: 'settings.js',
-                  customInit: false,
-                  baseInitFile: 'init.js'
-            }
-        });
-
-        // Object of default process method
-        this.assets = {
-            script: {
-                ext: 'js',
-                process: 'singleFile',
-                lazyLoadPath: 'components/'
+            folders: {
+                build: 'dist',
+                temp: 'tasks/libs/requireManager/temp',
+                partial: 'tasks/libs/requireManager/_partials'
             },
-            style: {
-                ext: 'css',
-                process: 'singleFile',
-                lazyLoadPath: '../css/components/'
+            requireJS: {
+                anonymousWrapper: true,
+                baseUrl: true,
+                filename: 'settings.js',
+                customBase: false,
+                baseFile: 'build.json',
+                customInit: false,
+                initFile: 'init.js'
             }
-        };
-
-        // Object to hold the different components.
-        this.lazyComponents = {};
-        this.lazyDefinitions = {};
-        this.includeComponents = {};
-        this.includeDefinitions = {};
-
-        // Object to hold the component namespace
-        this.components = {};
-
-        // Return itself so the process can move on.
-        return this;
-
+        }
     };
 
-    var addStep = function (func) {
+  var init = function(task, grunt) {
 
-        // Add function to step array
-        steps.push(func);
+    // Save off the tasks settings and grunt object
+    this.task = task;
+    this.grunt = grunt;
 
-        // Return itself so the process can move on.
-        return this;
+    // Save off pull task options into the defaulf option object.
+    this.options = _util.merge(defaultOptions, task.options({}));
 
-    };
+    // Pull in the default definition. These are external json files for simplisty in changeability.
+    this.defaults = {
+        components: grunt.file.readJSON('tasks/libs/requireManager/definitions/component.json'),
+        assets: grunt.file.readJSON('tasks/libs/requireManager/definitions/assets.json')
+    }
 
-    // Function will cause all the buffered steps to begin
-    var execute = function (callback) {
+    // Array to hold component objects (pre processesing)
+    this.definedComponents = [];
 
-        var self = this;
+    // Sorted definition files
+    this.lazyComponent = {};
+    this.includeComponent = {};
 
-        // See if no steps remain
-        if (steps.length === 0) {
+    // Files to exclude when multiple grabs occur
+    this.excludeFiles = [
+        defaultOptions.components.files.build,
+        defaultOptions.components.files.settings.component,
+        defaultOptions.components.files.settings.script,
+        defaultOptions.components.files.settings.style,
+        'package.json',
+        '.gitignore',
+        '.jshintrc',
+        '.editorconfig'
+    ];
 
-            if (callback) {
-                callback(null, true);
-            }
+    // Files/Folders to flush each time
+    _util.flushFile('src/cui/scss/_utilities/_components.scss');
 
-            return true;
+    // Return itself so the process can move on.
+    return this;
+
+  };
+
+  var addStep = function(func) {
+
+    // Add function to step array
+    steps.push(func);
+
+    // Return itself so the process can move on.
+    return this;
+
+  }
+
+  // Function will cause all the buffered steps to begin
+  var execute = function(callback) {
+
+    var self = this;
+
+    // See if no steps remain
+    if (steps.length === 0) {
+
+      if (callback) {
+        callback(null, true);
+      }
+
+      return true;
+
+    }
+
+    // Set the starting step
+    var step = 0;
+
+    // Execute the next step in the steps array, plus pass it a callback.
+    steps[step++](self, function next(requireManager) {
+
+        if (step < steps.length) {
+
+          steps[step++](self, next);
+
+        } else {
+
+          if (callback) {
+            callback(null, true);
+          }
+
+          return true;
 
         }
 
-        // Set the starting step
-        var step = 0;
-
-        // Execute the next step in the steps array, plus pass it a callback.
-        steps[step++](self, function next(requireManager) {
-
-            if (step < steps.length) {
-
-                steps[step++](self, next);
-
-            }
-            else {
-
-                if (callback) {
-                    callback(null, true);
-                }
-
-                return true;
-
-            }
-
-        });
+    });
 
 
-    };
+  }
 
-    return {
-        init: init,
-        addStep: addStep,
-        execute: execute
-    };
+  return {
+    init: init,
+    addStep: addStep,
+    execute: execute
+  }
 
-};
+}
 
 module.exports = exports = new requireManager();

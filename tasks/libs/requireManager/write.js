@@ -6,7 +6,7 @@ var path = require('path');
 var _util = require('../utility');
 
 // Function used to find specific asset files.
-var write = function () {
+var write = function() {
 
     /***
      * Settings file variables.
@@ -16,8 +16,8 @@ var write = function () {
     var wrapperEnd = '}());';
 
     var baseUrl = 'var scripts = document.getElementById("require"),\n' +
-                    'src = scripts.src,\n' +
-                    'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));console.log(baseUrl);\n';
+        'src = scripts.src,\n' +
+        'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));console.log(baseUrl);\n';
 
     function writeHeader(settings) {
 
@@ -34,9 +34,11 @@ var write = function () {
 
     function writeConfig(lazyDefinitions) {
         var requireStart = 'require.config({ baseUrl: baseUrl, paths:';
-        var requireEnd = '\n});\n';
+        var requireEnd = '\n});\n'
 
         _util.appendToFile(settingFile, requireStart);
+
+
 
         if (Object.keys(lazyDefinitions).length > 0) {
 
@@ -44,9 +46,8 @@ var write = function () {
 
             _util.appendToFile(settingFile, buffer);
 
-        }
-        else {
-            _util.appendToFile(settingFile, '{}');
+        } else {
+            _util.appendToFile(settingFile, "{}");
         }
 
         _util.appendToFile(settingFile, requireEnd);
@@ -68,58 +69,56 @@ var write = function () {
 
     }
 
-    settings = function (rm, next) {
-
-        console.log("Writing RequireJS Settings File:");
+    var settings = function(rm, next) {
 
         // Pull the settings closer
-        settings = rm.options.requireSettings;
-        tempFolder = rm.options.tempFolder;
+        var options = rm.options;
+        var task = rm.task;
+
+        grunt = rm.grunt;
 
         //console.log(rm.options.tempFolder);
+        var tempFolder = options.components.folders.temp;
+        settingFile = path.join(tempFolder, options.components.requireJS.filename);
+        var settings = options.components.requireJS;
 
-        settingFile = path.join(tempFolder, settings.fileName);
-        grunt = rm.grunt;
+        _util.console("ok", "Write RequireJS Settings File");
 
         // Check to see if the current file exist. Flush it if it does
         if (grunt.file.exists(settingFile)) {
             grunt.file.delete(settingFile);
 
-        }
-        else {
+        } else {
 
             // Check to make sure the temp directory is in place.
             if (!grunt.file.exists(tempFolder)) {
                 grunt.file.mkdir(tempFolder);
             }
-        }
+        };
 
         // Write the for the settings file.
         writeHeader(settings);
 
         // Pull the lazy definitions in
-        var lazyDefinitions = rm.lazyDefinitions;
+        var lazyDefinitions = rm.lazyComponent;
 
         // Write the actual config
         writeConfig(lazyDefinitions);
-
 
         // Now lets merge in the init file
         if (settings.customInit) {
 
             // Check to make sure the init file path exists.
-            if (grunt.file.exists(settings.baseInitFile)) {
-                initPath = settings.baseInitFile;
-            }
-            else {
+            if (grunt.file.exists(settings.initFile)) {
+                initPath = settings.initFile
+            } else {
                 // ERORR
-                console.log('Settings init missing, Please check to make sure it exists in declared path');
+                console.log("Settings init missing, Please check to make sure it exists in declared path");
             }
 
-        }
-        else {
+        } else {
 
-            initPath = path.join(rm.options.partialFolder, settings.baseInitFile);
+            initPath = path.join(options.components.folders.partial, settings.initFile);
 
         }
 
@@ -131,12 +130,12 @@ var write = function () {
 
         // Move to the next step
         next(rm);
-    };
+    }
 
     return {
         settings: settings
-    };
+    }
 
-};
+}
 
 module.exports = exports = new write();
