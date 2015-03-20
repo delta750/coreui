@@ -1,42 +1,79 @@
+/***
+ * ===
+ *  Build.js
+ *  ----------
+ *  The build module is responspible for creating all the dynamic grunt task that are part of the component
+ *  integration process.
+ * ===
+ ***/
+
 'use strict';
 
 var path = require('path');
 
 // Inculde our utility object
-// var _util = require('../utility');
+var _util = require('../utility');
+var _include = require('./include');
+var _lazy = require('./lazy');
 
 var build = function() {
 
-    var requireConfigs = function(rm, next) {
-
-        console.log("Building RequireJS Configs for Grunt:");
+    // This function creates all the specific asset task for the lazy loaded resources.
+    var assets = function(rm, next) {
 
         var grunt = rm.grunt;
 
-        var baseBuildFile = path.join(rm.options.partialFolder, rm.options.baseBuild);
+        _util.console('ok', 'Building Grunt Tasks for Assets');
 
-        // pull the prod/dev flag used to determine proper tasks.
-        var buildType = grunt.config.get('prodBuild');
+        // Loop the components again
+        rm.definedComponents.forEach(function(component) {
 
-        // Read in the basic build requirements
-        var base = grunt.file.readJSON(baseBuildFile);
+            // Check to see if we are handleing lazy load components or include components.
+            if (!component.lazy) {
 
-        var customIncludes = Object.keys(rm.includeDefinitions);
+                _include.component(component, grunt);
 
-        // Check to see if we have additional build defintions to include
-        if (customIncludes.length > 0) {
+            }
+            else {
 
-            // Loop through all of the includes
-            customIncludes.forEach(function (include) {
+                _lazy.component(component, grunt);
+            }
 
-                // Pull the extension out of the module path
-                var modulePath = rm.includeDefinitions[include].split('.')[0];
+        });
 
-                // Add the library to the include paths
-                base.libs[include] = modulePath;
+        var watch = grunt.config.get('watch');
 
-                // Add the library to the include array
-                base.include.push(include);
+        _util.writeJSON(path.join(rm.options.components.folders.temp, 'watch.json'), watch);
+
+        next(rm);
+    }
+
+    var require = function(rm, next) {
+
+        var grunt = rm.grunt;
+        var options = rm.options;
+
+        _util.console('ok', 'Building Grunt Tasks for Require');
+
+        // Load in the base file from the default location unless the user has indicated an override.
+        if (!options.components.requireJS.customBase) {
+            var baseJSON = path.join(options.components.folders.partial, options.components.requireJS.baseFile);
+        }
+        else {
+
+            // Custom base, just use the basefile defined
+            var baseJSON = options.components.requireJS.baseFile;
+        }
+
+        var baseJSON = grunt.file.readJSON(baseJSON);
+
+        // Check to see if we have addtional definitions to include
+        if (Object.keys(rm.includeComponent).length > 0) {
+
+            Object.keys(rm.includeComponent).forEach(function(include) {
+
+                baseJSON.libs[include] = rm.includeComponent[include];
+                baseJSON.include.push(include);
 
             });
 
@@ -46,17 +83,15 @@ var build = function() {
         var requireOptions = grunt.config.get('requirejs.compile.options');
 
         // Add the library and include definitions
-        requireOptions.paths = base.libs;
-        requireOptions.include = base.include;
+        requireOptions.paths = baseJSON.libs;
+        requireOptions.include = baseJSON.include;
 
         // Check to see if the build type is production, if so turn off the source map item and turn on
-        if (buildType) {
+        if (grunt.config.get('prodBuild')) {
             requireOptions.generateSourceMaps = false;
         }
 
-        //console.log(rm.options.tempFolder, rm.options.requireSettings.fileName);
-        var settingsFile = path.join('../', rm.options.tempFolder, rm.options.requireSettings.fileName).split('.js')[0];
-
+        var settingsFile = path.join('../', options.components.folders.temp, options.components.requireJS.filename.split('.js')[0]);
 
         // Update settings path location
         requireOptions.name = settingsFile;
@@ -64,93 +99,18 @@ var build = function() {
         // Reset options for the build.
         grunt.config.set('requirejs.compile.options', requireOptions);
 
-        // Move to the next;
+        // For debug purposes write this build file out
+        var jsonFile = path.join(options.components.folders.temp, 'build.json');
+
+        _util.writeJSON(jsonFile, baseJSON);
+
         next(rm);
-    };
-
-    // Functionm handles updating the uglify task so only components that are reconized as actual componets are shipped to the dist folder.
-    // Only used on JS files right now.
-    var assetConfigs = function(rm, next) {
-
-        console.log("Building Asset Configs for Grunt:");
-
-        // Lazy components are the problem here, so lets get the object
-        var lazyComponents = rm.lazyComponents;
-
-        // pull the prod/dev flag used to determine proper tasks.
-        var buildType = rm.grunt.config.get('prodBuild');
-
-        // Variables to hold all the different asset types
-        var jsTask = [];
-
-        Object.keys(lazyComponents).forEach(function(component) {
-
-            // verify that compont has files.
-            if (lazyComponents[component].files.length > 0) {
-                var componentFiles = lazyComponents[component].files;
-
-                // Loop through all the differnt files.
-                componentFiles.forEach(function(file) {
-
-                    // pull apart file paths for testing
-                    // var filepath = file.substring(0, file.lastIndexOf('/'));
-                    var filename = file.substring(file.lastIndexOf('/')+1);
-                    var extension = filename.substring(filename.lastIndexOf('.')+1);
-
-                    //console.log(extension);
-
-                    switch (extension) {
-                        case 'js':
-
-                            jsTask.push(file);
-
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                });
-
-            }
-
-        });
-
-        // Check to see if js task has any item
-        if (jsTask.length > 0) {
-
-            var gruntTask;
-
-            // Based on the build type, pull the right configs.
-            if (buildType) {
-                gruntTask = rm.grunt.config.get('uglify.prodComponents');
-            }
-            else {
-                gruntTask = rm.grunt.config.get('uglify.devComponents');
-            }
-
-            // Add the file to the config
-            gruntTask.files[0].src = jsTask;
-
-            // Now put the new configs in place.
-            if (buildType) {
-                rm.grunt.config.set('uglify.prodComponents', gruntTask);
-            }
-            else {
-                rm.grunt.config.set('uglify.devComponents', gruntTask);
-            }
-
-        }
-
-        // Move to next step.
-        next(rm);
-
-    };
+    }
 
     return {
-        requireConfigs: requireConfigs,
-        assetConfigs: assetConfigs
+        assets: assets,
+        require: require
     };
-};
+}
 
 module.exports = exports = new build();

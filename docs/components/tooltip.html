@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../../dist/js/cui/cui.js"></script>
-    <script src="../../dist/js/components/tooltip/tooltip.js"></script>
-    <link rel="stylesheet" href="../../dist/css/cui/cui.css">
-    <link rel="stylesheet" href="../../dist/css/components/tooltip/tooltip.css">
+    <meta charset="utf-8">
+    <title>Tooltip - Core UI</title>
+    <link href="../../dist/css/cui/cui.css" rel="stylesheet" type="text/css" media="all">
     <style>
         html { height: 100%; }
         body { padding: 1em; width: 100%; min-height: 100%; }
@@ -26,5 +25,16 @@
         <p>Contents of tooltip 2</p>
         <p>I also have a <a href="#" tabindex="1">link</a>.</p>
     </div>
+
+    <script id="require" src="../../dist/js/cui.js"></script>
+    <script>
+        require(['jquery', 'cui', 'domReady!'], function($, cui) {
+
+            cui.load('tooltip', function() {
+                console.log('Loaded tooltip: ', cui.tooltip);
+            });
+
+        });
+    </script>
 </body>
 </html>

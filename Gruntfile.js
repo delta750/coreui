@@ -20,9 +20,6 @@ module.exports = function (grunt) {
                 'document.head.appendChild(s);' +
             '}());';
 
-    // Load all Grunt tasks
-    require('load-grunt-tasks')(grunt);
-
     /////////////////////////////
     // Configure Grunt plugins //
     /////////////////////////////
@@ -35,6 +32,16 @@ module.exports = function (grunt) {
 
         // Flag for dynamic tasks.
         prodBuild: true,
+
+        // Remove temporary development files
+        // https://github.com/gruntjs/grunt-contrib-clean
+        clean: {
+            dist: [
+                'dist',
+                'src/components/**/dist/',
+                '!src/components/**/node_modules/**/dist/',
+            ]
+        },
 
         // JS linting
         // https://github.com/gruntjs/grunt-contrib-jshint
@@ -58,56 +65,19 @@ module.exports = function (grunt) {
         // Minify and concatenate JS files
         // https://github.com/gruntjs/grunt-contrib-uglify
         uglify: {
+
             // Global uglify options
             options: {
                 banner: jsBanner,
                 preserveComments: 'some',
-                sourceMap: true,
-                mangle: false, // We need the variable names to be unchanged so other scripts (i.e. in-page `<script>` tags) can reference them
+                sourceMap: false,
+                mangle: false,
             },
 
-            devVendor: {
+            vendor: {
                 files: {
                     'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
-                    'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js'],
                 }
-            },
-
-            prodVendor: {
-                options: {
-                    sourceMap: false,
-                    compress: {
-                        drop_console: true,
-                    },
-                },
-                files: {
-                  'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
-                  'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js'],
-                }
-            },
-
-            devComponents: {
-                files: [{
-                    expand: true,
-                    dest: 'dist/js/components/',
-                    src: [],
-                    flatten: true,
-                }],
-            },
-
-            prodComponents: {
-                options: {
-                    sourceMap: false,
-                    compress: {
-                        drop_console: true,
-                      },
-                },
-                files: [{
-                    expand: true,
-                    dest: 'dist/js/components/',
-                    src: [],
-                    flatten: true,
-                }],
             },
 
         },
@@ -118,57 +88,15 @@ module.exports = function (grunt) {
             // Global options
             options: {
                 sourceMap: false, // No source maps by default
-
-                // Cannot use "compressed" until this bug is resolved, otherwise media queries will be empty: https://github.com/sindresorhus/grunt-sass/issues/152
-                // That's fixed in v0.17.0, but that version introduces another Windows 7-related bug
                 outputStyle: 'nested', // Options: nested, compressed
             },
 
-            // Development task
-            dev: {
-                options: {
-                    sourceMap: true, // Enable source maps
-                    outputStyle: 'nested',
-                },
+            cui: {
                 files: {
                     'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
-            },
-
-            devComponents: {
-                options: {
-                    sourceMap: true, // Enable source maps
-                    outputStyle: 'nested',
-                },
-                files: [{
-                  expand: true,
-                  flatten: true,
-                  cwd: 'src/components/',
-                  src: ['**/*.scss'],
-                  dest: 'dist/css/components/',
-                  ext: '.css',
-                }]
-            },
-
-            // Production task
-            prod: {
-                files: {
-                    'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
-                    'dist/css/project/project.css': 'src/project/scss/project.scss',
-                },
-            },
-
-            prodComponents: {
-                files: [{
-                  expand: true,
-                  flatten: true,
-                  cwd: 'src/components/',
-                  src: ['**/*.scss'],
-                  dest: 'dist/css/components/',
-                  ext: '.css',
-                }]
-            },
+            }
 
         },
 
@@ -176,13 +104,21 @@ module.exports = function (grunt) {
         // The sass plugin doesn't allow us to add a banner so we need this to insert the version number at the top
         // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
-            core: {
+            cuiCSS: {
                 options: {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
                 src: ['dist/css/cui/cui.css'],
                 dest: 'dist/css/cui/cui.css',
+            },
+            cuiJS: {
+                options: {
+                    // stripBanners: true,
+                    banner: jsBanner,
+                },
+                src: ['dist/js/cui.js'],
+                dest: 'dist/js/cui.js',
             },
             project: {
                 options: {
@@ -210,31 +146,29 @@ module.exports = function (grunt) {
             options: {
                 livereload: true,
                 interrupt: true,
+                nospawn: true
             },
 
             scripts: {
                 files: [
-                    'src/**/*.js',
-                    '!src/components/*/dist/**/*.js' // To ignore generated component files
+                    'src/cui/**/*.js',
+                    'src/project/**/*.js' // To ignore generated component files
                 ],
                 tasks: [
                     'jshint',
-                    'subGrunt',
-                    'uglify:devVendor',
-                    'uglify:devComponents',
-                    'requireManager'
+                    'requirejs',
+                    'uglify',
+                    'concat:devjs'
                 ]
             },
 
             sass: {
                 files: [
-                    'src/**/*.scss',
+                    'src/cui/**/*.scss',
+                    'src/project/**/*.scss'
                 ],
                 tasks: [
-                    'sass:dev',
-                    'sass:devComponents',
-                    'concat:core',
-                    'concat:project',
+                    'sass:cui',
                 ],
             },
 
@@ -257,18 +191,6 @@ module.exports = function (grunt) {
 
         copy: {
             // Copy rule handes modules that do now have dist folders.
-            css: {
-                expand: true,
-                cwd: 'src/components',
-                src: [
-                    '**/*.css',
-                    '!*/dist/**/*.css',
-                    '!*/node_modules/**/*.css', // Ignore node_moudles
-                ],
-                dest: 'dist/css/components',
-                filter: 'isFile',
-                flatten: true
-            },
             fonts: {
                 expand: true,
                 cwd: 'src/cui/fonts',
@@ -290,31 +212,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Local server
-        // Go to http://localhost:8888 in your browser to use it
-        // https://github.com/gruntjs/grunt-contrib-connect
-        connect: {
-            server: {
-                options: {
-                    port: 8888
-                }
-            }
-        },
-
-        // Remove temporary development files
-        // https://github.com/gruntjs/grunt-contrib-clean
-        clean: {
-            // Temporary files and development goodies
-            prod: [
-                'src/**/*.map',
-                'dist/**/*.map',
-                '.sass-cache/',
-            ],
-            dist: [
-              'dist'
-            ]
-        },
-
         // Builds the default javascript cui library using r.js compilar
         requirejs: {
             compile: {
@@ -331,16 +228,28 @@ module.exports = function (grunt) {
             }
         },
 
-        requireManager: {
-            components: {
-                files: [{
-                    cwd: 'src/components/',
-                    src: '*',
-                    dest: 'dist/js/components'
-                }]
+        // Local server
+        // Go to http://localhost:8888 in your browser to use it
+        // https://github.com/gruntjs/grunt-contrib-connect
+        connect: {
+            server: {
+                options: {
+                    port: 8888
+                }
             }
         },
 
+        // Pass the component location and glob pattern
+        requireManager: {
+            options: {
+                components: {
+                    cwd: 'src/components',
+                    src: '*'
+                }
+            }
+        },
+
+        // Locations to look for components
         subGrunt: {
             components: {
                 files: [{
@@ -382,7 +291,10 @@ module.exports = function (grunt) {
 
     });
     // End of plugin configuration
-    // Next we define the tasks we want to use
+
+
+    // Load all Grunt tasks
+    require('load-grunt-tasks')(grunt);
 
     // Project Specfic tasks
     grunt.loadTasks('tasks');
@@ -397,17 +309,17 @@ module.exports = function (grunt) {
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function (args) {
         grunt.task.run([
+            'clean',
             'jshint',
             'subGrunt',
             'requireManager',
-            'sass:prod',
-            'sass:prodComponents',
-            'uglify:prodVendor',
-            'uglify:prodComponents',
-            'concat:core',
-            'concat:project',
             'copy',
-            'clean:prod',
+            'requirejs',
+            'uglify',
+            'sass',
+            'concat:cuiCSS',
+            'concat:cuiJS',
+            'concat:project',
         ]);
     });
 
@@ -415,22 +327,27 @@ module.exports = function (grunt) {
     // Only use this on your local machine while developing
     grunt.registerTask('dev', 'Development', function (args) {
 
-        // Dynamic flag
-        grunt.config.set('prodBuild', false);
+        // Set the prod flag to false.
+        grunt.config.set("prodBuild", false);
+
+        // Enable Source Maps
+        grunt.config.set('sass.options.sourceMap', true);
+        grunt.config.set('uglify.options.sourceMap', true);
 
         grunt.task.run([
-            'connect',
+            'clean',
             'jshint',
             'subGrunt',
             'requireManager',
-            'sass:dev',
-            'sass:devComponents',
-            'uglify:devVendor',
-            'uglify:devComponents',
-            'concat',
             'copy',
-            'watch',
+            'requirejs',
+            'uglify',
+            'sass',
+            'concat:devJS',
+            'connect',
+            'watch'
         ]);
+
     });
 
     // Task used to camm component builds on subfolders.
@@ -481,8 +398,8 @@ module.exports = function (grunt) {
     // Documentation
     grunt.registerTask('docs', 'Documentation', function (args) {
         grunt.task.run([
-            'markdown',
             'connect',
+            'markdown',
             'watch:markdown',
         ]);
     });
