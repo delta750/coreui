@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../../dist/js/cui/cui.js"></script>
-    <script src="../../dist/js/components/datepicker/datepicker.js"></script>
-    <link rel="stylesheet" href="../../dist/css/cui/cui.css">
-    <link rel="stylesheet" href="../../dist/css/components/components.css">
+    <meta charset="utf-8">
+    <title>Datepicker - Core UI</title>
+    <link href="../../dist/css/cui/cui.css" rel="stylesheet" type="text/css" media="all">
     <style>
         html { height: 100%; }
         body { padding: 1em; width: 100%; min-height: 100%; }
@@ -24,5 +23,16 @@
             <a class="calendar" id="cal_second">Icon</a>
         </div>
     </div>
+
+    <script id="require" src="../../dist/js/cui.js"></script>
+    <script>
+        require(['jquery', 'cui', 'domReady!'], function($, cui) {
+
+            cui.load('datepicker', function() {
+                console.log('Loaded datepicker: ', cui.datepicker);
+            });
+
+        });
+    </script>
 </body>
 </html>
