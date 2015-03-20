@@ -336,7 +336,6 @@ module.exports = function (grunt) {
         grunt.config.set('uglify.options.sourceMap', true);
 
         grunt.task.run([
-            'connect',
             'clean',
             'jshint',
             'subGrunt',
