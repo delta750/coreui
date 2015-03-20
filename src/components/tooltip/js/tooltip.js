@@ -1,4 +1,4 @@
-define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
+define(['jquery', 'cui', 'vendor/kind', 'css!tooltipStyle'], function($, cui, kind) {
     cui.tooltip = (function tooltip() {
         var
             // Constants
