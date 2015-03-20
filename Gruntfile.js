@@ -68,7 +68,7 @@ module.exports = function (grunt) {
 
             // Global uglify options
             options: {
-                //banner: jsBanner,
+                banner: jsBanner,
                 preserveComments: 'some',
                 sourceMap: false,
                 mangle: false,
@@ -97,7 +97,7 @@ module.exports = function (grunt) {
                     'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
-            },
+            }
 
         },
 
@@ -105,13 +105,21 @@ module.exports = function (grunt) {
         // The sass plugin doesn't allow us to add a banner so we need this to insert the version number at the top
         // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
-            core: {
+            cuiCSS: {
                 options: {
                     // stripBanners: true,
                     banner: cssBanner,
                 },
                 src: ['dist/css/cui/cui.css'],
                 dest: 'dist/css/cui/cui.css',
+            },
+            cuiJS: {
+                options: {
+                    // stripBanners: true,
+                    banner: jsBanner,
+                },
+                src: ['dist/js/cui.js'],
+                dest: 'dist/js/cui.js',
             },
             project: {
                 options: {
@@ -139,31 +147,29 @@ module.exports = function (grunt) {
             options: {
                 livereload: true,
                 interrupt: true,
+                nospawn: true
             },
 
             scripts: {
                 files: [
-                    'src/**/*.js',
-                    '!src/components/*/dist/**/*.js' // To ignore generated component files
+                    'src/cui/**/*.js',
+                    'src/project/**/*.js' // To ignore generated component files
                 ],
                 tasks: [
                     'jshint',
-                    'subGrunt',
-                    'uglify:devVendor',
-                    'uglify:devComponents',
-                    'requireManager'
+                    'requirejs',
+                    'uglify',
+                    'concat:devjs'
                 ]
             },
 
             sass: {
                 files: [
-                    'src/**/*.scss',
+                    'src/cui/**/*.scss',
+                    'src/project/**/*.scss'
                 ],
                 tasks: [
-                    'sass:dev',
-                    'sass:devComponents',
-                    'concat:core',
-                    'concat:project',
+                    'sass:cui',
                 ],
             },
 
@@ -305,12 +311,16 @@ module.exports = function (grunt) {
     grunt.registerTask('prod', 'Production', function (args) {
         grunt.task.run([
             'clean',
+            'jshint',
             'subGrunt',
             'requireManager',
             'copy',
             'requirejs',
             'uglify',
-            'sass'
+            'sass',
+            'concat:cuiCSS',
+            'concat:cuiJS',
+            'concat:project'
         ]);
     });
 
@@ -327,12 +337,14 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean',
+            'jshint',
             'subGrunt',
             'requireManager',
             'copy',
             'requirejs',
             'uglify',
             'sass',
+            'concat:devJS',
             'watch'
         ]);
 

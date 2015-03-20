@@ -157,22 +157,26 @@ var lazy = function() {
                 tasks.unshift("componentBuild:" + component.folder.path);
             }
 
-            var watch = grunt.config.get('watch');
+            if (tasks.length > 0) {
 
-            if (!watch[component.name]) {
+                var watch = grunt.config.get('watch');
 
-                // Bootstrap the watch task
-                watch[component.name] = {
-                    files: [],
-                    tasks: []
-                };
+                if (!watch[component.name]) {
 
-                watch[component.name].files = component.files.source;
-                watch[component.name].tasks = tasks;
+                    // Bootstrap the watch task
+                    watch[component.name] = {
+                        files: [],
+                        tasks: []
+                    };
+
+                    watch[component.name].files = component.files.source;
+                    watch[component.name].tasks = tasks;
+                }
+
+                // Save the watch task
+                grunt.config.set('watch', watch);
+
             }
-
-            // Save the watch task
-            grunt.config.set('watch', watch);
 
         }
 

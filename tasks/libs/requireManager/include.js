@@ -119,25 +119,29 @@ var include = function() {
 
             }
 
-            // Add the requireJS build task as the last peice.
-            tasks.push('requirejs');
+            if (task.length > 0) {
 
-            var watch = grunt.config.get('watch');
+                // Add the requireJS build task as the last peice.
+                tasks.push('requirejs');
 
-            if (!watch[component.name]) {
+                var watch = grunt.config.get('watch');
 
-                // Bootstrap the watch task
-                watch[component.name] = {
-                    files: [],
-                    tasks: []
-                };
+                if (!watch[component.name]) {
 
-                watch[component.name].files = component.files.source;
-                watch[component.name].tasks = tasks;
+                    // Bootstrap the watch task
+                    watch[component.name] = {
+                        files: [],
+                        tasks: []
+                    };
+
+                    watch[component.name].files = component.files.source;
+                    watch[component.name].tasks = tasks;
+                }
+
+                // Save the watch task
+                grunt.config.set('watch', watch);
+
             }
-
-            // Save the watch task
-            grunt.config.set('watch', watch);
 
         }
 
