@@ -24,7 +24,7 @@ var process = function () {
 
         }
 
-        return stringParts.join("");
+        return stringParts.join('');
 
     }
 
@@ -53,7 +53,8 @@ var process = function () {
 
             filePath = fileDef.filePath.substr(0, fileDef.filePath.lastIndexOf('.'));
 
-        } else {
+        }
+        else {
 
             filePath = fileDef.filePath;
         }
@@ -79,7 +80,7 @@ var process = function () {
             var loadDirectory = component.assets[file.type].lazyPath;
 
             // Depending on the search type we change how the load string is formed
-            if (component.assets[file.type].search === "single") {
+            if (component.assets[file.type].search === 'single') {
 
                 // Check to see if the component name is used yet.
                 if (rm.lazyComponent[component.name]) {
@@ -93,16 +94,16 @@ var process = function () {
                         rm.lazyComponent[tempName] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
                     }
 
-                } else {
+                }
+                else {
 
                     // The component name is not in use
                     rm.lazyComponent[component.name] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
 
                 }
 
-
-            } else {
-
+            }
+            else {
 
                 var filename = formatName(file.filename);
 
@@ -116,7 +117,8 @@ var process = function () {
                         rm.lazyComponent[tempName] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
                     }
 
-                } else {
+                }
+                else {
 
                     rm.lazyComponent[filename] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
                 }
@@ -138,10 +140,10 @@ var process = function () {
             var includeName = component.name;
 
             // Filter out only scripts here. We need to handle other files differently.
-            if (file.type === "script") {
+            if (file.type === 'script') {
 
                 // Depending on the search type we change how the load string is formed
-                if (component.assets[file.type].search === "single") {
+                if (component.assets[file.type].search === 'single') {
 
                     // Check to see if the component name is used yet.
                     if (rm.includeComponent[component.name]) {
@@ -155,16 +157,16 @@ var process = function () {
                             rm.includeComponent[tempName] = cleanUpFilePath(file);
                         }
 
-                    } else {
+                    }
+                    else {
 
                         // The component name is not in use
                         rm.includeComponent[component.name] = cleanUpFilePath(file);
 
                     }
 
-
-                } else {
-
+                }
+                else {
 
                     var filename = formatName(file.filename);
 
@@ -178,7 +180,8 @@ var process = function () {
                             rm.includeComponent[tempName] = cleanUpFilePath(file);
                         }
 
-                    } else {
+                    }
+                    else {
 
                         rm.includeComponent[filename] = cleanUpFilePath(file);
                     }
@@ -199,7 +202,7 @@ var process = function () {
         var task = rm.task;
 
         // Indicate the step started.
-        _util.console("ok", "Process Component Files");
+        _util.console('ok', 'Process Component Files');
 
         // Loop through the component folders
         rm.definedComponents.forEach(function(component) {
@@ -210,7 +213,8 @@ var process = function () {
 
                 lazyComponent(component, rm);
 
-            } else {
+            }
+            else {
 
                 includeComponent(component, rm);
 

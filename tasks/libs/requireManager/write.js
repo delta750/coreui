@@ -46,8 +46,9 @@ var write = function() {
 
             _util.appendToFile(settingFile, buffer);
 
-        } else {
-            _util.appendToFile(settingFile, "{}");
+        }
+        else {
+            _util.appendToFile(settingFile, '{}');
         }
 
         _util.appendToFile(settingFile, requireEnd);
@@ -82,13 +83,14 @@ var write = function() {
         settingFile = path.join(tempFolder, options.components.requireJS.filename);
         var settings = options.components.requireJS;
 
-        _util.console("ok", "Write RequireJS Settings File");
+        _util.console('ok', 'Write RequireJS Settings File');
 
         // Check to see if the current file exist. Flush it if it does
         if (grunt.file.exists(settingFile)) {
             grunt.file.delete(settingFile);
 
-        } else {
+        }
+        else {
 
             // Check to make sure the temp directory is in place.
             if (!grunt.file.exists(tempFolder)) {
@@ -111,12 +113,14 @@ var write = function() {
             // Check to make sure the init file path exists.
             if (grunt.file.exists(settings.initFile)) {
                 initPath = settings.initFile
-            } else {
+            }
+            else {
                 // ERORR
-                console.log("Settings init missing, Please check to make sure it exists in declared path");
+                console.log('Settings init missing, Please check to make sure it exists in declared path');
             }
 
-        } else {
+        }
+        else {
 
             initPath = path.join(options.components.folders.partial, settings.initFile);
 

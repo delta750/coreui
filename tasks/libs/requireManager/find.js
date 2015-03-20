@@ -30,7 +30,7 @@ var find = function() {
 
         // Add a place to store folder metadata.
         component.folder = {
-            folder: _util.lastPart(folder, "/"),
+            folder: _util.lastPart(folder, '/'),
             path: folder
         }
 
@@ -41,7 +41,8 @@ var find = function() {
             component = _util.merge(component, grunt.file.readJSON(settingsFile));
             component.settings = true;
             component.files.settings = settingsFile;
-        } else {
+        }
+        else {
             component.settings = false;
         }
 
@@ -53,7 +54,8 @@ var find = function() {
             component.files.build = buildFile;
             component.folder.build = path.join(folder, options.components.folders.build);
 
-        } else {
+        }
+        else {
             component.build = false;
             component.folder.build = folder;
         }
@@ -61,7 +63,7 @@ var find = function() {
         // Check to see if the component has a defined name
         if (!component.name) {
             // Fall back to the folder name.
-            component.name = _util.lastPart(folder, "/");
+            component.name = _util.lastPart(folder, '/');
         }
 
         // Now lets get the defaults for assets criteria
@@ -71,7 +73,7 @@ var find = function() {
         if (component.assets) {
 
             // Check how it was defined. If its an object, then merge, if its a simple array enhance
-            if (_util.kindOf(component.assets) === "array") {
+            if (_util.kindOf(component.assets) === 'array') {
 
                 var tempAsset = {};
 
@@ -87,7 +89,8 @@ var find = function() {
                 // Override the asset definiton provided
                 component.assets = tempAsset;
 
-            } else if (_util.kindOf(component.assets) === "object") {
+            }
+            else if (_util.kindOf(component.assets) === 'object') {
 
                 var tempAsset = {};
 
@@ -110,7 +113,8 @@ var find = function() {
                 // Override the asset definiton provided
                 component.assets = tempAsset;
 
-            } else if (_util.kindOf(component.assets) === "string") {
+            }
+            else if (_util.kindOf(component.assets) === 'string') {
 
                 var tempAsset = {};
 
@@ -124,7 +128,8 @@ var find = function() {
 
             }
 
-        } else {
+        }
+        else {
 
             // Nothing is defined about this components assets, so we will use the inherit definitions
             component.assets = assets;
@@ -143,7 +148,7 @@ var find = function() {
         var task = rm.task;
 
         // Indicate the step started.
-        _util.console("ok", "Find Components Folders");
+        _util.console('ok', 'Find Components Folders');
 
         // Loop through all of the task files
         var componentDirectory = options.components.cwd;
@@ -165,16 +170,18 @@ var find = function() {
 
                 });
 
-            } else {
+            }
+            else {
 
                 // Nothing was found!
-                _util.console("warn", "Component folder: " + componentDirectory + " is empty or glob patterm found no folders.!");
+                _util.console('warn', 'Component folder: ' + componentDirectory + ' is empty or glob patterm found no folders.!');
 
             }
 
-        } else {
+        }
+        else {
 
-            _util.console("warn", "Component folder: " + componentDirectory + " is invalid!");
+            _util.console('warn', 'Component folder: ' + componentDirectory + ' is invalid!');
         }
 
         // Move to the next step
@@ -191,7 +198,7 @@ var find = function() {
 
         function singleSearch(haystack, needle) {
 
-             return _assets.single(haystack, "**/" + needle);
+             return _assets.single(haystack, '**/' + needle);
 
         }
 
@@ -201,7 +208,7 @@ var find = function() {
 
             exts.forEach(function(ext){
 
-                temp.push(name + "." + ext);
+                temp.push(name + '.' + ext);
 
             });
 
@@ -210,7 +217,7 @@ var find = function() {
         }
 
         // Indicate the step started.
-        _util.console("ok", "Find Components Assets");
+        _util.console('ok', 'Find Components Assets');
 
         definedComponents.forEach(function(component) {
 
@@ -225,7 +232,7 @@ var find = function() {
                 switch (asset.search) {
 
                     // Search for a single file of this type
-                    case "single":
+                    case 'single':
 
                         // So we are looking for a single file, the file name itself is either going to be spcified in the file attribute for the asset
                         // or its the folder name so lets start with that.
@@ -235,13 +242,15 @@ var find = function() {
 
                             // Just in case, if this is an array just take the first one
                             // === Glob test ability? ===
-                            if (_util.kindOf(asset.file) === "array") {
+                            if (_util.kindOf(asset.file) === 'array') {
                                 name = asset.file[0];
-                            } else {
+                            }
+                            else {
                                 name = asset.file;
                             }
 
-                        } else {
+                        }
+                        else {
 
                             // component name is either going to be specified or not (defualt to folder).
                             name = component.name;
@@ -254,9 +263,10 @@ var find = function() {
                         // Check to see if the normal extensions are defined (they should be).
                         if (asset.ext) {
 
-                            if (_util.kindOf(asset.ext) === "array") {
+                            if (_util.kindOf(asset.ext) === 'array') {
                                 acceptableExt.concat(asset.ext);
-                            } else {
+                            }
+                            else {
                                 acceptableExt.push(asset.ext);
                             }
 
@@ -265,9 +275,10 @@ var find = function() {
                         // Check for compiled extenstions
                         if (asset.compiledExt) {
 
-                            if (_util.kindOf(asset.compiledExt) === "array") {
+                            if (_util.kindOf(asset.compiledExt) === 'array') {
                                 acceptableExt.concat(asset.compiledExt);
-                            } else {
+                            }
+                            else {
                                 acceptableExt.push(asset.compiledExt);
                             }
 
@@ -279,11 +290,12 @@ var find = function() {
                         if (asset.file) {
 
                             // We have an array of acceptable files? This is likely and error but we will look for the first on in this array
-                             if (_util.kindOf(asset.file) === "array") {
+                             if (_util.kindOf(asset.file) === 'array') {
 
                                 acceptableFiles = acceptableFiles.concat(createFileArray(asset.file[0], acceptableExt));
 
-                             } else {
+                             }
+                             else {
 
                                 acceptableFiles = acceptableFiles.concat(createFileArray(asset.file, acceptableExt));
                              }
@@ -328,13 +340,13 @@ var find = function() {
                         break;
 
                     // Search for multile files of this type
-                    case "multiple":
+                    case 'multiple':
 
                         // Check to see if we have defined filename to look for
                         if (asset.file) {
 
                             // Make sure we have an array to iterate through.
-                            var fileArray = (_util.kindOf(asset.file) === "string") ? [asset.file] : asset.file;
+                            var fileArray = (_util.kindOf(asset.file) === 'string') ? [asset.file] : asset.file;
 
                             var acceptableFiles = [];
                             var acceptableExt = []
@@ -343,18 +355,18 @@ var find = function() {
                             fileArray.forEach(function(file) {
 
                                 // Constructe the file names to expect.
-                                acceptableFiles.push(file + "." + asset.ext);
+                                acceptableFiles.push(file + '.' + asset.ext);
                                 acceptableExt.push(asset.ext);
 
                                 // if acceptable compiled extensions are defined
                                 if (asset.compiledExt) {
 
-                                    var extList = (_util.kindOf(asset.compiledExt) === "string") ? [asset.compiledExt] : asset.file;
+                                    var extList = (_util.kindOf(asset.compiledExt) === 'string') ? [asset.compiledExt] : asset.file;
 
                                     // Loop through all the acceptable extension types.
                                     extList.forEach(function(ext){
 
-                                        acceptableFiles.push(file + "." + ext);
+                                        acceptableFiles.push(file + '.' + ext);
                                         acceptableExt.push(ext);
 
                                     });
@@ -372,7 +384,8 @@ var find = function() {
                                 fileList = resultsList;
                             }
 
-                        } else {
+                        }
+                        else {
 
                             var acceptableExt = [];
 
@@ -384,7 +397,7 @@ var find = function() {
                             // Check for an compiled asset type
                             if (asset.compiledExt) {
 
-                                var extList = (_util.kindOf(asset.compiledExt) === "string") ? [asset.compiledExt] : asset.file;
+                                var extList = (_util.kindOf(asset.compiledExt) === 'string') ? [asset.compiledExt] : asset.file;
 
                                 // Loop through all the acceptable extension types.
                                 extList.forEach(function(ext){
@@ -419,14 +432,14 @@ var find = function() {
             });
 
             // Place all the found files in the component definition
-            component.files["assets"] = fileList;
+            component.files['assets'] = fileList;
 
             // Now that we have found all the distribution files
             // We need to register all the source, files. These paths will be used for
             // Grunt watch tasks. If this is not a production build.
             var srcFiles = _assets.sourceFiles(component.folder.path, excludeFiles);
 
-            component.files["source"] = srcFiles;
+            component.files['source'] = srcFiles;
 
         });
 

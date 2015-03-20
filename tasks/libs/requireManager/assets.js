@@ -57,7 +57,8 @@ var assets = function () {
 
                         }
 
-                    } else {
+                    }
+                    else {
 
                         // Not using the include list so go ahead and include
                         var fileObj = {
@@ -66,7 +67,6 @@ var assets = function () {
                             srcPath: path.join(rootdir, subdir),
                             filePath: abspath
                         };
-
 
                     }
 
@@ -100,7 +100,8 @@ var assets = function () {
                         results.push(abspath);
                     }
 
-                } else {
+                }
+                else {
 
                     results.push(abspath);
                 }

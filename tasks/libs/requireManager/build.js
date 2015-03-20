@@ -23,7 +23,7 @@ var build = function() {
 
         var grunt = rm.grunt;
 
-        _util.console("ok", "Building Grunt Tasks for Assets");
+        _util.console('ok', 'Building Grunt Tasks for Assets');
 
         // Loop the components again
         rm.definedComponents.forEach(function(component) {
@@ -33,7 +33,8 @@ var build = function() {
 
                 _include.component(component, grunt);
 
-            } else {
+            }
+            else {
 
                 _lazy.component(component, grunt);
             }
@@ -52,12 +53,13 @@ var build = function() {
         var grunt = rm.grunt;
         var options = rm.options;
 
-        _util.console("ok", "Building Grunt Tasks for Require");
+        _util.console('ok', 'Building Grunt Tasks for Require');
 
         // Load in the base file from the default location unless the user has indicated an override.
         if (!options.components.requireJS.customBase) {
             var baseJSON = path.join(options.components.folders.partial, options.components.requireJS.baseFile);
-        } else {
+        }
+        else {
 
             // Custom base, just use the basefile defined
             var baseJSON = options.components.requireJS.baseFile;
@@ -85,7 +87,7 @@ var build = function() {
         requireOptions.include = baseJSON.include;
 
         // Check to see if the build type is production, if so turn off the source map item and turn on
-        if (grunt.config.get("prodBuild")) {
+        if (grunt.config.get('prodBuild')) {
             requireOptions.generateSourceMaps = false;
         }
 

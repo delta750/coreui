@@ -320,7 +320,7 @@ module.exports = function (grunt) {
             'sass',
             'concat:cuiCSS',
             'concat:cuiJS',
-            'concat:project'
+            'concat:project',
         ]);
     });
 
@@ -336,6 +336,7 @@ module.exports = function (grunt) {
         grunt.config.set('uglify.options.sourceMap', true);
 
         grunt.task.run([
+            'connect',
             'clean',
             'jshint',
             'subGrunt',
@@ -399,8 +400,8 @@ module.exports = function (grunt) {
     // Documentation
     grunt.registerTask('docs', 'Documentation', function (args) {
         grunt.task.run([
-            'markdown',
             'connect',
+            'markdown',
             'watch:markdown',
         ]);
     });

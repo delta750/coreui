@@ -20,15 +20,15 @@ var requireManager = function() {
     var defaultOptions = {
         components: {
             cwd: 'components/',
-            src: "*",
+            src: '*',
             files: {
                 settings: {
-                    component: "component.json",
-                    script: "settings.json",
-                    style: "settings.scss",
+                    component: 'component.json',
+                    script: 'settings.json',
+                    style: 'settings.scss',
                 },
-                build: "Gruntfile.js",
-                includeStyle: "includeStyles.scss"
+                build: 'Gruntfile.js',
+                includeStyle: 'includeStyles.scss'
             },
             folders: {
                 build: 'dist',
@@ -47,104 +47,104 @@ var requireManager = function() {
         }
     };
 
-  var init = function(task, grunt) {
+    var init = function(task, grunt) {
 
-    // Save off the tasks settings and grunt object
-    this.task = task;
-    this.grunt = grunt;
+        // Save off the tasks settings and grunt object
+        this.task = task;
+        this.grunt = grunt;
 
-    // Save off pull task options into the defaulf option object.
-    this.options = _util.merge(defaultOptions, task.options({}));
+        // Save off pull task options into the defaulf option object.
+        this.options = _util.merge(defaultOptions, task.options({}));
 
-    // Pull in the default definition. These are external json files for simplisty in changeability.
-    this.defaults = {
-        components: grunt.file.readJSON('tasks/libs/requireManager/definitions/component.json'),
-        assets: grunt.file.readJSON('tasks/libs/requireManager/definitions/assets.json')
-    }
+        // Pull in the default definition. These are external json files for simplisty in changeability.
+        this.defaults = {
+            components: grunt.file.readJSON('tasks/libs/requireManager/definitions/component.json'),
+            assets: grunt.file.readJSON('tasks/libs/requireManager/definitions/assets.json')
+        }
 
-    // Array to hold component objects (pre processesing)
-    this.definedComponents = [];
+        // Array to hold component objects (pre processesing)
+        this.definedComponents = [];
 
-    // Sorted definition files
-    this.lazyComponent = {};
-    this.includeComponent = {};
+        // Sorted definition files
+        this.lazyComponent = {};
+        this.includeComponent = {};
 
-    // Files to exclude when multiple grabs occur
-    this.excludeFiles = [
-        defaultOptions.components.files.build,
-        defaultOptions.components.files.settings.component,
-        defaultOptions.components.files.settings.script,
-        defaultOptions.components.files.settings.style,
-        'package.json',
-        '.gitignore',
-        '.jshintrc',
-        '.editorconfig'
-    ];
+        // Files to exclude when multiple grabs occur
+        this.excludeFiles = [
+            defaultOptions.components.files.build,
+            defaultOptions.components.files.settings.component,
+            defaultOptions.components.files.settings.script,
+            defaultOptions.components.files.settings.style,
+            'package.json',
+            '.gitignore',
+            '.jshintrc',
+            '.editorconfig'
+        ];
 
-    // Files/Folders to flush each time
-    _util.flushFile('src/cui/scss/_utilities/_components.scss');
+        // Files/Folders to flush each time
+        _util.flushFile('src/cui/scss/_utilities/_components.scss');
 
-    // Return itself so the process can move on.
-    return this;
+        // Return itself so the process can move on.
+        return this;
 
-  };
+    };
 
-  var addStep = function(func) {
+    var addStep = function(func) {
 
-    // Add function to step array
-    steps.push(func);
+        // Add function to step array
+        steps.push(func);
 
-    // Return itself so the process can move on.
-    return this;
-
-  }
-
-  // Function will cause all the buffered steps to begin
-  var execute = function(callback) {
-
-    var self = this;
-
-    // See if no steps remain
-    if (steps.length === 0) {
-
-      if (callback) {
-        callback(null, true);
-      }
-
-      return true;
+        // Return itself so the process can move on.
+        return this;
 
     }
 
-    // Set the starting step
-    var step = 0;
+    // Function will cause all the buffered steps to begin
+    var execute = function(callback) {
 
-    // Execute the next step in the steps array, plus pass it a callback.
-    steps[step++](self, function next(requireManager) {
+        var self = this;
 
-        if (step < steps.length) {
+        // See if no steps remain
+        if (steps.length === 0) {
 
-          steps[step++](self, next);
+            if (callback) {
+                callback(null, true);
+            }
 
-        } else {
-
-          if (callback) {
-            callback(null, true);
-          }
-
-          return true;
+            return true;
 
         }
 
-    });
+        // Set the starting step
+        var step = 0;
 
+        // Execute the next step in the steps array, plus pass it a callback.
+        steps[step++](self, function next(requireManager) {
 
-  }
+            if (step < steps.length) {
 
-  return {
-    init: init,
-    addStep: addStep,
-    execute: execute
-  }
+                steps[step++](self, next);
+
+            }
+            else {
+
+                if (callback) {
+                    callback(null, true);
+                }
+
+                return true;
+
+            }
+
+        });
+
+    }
+
+    return {
+        init: init,
+        addStep: addStep,
+        execute: execute
+    }
 
 }
 

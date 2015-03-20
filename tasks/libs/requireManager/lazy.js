@@ -25,7 +25,7 @@ var lazy = function() {
 
             switch (file.type) {
 
-                case "script":
+                case 'script':
 
                     // Add the task object
                     scriptTask.push({
@@ -36,7 +36,7 @@ var lazy = function() {
 
                     break;
 
-                case "style":
+                case 'style':
 
                     var scssFile;
 
@@ -53,7 +53,8 @@ var lazy = function() {
                             dest: dest});
 
                         scssFile = dest;
-                    } else {
+                    }
+                    else {
 
                         scssFile = file.filePath;
                     }
@@ -85,7 +86,7 @@ var lazy = function() {
             copyTasks.forEach(function(copyObj) {
 
                 // Create the name with the filename in the name
-                name = component.name + "-" + copyObj.filename;
+                name = component.name + '-' + copyObj.filename;
 
                 // Bootstrap the task
                 copy[name] = {files: {}};
@@ -94,7 +95,7 @@ var lazy = function() {
                 copy[name].files[copyObj.dest] = copyObj.src;
 
                 // Add the task to the task array for watch
-                tasks.push("copy:" + name);
+                tasks.push('copy:' + name);
 
             });
 
@@ -109,13 +110,13 @@ var lazy = function() {
 
             scriptTask.forEach(function(scriptObjt) {
 
-                name = component.name + "-" + scriptObjt.filename;
+                name = component.name + '-' + scriptObjt.filename;
 
                 uglify[name] = {files: {}};
 
                 uglify[name].files[scriptObjt.dest] = scriptObjt.src;
 
-                tasks.push("uglify:" + name);
+                tasks.push('uglify:' + name);
 
             });
 
@@ -132,13 +133,13 @@ var lazy = function() {
 
             styleTask.forEach(function(styleObj) {
 
-                name = component.name + "-" + styleObj.filename;
+                name = component.name + '-' + styleObj.filename;
 
                 sass[name] = {files: {}};
 
                 sass[name].files[styleObj.dest] = styleObj.src;
 
-                tasks.push("sass:" + name);
+                tasks.push('sass:' + name);
 
             });
 
@@ -154,7 +155,7 @@ var lazy = function() {
             // Check to see if we need to include a build task.
             // If so put it on top!
             if (component.build) {
-                tasks.unshift("componentBuild:" + component.folder.path);
+                tasks.unshift('componentBuild:' + component.folder.path);
             }
 
             if (tasks.length > 0) {
