@@ -77,7 +77,6 @@ module.exports = function (grunt) {
             vendor: {
                 files: {
                     'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
-                    'dist/js/vendor/kind.js': ['src/cui/js/vendor/kind.js'],
                 }
             },
 

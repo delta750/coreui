@@ -8,7 +8,7 @@
 /*global define: true */
 (function (name, definition) {
     if (typeof define === "function" && define.amd) {
-        define(definition);
+        define([], definition);
     }
     // Fall back to a global variable
     else {
