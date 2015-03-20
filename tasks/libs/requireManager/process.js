@@ -31,13 +31,9 @@ var process = function () {
     function cleanUpFilename(fileDef) {
 
         // Check if the filetype is a script
-        if (fileDef.type === "script") {
+        if (fileDef.type === "script" || fileDef.type === "style") {
 
             return fileDef.filename.substr(0, fileDef.filename.lastIndexOf('.'));
-
-        } else if (fileDef.type === "style") {
-
-            return fileDef.filename.replace('.scss', '.css');
 
         } else {
 
@@ -53,7 +49,7 @@ var process = function () {
         var filePath = "";
 
         // Check if the filetype is a script
-        if (fileDef.type === "script") {
+        if (fileDef.type === "script" || fileDef.type === "style") {
 
             filePath = fileDef.filePath.substr(0, fileDef.filePath.lastIndexOf('.'));
 

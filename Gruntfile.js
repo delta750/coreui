@@ -345,6 +345,7 @@ module.exports = function (grunt) {
             'uglify',
             'sass',
             'concat:devJS',
+            'connect',
             'watch'
         ]);
 
