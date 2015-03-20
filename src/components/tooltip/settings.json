@@ -1,6 +1,6 @@
 {
-  "name":"tooltip",
-  "lazyLoadable": true,
-  "script": "tooltip",
-  "style": "tooltip"
+    "name": "tooltip",
+    "lazyLoadable": true,
+    "script": "tooltip",
+    "style": "tooltip"
 }

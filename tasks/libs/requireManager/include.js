@@ -24,11 +24,11 @@ var include = function() {
         component.files.assets.forEach(function(file) {
 
             // Filter out scripts
-            if (file.type !== "script") {
+            if (file.type !== 'script') {
 
                 switch (file.type) {
 
-                    case "style":
+                    case 'style':
 
                         var scssFile;
 
@@ -47,7 +47,8 @@ var include = function() {
 
                             scssFile = dest;
 
-                        } else {
+                        }
+                        else {
 
                             // We can use the file in place.
                             scssFile = file.filePath;
@@ -83,7 +84,7 @@ var include = function() {
             copyTasks.forEach(function(copyObj) {
 
                 // Create the name with the filename in the name
-                name = component.name + "-" + copyObj.filename;
+                name = component.name + '-' + copyObj.filename;
 
                 // Bootstrap the task
                 copy[name] = {files: {}};
@@ -92,7 +93,7 @@ var include = function() {
                 copy[name].files[copyObj.dest] = copyObj.src;
 
                 // Add the task to the task array for watch
-                tasks.push("copy:" + name);
+                tasks.push('copy:' + name);
 
             });
 
@@ -101,21 +102,20 @@ var include = function() {
 
         }
 
-
         // Check to see if this is a developer build
         if (!grunt.config.get('prodBuild')) {
 
             // Check to see if we need to include a build task.
             // If so put it on top!
             if (component.build) {
-                tasks.unshift("componentBuild:" + component.folder.path);
+                tasks.unshift('componentBuild:' + component.folder.path);
             }
 
             // Style includes build off of the cui style build so we only need to build the dev tasks
             if (styleTask) {
 
                 // Include style task are easy, just rebuild the cui file
-                tasks.push("sass:cui");
+                tasks.push('sass:cui');
 
             }
 
