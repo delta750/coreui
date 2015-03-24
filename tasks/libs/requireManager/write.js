@@ -17,7 +17,7 @@ var write = function() {
 
     var baseUrl = 'var scripts = document.getElementById("require"),\n' +
         'src = scripts.src,\n' +
-        'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));console.log(baseUrl);\n';
+        'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));\n';
 
     function writeHeader(settings) {
 
