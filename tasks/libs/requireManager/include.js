@@ -119,7 +119,7 @@ var include = function() {
 
             }
 
-            if (task.length > 0) {
+            if (tasks.length > 0) {
 
                 // Add the requireJS build task as the last peice.
                 tasks.push('requirejs');
