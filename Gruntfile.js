@@ -158,7 +158,7 @@ module.exports = function (grunt) {
                     'jshint',
                     'requirejs',
                     'uglify',
-                    'concat:devjs'
+                    'concat:devJS'
                 ]
             },
 

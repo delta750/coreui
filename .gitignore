@@ -3,6 +3,8 @@ dist/
 *.sublime-*
 *.log
 */.gitignore
+.DS_Store
+Thumbs.db
 
 # Temp
 local_docs/

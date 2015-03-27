@@ -12,7 +12,7 @@ var util = module.exports = {};
  * Logging Functions
  ***/
 
-util.console = function(type, msg) {
+util.console = function (type, msg) {
 
     switch (type) {
 
@@ -20,7 +20,7 @@ util.console = function(type, msg) {
             console.log(chalk.green('%s'), msg);
             break;
 
-        case "warnig":
+        case "warning":
             console.log(chalk.yellow('%s'), msg);
             break;
     }
@@ -76,19 +76,19 @@ util.kindOf = function (obj) {
  * String Functions
  ***/
 
-util.lastPart = function(str, delim) {
+util.lastPart = function (str, delim) {
     return str.substring(str.lastIndexOf(delim)+1);
 }
 
-util.removeExt = function(str) {
+util.removeExt = function (str) {
     return str.substr(0, str.lastIndexOf('.'));
 }
 
-util.removeSpecialChar = function(str) {
+util.removeSpecialChar = function (str) {
     return str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-}
+};
 
-util.uCaseFirst = function(string) {
+util.uCaseFirst = function (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -98,7 +98,7 @@ util.uCaseFirst = function(string) {
  ***/
 
 // Function converts all paths into a common unix like structure.
-util.unixifyPath = function(filepath) {
+util.unixifyPath = function (filepath) {
 
     if (process.platform === 'win32') {
         return filepath.replace(/\\/g, '/');
@@ -112,7 +112,7 @@ util.unixifyPath = function(filepath) {
 /***
  * Write File utilites
  ***/
-util.flushFile = function(filePath) {
+util.flushFile = function (filePath) {
 
     var buffer = new Buffer("", 'utf-8');
 
@@ -121,9 +121,9 @@ util.flushFile = function(filePath) {
 
     // Use write file to over write the orignal
     fs.writeFileSync(filePath, buffer);
-}
+};
 
-util.appendToFile = function(filePath, data) {
+util.appendToFile = function (filePath, data) {
 
     var buffer;
 
@@ -141,9 +141,9 @@ util.appendToFile = function(filePath, data) {
     // Create or append to the file.
     fs.appendFileSync(filePath, buffer);
 
-}
+};
 
-util.mergeFile = function(target, source) {
+util.mergeFile = function (target, source) {
 
     // Get the source file path and clean it up
     source = this.unixifyPath(source);
@@ -156,10 +156,10 @@ util.mergeFile = function(target, source) {
 
 };
 
-util.writeJSON = function(target, data) {
+util.writeJSON = function (target, data) {
 
     //data = JSON.stringify(data, null, 4);
     //grunt.file.write(target, JSON.stringify(data, null, 4));
     fs.writeFileSync(target, JSON.stringify(data, null, 4));
 
-}
+};

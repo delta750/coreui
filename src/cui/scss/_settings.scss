@@ -53,16 +53,16 @@ $link-color:           $light-blue !default;
 
 // * @section    Buttons
 // * --------------------------------------------------------
-$button-hover-color:   $light-gray !default;
+$button-hover-color:     $light-gray !default;
 $button-padding-top:     8px !default;
 $button-padding-right:   12px !default;
 $button-padding-bottom:  8px !default;
 $button-padding-left:    12px !default;
 $button-padding:         $button-padding-top $button-padding-right $button-padding-bottom $button-padding-left !default;
-$button-border-color:  #a5a5a3 !default;
-$button-border-width:  1px !default;
-$button-bg-color:      #d0d0ce !default;
-$button-text-shadow:   rgb(255, 255, 255) 0 1px 0 !default;
+$button-border-color:    #a5a5a3 !default;
+$button-border-width:    1px !default;
+$button-bg-color:        #d0d0ce !default;
+$button-text-shadow:     rgb(255, 255, 255) 0 1px 0 !default;
 
 // Primary button
 $button-primary-text-color:         $white !default;
@@ -86,20 +86,22 @@ $button-icon-height:   24px !default;
 
 // * @section    Inputs
 // * --------------------------------------------------------
-$input-border-color:   $light-gray-alt-2 !default;
-$input-border-width:   1px !default;
-$input-border:         $input-border-width solid $input-border-color !default;
-$input-border-color-focus:   #66afe9 !default;
-$input-border-radius:  $border-radius !default;
+$input-border-color:    $light-gray-alt-2 !default;
+$input-border-width:    1px !default;
+$input-border:          $input-border-width solid $input-border-color !default;
+$input-border-color-focus:  #66afe9 !default;
+$input-border-radius:   $border-radius !default;
 $input-padding-top:     4px !default;
-$input-padding-right:  10px  !default;
-$input-padding-bottom:  4px  !default;
-$input-padding-left:   10px !default;
-$input-padding:        $input-padding-top $input-padding-right $input-padding-bottom $input-padding-left !default;
-$input-bg-hover-color: $light-gray !default;
-$input-font-size:      14px !default;
-$input-font-weight:    $font-weight-light !default;
+$input-padding-right:   6px !default;
+$input-padding-bottom:  $input-padding-top !default;
+$input-padding-left:    $input-padding-right !default;
+$input-padding:         $input-padding-top $input-padding-right $input-padding-bottom $input-padding-left !default;
+$input-bg-hover-color:  $light-gray !default;
+$input-font-size:       14px !default;
+$input-font-weight:     $font-weight-light !default;
 $input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
+
+$input-difference-in-padding-value: 1px !default;
 
 
 // * @section    Grid
@@ -111,7 +113,7 @@ $grid-column-padding:  0 $grid-gutter-width !default;
 
 // * @section    Headers
 // * --------------------------------------------------------
-$header-padding:       0 0 0.4em 0 !default;
+$header-padding:  0 0 0.4em 0 !default;
 
 
 // * @section    Sections
