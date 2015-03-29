@@ -17,6 +17,7 @@ var include = function() {
 
     var component = function(component, grunt) {
 
+        var scriptTask = false;
         var styleTask = false;
         var copyTasks = [];
 
@@ -27,6 +28,10 @@ var include = function() {
             if (file.type !== 'script') {
 
                 switch (file.type) {
+
+                    case 'script':
+                        scriptTask = true;
+                        break
 
                     case 'style':
 
@@ -119,10 +124,13 @@ var include = function() {
 
             }
 
-            if (tasks.length > 0) {
-
+            // Script included
+            if (scriptTask) {
                 // Add the requireJS build task as the last peice.
                 tasks.push('requirejs');
+            }
+
+            if (tasks.length > 0) {
 
                 var watch = grunt.config.get('watch');
 
