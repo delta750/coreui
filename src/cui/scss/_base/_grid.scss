@@ -29,7 +29,6 @@
 [class*="cui-fixed-col-"],
 [class*="cui-filler-col-"] {
     position: relative;
-    overflow: hidden;
     @include clearfix;
 }
 
@@ -41,10 +40,13 @@ nav > header {
     padding: $grid-column-padding;
 }
 
+[class*="cui-filler-col-"] {
+    overflow: hidden;
+}
+
 .cui-filler-col-small {
     float: none;
     width: auto;
-    overflow: hidden;
 }
 
 .cui-row,
@@ -56,7 +58,6 @@ nav > header {
 .cui-hide-col-small {
     @include hide-voluntary;
 }
-
 
 // * @section    Mobile-first (small) default column widths
 // * --------------------------------------------------------
@@ -118,6 +119,10 @@ nav > header {
     width: 8.33333333%;
 }
 
+[class$="small-200"] {
+    width: 200px;
+}
+
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
@@ -129,7 +134,6 @@ nav > header {
     .cui-filler-col-medium {
         float: none;
         width: auto;
-        overflow: hidden;
     }
 
     .cui-hide-col-medium {
