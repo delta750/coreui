@@ -245,10 +245,10 @@
 
 // * @section    Grid
 // * --------------------------------------------------------
-@mixin row() {
+@mixin row($margin: $grid-row-margin) {
     width: 100%;
     clear: both;
-    margin: $grid-row-margin;
+    margin: $margin;
 }
 
 // * @section    Breakpoints
