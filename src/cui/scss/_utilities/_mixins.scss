@@ -6,6 +6,7 @@
 // * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
+
 // * @section    General
 // * --------------------------------------------------------
 @mixin no-padding-margin {
@@ -143,6 +144,7 @@
             user-select: $type;
 }
 
+
 // * @section    Sticky positioning
 // * --------------------------------------------------------
 // Must specify a `top` value and no parent may have `overflow: hidden`
@@ -150,6 +152,7 @@
     position: -webkit-sticky;
     position:         sticky;
 }
+
 
 // * @section    Triangle ◄ ▲ ► ▼
 // * @see        http://css-tricks.com/snippets/css/css-triangle/
@@ -229,17 +232,19 @@
     text-shadow: $button-primary-text-shadow;
 }
 
+
 // * @section    Grid
 // * --------------------------------------------------------
-@mixin row($margin: $grid-row-margin) {
-    width: 100%;
+@mixin row($margin: $grid-row-margin, $width: 100%) {
+    width: $width;
     clear: both;
     margin: $margin;
+    @include clearfix;
 }
+
 
 // * @section    Breakpoints
 // * --------------------------------------------------------
-
 // Breakpoint wrapper
 @mixin pointbreak($size: "", $max: false) {
     @if $size == "" {
@@ -252,4 +257,11 @@
     @else {
         @media (max-width: $size) { @content; }
     }
+}
+
+
+// * @section    Pixel to em conversion utility
+// * --------------------------------------------------------
+@function pxToem($px, $base: $font-size) {
+    @return ($px / $base) * 1em;
 }
