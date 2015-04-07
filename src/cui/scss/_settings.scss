@@ -46,7 +46,7 @@ $border-radius:        4px !default;
 $border-radius-small:  2px !default;
 $margin-center-h:      0 auto !default;
 $margin-center-v:      auto 0 !default;
-$images-path:          "../../images/cui/" !default;
+$images-path:          "../../../../dist/images/" !default;
 $touch-min-height:     44px;
 $link-color:           $light-blue !default;
 
@@ -59,6 +59,11 @@ $button-padding-right:   12px !default;
 $button-padding-bottom:  8px !default;
 $button-padding-left:    12px !default;
 $button-padding:         $button-padding-top $button-padding-right $button-padding-bottom $button-padding-left !default;
+$button-margin-top:      0 !default;
+$button-margin-right:    0 !default;
+$button-margin-bottom:   0 !default;
+$button-margin-left:     0.5em !default;
+$button-margin:          $button-margin-top $button-margin-right $button-margin-bottom $button-margin-left !default;
 $button-border-color:    #a5a5a3 !default;
 $button-border-width:    1px !default;
 $button-bg-color:        #d0d0ce !default;
@@ -142,7 +147,7 @@ $table-cell-padding-bottom: 4px !default;
 $table-cell-padding-left:   8px !default;
 $table-cell-padding:        $table-cell-padding-top $table-cell-padding-right $table-cell-padding-bottom $table-cell-padding-left !default;
 $table-button-padding:      $table-cell-padding !default;
-$table-footer-cell-padding: 8px 6px !default;
+$table-footer-cell-padding: 8px !default;
 $table-row-bg-hover-color:  $light-gray-alt-3;
 
 
