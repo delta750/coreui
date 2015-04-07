@@ -135,6 +135,12 @@
     -ms-transform: translate3d(0, 0, 0);
 }
 
+@mixin animation($value) {
+    @include enable-gpu;
+    -webkit-animation: $value;
+            animation: $value;
+}
+
 // Prevent the user from selecting text
 // http://caniuse.com/user-select-none
 @mixin user-select($type: none) {
@@ -142,6 +148,14 @@
        -moz-user-select: $type;
         -ms-user-select: $type;
             user-select: $type;
+}
+
+@mixin hyphenation($type: auto) {
+    // http://caniuse.com/css-hyphens
+    -webkit-hyphens: $type;
+       -moz-hyphens: $type;
+        -ms-hyphens: $type;
+            hyphens: $type;
 }
 
 
@@ -251,7 +265,10 @@
         $size: $bp-medium;
     }
 
-    @if $max == false {
+    @if $size == hires {
+        @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 192dpi) { @content; }
+    }
+    @elseif $max == false {
         @media (min-width: $size) { @content; }
     }
     @else {
