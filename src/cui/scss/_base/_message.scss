@@ -31,7 +31,7 @@
     background-color: lighten($text-error, 46%);
     border: 1px solid lighten($text-error, 32%);
     border-radius: $border-radius;
-    color: $text-error;
+    color: darken($text-error, 14%);
 }
 
 // Warning message item
@@ -39,7 +39,7 @@
     background-color: lighten($text-warning, 52%);
     border: 1px solid lighten($text-warning, 18%);
     border-radius: $border-radius;
-    color: $text-warning;
+    color: darken($text-warning, 14%);
 }
 
 // Success message item
@@ -47,7 +47,7 @@
     background-color: lighten($text-success, 46%);
     border: 1px solid lighten($text-success, 22%);
     border-radius: $border-radius;
-    color: $text-success;
+    color: darken($text-success, 14%);
 }
 
 // Informational message item
@@ -55,7 +55,7 @@
     background-color: lighten($text-information, 66%);
     border: 1px solid lighten($text-information, 50%);
     border-radius: $border-radius;
-    color: $text-information;
+    color: lighten($text-information, 4%);
 }
 
 .cui-error,
