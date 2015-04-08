@@ -24,8 +24,8 @@ li {
     }
 
     .cui-list-inline & {
-        list-style-position: $list-inline-spacing;
+        list-style-position: $cui-list-inline-spacing;
         list-style-type: none;
-        padding-right: $list-inline-spacing;
+        padding-right: $cui-list-inline-spacing;
     }
 }

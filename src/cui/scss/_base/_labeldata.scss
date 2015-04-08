@@ -8,7 +8,7 @@
 
 label,
 legend {
-    color: $dark-gray;
+    color: $cui-color-dark-gray;
     width: auto;
 }
 
@@ -45,7 +45,7 @@ legend {
     float: left;
     display: block;
     position: relative;
-    line-height: $line-height * 2;
+    line-height: $cui-line-height * 2;
     padding-left: 0;
     padding-right: 0;
 }
@@ -67,9 +67,9 @@ section .cui-data {
 .cui-required {
     label:after {
         content: "*";
-        color: $required-red;
-        font: $font-required;
-        font-weight: $font-weight-semibold;
+        color: $cui-color-required-red;
+        font: $cui-font-required;
+        font-weight: $cui-font-weight-semibold;
         margin-left: 0.2em;
     }
 }

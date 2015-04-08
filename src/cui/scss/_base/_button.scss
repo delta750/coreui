@@ -14,13 +14,13 @@ input[type="reset"],
 input[type="submit"],
 button {
     display: inline-block;
-    line-height: $line-height;
+    line-height: $cui-line-height;
     @include button;
-    padding: $button-padding;
+    padding: $cui-button-padding;
 
     &:hover {
-        border-color: $button-border-color;
-        background-color: $button-bg-color;
+        border-color: $cui-button-border-color;
+        background-color: $cui-button-bg-color;
     }
 }
 
