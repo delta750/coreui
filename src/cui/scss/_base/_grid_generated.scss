@@ -99,7 +99,7 @@ $columns: 12;
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width: $bp-medium) {
+@media only screen and (min-width: $cui-bp-medium) {
     [class*="cui-col-medium-"] {
         float: left;
     }
@@ -120,7 +120,7 @@ $columns: 12;
 
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width: $bp-large) {
+@media only screen and (min-width: $cui-bp-large) {
     [class*="cui-col-large-"] {
         float: left;
     }

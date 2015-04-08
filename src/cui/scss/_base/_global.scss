@@ -10,9 +10,9 @@
 // * @section    Additional resets
 // * --------------------------------------------------------
 body {
-    line-height: $line-height;
+    line-height: $cui-line-height;
     @include clearfix;
-    color: $dark-gray;
+    color: $cui-color-dark-gray;
 }
 
 legend {

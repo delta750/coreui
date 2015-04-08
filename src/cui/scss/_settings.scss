@@ -9,116 +9,116 @@
 
 // * @section    Fonts
 // * --------------------------------------------------------
-$font-basic:           Arial, sans-serif !default;
-$font-family:          "Proxima Nova", $font-basic !default;
-$font-size:            16px !default;
-$font-weight-light:    400 !default;
-$font-weight-semibold: 600 !default;
-$line-height:          1 !default;
+$cui-font-basic:           Arial, sans-serif !default;
+$cui-font-family:          "Proxima Nova", $cui-font-basic !default;
+$cui-font-size:            16px !default;
+$cui-font-weight-light:    400 !default;
+$cui-font-weight-semibold: 600 !default;
+$cui-line-height:          1 !default;
 // Headings
-$font-heading:         $font-family !default;
+$cui-font-heading:         $cui-font-family !default;
 // Required *
-$font-required:        1.1em $font-basic !default;
+$cui-font-required:        1.1em $cui-font-basic !default;
 
 
 // * @section    Colors
 // * --------------------------------------------------------
-$white:                #ffffff !default;
-$dark-gray:            #333333 !default;
-$dark-gray-alt:        #454545 !default;
-$dark-gray-alt-2:      #646460 !default;
-$light-gray:           #dededc !default;
-$light-gray-alt:       #eeeeec !default;
-$light-gray-alt-2:     #bfbfbd !default;
-$light-gray-alt-3:     #e7e7e5 !default;
-$light-gray-alt-4:     #e6ebec !default;
-$text-error:           #b52c29 !default;
-$text-warning:         #ba7b05 !default;
-$text-information:     #1b2a5e !default;
-$text-success:         #468453 !default;
-$required-red:         #ee3300 !default;
-$light-blue:           #19a6e2 !default;
+$cui-color-white:                #ffffff !default;
+$cui-color-dark-gray:            #333333 !default;
+$cui-color-dark-gray-alt:        #454545 !default;
+$cui-color-dark-gray-alt-2:      #646460 !default;
+$cui-color-light-gray:           #dededc !default;
+$cui-color-light-gray-alt:       #eeeeec !default;
+$cui-color-light-gray-alt-2:     #bfbfbd !default;
+$cui-color-light-gray-alt-3:     #e7e7e5 !default;
+$cui-color-light-gray-alt-4:     #e6ebec !default;
+$cui-color-text-error:           #b52c29 !default;
+$cui-color-text-warning:         #ba7b05 !default;
+$cui-color-text-information:     #1b2a5e !default;
+$cui-color-text-success:         #468453 !default;
+$cui-color-required-red:         #ee3300 !default;
+$cui-color-light-blue:           #19a6e2 !default;
 
 
 // * @section    General
 // * --------------------------------------------------------
-$border-radius:        4px !default;
-$border-radius-small:  2px !default;
-$margin-center-h:      0 auto !default;
-$margin-center-v:      auto 0 !default;
-$images-path:          "../../../../dist/images/" !default;
-$touch-min-height:     44px;
-$link-color:           $light-blue !default;
+$cui-border-radius:        4px !default;
+$cui-border-radius-small:  2px !default;
+$cui-margin-center-h:      0 auto !default;
+$cui-margin-center-v:      auto 0 !default;
+$cui-images-path:          "../../../../dist/images/" !default;
+$cui-touch-min-height:     44px;
+$cui-color-link:           $cui-color-light-blue !default;
 
 
 // * @section    Buttons
 // * --------------------------------------------------------
-$button-hover-color:     $light-gray !default;
-$button-padding-top:     8px !default;
-$button-padding-right:   12px !default;
-$button-padding-bottom:  8px !default;
-$button-padding-left:    12px !default;
-$button-padding:         $button-padding-top $button-padding-right $button-padding-bottom $button-padding-left !default;
-$button-margin-top:      0 !default;
-$button-margin-right:    0 !default;
-$button-margin-bottom:   0 !default;
-$button-margin-left:     0.5em !default;
-$button-margin:          $button-margin-top $button-margin-right $button-margin-bottom $button-margin-left !default;
-$button-border-color:    #a5a5a3 !default;
-$button-border-width:    1px !default;
-$button-bg-color:        #d0d0ce !default;
-$button-text-shadow:     rgb(255, 255, 255) 0 1px 0 !default;
+$cui-button-hover-color:     $cui-color-light-gray !default;
+$cui-button-padding-top:     8px !default;
+$cui-button-padding-right:   12px !default;
+$cui-button-padding-bottom:  8px !default;
+$cui-button-padding-left:    12px !default;
+$cui-button-padding:         $cui-button-padding-top $cui-button-padding-right $cui-button-padding-bottom $cui-button-padding-left !default;
+$cui-button-margin-top:      0 !default;
+$cui-button-margin-right:    0 !default;
+$cui-button-margin-bottom:   0 !default;
+$cui-button-margin-left:     0.5em !default;
+$cui-button-margin:          $cui-button-margin-top $cui-button-margin-right $cui-button-margin-bottom $cui-button-margin-left !default;
+$cui-button-border-color:    #a5a5a3 !default;
+$cui-button-border-width:    1px !default;
+$cui-button-bg-color:        #d0d0ce !default;
+$cui-button-text-shadow:     rgb(255, 255, 255) 0 1px 0 !default;
 
 // Primary button
-$button-primary-text-color:         $white !default;
-$button-primary-bg-color:           $dark-gray-alt-2 !default;
-$button-primary-border-color:       #5a5a56 !default;
-$button-primary-border:             $button-border-width solid $button-primary-border-color !default;
-$button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;
-$button-primary-border-hover-color: #444440 !default;
-$button-primary-bg-hover-color:     #50504b !default;
+$cui-button-primary-text-color:         $cui-color-white !default;
+$cui-button-primary-bg-color:           $cui-color-dark-gray-alt-2 !default;
+$cui-button-primary-border-color:       #5a5a56 !default;
+$cui-button-primary-border:             $cui-button-border-width solid $cui-button-primary-border-color !default;
+$cui-button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;
+$cui-button-primary-border-hover-color: #444440 !default;
+$cui-button-primary-bg-hover-color:     #50504b !default;
 
 // Icon buttons
-$button-icon-padding-top:    7px !default;
-$button-icon-padding-right:  8px !default;
-$button-icon-padding-bottom: 8px !default;
-$button-icon-padding-left:   8px !default;
-$button-icon-padding:        $button-icon-padding-top $button-icon-padding-right $button-icon-padding-bottom $button-icon-padding-left !default;
+$cui-button-icon-padding-top:    7px !default;
+$cui-button-icon-padding-right:  8px !default;
+$cui-button-icon-padding-bottom: 8px !default;
+$cui-button-icon-padding-left:   8px !default;
+$cui-button-icon-padding:        $cui-button-icon-padding-top $cui-button-icon-padding-right $cui-button-icon-padding-bottom $cui-button-icon-padding-left !default;
 
-$button-icon-width:    24px !default;
-$button-icon-height:   24px !default;
+$cui-button-icon-width:    24px !default;
+$cui-button-icon-height:   24px !default;
 
 
 // * @section    Inputs
 // * --------------------------------------------------------
-$input-border-color:    $light-gray-alt-2 !default;
-$input-border-width:    1px !default;
-$input-border:          $input-border-width solid $input-border-color !default;
-$input-border-color-focus:  #66afe9 !default;
-$input-border-radius:   $border-radius !default;
-$input-padding-top:     4px !default;
-$input-padding-right:   6px !default;
-$input-padding-bottom:  $input-padding-top !default;
-$input-padding-left:    $input-padding-right !default;
-$input-padding:         $input-padding-top $input-padding-right $input-padding-bottom $input-padding-left !default;
-$input-bg-hover-color:  $light-gray !default;
-$input-font-size:       14px !default;
-$input-font-weight:     $font-weight-light !default;
-$input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
+$cui-input-border-color:    $cui-color-light-gray-alt-2 !default;
+$cui-input-border-width:    1px !default;
+$cui-input-border:          $cui-input-border-width solid $cui-input-border-color !default;
+$cui-input-border-color-focus:  #66afe9 !default;
+$cui-input-border-radius:   $cui-border-radius !default;
+$cui-input-padding-top:     4px !default;
+$cui-input-padding-right:   6px !default;
+$cui-input-padding-bottom:  $cui-input-padding-top !default;
+$cui-input-padding-left:    $cui-input-padding-right !default;
+$cui-input-padding:         $cui-input-padding-top $cui-input-padding-right $cui-input-padding-bottom $cui-input-padding-left !default;
+$cui-input-bg-hover-color:  $cui-color-light-gray !default;
+$cui-input-font-size:       14px !default;
+$cui-input-font-weight:     $cui-font-weight-light !default;
+$cui-input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
 
-$input-difference-in-padding-value: 1px !default;
+$cui-input-difference-in-padding-value: 1px !default;
 
 
 // * @section    Grid
 // * --------------------------------------------------------
-$grid-gutter-width:    10px !default;
-$grid-row-margin:      0 auto $grid-gutter-width auto !default;
-$grid-column-padding:  0 $grid-gutter-width !default;
+$cui-grid-gutter-width:    10px !default;
+$cui-grid-row-margin:      0 auto $cui-grid-gutter-width auto !default;
+$cui-grid-column-padding:  0 $cui-grid-gutter-width !default;
 
 
 // * @section    Headers
 // * --------------------------------------------------------
-$header-padding:  0 0 0.4em 0 !default;
+$cui-header-padding:  0 0 0.4em 0 !default;
 
 
 // * @section    Sections
@@ -127,38 +127,37 @@ $header-padding:  0 0 0.4em 0 !default;
 
 // * @section    Text (<p>, free text, etc.)
 // * --------------------------------------------------------
-
-$text-line-height:    1.4 !default;
-$paragraph-padding:   0.7em !default;
+$cui-color-text-line-height:    1.4 !default;
+$cui-paragraph-padding:   0.7em !default;
 
 
 // * @section    Tables
 // * --------------------------------------------------------
-$table-header-bg-color:     $light-gray !default;
-$table-header-padding:      8px 12px !default;
-$table-row-bg-alt-color:    $light-gray-alt !default;
-$table-cell-border-width:   1px !default;
-$table-cell-border-style:   solid !default;
-$table-cell-border-color:   $light-gray-alt-2 !default;
-$table-cell-border:         $table-cell-border-width $table-cell-border-style $table-cell-border-color !default;
-$table-cell-padding-top:    4px !default;
-$table-cell-padding-right:  8px !default;
-$table-cell-padding-bottom: 4px !default;
-$table-cell-padding-left:   8px !default;
-$table-cell-padding:        $table-cell-padding-top $table-cell-padding-right $table-cell-padding-bottom $table-cell-padding-left !default;
-$table-button-padding:      $table-cell-padding !default;
-$table-footer-cell-padding: 8px !default;
-$table-row-bg-hover-color:  $light-gray-alt-3;
+$cui-table-header-bg-color:     $cui-color-light-gray !default;
+$cui-table-header-padding:      8px 12px !default;
+$cui-table-row-bg-alt-color:    $cui-color-light-gray-alt !default;
+$cui-table-cell-border-width:   1px !default;
+$cui-table-cell-border-style:   solid !default;
+$cui-table-cell-border-color:   $cui-color-light-gray-alt-2 !default;
+$cui-table-cell-border:         $cui-table-cell-border-width $cui-table-cell-border-style $cui-table-cell-border-color !default;
+$cui-table-cell-padding-top:    4px !default;
+$cui-table-cell-padding-right:  8px !default;
+$cui-table-cell-padding-bottom: 4px !default;
+$cui-table-cell-padding-left:   8px !default;
+$cui-table-cell-padding:        $cui-table-cell-padding-top $cui-table-cell-padding-right $cui-table-cell-padding-bottom $cui-table-cell-padding-left !default;
+$cui-table-button-padding:      $cui-table-cell-padding !default;
+$cui-table-footer-cell-padding: 8px !default;
+$cui-table-row-bg-hover-color:  $cui-color-light-gray-alt-3;
 
 
 // * @section    Lists
 // * --------------------------------------------------------
-$list-inline-spacing: 1em !default;
+$cui-list-inline-spacing: 1em !default;
 
 
 // * @section    Breakpoint
 // * --------------------------------------------------------
-$bp-medium:        480px !default;
-$bp-medium-minus:  $bp-medium - 1px !default;
-$bp-large:         786px !default;
-$bp-large-minus:   $bp-large - 1px !default;
+$cui-bp-medium:        480px !default;
+$cui-bp-medium-minus:  $cui-bp-medium - 1px !default;
+$cui-bp-large:         786px !default;
+$cui-bp-large-minus:   $cui-bp-large - 1px !default;

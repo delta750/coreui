@@ -14,8 +14,8 @@ input,
 select,
 textarea,
 button {
-    font-size: $font-size;
-    font-family: $font-family;
+    font-size: $cui-font-size;
+    font-family: $cui-font-family;
 }
 
 body,
@@ -28,6 +28,6 @@ textarea {
 
 p {
     margin: 0;
-    padding-bottom: $paragraph-padding;
-    line-height: $text-line-height;
+    padding-bottom: $cui-paragraph-padding;
+    line-height: $cui-color-text-line-height;
 }

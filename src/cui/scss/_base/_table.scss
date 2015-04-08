@@ -20,42 +20,42 @@ th,
 td {
     font-weight: normal;
     text-align: left;
-    border: $table-cell-border;
+    border: $cui-table-cell-border;
 }
 
 th {
-    padding: $table-header-padding;
-    background-color: $table-header-bg-color;
+    padding: $cui-table-header-padding;
+    background-color: $cui-table-header-bg-color;
     vertical-align: top;
 }
 
 td {
-    padding: $table-cell-padding;
+    padding: $cui-table-cell-padding;
 
     a[role="button"]
     input[type="button"],
     input[type="reset"],
     input[type="submit"],
     button {
-        padding: $table-button-padding;
+        padding: $cui-table-button-padding;
         margin: 0;
     }
 
     tfoot & {
-        padding: $table-footer-cell-padding;
+        padding: $cui-table-footer-cell-padding;
         border: 0;
-        border-top: 3px $table-cell-border-style $table-cell-border-color;
+        border-top: 3px $cui-table-cell-border-style $cui-table-cell-border-color;
     }
 }
 
 // Table stripes
 table:not([class*="cui-no-stripes"]) tbody tr:nth-child(even) {
-    background-color: $table-row-bg-alt-color;
+    background-color: $cui-table-row-bg-alt-color;
 }
 
 tbody tr:hover,
 table tbody tr:nth-child(even):hover {
-    background-color: $table-row-bg-hover-color;
+    background-color: $cui-table-row-bg-hover-color;
 }
 
 
@@ -64,5 +64,5 @@ table tbody tr:nth-child(even):hover {
 
 .cui-width-icon {
     // This should be wide enough to actually contain an icon (no hacks like 1%) otherwise the page can get a horizontal scroll bar
-    width: $button-icon-width + $table-cell-padding-left + $table-cell-padding-right;
+    width: $cui-button-icon-width + $cui-table-cell-padding-left + $cui-table-cell-padding-right;
 }
