@@ -66,6 +66,10 @@ nav > header {
 // * @section    Column generation
 // * --------------------------------------------------------
 
+@function column-width-calc($colNumber, $colTotal) {
+    @return percentage($colNumber / $colTotal);
+}
+
 @mixin build-grids($totalColumns: $cui-grid-column-count) {
     $breakpoints: (
         ("medium" $cui-bp-medium),
