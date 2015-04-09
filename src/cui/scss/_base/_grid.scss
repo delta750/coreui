@@ -63,65 +63,77 @@ nav > header {
     width: auto;
 }
 
-// * @section    Mobile-first (small) default column widths
+// * @section    Column generation
 // * --------------------------------------------------------
-.cui-col-small-12 {
-    width: 100%;
-}
 
-.cui-col-small-11 {
-    width: 91.66666667%;
-}
+@mixin build-grids($totalColumns: $cui-grid-column-count) {
+    $breakpoints: (
+        ("medium" $cui-bp-medium),
+        ("large" $cui-bp-large)
+    );
 
-.cui-col-small-10 {
-    width: 83.33333333%;
-}
+    @function column-width-calc($colNumber, $colTotal) {
+        @return percentage($colNumber / $colTotal);
+    }
 
-.cui-col-small-9 {
-    width: 75%;
-}
+    // Base (small) size -- these classes are not wrapped in a media query
+    @include create-column("small", $totalColumns, $cui-bp-medium);
 
-.cui-col-small-8 {
-    width: 66.66666667%;
-}
+    // All other sizes
+    @each $b in $breakpoints {
+        $point: nth($b, 1);
+        $min: nth($b, 2);
 
-.cui-col-small-7 {
-    width: 58.33333333%;
-}
-
-.cui-col-small-6 {
-    width: 50%;
-
-    // Make sure every column that begins a new "row" clears the elements before it.
-    // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
-    // Using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
-    //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
-    @include pointbreak($cui-bp-medium, true) {
-        &:nth-child(2n+3) {
-            clear: both;
+        // Create a new media query for the breakpoint
+        @include pointbreak($min) {
+            // Generate classes within the media query
+            @include create-column($point, $totalColumns);
         }
     }
 }
 
-.cui-col-small-5 {
-    width: 41.66666667%;
+@mixin create-column($point: "", $totalColumns: $cui-grid-column-count, $min: "") {
+    // Loop through each column creating the grid
+    @for $i from 1 to $totalColumns + 1 {
+
+        // Create this column number and assign it the correct width.
+        .cui-col-#{$point}-#{$i} {
+            width: column-width-calc($i, $totalColumns);
+        }
+
+        @if $min != "" {
+            @if $i == 6 {
+                // Make sure every column that begins a new "row" clears the elements before it.
+                // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
+                // We're using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
+                //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
+                //FIXME: This currently only generates for the small (no-MQ) breakpoint
+                @include pointbreak($min, true) {
+                    .cui-col-#{$point}-#{$i}:nth-child(2n+3) {
+                        clear: both;
+                    }
+                }
+            }
+        }
+    }
+
+    // Loop through again this time creating the `push` classes
+    @for $i from 1 to $totalColumns {
+        .cui-push-#{$point}-#{$i} {
+            margin-left: column-width-calc($i, $totalColumns);
+        }
+    }
+
+    // Loop through again this time creating the `pull` classes
+    @for $i from 1 to $totalColumns {
+        .cui-pull-#{$point}-#{$i} {
+            margin-right: column-width-calc($i, $totalColumns);
+        }
+    }
 }
 
-.cui-col-small-4 {
-    width: 33.33333333%;
-}
-
-.cui-col-small-3 {
-    width: 25%;
-}
-
-.cui-col-small-2 {
-    width: 16.66666667%;
-}
-
-.cui-col-small-1 {
-    width: 8.33333333%;
-}
+// Generate the grid and column classes
+@include build-grids($cui-grid-column-count);
 
 
 // * @section    Tablet (medium) column widths
@@ -149,54 +161,6 @@ nav > header {
         display: inline-block;
         float: none;
         width: auto;
-    }
-
-    .cui-col-medium-12 {
-        width: 100%;
-    }
-
-    .cui-col-medium-11 {
-        width: 91.66666667%;
-    }
-
-    .cui-col-medium-10 {
-        width: 83.33333333%;
-    }
-
-    .cui-col-medium-9 {
-        width: 75%;
-    }
-
-    .cui-col-medium-8 {
-        width: 66.66666667%;
-    }
-
-    .cui-col-medium-7 {
-        width: 58.33333333%;
-    }
-
-    .cui-col-medium-6 {
-        width: 50%;
-    }
-
-    .cui-col-medium-5 {
-        width: 41.66666667%;
-    }
-
-    .cui-col-medium-4 {
-        width: 33.33333333%;
-    }
-
-    .cui-col-medium-3 {
-        width: 25%;
-    }
-
-    .cui-col-medium-2 {
-        width: 16.66666667%;
-    }
-
-    .cui-col-medium-1 {
-        width: 8.33333333%;
     }
 
     [class$="medium-200"] {
@@ -230,54 +194,6 @@ nav > header {
         display: inline-block;
         float: none;
         width: auto;
-    }
-
-    .cui-col-large-12 {
-        width: 100%;
-    }
-
-    .cui-col-large-11 {
-        width: 91.66666667%;
-    }
-
-    .cui-col-large-10 {
-        width: 83.33333333%;
-    }
-
-    .cui-col-large-9 {
-        width: 75%;
-    }
-
-    .cui-col-large-8 {
-        width: 66.66666667%;
-    }
-
-    .cui-col-large-7 {
-        width: 58.33333333%;
-    }
-
-    .cui-col-large-6 {
-        width: 50%;
-    }
-
-    .cui-col-large-5 {
-        width: 41.66666667%;
-    }
-
-    .cui-col-large-4 {
-        width: 33.33333333%;
-    }
-
-    .cui-col-large-3 {
-        width: 25%;
-    }
-
-    .cui-col-large-2 {
-        width: 16.66666667%;
-    }
-
-    .cui-col-large-1 {
-        width: 8.33333333%;
     }
 }
 
