@@ -20,7 +20,6 @@
     min-height: 1.5em;
 }
 
-[class*="cui-col-small-"],
 [class*="cui-fixed-col-"] {
     float: left;
 }
@@ -53,15 +52,6 @@ nav > header {
     @include clearfix;
 }
 
-.cui-hide-col-small {
-    @include hide-voluntary;
-}
-
-.cui-inline-col-small {
-    display: inline-block;
-    float: none;
-    width: auto;
-}
 
 // * @section    Column generation
 // * --------------------------------------------------------
@@ -92,6 +82,27 @@ nav > header {
         @include pointbreak($min) {
             // Generate classes within the media query
             @include create-column($breakpointName, $numColumns);
+
+            // Breakpoint-specific utility columns
+            .cui-filler-col-#{$breakpointName} {
+                float: none;
+                width: auto;
+                overflow: hidden;
+            }
+
+            .cui-hide-col-#{$breakpointName} {
+                @include hide-voluntary;
+            }
+
+            .cui-inline-col-#{$breakpointName} {
+                display: inline-block;
+                float: none;
+                width: auto;
+            }
+
+            [class*="cui-col-#{$breakpointName}-"] {
+                float: left;
+            }
         }
     }
 }
@@ -143,29 +154,9 @@ nav > header {
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
 @media only screen and (min-width: $cui-bp-medium) {
-    [class*="cui-col-medium-"] {
-        float: left;
-    }
-
-    .cui-filler-col-medium {
-        float: none;
-        width: auto;
-        overflow: hidden;
-    }
-
-    .cui-hide-col-medium {
-        @include hide-voluntary;
-    }
-
     .cui-hide-col-small,
     .cui-hide-col-large {
         display: block;
-    }
-
-    .cui-inline-col-medium {
-        display: inline-block;
-        float: none;
-        width: auto;
     }
 
     [class$="medium-200"] {
@@ -177,29 +168,9 @@ nav > header {
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
 @media only screen and (min-width: $cui-bp-large) {
-    [class*="cui-col-large-"] {
-        float: left;
-    }
-
-    .cui-filler-col-large {
-        float: none;
-        width: auto;
-        overflow: hidden;
-    }
-
-    .cui-hide-col-large {
-        @include hide-voluntary;
-    }
-
     .cui-hide-col-small,
     .cui-hide-col-medium {
         display: block;
-    }
-
-    .cui-inline-col-large {
-        display: inline-block;
-        float: none;
-        width: auto;
     }
 }
 
