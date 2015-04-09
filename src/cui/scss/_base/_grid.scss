@@ -149,23 +149,6 @@ $cui-grid-breakpoints: (
     }
 }
 
-
-// Returns the styles for a single column
-@mixin grid-column($numerator: 1, $denominator: $cui-grid-column-count) {
-    width: column-width-calc($numerator, $denominator);
-
-    @each $b in $cui-grid-breakpoints {
-        $breakpointName: nth($b, 1);
-        $breakpointMinWidth: nth($b, 2);
-
-        // Create a new media query for the breakpoint
-        @include pointbreak($breakpointMinWidth) {
-            // Generate classes within the media query
-            width: column-width-calc($numerator, $denominator);
-        }
-    }
-}
-
 // Generate the grid and column classes
 @include generate-grid($cui-grid-column-count);
 

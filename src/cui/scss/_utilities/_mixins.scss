@@ -256,6 +256,32 @@
     @include clearfix;
 }
 
+// Returns the styles for a single column
+@mixin grid-column($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
+    @if $size == "small" {
+        // Don't use a media query for the base size because IE8 won't see it
+        width: column-width-calc($numerator, $denominator);
+    }
+    @elseif $size == "medium" {
+        width: 100%;
+
+        @include pointbreak($cui-bp-medium) {
+            width: column-width-calc($numerator, $denominator);
+        }
+
+        @include pointbreak($cui-bp-large) {
+            width: 100%;
+        }
+    }
+    @else {
+        // Large
+        width: 100%;
+
+        @include pointbreak($cui-bp-large) {
+            width: column-width-calc($numerator, $denominator);
+        }
+    }
+}
 
 // * @section    Breakpoints
 // * --------------------------------------------------------
