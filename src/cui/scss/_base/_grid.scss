@@ -70,7 +70,7 @@ nav > header {
     @return percentage($colNumber / $colTotal);
 }
 
-@mixin build-grids($totalColumns: $cui-grid-column-count) {
+@mixin build-grids($numColumns: $cui-grid-column-count) {
     $breakpoints: (
         ("medium" $cui-bp-medium),
         ("large" $cui-bp-large)
@@ -81,39 +81,39 @@ nav > header {
     }
 
     // Base (small) size -- these classes are not wrapped in a media query
-    @include create-column("small", $totalColumns, $cui-bp-medium);
+    @include create-column("small", $numColumns, $cui-bp-medium);
 
     // All other sizes
     @each $b in $breakpoints {
-        $point: nth($b, 1);
+        $breakpointName: nth($b, 1);
         $min: nth($b, 2);
 
         // Create a new media query for the breakpoint
         @include pointbreak($min) {
             // Generate classes within the media query
-            @include create-column($point, $totalColumns);
+            @include create-column($breakpointName, $numColumns);
         }
     }
 }
 
-@mixin create-column($point: "", $totalColumns: $cui-grid-column-count, $min: "") {
+@mixin create-column($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
     // Loop through each column creating the grid
-    @for $i from 1 to $totalColumns + 1 {
+    @for $i from 1 to $numColumns + 1 {
 
         // Create this column number and assign it the correct width.
-        .cui-col-#{$point}-#{$i} {
-            width: column-width-calc($i, $totalColumns);
+        .cui-col-#{$breakpointName}-#{$i} {
+            width: column-width-calc($i, $numColumns);
         }
 
-        @if $min != "" {
+        @if $breakpointMaxWidth != "" {
             @if $i == 6 {
                 // Make sure every column that begins a new "row" clears the elements before it.
                 // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
                 // We're using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
                 //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
                 //FIXME: This currently only generates for the small (no-MQ) breakpoint
-                @include pointbreak($min, true) {
-                    .cui-col-#{$point}-#{$i}:nth-child(2n+3) {
+                @include pointbreak($breakpointMaxWidth, true) {
+                    .cui-col-#{$breakpointName}-#{$i}:nth-child(2n+3) {
                         clear: both;
                     }
                 }
@@ -122,16 +122,16 @@ nav > header {
     }
 
     // Loop through again this time creating the `push` classes
-    @for $i from 1 to $totalColumns {
-        .cui-push-#{$point}-#{$i} {
-            margin-left: column-width-calc($i, $totalColumns);
+    @for $i from 1 to $numColumns {
+        .cui-push-#{$breakpointName}-#{$i} {
+            margin-left: column-width-calc($i, $numColumns);
         }
     }
 
     // Loop through again this time creating the `pull` classes
-    @for $i from 1 to $totalColumns {
-        .cui-pull-#{$point}-#{$i} {
-            margin-right: column-width-calc($i, $totalColumns);
+    @for $i from 1 to $numColumns {
+        .cui-pull-#{$breakpointName}-#{$i} {
+            margin-right: column-width-calc($i, $numColumns);
         }
     }
 }
@@ -142,7 +142,7 @@ nav > header {
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:$cui-bp-medium) {
+@media only screen and (min-width: $cui-bp-medium) {
     [class*="cui-col-medium-"] {
         float: left;
     }
@@ -157,7 +157,8 @@ nav > header {
         @include hide-voluntary;
     }
 
-    .cui-hide-col-small, .cui-hide-col-large {
+    .cui-hide-col-small,
+    .cui-hide-col-large {
         display: block;
     }
 
@@ -175,7 +176,7 @@ nav > header {
 
 // * @section    Desktop (large) column widths
 // * --------------------------------------------------------
-@media only screen and (min-width:$cui-bp-large) {
+@media only screen and (min-width: $cui-bp-large) {
     [class*="cui-col-large-"] {
         float: left;
     }
@@ -190,7 +191,8 @@ nav > header {
         @include hide-voluntary;
     }
 
-    .cui-hide-col-small, .cui-hide-col-medium {
+    .cui-hide-col-small,
+    .cui-hide-col-medium {
         display: block;
     }
 
