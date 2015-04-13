@@ -70,12 +70,6 @@ $cui-grid-breakpoints: (
             float: left;
         }
 
-        [class*="cui-filler-col-#{$breakpointName}"] {
-            float: none;
-            width: auto;
-            overflow: hidden;
-        }
-
         .cui-hide-col-#{$breakpointName} {
             @include hide-voluntary;
         }
@@ -152,9 +146,61 @@ $cui-grid-breakpoints: (
     }
 }
 
+// Generate fixed and filler classes for a given breakpoint
+@mixin generate-fixed-filler-columns($breakpointName: "") {
+    // Fixed & filler column layout approach:
+    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give filler columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the filler columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
+    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Filler columns use `width: calc(100% - Npx)` and no `margin-left`.
+
+    $sizes: (100, 200, 300, 400);
+
+    // Fixed
+    @each $size in $sizes {
+        [class*="cui-fixed-col-#{$breakpointName}-"][class*="#{$breakpointName}-#{$size}"] {
+            width: #{$size}px;
+        }
+    }
+
+    // Filler
+
+    // "push" = to the right
+    // "pull" = to the left
+
+    .no-csscalc [class*="cui-col-#{$breakpointName}-right"],
+    .no-csscalc [class*="cui-col-#{$breakpointName}-left"] {
+        float: none;
+        width: 100%;
+    }
+
+    // Specific filler sizes
+    @each $size in $sizes {
+        [class*="cui-col-#{$breakpointName}-right"][class*="#{$breakpointName}-right-#{$size}px"],
+        [class*="cui-col-#{$breakpointName}-left"][class*="#{$breakpointName}-left-#{$size}px"] {
+            width: calc(100% - #{$size}px);
+        }
+
+        .no-csscalc {
+            [class*="cui-col-#{$breakpointName}-right"][class*="#{$breakpointName}-right-#{$size}px"] {
+                margin-left: #{$size}px;
+            }
+
+            [class*="cui-col-#{$breakpointName}-left"][class*="#{$breakpointName}-left-#{$size}px"] {
+                margin-right: #{$size}px;
+            }
+        }
+    }
+}
+
 // Generate the grid and column classes
 @include generate-grid($cui-grid-column-count);
 
+
+// * @section    Small column widths
+// * --------------------------------------------------------
+// Fixed/filler
+@media only screen and (max-width: $cui-bp-medium-minus) {
+    @include generate-fixed-filler-columns("small");
+}
 
 // * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
@@ -163,10 +209,11 @@ $cui-grid-breakpoints: (
     .cui-hide-col-large {
         display: block;
     }
+}
 
-    [class$="medium-200"] {
-        width: 200px;
-    }
+// Fixed/filler
+@media only screen and (min-width: $cui-bp-medium) and (max-width: $cui-bp-large-minus) {
+    @include generate-fixed-filler-columns("medium");
 }
 
 
@@ -177,6 +224,8 @@ $cui-grid-breakpoints: (
     .cui-hide-col-medium {
         display: block;
     }
+
+    @include generate-fixed-filler-columns("large");
 }
 
 
