@@ -72,8 +72,33 @@ $cui-grid-breakpoints: (
         @return percentage($colNumber / $colTotal);
     }
 
+    // Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
+    @mixin utility-classes($breakpointName) {
+        .cui-filler-col-#{$breakpointName} {
+            float: none;
+            width: auto;
+            overflow: hidden;
+        }
+
+        .cui-hide-col-#{$breakpointName} {
+            @include hide-voluntary;
+        }
+
+        .cui-inline-col-#{$breakpointName} {
+            display: inline-block;
+            float: none;
+            width: auto;
+        }
+
+        [class*="cui-col-#{$breakpointName}-"] {
+            float: left;
+        }
+    }
+
     // Base (small) size -- these classes are not wrapped in a media query
     @include generate-column("small", $numColumns, $cui-bp-medium);
+
+    @include utility-classes("small");
 
     // All other sizes
     @each $b in $cui-grid-breakpoints {
@@ -85,26 +110,7 @@ $cui-grid-breakpoints: (
             // Generate classes within the media query
             @include generate-column($breakpointName, $numColumns);
 
-            // Breakpoint-specific utility columns
-            .cui-filler-col-#{$breakpointName} {
-                float: none;
-                width: auto;
-                overflow: hidden;
-            }
-
-            .cui-hide-col-#{$breakpointName} {
-                @include hide-voluntary;
-            }
-
-            .cui-inline-col-#{$breakpointName} {
-                display: inline-block;
-                float: none;
-                width: auto;
-            }
-
-            [class*="cui-col-#{$breakpointName}-"] {
-                float: left;
-            }
+            @include utility-classes($breakpointName);
         }
     }
 }
