@@ -17,7 +17,7 @@ $cui-font-weight-semibold: 600 !default;
 $cui-line-height:          1 !default;
 // Headings
 $cui-font-heading:         $cui-font-family !default;
-// Required *
+// Required asterisk
 $cui-font-required:        1.1em $cui-font-basic !default;
 
 
@@ -111,6 +111,7 @@ $cui-input-difference-in-padding-value: 1px !default;
 
 // * @section    Grid
 // * --------------------------------------------------------
+$cui-grid-column-count:    12 !default;
 $cui-grid-gutter-width:    10px !default;
 $cui-grid-row-margin:      0 auto $cui-grid-gutter-width auto !default;
 $cui-grid-column-padding:  0 $cui-grid-gutter-width !default;
