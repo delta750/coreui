@@ -28,7 +28,6 @@
 [class*="cui-fixed-col-"],
 [class*="cui-filler-col-"] {
     position: relative;
-    overflow: hidden;
     @include clearfix;
 }
 
