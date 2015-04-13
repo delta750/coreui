@@ -40,14 +40,7 @@ nav > header {
     padding: $cui-grid-column-padding;
 }
 
-.cui-filler-col-small {
-    float: none;
-    width: auto;
-    overflow: hidden;
-}
-
 .cui-row,
-[class*="cui-filler-col-"],
 .cui-clearfix {
     @include clearfix;
 }
