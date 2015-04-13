@@ -52,6 +52,23 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
     // Place the lazyloader into the cui namespace.
     cui.load = lazyLoader.load;
 
+    // Browser support
+    // CSS calc()
+    (function() {
+        var el = document.createElement('div');
+
+        el.style.cssText = 'width: calc(1px);';
+
+        // No support
+        if (!el.style.length) {
+            $(document.documentElement).addClass('no-csscalc');
+        }
+        // Does support `calc` -- uncomment this if we ever need this class
+        // else {
+        //     $(document.documentElement).addClass('csscalc');
+        // }
+    }());
+
     return cui;
 
 });
