@@ -58,9 +58,9 @@ $cui-grid-breakpoints: (
     @return percentage($colNumber / $colTotal);
 }
 
+// Generates column classes for all breakpoint sizes
 @mixin generate-grid($numColumns: $cui-grid-column-count) {
-
-
+    // Return width for a single division (column) as a percentage of the total container (row)
     @function column-width-calc($colNumber, $colTotal) {
         @return percentage($colNumber / $colTotal);
     }
@@ -88,10 +88,17 @@ $cui-grid-breakpoints: (
         }
     }
 
-    // Base (small) size -- these classes are not wrapped in a media query
-    @include generate-column("small", $numColumns, $cui-bp-medium);
+    // Helper method that calls the actual class-creating mixins above
+    // We need this because we loop through all of the breakpoints except "small" but we want to be sure we're outputting the same code for all sizes
+    @mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
+        @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
+        @include utility-classes($breakpointName);
+    }
 
-    @include utility-classes("small");
+    // Finally, generate the classes for each size:
+
+    // Base (small) size -- these styles are not wrapped in a media query
+    @include generate-classes("small", $numColumns, $cui-bp-medium);
 
     // All other sizes
     @each $b in $cui-grid-breakpoints {
@@ -101,9 +108,7 @@ $cui-grid-breakpoints: (
         // Create a new media query for the breakpoint
         @include pointbreak($breakpointMinWidth) {
             // Generate classes within the media query
-            @include generate-column($breakpointName, $numColumns);
-
-            @include utility-classes($breakpointName);
+            @include generate-classes($breakpointName, $numColumns, $cui-bp-medium);
         }
     }
 }
