@@ -12,6 +12,12 @@
 
 // List containing messages
 .cui-messages {
+    @include row();
+
+    ul {
+        list-style: none outside none;
+    }
+
     li {
         width: 100%;
         text-indent: 0;
@@ -20,26 +26,75 @@
     }
 }
 
-// Message item
-[class*="cui-message-"] {
-}
-
 // Error message item
 .cui-error {
-    color: $text-error;
+    background-color: lighten($cui-color-text-error, 46%);
+    border: 1px solid lighten($cui-color-text-error, 32%);
+    border-radius: $cui-border-radius;
+    color: darken($cui-color-text-error, 14%);
 }
 
 // Warning message item
 .cui-warning {
-    color: $text-warning;
+    background-color: lighten($cui-color-text-warning, 52%);
+    border: 1px solid lighten($cui-color-text-warning, 18%);
+    border-radius: $cui-border-radius;
+    color: darken($cui-color-text-warning, 14%);
 }
 
 // Success message item
 .cui-success {
-    color: $text-success;
+    background-color: lighten($cui-color-text-success, 46%);
+    border: 1px solid lighten($cui-color-text-success, 22%);
+    border-radius: $cui-border-radius;
+    color: darken($cui-color-text-success, 14%);
 }
 
 // Informational message item
-.cui-info {
-    color: $text-information;
+.cui-informational {
+    background-color: lighten($cui-color-text-information, 66%);
+    border: 1px solid lighten($cui-color-text-information, 50%);
+    border-radius: $cui-border-radius;
+    color: lighten($cui-color-text-information, 4%);
+}
+
+.cui-error,
+.cui-warning,
+.cui-informational,
+.cui-success {
+    position: relative;
+    margin-bottom: 0.2em;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0.2em;
+        left: 0.2em;
+        display: block;
+        width: 24px;
+        height: 24px;
+        background: transparent url($cui-images-path + "messages-sprite.png") top left no-repeat;
+    }
+
+    p {
+        padding: 0.4em 0;
+        margin: 0 1em 0 2em;
+        line-height: normal;
+    }
+}
+
+.cui-error:before {
+    background-position: 0 0;
+}
+
+.cui-warning:before {
+    background-position: -24px 0;
+}
+
+.cui-success:before {
+    background-position: -48px 0;
+}
+
+.cui-informational:before {
+    background-position: -72px 0;
 }

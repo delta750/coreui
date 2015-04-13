@@ -24,8 +24,6 @@ module.exports = function (grunt) {
     // Configure Grunt plugins //
     /////////////////////////////
 
-    // See http://gruntjs.com/configuring-tasks for general info about configuring plugins/tasks
-
     grunt.initConfig({
         // All Grunt modules must be listed in the `package.json` file
         pkg: grunt.file.readJSON('package.json'),
@@ -40,14 +38,13 @@ module.exports = function (grunt) {
                 'dist',
                 'src/components/**/dist/',
                 '!src/components/**/node_modules/**/dist/',
-            ]
+            ],
         },
 
-        // JS linting
         // https://github.com/gruntjs/grunt-contrib-jshint
+        // Supported options: http://jshint.com/docs/
+        // Help with debugging common error messages: http://jslinterrors.com/
         jshint: {
-            // Supported options: http://jshint.com/docs/
-            // Help with debugging common error messages: http://jslinterrors.com/
             options: {
                 curly: true,
                 eqeqeq: true,
@@ -58,14 +55,12 @@ module.exports = function (grunt) {
                 'src/**/*.js',
                 '!src/cui/js/vendor/*.js',
                 '!src/components/**/*.js',
-                '!tasks/**/*.js'
-            ]
+                '!tasks/**/*.js',
+            ],
         },
 
-        // Minify and concatenate JS files
         // https://github.com/gruntjs/grunt-contrib-uglify
         uglify: {
-
             // Global uglify options
             options: {
                 banner: jsBanner,
@@ -79,13 +74,10 @@ module.exports = function (grunt) {
                     'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
                 }
             },
-
         },
 
-        // Styles
         // https://github.com/sindresorhus/grunt-sass
         sass: {
-            // Global options
             options: {
                 sourceMap: false, // No source maps by default
                 outputStyle: 'nested', // Options: nested, compressed
@@ -96,17 +88,14 @@ module.exports = function (grunt) {
                     'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
                     'dist/css/project/project.css': 'src/project/scss/project.scss',
                 },
-            }
-
+            },
         },
 
         // Add banner to CSS files
-        // The sass plugin doesn't allow us to add a banner so we need this to insert the version number at the top
         // https://github.com/gruntjs/grunt-contrib-concat
         concat: {
             cuiCSS: {
                 options: {
-                    // stripBanners: true,
                     banner: cssBanner,
                 },
                 src: ['dist/css/cui/cui.css'],
@@ -114,7 +103,6 @@ module.exports = function (grunt) {
             },
             cuiJS: {
                 options: {
-                    // stripBanners: true,
                     banner: jsBanner,
                 },
                 src: ['dist/js/cui.js'],
@@ -122,7 +110,6 @@ module.exports = function (grunt) {
             },
             project: {
                 options: {
-                    // stripBanners: true,
                     banner: cssBanner,
                 },
                 src: ['dist/css/project/project.css'],
@@ -136,11 +123,9 @@ module.exports = function (grunt) {
                 },
                 src: ['dist/js/cui.js'],
                 dest: 'dist/js/cui.js',
-            }
+            },
         },
 
-        // Watch for file changes and recompile the applicable files
-        // Also refresh the browser if the local server is being used
         // https://github.com/gruntjs/grunt-contrib-watch
         watch: {
             options: {
@@ -152,20 +137,21 @@ module.exports = function (grunt) {
             scripts: {
                 files: [
                     'src/cui/**/*.js',
-                    'src/project/**/*.js' // To ignore generated component files
+                    'src/project/**/*.js',
+                    // Ignore generated component files
                 ],
                 tasks: [
                     'jshint',
                     'requirejs',
                     'uglify',
-                    'concat:devJS'
-                ]
+                    'concat:devJS',
+                ],
             },
 
             sass: {
                 files: [
                     'src/cui/**/*.scss',
-                    'src/project/**/*.scss'
+                    'src/project/**/*.scss',
                 ],
                 tasks: [
                     'sass:cui',
@@ -184,19 +170,19 @@ module.exports = function (grunt) {
             // This effectively does nothing but keep Grunt "running" (e.g. so the local server doesn't quit)
             noop: {
                 files: [
-                    'README.md'
+                    'README.md',
                 ],
             },
         },
 
         copy: {
-            // Copy rule handes modules that do now have dist folders.
+            // Copy rule handes modules that do now have dist folders
             fonts: {
                 expand: true,
                 cwd: 'src/cui/fonts',
                 src: ['**'],
                 dest: 'dist/fonts',
-                filter: 'isFile'
+                filter: 'isFile',
             },
             images: {
                 expand: true,
@@ -208,11 +194,11 @@ module.exports = function (grunt) {
                     ],
                 dest: 'dist/images',
                 filter: 'isFile',
-                flatten: true
-            }
+                flatten: true,
+            },
         },
 
-        // Builds the default javascript cui library using r.js compilar
+        // Builds the default javascript cui library using r.js compiler
         requirejs: {
             compile: {
                 options: {
@@ -223,20 +209,19 @@ module.exports = function (grunt) {
                     optimize: 'uglify2',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
-                    out: 'dist/js/cui.js' // Where the final project will be outputted.
+                    out: 'dist/js/cui.js', // Where the final project will be output
                 }
-            }
+            },
         },
 
-        // Local server
-        // Go to http://localhost:8888 in your browser to use it
+        // Local server at http://localhost:8888
         // https://github.com/gruntjs/grunt-contrib-connect
         connect: {
             server: {
                 options: {
-                    port: 8888
-                }
-            }
+                    port: 8888,
+                },
+            },
         },
 
         // Pass the component location and glob pattern
@@ -244,9 +229,9 @@ module.exports = function (grunt) {
             options: {
                 components: {
                     cwd: 'src/components',
-                    src: '*'
-                }
-            }
+                    src: '*',
+                },
+            },
         },
 
         // Locations to look for components
@@ -254,12 +239,11 @@ module.exports = function (grunt) {
             components: {
                 files: [{
                     cwd: 'src/components/',
-                    src: '*'
-                }]
-            }
+                    src: '*',
+                }],
+            },
         },
 
-        // Compile markdown files into HTML (e.g. for documentation)
         // https://github.com/treasonx/grunt-markdown
         markdown: {
             options: {
@@ -278,20 +262,17 @@ module.exports = function (grunt) {
                     dest: 'docs/dist',
                     ext: '.html',
 
-                    // This plugin has a bug making it impossible to put the files where we want them, so we rename the path that Grunt generates to move the file
+                    // This plugin has (had?) a bug that makes it impossible to put the files where we want them, so we add this function to change the path that Grunt generates and move the file
                     // See: https://github.com/treasonx/grunt-markdown/issues/43
                     // HTML files should end up in the `Documentation` folder
                     // rename: function (dest, src) {
                     //     // Get the file name and prepend the directory name
                     //     return 'docs/dist/' +  src.split('/').pop();
                     // },
-                }]
-            }
+                }],
+            },
         },
-
     });
-    // End of plugin configuration
-
 
     // Load all Grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -305,7 +286,7 @@ module.exports = function (grunt) {
 
     // Type these at a command prompt to use Grunt, for example "grunt prod" or "grunt dev"
 
-    // Production: package main files for distribution
+    // Production: package files for distribution
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function (args) {
         grunt.task.run([
@@ -323,8 +304,8 @@ module.exports = function (grunt) {
         ]);
     });
 
-    // Development: compile script.js and style.css, start a local server, and watch for file changes
-    // Only use this on your local machine while developing
+    // Development: compile script and styles, start a local server, and watch for file changes
+    // Only use this for local development
     grunt.registerTask('dev', 'Development', function (args) {
 
         // Set the prod flag to false.
@@ -347,17 +328,14 @@ module.exports = function (grunt) {
             'connect',
             'watch'
         ]);
-
     });
 
     // Task used to camm component builds on subfolders.
     grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function (dir) {
-
         var done = this.async();
+        //var options = JSON.stringify(componentOptions)
 
         grunt.log.ok(dir);
-
-        //var options = JSON.stringify(componentOptions)
 
         grunt.util.spawn({
             grunt: true,
@@ -379,7 +357,6 @@ module.exports = function (grunt) {
                 done(false);
             }
         });
-
     });
 
     ///////////////////
@@ -387,7 +364,7 @@ module.exports = function (grunt) {
     ///////////////////
 
     // Start a local server
-    // e.g. http://localhost:8888/Pages/Template/Template.html
+    // e.g. http://localhost:8888
     grunt.registerTask('server', 'Server', function (args) {
         grunt.task.run([
             'connect',

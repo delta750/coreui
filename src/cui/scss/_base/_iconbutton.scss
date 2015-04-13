@@ -13,10 +13,10 @@
     position: relative;
     display: inline-block;
     vertical-align: top;
-    padding: $button-icon-padding;
+    padding: $cui-button-icon-padding;
     margin: 0;
-    width: $button-icon-width;
-    height: $button-icon-height;
+    width: $cui-button-icon-width;
+    height: $cui-button-icon-height;
     background-repeat: no-repeat;
     @include hide-text;
 }

@@ -28,33 +28,33 @@ form {
             float: left;
             @include user-select;
             // Colors and paddings matches buttons styles
-            background-color: $white;
-            padding: $button-padding;
-            border: $input-border;
-            text-shadow: $white 0px 1px 0px;
-            line-height: $line-height;
+            background-color: $cui-color-white;
+            padding: $cui-button-padding;
+            border: $cui-input-border;
+            text-shadow: $cui-color-white 0px 1px 0px;
+            line-height: $cui-line-height;
 
             // Keep this line (must come after default `border` definition)
             border-right: none;
 
             // First label in the group
             &:first-of-type {
-                border-top-left-radius: $input-border-radius;
-                border-bottom-left-radius: $input-border-radius;
+                border-top-left-radius: $cui-input-border-radius;
+                border-bottom-left-radius: $cui-input-border-radius;
             }
 
             // Last label in the group
             &:last-of-type {
-                border-top-right-radius: $input-border-radius;
-                border-bottom-right-radius: $input-border-radius;
+                border-top-right-radius: $cui-input-border-radius;
+                border-bottom-right-radius: $cui-input-border-radius;
 
                 // Color matches buttons styles
-                border-right: $input-border;
+                border-right: $cui-input-border;
             }
 
             &:hover {
                 // Color matches buttons
-                background-color: $button-bg-color;
+                background-color: $cui-button-bg-color;
             }
 
             &:active {
@@ -70,11 +70,11 @@ form {
         // Highlighted label
         input:checked + label {
             // Color matches buttons styles
-            background-color: $input-bg-hover-color;
+            background-color: $cui-input-bg-hover-color;
 
             &:hover {
                 // Color matches buttons
-                background-color: $button-bg-color;
+                background-color: $cui-button-bg-color;
             }
 
             &:active {
@@ -91,23 +91,23 @@ form {
 input,
 textarea,
 select {
-    font: 100% $font-family;
-    border-radius: $input-border-radius;
-    border: $input-border;
-    padding: $input-padding;
-    color: $dark-gray;
+    font: 100% $cui-font-family;
+    border-radius: $cui-input-border-radius;
+    border: $cui-input-border;
+    padding: $cui-input-padding;
+    color: $cui-color-dark-gray;
     @include input-shadow;
     @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
 
     &:focus{
-        border-color: $input-border-color-focus;
-        box-shadow: $input-boxshadow-focus;
+        border-color: $cui-input-border-color-focus;
+        box-shadow: $cui-input-boxshadow-focus;
         outline: 0;
     }
 }
 
 select {
-    padding: ($input-padding-top - $input-difference-in-padding-value) $input-padding-right ($input-padding-bottom - $input-difference-in-padding-value) $input-padding-left;
+    padding: ($cui-input-padding-top - $cui-input-difference-in-padding-value) $cui-input-padding-right ($cui-input-padding-bottom - $cui-input-difference-in-padding-value) $cui-input-padding-left;
 }
 
 input[type="checkbox"],
@@ -157,14 +157,14 @@ textarea {
 
     // Keep borders rounded if no prepend
     :first-child:not(.input-prepend) {
-        border-top-left-radius: $input-border-radius;
-        border-bottom-left-radius: $input-border-radius;
+        border-top-left-radius: $cui-input-border-radius;
+        border-bottom-left-radius: $cui-input-border-radius;
     }
 
     // Keep borders rounded if no append
     :last-child:not(.input-append) {
-        border-top-right-radius: $input-border-radius;
-        border-bottom-right-radius: $input-border-radius;
+        border-top-right-radius: $cui-input-border-radius;
+        border-bottom-right-radius: $cui-input-border-radius;
     }
 
     input,
@@ -174,10 +174,10 @@ textarea {
 
     .input-prepend,
     .input-append {
-        line-height: $line-height;
-        border: $input-border;
+        line-height: $cui-line-height;
+        border: $cui-input-border;
         @include box-sizing(content-box);
-        background: $input-bg-hover-color;
+        background: $cui-input-bg-hover-color;
         vertical-align: middle;
         width: 1%;
         white-space: nowrap;
@@ -196,14 +196,14 @@ textarea {
 
     .input-prepend {
         border-right: none;
-        border-top-left-radius: $input-border-radius;
-        border-bottom-left-radius: $input-border-radius;
+        border-top-left-radius: $cui-input-border-radius;
+        border-bottom-left-radius: $cui-input-border-radius;
     }
 
     .input-append {
         border-left: none;
-        border-top-right-radius: $input-border-radius;
-        border-bottom-right-radius: $input-border-radius;
+        border-top-right-radius: $cui-input-border-radius;
+        border-bottom-right-radius: $cui-input-border-radius;
     }
 
     // When currency keep number inside input closer to append

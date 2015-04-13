@@ -6,6 +6,7 @@
 // * @see        https://github.com/ny/frg-coreui
 //   ========================================================
 
+
 // * @section    General
 // * --------------------------------------------------------
 @mixin no-padding-margin {
@@ -157,6 +158,7 @@
             hyphens: $type;
 }
 
+
 // * @section    Sticky positioning
 // * --------------------------------------------------------
 // Must specify a `top` value and no parent may have `overflow: hidden`
@@ -164,6 +166,7 @@
     position: -webkit-sticky;
     position:         sticky;
 }
+
 
 // * @section    Triangle ◄ ▲ ► ▼
 // * @see        http://css-tricks.com/snippets/css/css-triangle/
@@ -202,24 +205,24 @@
 
 // Standard button style
 @mixin button {
-    color: $dark-gray;
-    border: $input-border;
-    border-radius: $border-radius;
+    color: $cui-color-dark-gray;
+    border: $cui-input-border;
+    border-radius: $cui-border-radius;
     margin: 0;
     text-decoration: none;
-    font-size: $input-font-size;
-    font-weight: $input-font-weight;
-    background-color: $input-bg-hover-color;
-    text-shadow: $button-text-shadow;
+    font-size: $cui-input-font-size;
+    font-weight: $cui-input-font-weight;
+    background-color: $cui-input-bg-hover-color;
+    text-shadow: $cui-button-text-shadow;
     white-space: nowrap;
     -webkit-font-smoothing: none;
 }
 
 @mixin button-primary {
-    color: $white;
-    border: $button-primary-border;
-    background-color: $button-primary-bg-color;
-    text-shadow: $button-primary-text-shadow;
+    color: $cui-color-white;
+    border: $cui-button-primary-border;
+    background-color: $cui-button-primary-bg-color;
+    text-shadow: $cui-button-primary-text-shadow;
     -webkit-font-smoothing: none;
 
     &:hover {
@@ -232,32 +235,60 @@
 }
 
 @mixin button-primary-hover {
-    color: $white; // Repeated for elements that only include this mixin and not the basic primary styles
-    border-color: $button-primary-border-hover-color;
-    background-color: $button-primary-bg-hover-color;
+    color: $cui-color-white; // Repeated for elements that only include this mixin and not the basic primary styles
+    border-color: $cui-button-primary-border-hover-color;
+    background-color: $cui-button-primary-bg-hover-color;
 }
 
 @mixin button-primary-active {
-    color: $white; // Repeated for elements that only include this mixin and not the basic primary styles
-    background-color: $button-primary-bg-color;
-    text-shadow: $button-primary-text-shadow;
+    color: $cui-color-white; // Repeated for elements that only include this mixin and not the basic primary styles
+    background-color: $cui-button-primary-bg-color;
+    text-shadow: $cui-button-primary-text-shadow;
 }
+
 
 // * @section    Grid
 // * --------------------------------------------------------
-@mixin row() {
-    width: 100%;
+@mixin row($margin: $cui-grid-row-margin, $width: 100%) {
+    width: $width;
     clear: both;
-    margin: $grid-row-margin;
+    margin: $margin;
+    @include clearfix;
+}
+
+// Returns the styles for a single column
+@mixin grid-column($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
+    @if $size == "small" {
+        // Don't use a media query for the base size because IE8 won't see it
+        width: column-width-calc($numerator, $denominator);
+    }
+    @elseif $size == "medium" {
+        width: 100%;
+
+        @include pointbreak($cui-bp-medium) {
+            width: column-width-calc($numerator, $denominator);
+        }
+
+        @include pointbreak($cui-bp-large) {
+            width: 100%;
+        }
+    }
+    @else {
+        // Large
+        width: 100%;
+
+        @include pointbreak($cui-bp-large) {
+            width: column-width-calc($numerator, $denominator);
+        }
+    }
 }
 
 // * @section    Breakpoints
 // * --------------------------------------------------------
-
 // Breakpoint wrapper
 @mixin pointbreak($size: "", $max: false) {
     @if $size == "" {
-        $size: $bp-medium;
+        $size: $cui-bp-medium;
     }
 
     @if $size == hires {
@@ -269,4 +300,11 @@
     @else {
         @media (max-width: $size) { @content; }
     }
+}
+
+
+// * @section    Pixel to em conversion utility
+// * --------------------------------------------------------
+@function pxToem($px, $base: $cui-font-size) {
+    @return ($px / $base) * 1em;
 }
