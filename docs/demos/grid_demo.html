@@ -322,11 +322,12 @@
         </div>
     </div>
     <script>
+        // Floating box that indicates the current breakpoint
         (function () {
             var box = document.createElement('div');
 
             box.innerHTML = 'Current breakpoint: <strong class="cui-hide-for-medium cui-hide-for-large">small</strong><strong class="cui-hide-for-small cui-hide-for-large">medium</strong><strong class="cui-hide-for-small cui-hide-for-medium">large</strong>';
-            box.style.cssText = 'position: fixed; top: 5px; right: 5px; padding: 3px; border:1px solid #444; background:#fff; box-shadow: 0 0 2px rgba(0,0,0,0.25);';
+            box.style.cssText = 'position: fixed; top: 12px; right: 5px; padding: 3px; border:1px solid #444; background:#fff; box-shadow: 0 0 2px rgba(0,0,0,0.25);';
 
             document.body.appendChild(box);
         }());

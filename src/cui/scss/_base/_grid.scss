@@ -66,7 +66,11 @@ $cui-grid-breakpoints: (
 
     // Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
     @mixin utility-classes($breakpointName) {
-        .cui-filler-col-#{$breakpointName} {
+        [class*="cui-col-#{$breakpointName}-"] {
+            float: left;
+        }
+
+        [class*="cui-filler-col-#{$breakpointName}"] {
             float: none;
             width: auto;
             overflow: hidden;
@@ -80,10 +84,6 @@ $cui-grid-breakpoints: (
             display: inline-block;
             float: none;
             width: auto;
-        }
-
-        [class*="cui-col-#{$breakpointName}-"] {
-            float: left;
         }
     }
 
