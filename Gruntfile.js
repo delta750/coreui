@@ -17,7 +17,7 @@ module.exports = function (grunt) {
             '\n(function(){' +
                 'var s = document.createElement("script");' +
                 's.src="//localhost:35729/livereload.js";' +
-                'document.head.appendChild(s);' +
+                'document.head&&document.head.appendChild(s);' +
             '}());';
 
     /////////////////////////////
