@@ -185,6 +185,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
         // Tooltip setup?
         // $mountNode = this.$elem;
+
+        return this;
     };
 
     /**
