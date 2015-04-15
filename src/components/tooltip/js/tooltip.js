@@ -1605,7 +1605,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     };
 
     // Reveal public API
-    return {
+    $.tooltip = {
         show: _public.show,
         hide: _public.hide,
         hideAll: _priv.hideAll,
