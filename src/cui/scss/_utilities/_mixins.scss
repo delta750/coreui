@@ -286,14 +286,8 @@
 
 // * @section    Flexbox integration
 // * @see        https://css-tricks.com/using-flexbox/
-// * @support    IE 10+, for other browsers go to URL (@see)
 // * --------------------------------------------------------
-// Make sure to add media queries to ignore IE8, for example:
-// .my-class {
-//     @media (min-width: 0px) {
-//         @include flex-wrapper();
-//     }
-// }
+// Not supported by IE 8 and IE 9
 // Parent container that will make all DIRECT children become flex items
 @mixin flex-wrapper {
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
