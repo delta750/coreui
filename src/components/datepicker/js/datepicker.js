@@ -157,16 +157,18 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function ($, cui) {
         this.$elem.on('click', _events._iconClick);
 
         // Add events to date inputs
-        // $(SELECTORS.icon).each(function () {
-        //     var $icon = $(this),
-        //         $input = $('#' + (this.id.substring(this.id.indexOf(ID_PREFIXES.calIcon) + 4)));
+        $(SELECTORS.icon).each(function () {
+            var $icon = $(this),
+                $input = $('#' + (this.id.substring(this.id.indexOf(ID_PREFIXES.calIcon) + 4)));
 
-        //     if ($input.length) {
-        //         $input.on('blur', _events._inputBlur);
-        //     }
+            if ($input.length) {
+                $input.on('blur', _events._inputBlur);
+            }
 
-        //     $icon.attr('title', ICON_TOOLTIP.show);
-        // });
+            $icon.attr('title', ICON_TOOLTIP.show);
+        });
+
+        return this;
     };
 
     ////////////////////
