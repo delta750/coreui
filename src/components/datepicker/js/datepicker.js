@@ -112,8 +112,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @return {Boolean}          True if no problems were encountered
      */
     DatePicker.prototype.init = function () {
-        // Introduce defaults that can be extended either
-        // globally or using an object literal.
+        // Introduce defaults that can be extended either globally or using an object literal.
         this.config = $.extend({}, this.defaults, this.options, this.metadata);
 
         // Cache common elements
@@ -121,19 +120,19 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         $window = $(window);
 
         // Add click event on calendar icons
-        $body.on('click', SELECTORS.icon, _events._iconClick);
+        this.$elem.on('click', _events._iconClick);
 
         // Add events to date inputs
-        $(SELECTORS.icon).each(function() {
-            var $icon = $(this),
-                $input = $('#' + (this.id.substring(this.id.indexOf(ID_PREFIXES.calIcon) + 4)));
+        // $(SELECTORS.icon).each(function () {
+        //     var $icon = $(this),
+        //         $input = $('#' + (this.id.substring(this.id.indexOf(ID_PREFIXES.calIcon) + 4)));
 
-            if ($input.length) {
-                $input.on('blur', _events._inputBlur);
-            }
+        //     if ($input.length) {
+        //         $input.on('blur', _events._inputBlur);
+        //     }
 
-            $icon.attr('title', ICON_TOOLTIP.show);
-        });
+        //     $icon.attr('title', ICON_TOOLTIP.show);
+        // });
     };
 
     ////////////////////
