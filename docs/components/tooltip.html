@@ -29,11 +29,10 @@
     <script id="require" src="../../dist/js/cui.js"></script>
     <script>
         require(['jquery', 'cui', 'domReady!'], function($, cui) {
-
             cui.load('tooltip', function() {
-                console.log('Loaded tooltip: ', cui.tooltip);
+                // Initialize tooltips
+                $('.tooltip').tooltip();
             });
-
         });
     </script>
 </body>
