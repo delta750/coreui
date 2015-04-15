@@ -45,25 +45,6 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
             isWidthDetermined: false // For wide images
         };
 
-    // Default configuration object
-    var _defaultConfigObj = {
-            selector: '.tooltip', // selector to match the link(s) that will invoke the tooltip(s)
-            clearOtherTooltips: true, // Close any open tooltips before showing this one
-            containerClass: '', // Can be space-separated list. Will always include the class 'tooltip' before these
-            pointerPosition: 'topright', // Request only; may change based on window size/position.
-            // Can be empty string, none, topleft, lefttop, etc. Lack of left/right will make it centered
-            closeButtonText: 'Close',
-            closeButtonPosition: 'none', // Position of button's containing div relative to tooltip body <div>. Above, below, or none/empty string.
-            closeOnBlur: true,
-            contentIdSourceAttr: 'href', // Attribute of the link which contains the ID of the tooltip's content's element; leading '#' stripped for href
-            offsets: {}, // Relative offsets that will be added to the global & client offset values. Must match structure of _offsets.
-            width: DEFAULT_WIDTH,
-            cacheTooltips: true, // Whether to keep the generated tooltip <div> in the DOM once it closes
-            dynamicContent: null // Object containing handlers for tooltips with dynamic or asynchronous content
-        };
-
-    _configs['default'] = _defaultConfigObj;
-
     // Default settings for ephemeral content
     var _defaultSettingsObj = {
             body: {
@@ -148,7 +129,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     // Constructor //
     /////////////////
 
-    var Tooltip = function (elem, options) {
+    var Tooltip = function _Tooltip(elem, options) {
         this.elem = elem;
         this.$elem = $(elem);
         this.options = options;
@@ -166,17 +147,35 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
     Tooltip.prototype = {};
 
-    // Default user options
-    Tooltip.prototype.defaults = {};
+    // Default configuration
+    Tooltip.prototype.defaults = {
+        selector: '.tooltip',        // selector to match the link(s) that will invoke the tooltip(s)
+        clearOtherTooltips: true,    // Close any open tooltips before showing this one
+        containerClass: '',          // Can be space-separated list. Will always include the class 'tooltip' before these
+        pointerPosition: 'topright', // Request only; may change based on window size/position.
+                                     // Can be empty string, `none`, `topleft`, `lefttop`, etc. Lack of `left` or `right` will make it centered.
+        closeButtonText: 'Close',
+        closeButtonPosition: 'none', // Position of button's containing div relative to tooltip body <div>. Above, below, or none/empty string.
+        closeOnBlur: true,
+        contentIdSourceAttr: 'href', // Attribute of the link which contains the ID of the tooltip's content's element; leading '#' stripped for href
+        offsets: {},                 // Relative offsets that will be added to the global & client offset values. Must match structure of _offsets.
+        width: DEFAULT_WIDTH,
+        cacheTooltips: true,         // Whether to keep the generated tooltip <div> in the DOM once it closes
+        dynamicContent: null         // Object containing handlers for tooltips with dynamic or asynchronous content
+    };
+
+    _configs['default'] = Tooltip.prototype.defaults;
 
     /**
      * Initializes the plugin and tooltip(s), and displays tooltip(s)
      * May be called multiple times. If no tooltips are provided, some general setup will be performed.
      * @return {Boolean}          True if no problems were encountered
      */
-    Tooltip.prototype.init = function () {
+    Tooltip.prototype.init = function _Tooltip_init() {
         $body = $('body');
         $window = $(window);
+
+        this.config = $.extend({}, this.defaults, this.options, this.metadata);
 
         // Client variables
         _client.setup();
@@ -184,17 +183,17 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
         // Event listeners
         _events.setup.page();
 
-        // Tooltip setup
-        $mountNode = this.$elem;
+        // Tooltip setup?
+        // $mountNode = this.$elem;
     };
-
 
     /**
      * Initialize all tooltip icons on the page
      */
 
-    // Client
-    // ---------------------------------------------------------------------
+    ////////////
+    // Client //
+    ////////////
 
     ///<summary>Sets global variables and may create objects and preload images</summary>
     ///<remark>Only needs to be run once per full-page load (i.e., doesn't need to run after ajax)</remark>
@@ -207,8 +206,9 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
         _client.hasBeenSet = true;
     }; // end _client.setup
 
-    // Configs
-    // ---------------------------------------------------------------------
+    /////////////
+    // Configs //
+    /////////////
 
     _priv.config = {};
 
@@ -245,8 +245,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     // Validates and corrects a config object
     // Returns the object if it's okay, otherwise null
     _priv.config.normalize = function _priv_config_normalize(config) {
-        var defaults = _configs['default'],
-            prop = '';
+        var defaults = _configs['default'];
+        var prop = '';
 
         if (kind(config) !== 'object') {
             return defaults;
@@ -309,9 +309,9 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {Number}                      Number of links that were setup
      */
     _events.setup.links = function _events_setup_links(sContainerSelector, options) {
-        var $containers = [],
-            settings = $.extend(true, {}, {forceSetup: false}, options),
-            setupCount = 0;
+        var $containers = [];
+        var settings = $.extend(true, {}, {forceSetup: false}, options);
+        var setupCount = 0;
 
         // Get any specified containers
         if (sContainerSelector && typeof sContainerSelector === 'string') {
@@ -324,9 +324,10 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
         }
 
         $containers.each(function () {
-            var $container = $(this),
-                configId, c,
-                prepareLink = function _prepareLink() {
+            var $container = $(this);
+            var configId;
+            var c;
+            var prepareLink = function _prepareLink() {
                     var $invoker = $(this);
 
                     // Only add events to each link once
@@ -363,7 +364,14 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
     ///<summary>Adds event listeners to a particular tooltip</summary>
     ///<param name="tooltipElem" type="DOM Element">div.tooltip</param>
-    ///<param name="aLinks" type="Array">Links within the tooltip (Optional; they're often already known)</param>
+    ///<param name="aLinks" type="Array"></param>
+
+    /**
+     * Adds event listeners to a particular tooltip
+     * @param   {Element}  tooltipElem  The div.tooltip
+     * @param   {Array}    aLinks       Links within the tooltip (Optional; they're often already known)
+     * @return  {[type]}                [description]
+     */
     _events.setup.tooltip = function _events_setup_tooltip(tooltipElem, aLinks) {
         var $tooltipElem;
 
@@ -517,9 +525,9 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {Boolean}               Success
      */
     _priv.show = function _priv_show(evt, invokerElem, settings) {
-        var TT = null,
-            tooltipId = '',
-            config = null;
+        var TT = null;
+        var tooltipId = '';
+        var config = null;
 
         // If the link was clicked or pressed, invokerElem needs to be acquired
         // In other cases (e.g., window resize) invokerElem would be passed in
@@ -579,7 +587,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
                 // Close tooltip on blur
                 if (config.closeOnBlur) {
                     // This needs a delay so the current click event doesn't interfere
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $body.on('click', _events.onBodyClick);
                     }, 10);
                 }
@@ -606,14 +614,13 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {Element}              Tooltip `<div>` element
      */
     _priv.create = function _priv_create(evt, invokerElem, settings) {
-        var tooltipId = '', // the tooltip's ID
-            $tooltipElem, // the tooltip <div> element
-            // tooltipElem, // the tooltip <div> element
-            contentId = '',
-            contentElem = null,
-            configId = '',
-            config = null,
-            TT = null;
+        var tooltipId = ''; // the tooltip's ID
+        var $tooltipElem; // the tooltip <div> element
+        var contentId = '';
+        var contentElem = null;
+        var configId = '';
+        var config = null;
+        var TT = null;
 
         if (kind(invokerElem) !== 'element') {
             return false;
@@ -735,16 +742,17 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {String}            HTML
      */
     _priv.createTooltipInnerHTML = function _priv_createTooltipInnerHTML(settings, config, id) {
-        var div = document.createElement('div'),
-            divHTML = '',
-            closeButtonHTML = '<div class="' + CLASSES.closeWrapper + '">' +
+        var div = document.createElement('div');
+        var divHTML = '';
+        var closeButtonHTML =
+            '<div class="' + CLASSES.closeWrapper + '">' +
                 '<a href="#" tabindex="1" class="' + CLASSES.closeButton + '" ' +
-                'title="Close" ' +
-                'aria-flowto="' + id + '" ' +
-                'aria-live="assertive" ' +
-                'aaa:live="assertive"' +
+                    'title="Close" ' +
+                    'aria-flowto="' + id + '" ' +
+                    'aria-live="assertive" ' +
+                    'aaa:live="assertive"' +
                 '>' + config.closeButtonText + '</a>' +
-                '</div>';
+            '</div>';
 
         if (config.closeButtonPosition === 'above') {
             divHTML += closeButtonHTML;
@@ -755,7 +763,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
         // Use messages, if present
         if (settings.messages.length > 0) {
-            settings.messages.forEach(function _priv_createTooltipInnerHTML_msgForEach(msg) {
+            settings.messages.forEach(function (msg) {
                 // Convert message to title case for use with classes
                 var typeName = msg.type.substr(0, 1).toUpperCase() + msg.type.substr(1).toLowerCase();
                 if (typeName === 'Info') {
@@ -791,13 +799,13 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {Boolean}     Success
      */
     _priv.position = function _priv_position(TT) {
-        var tooltipElem = null,
-            targetPosition = null,
-            targetElem = null,
-            config = null,
-            windowPaddingX = 0,
-            windowPaddingY = 0,
-            ttPosition = null;
+        var tooltipElem = null;
+        var targetPosition = null;
+        var targetElem = null;
+        var config = null;
+        var windowPaddingX = 0;
+        var windowPaddingY = 0;
+        var ttPosition = null;
 
         if (kind(TT) !== 'object') {
             return false;
@@ -972,10 +980,11 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {Object}      Updated Tooltip object
      */
     _priv.determineWidth = function _priv_determineWidth(TT) {
-        var tooltipElem = TT.tooltipElem,
-            maxWidth = _configs[TT.configId].width,
-            // allElemsAreLessThanMax, iWidest,
-            iTooltipWidth, linkPosition, iNewWidth;
+        var tooltipElem = TT.tooltipElem;
+        var maxWidth = _configs[TT.configId].width;
+        var iTooltipWidth;
+        var linkPosition;
+        var iNewWidth;
 
         // Adjust width to fit smaller contents or wider images
         if (!TT.isWidthDetermined) {
@@ -1032,7 +1041,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     };
 
     ///<summary>Closes the tooltip containing oSender</summary>
-    ///<param name="event" type="Event">Mouse click or Enter keypress on the "Close" button</param>
+    ///<param name="evt" type="Event">Mouse click or Enter keypress on the "Close" button</param>
     ///<param name="tooltipId" type="String">The tooltip's ID</param>
     _priv.hide = function _priv_hide(evt, tooltipId) {
         var TT = _tooltipList[tooltipId];
@@ -1067,7 +1076,9 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
     ///<summary>Hide all tooltips on the page</summary>
     _priv.hideAll = function _priv_hideAll() {
-        var i, TT, wasDisplaying;
+        var i;
+        var TT;
+        var wasDisplaying;
 
         for (i in _tooltipList) {
             if (_tooltipList.hasOwnProperty(i)) {
@@ -1100,10 +1111,10 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     ///<param name="event" type="Event">Mouse click or Enter keypress on a link</param>
     ///<param name="oSender" type="Object">A link</param>
     _priv.toggle = function _priv_toggle(evt) {
-        var invokerElem = evt.target,
-            bDoOpen = true,
-            tooltipId = '',
-            TT = null;
+        var invokerElem = evt.target;
+        var bDoOpen = true;
+        var tooltipId = '';
+        var TT = null;
 
         // Check whether the tooltip is currently open
         invokerElem = $(invokerElem).closest(_linkSelectors).get(0);
@@ -1158,8 +1169,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     ///<param name="settings" type="Object">settings object</param>
     ///<returns>Boolean</returns>
     _priv.settings.validate.all = function _priv_settings_validate_all(settings) {
-        var numTests = 0,
-            numPassed = 0;
+        var numTests = 0;
+        var numPassed = 0;
 
         numTests++;
         if (kind(settings) === 'object') {
@@ -1188,8 +1199,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     };
 
     _priv.settings.validate.body = function _priv_settings_validate_body(settings) {
-        var numTests = 0,
-            numPassed = 0;
+        var numTests = 0;
+        var numPassed = 0;
 
         numTests++;
         if (kind(settings) === 'object') {
@@ -1207,8 +1218,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     };
 
     _priv.settings.validate.message = function _priv_settings_validate_message(message) {
-        var numTests = 0,
-            numPassed = 0;
+        var numTests = 0;
+        var numPassed = 0;
 
         numTests++;
         if (kind(message) === 'object') {
@@ -1226,8 +1237,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     };
 
     _priv.settings.validate.messages = function _priv_settings_validate_messages(settings) {
-        var numTests = 0,
-            numPassed = 0;
+        var numTests = 0;
+        var numPassed = 0;
 
         numTests++;
         if (kind(settings) === 'object') {
@@ -1236,7 +1247,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
             numTests++;
             if (kind(settings.messages) === 'array') {
                 numPassed++;
-                settings.messages.forEach(function _priv_settings_validate_messages_forEach(msg, i, arr) {
+                settings.messages.forEach(function (msg, i, arr) {
                     numTests++;
                     if (_priv.settings.validate.message(msg)) {
                         numPassed++;
@@ -1253,8 +1264,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     };
 
     _priv.settings.validate.target = function _priv_settings_validate_target(settings) {
-        var numTests = 0,
-            numPassed = 0;
+        var numTests = 0;
+        var numPassed = 0;
 
         numTests++;
         if (kind(settings) === 'object') {
@@ -1310,7 +1321,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
         if (kind(custom) === 'object') {
             if (_priv.settings.validate.messages(custom)) {
-                custom.messages.forEach(function _priv_settings_normalize_messages_forEach(msg, i, arr) {
+                custom.messages.forEach(function (msg, i, arr) {
                     if (_priv.settings.validate.message(msg)) {
                         msg.type = msg.type.toLowerCase();
                         messages.push(msg);
@@ -1375,9 +1386,9 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     ///<param name="oElem" type="DOM Object">Optional element that needs an ID</summary>
     ///<returns>String: the element's current or new ID</returns>
     _priv._establishElementId = function _priv_establishElementId(oElem) {
-        var id = '',
-            i = 0,
-            sLetterPool = '';
+        var id = '';
+        var i = 0;
+        var sLetterPool = '';
 
         // See if the element already has an ID
         if (oElem && typeof oElem === 'object') {
@@ -1416,8 +1427,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     ///<param name="oSender" type="DOM Object">The sender object</param>
     ///<returns>Array with x=[0] and y=[1]</returns>
     _priv.getElementPosition = function _priv_getElementPosition(oSender) {
-        var left = 0,
-            top = 0;
+        var left = 0;
+        var top = 0;
 
         if (oSender.offsetParent) {
             left = oSender.offsetLeft;
@@ -1441,8 +1452,8 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
      * @return  {Array}  The [horizontal,vertical] size of the viewport in pixels
      */
     _priv.getViewPort = function _priv_getViewPort() {
-        var x = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-            y = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        var x = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var y = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
         return [x, y];
     };
