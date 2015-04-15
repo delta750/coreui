@@ -18,6 +18,7 @@
 
 [class*="cui-col-"] {
     min-height: 1.5em;
+    float: left;
 }
 
 [class*="cui-fixed-col-"] {
@@ -66,10 +67,6 @@ $cui-grid-breakpoints: (
 
     // Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
     @mixin utility-classes($breakpointName) {
-        [class*="cui-col-#{$breakpointName}-"] {
-            float: left;
-        }
-
         .cui-hide-col-#{$breakpointName} {
             @include hide-voluntary;
         }
