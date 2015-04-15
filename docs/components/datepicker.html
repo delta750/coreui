@@ -11,13 +11,13 @@
     <!--[if lt IE 9]><script src="../../dist/js/vendor/html5shiv.js"></script><![endif]-->
 </head>
 <body>
-    <div class="its-row">
-        <div class="its-col-small-6">
+    <div class="cui-row">
+        <div class="cui-col-small-6">
             <label for="test">Date:</label>
             <input type="text" id="test">
             <a class="calendar" id="cal_test">Icon</a>
         </div>
-        <div class="its-col-small-6">
+        <div class="cui-col-small-6">
             <label for="second">Date:</label>
             <input type="text" id="second">
             <a class="calendar" id="cal_second">Icon</a>
@@ -27,11 +27,9 @@
     <script id="require" src="../../dist/js/cui.js"></script>
     <script>
         require(['jquery', 'cui', 'domReady!'], function($, cui) {
-
             cui.load('datepicker', function() {
-                console.log('Loaded datepicker: ', cui.datepicker);
+                $('.calendar').datepicker();
             });
-
         });
     </script>
 </body>

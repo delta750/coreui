@@ -1,11 +1,15 @@
 define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
-    var
-        // Constants
-        MONTH_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November' ,'December'],
-        MSHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        DAYS_WK_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        DAYS_MON = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        CULTURES = {
+    var VERSION = {
+            name: 'datepicker',
+            version: '1.0.0',
+            date: '20010101'
+        };
+    // Constants
+    var MONTH_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November' ,'December'];
+    var MSHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var DAYS_WK_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var DAYS_MON = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var CULTURES = {
             USA: {
                 mask: 'MM|DD|YYYY',
                 delim: '/'
@@ -18,44 +22,44 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 mask: 'YYYY|MM|DD',
                 delim: '-'
             }
-        },
+        };
 
-        // CSS hooks
-        CLASSES = {
+    // CSS hooks
+    var CLASSES = {
             hidden: 'hidden',
             selected: 'selected',
             invalidDate: 'invalidDate'
-        },
+        };
 
-        SELECTORS = {
+    var SELECTORS = {
             icon: '.calendar'
-        },
+        };
 
-        ID_PREFIXES = {
+    var ID_PREFIXES = {
             datePicker: 'datePicker_',
             calIcon: 'cal_',
             selectedMonth: 'selMon_',
             selectedYear: 'selYr_'
-        },
+        };
 
-        ICON_TOOLTIP = {
+    var ICON_TOOLTIP = {
             show: 'Open the calendar popup',
             hide: 'Close the calendar popup'
-        },
-        OPTIONS_TOOLTIP = {
+        };
+    var OPTIONS_TOOLTIP = {
             show: 'Open options',
             hide: 'Close options'
-        },
+        };
 
-        // Common element caches
-        $body,
-        $window,
+    // Common element caches
+    var $body;
+    var $window;
 
-        // Private API
-        _priv = {},
-        _events = {},
-        _imgPath = '../../dist/images/component/datepicker/',
-        _defaultSettings = {
+    // Private API
+    var _priv = {};
+    var _events = {};
+    var _imgPath = '../../dist/images/component/datepicker/';
+    var _defaultSettings = {
             datePickers: [
                 {
                     inputId: '',
@@ -69,61 +73,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                     }
                 }
             ]
-        },
-        _mySettings = {
+        };
+
+    var _mySettings = {
             datePickers: []
-        },
-
-        _setImagesPath = function _setImagesPath(url) {
-            if (url && typeof url === 'string' && $.trim(url).length > 0) {
-                _imgPath = url;
-            }
-        },
-
-        _customize = function _customize(settings) {
-            var minDefaultDate = new Date(_defaultSettings.datePickers[0].minDate),
-                maxDefaultDate = new Date(_defaultSettings.datePickers[0].maxDate),
-                dp, i, j, k;
-
-            // check if any settings are passed
-            if (settings && typeof settings === 'object') {
-                i = settings.datePickers.length;
-
-                while (j < i) {
-                    dp = settings.datePickers[j];
-
-                    if (dp && dp.inputId) {
-                        if ($.trim(dp.inputId).length > 0) {
-                            // check if display was passed, else add it
-                            if (!dp.display) {
-                                dp.display = {};
-                            }
-
-                            // if id exists, add to mySettings
-                            _mySettings.datePickers[k] = {
-                                inputId: dp.inputId,
-                                culture: dp.culture || _defaultSettings.datePickers[0].culture,
-                                minDate: dp.minDate || _priv._setDateToCulture({day: minDefaultDate.getDate(), month: (minDefaultDate.getMonth()+1), year: minDefaultDate.getFullYear()}, dp.inputId, CULTURES[dp.culture]),
-                                maxDate: dp.maxDate || _priv._setDateToCulture({day: maxDefaultDate.getDate(), month: (maxDefaultDate.getMonth()+1), year: maxDefaultDate.getFullYear()}, dp.inputId, CULTURES[dp.culture]),
-                                display: {
-                                    theme: dp.display.theme || _defaultSettings.datePickers[0].display.theme,
-                                    autoError: dp.display.autoError || _defaultSettings.datePickers[0].display.autoError,
-                                    enableBoundaryDetection: dp.display.enableBoundaryDetection || _defaultSettings.datePickers[0].display.enableBoundaryDetection
-                                }
-                            };
-
-                            k += 1;
-                        }
-                    }
-
-                    j += 1;
-                }
-            }
-        },
-
-        /* _hideAll */
-        _hideAll = function _hideAll() {
-            _priv._hideAllDatePickers();
         };
 
     /////////////////
@@ -183,11 +136,69 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         });
     };
 
+    ////////////////////
+    // Public methods //
+    ////////////////////
+
+    var _setImagesPath = function _setImagesPath(url) {
+            if (url && typeof url === 'string' && $.trim(url).length > 0) {
+                _imgPath = url;
+            }
+        };
+
+    var _customize = function _customize(settings) {
+            var minDefaultDate = new Date(_defaultSettings.datePickers[0].minDate);
+            var maxDefaultDate = new Date(_defaultSettings.datePickers[0].maxDate);
+            var dp;
+            var i;
+            var j;
+            var k;
+
+            // check if any settings are passed
+            if (settings && typeof settings === 'object') {
+                i = settings.datePickers.length;
+
+                while (j < i) {
+                    dp = settings.datePickers[j];
+
+                    if (dp && dp.inputId) {
+                        if ($.trim(dp.inputId).length > 0) {
+                            // check if display was passed, else add it
+                            if (!dp.display) {
+                                dp.display = {};
+                            }
+
+                            // if id exists, add to mySettings
+                            _mySettings.datePickers[k] = {
+                                inputId: dp.inputId,
+                                culture: dp.culture || _defaultSettings.datePickers[0].culture,
+                                minDate: dp.minDate || _priv.setDateToCulture({day: minDefaultDate.getDate(), month: (minDefaultDate.getMonth()+1), year: minDefaultDate.getFullYear()}, dp.inputId, CULTURES[dp.culture]),
+                                maxDate: dp.maxDate || _priv.setDateToCulture({day: maxDefaultDate.getDate(), month: (maxDefaultDate.getMonth()+1), year: maxDefaultDate.getFullYear()}, dp.inputId, CULTURES[dp.culture]),
+                                display: {
+                                    theme: dp.display.theme || _defaultSettings.datePickers[0].display.theme,
+                                    autoError: dp.display.autoError || _defaultSettings.datePickers[0].display.autoError,
+                                    enableBoundaryDetection: dp.display.enableBoundaryDetection || _defaultSettings.datePickers[0].display.enableBoundaryDetection
+                                }
+                            };
+
+                            k += 1;
+                        }
+                    }
+
+                    j += 1;
+                }
+            }
+        };
+
+    var _hideAll = function _hideAll() {
+            _priv.hideAllDatePickers();
+        };
+
     /////////////////////
     // Private methods //
     /////////////////////
 
-    _priv._getSettings = function _getSettings(inputId) {
+    _priv.getSettings = function _getSettings(inputId) {
         var i = _mySettings.datePickers.length;
 
         // make sure custom settings were set, else return default
@@ -206,7 +217,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return _defaultSettings.datePickers[0];
     };
 
-    _priv._showHideDatePicker = function _showHideDatePicker(calIcon, cal, forceHide) {
+    _priv.showHideDatePicker = function _showHideDatePicker(calIcon, cal, forceHide) {
         var inputId = calIcon.id.substring(calIcon.id.indexOf(ID_PREFIXES.calIcon) + 4);
 
         forceHide = forceHide || false;
@@ -217,33 +228,33 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             // If it exists, show it or hide it
             if ($(cal).hasClass(CLASSES.hidden) && !forceHide) {
                 // Refresh calendar
-                cal = _priv._refreshDatePickerHtml(cal);
+                cal = _priv.refreshDatePickerHtml(cal);
 
                 // Position calendar
-                _priv._setDatePickerPosition(cal);
+                _priv.setDatePickerPosition(cal);
 
-                _priv._showDatePicker(cal);
+                _priv.showDatePicker(cal);
 
-                if (_priv._getSettings(inputId).display.enableBoundaryDetection) {
-                    _priv._handleBoundaryDetection(cal);
+                if (_priv.getSettings(inputId).display.enableBoundaryDetection) {
+                    _priv.handleBoundaryDetection(cal);
                 }
 
                 $('#dpCalWrap_' + inputId).focus();
             }
             else {
-                _priv._hideDatePicker(cal);
+                _priv.hideDatePicker(cal);
 
                 $(calIcon).focus();
             }
         }
         else {
-            cal = _priv._createDatePicker(calIcon);
+            cal = _priv.createDatePicker(calIcon);
 
             // Position calendar
-            _priv._setDatePickerPosition(cal);
+            _priv.setDatePickerPosition(cal);
 
-            if (_priv._getSettings(inputId).display.enableBoundaryDetection) {
-                _priv._handleBoundaryDetection(cal);
+            if (_priv.getSettings(inputId).display.enableBoundaryDetection) {
+                _priv.handleBoundaryDetection(cal);
             }
 
             $('#dpCalWrap_' + inputId).focus();
@@ -261,15 +272,15 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Element}  elem  Icon element
      * @return  {Element}        Date picker element
      */
-    _priv._createDatePicker = function _createDatePicker(elem) {
-        var inputId = elem.id.substring(elem.id.indexOf(ID_PREFIXES.calIcon) + 4),
-            $cal = $('<div/>');
+    _priv.createDatePicker = function _createDatePicker(elem) {
+        var inputId = elem.id.substring(elem.id.indexOf(ID_PREFIXES.calIcon) + 4);
+        var $cal = $('<div/>');
 
         $cal
             .attr('id', ID_PREFIXES.datePicker + inputId)
             .attr('style', 'inline-block')
             .addClass('dp')
-            .html(_priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId));
+            .html(_priv.getDatePickerHtml(_priv.getDatePickerInitialDate(inputId), inputId));
 
         $body.append($cal);
 
@@ -283,35 +294,40 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return $cal.get(0);
     };
 
-    _priv._refreshDatePickerHtml = function _refreshDatePickerHtml(cal) {
+    _priv.refreshDatePickerHtml = function _refreshDatePickerHtml(cal) {
         var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
 
-        cal.innerHTML = _priv._getDatePickerHtml(_priv._getDatePickerInitialDate(inputId), inputId);
+        cal.innerHTML = _priv.getDatePickerHtml(_priv.getDatePickerInitialDate(inputId), inputId);
 
         return cal;
     };
 
-    _priv._getDatePickerHtml = function _getDatePickerHtml(dmyCal, inputId) {
-        var html = '',
-            calDate = null,
-            weekday = -1,
-            lastDayMonth = 0,
-            lastDayPrevMonth = 0,
-            prevMon = 0,
-            prevYr = 0,
-            nextMon = 0,
-            nextYr = 0,
-            i = 0,
-            rows = 0,
-            daysCnt = 0,
-            titleDate = null,
-            today = new Date(),
-
-            __getDayTitle = function __getDayTitle(date) {
-                return DAYS_WK_EN[date.getDay()] + ', ' + MONTH_EN[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+    _priv.getDatePickerHtml = function _getDatePickerHtml(dmyCal, inputId) {
+        var html = '';
+        var calDate = null;
+        var weekday = -1;
+        var lastDayMonth = 0;
+        var lastDayPrevMonth = 0;
+        var prevMon = 0;
+        var prevYr = 0;
+        var nextMon = 0;
+        var nextYr = 0;
+        var i = 0;
+        var rows = 0;
+        var daysCnt = 0;
+        var titleDate = null;
+        var today = new Date();
+        var _getDayTitle = function _getDayTitle(date) {
+                return DAYS_WK_EN[date.getDay()] +
+                       ', ' +
+                       MONTH_EN[date.getMonth()] +
+                       ' ' +
+                       date.getDate() +
+                       ', ' +
+                       date.getFullYear();
             };
 
-        dmyCal = _priv._convertDMYToNumeric(dmyCal);
+        dmyCal = _priv.convertDMYToNumeric(dmyCal);
 
         // Calendar wrapper
         // ---------------------------
@@ -321,7 +337,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         // Calendar main
         // ---------------------------
         // Header
-        html += _priv._getHeaderHtml(dmyCal, inputId);
+        html += _priv.getHeaderHtml(dmyCal, inputId);
 
         // Body
         // One-letter abbreviation for each single day
@@ -340,7 +356,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         weekday = calDate.getDay();
 
         // Calculate the last day of the month
-        lastDayMonth = _priv._getLastDayOfMonth(calDate);
+        lastDayMonth = _priv.getLastDayOfMonth(calDate);
 
         // Get next and previous months/year
         nextMon = dmyCal.month + 1;
@@ -359,7 +375,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
 
         // Calculate the last day of the previous month if applicable
-        lastDayPrevMonth = _priv._getLastDayOfMonth(new Date(prevMon + '/01/' + prevYr));
+        lastDayPrevMonth = _priv.getLastDayOfMonth(new Date(prevMon + '/01/' + prevYr));
 
         // Start with previous month days when applicable
         // If the first of the month falls on a Sunday, add one extra row with previous month's days
@@ -381,8 +397,8 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(prevMon + '/' + (lastDayPrevMonth - weekday + 1) + '/' + prevYr);
-            if (_priv._validateMinMaxRange({day: (lastDayPrevMonth - weekday + 1), month: prevMon, year: prevYr}, inputId)) {
-                html += '"><a href="#" role="button" title="' + __getDayTitle(titleDate) + '" tabindex="1">' + (lastDayPrevMonth - weekday + 1) + '</a></li>';
+            if (_priv.validateMinMaxRange({day: (lastDayPrevMonth - weekday + 1), month: prevMon, year: prevYr}, inputId)) {
+                html += '"><a href="#" role="button" title="' + _getDayTitle(titleDate) + '" tabindex="1">' + (lastDayPrevMonth - weekday + 1) + '</a></li>';
             }
             else {
                 html += '"><span class="disabled">' + (lastDayPrevMonth - weekday + 1) + '</span></li>';
@@ -411,7 +427,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             }
 
             // Check if there is a selected day
-            dateParsed = _priv._processDate($.trim(document.getElementById(inputId).value), inputId);
+            dateParsed = _priv.processDate($.trim(document.getElementById(inputId).value), inputId);
             if (dateParsed.valid) {
                 if (parseInt(dateParsed.dmy.day, 10) === (i + 1) && parseInt(dateParsed.dmy.month, 10) === dmyCal.month && parseInt(dateParsed.dmy.year, 10) === dmyCal.year) {
                     html += ' selectedDay';
@@ -420,8 +436,8 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(dmyCal.month.toString() + '/' + (i + 1) + '/' + dmyCal.year.toString());
-            if (_priv._validateMinMaxRange({day: (i + 1), month: dmyCal.month, year: dmyCal.year}, inputId)) {
-                html += '"><a href="#" role="button" title="' + __getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
+            if (_priv.validateMinMaxRange({day: (i + 1), month: dmyCal.month, year: dmyCal.year}, inputId)) {
+                html += '"><a href="#" role="button" title="' + _getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
             }
             else {
                 html += '"><span class="disabled">' + (i + 1) + '</span></li>';
@@ -445,8 +461,8 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(nextMon + '/' + (i + 1) + '/' + nextYr);
-            if (_priv._validateMinMaxRange({day: (i + 1), month: nextMon, year: nextYr}, inputId)) {
-                html += '"><a href="#" role="button" title="' + __getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
+            if (_priv.validateMinMaxRange({day: (i + 1), month: nextMon, year: nextYr}, inputId)) {
+                html += '"><a href="#" role="button" title="' + _getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
             }
             else {
                 html += '"><span class="disabled">' + (i + 1) + '</span></li>';
@@ -479,10 +495,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
         // Months
         html +=     '<div class="dpOpt">' +
-                        '<div class="dpMon">' + _priv._setOptionsMonths(dmyCal, inputId) + '</div>';
+                        '<div class="dpMon">' + _priv.setOptionsMonths(dmyCal, inputId) + '</div>';
 
         // Years
-        html +=         '<div class="dpYr">' + _priv._setOptionsYears(dmyCal, inputId) + '</div>';
+        html +=         '<div class="dpYr">' + _priv.setOptionsYears(dmyCal, inputId) + '</div>';
 
         // Other
         html +=         '<div id="dpOther_' + inputId + '" class="dpOther">' +
@@ -502,11 +518,11 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return html;
     };
 
-    _priv._getHeaderHtml = function _getHeaderHtml(dmyCal, inputId) {
-        var html = '',
-            settings = _priv._getSettings(inputId),
-            minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
-            maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId);
+    _priv.getHeaderHtml = function _getHeaderHtml(dmyCal, inputId) {
+        var html = '';
+        var settings = _priv.getSettings(inputId);
+        var minDate = _priv.parseDateStringToDateObject(settings.minDate, inputId);
+        var maxDate = _priv.parseDateStringToDateObject(settings.maxDate, inputId);
 
         html = '<div class="dpHead">';
 
@@ -534,14 +550,14 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return html;
     };
 
-    _priv._setDatePickerPosition = function _setDatePickerPosition(cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            input = document.getElementById(inputId),
-            inputParent = null,
-            coord = [],
-            offset,
-            borderTop = 0,
-            borderBottom = 0;
+    _priv.setDatePickerPosition = function _setDatePickerPosition(cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var input = document.getElementById(inputId);
+        var inputParent = null;
+        var coord = [];
+        var offset;
+        var borderTop = 0;
+        var borderBottom = 0;
 
         if (input) {
             // Using the parent help us determine the (x,y) for calendar
@@ -566,7 +582,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
     };
 
-    _priv._showDatePicker = function _showDatePicker(cal) {
+    _priv.showDatePicker = function _showDatePicker(cal) {
         var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.calIcon + '_') + (ID_PREFIXES.calIcon.length + 1));
 
         $(cal).removeClass(CLASSES.hidden);
@@ -578,7 +594,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         $window.on('resize', _events._windowResize);
     };
 
-    _priv._hideDatePicker = function _hideDatePicker(cal) {
+    _priv.hideDatePicker = function _hideDatePicker(cal) {
         var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.calIcon + '_') + (ID_PREFIXES.calIcon.length + 1));
 
         $(cal).addClass(CLASSES.hidden);
@@ -586,7 +602,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         $('#' + ID_PREFIXES.calIcon + inputId).attr('title', ICON_TOOLTIP.show);
     };
 
-    _priv._hideAllDatePickers = function _hideAllDatePickers(inputId) {
+    _priv.hideAllDatePickers = function _hideAllDatePickers(inputId) {
         if (!inputId || typeof inputId !== 'string') {
             inputId = '';
         }
@@ -608,11 +624,11 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         $window.off('resize', _events._windowResize);
     };
 
-    _priv._showHideOptions = function _showHideOptions(elem, opts, forceHide) {
-        var inputId = opts.id.substring(opts.id.indexOf('_') + 1),
-            $opts = $(opts),
-            cal = document.getElementById(ID_PREFIXES.datePicker + inputId),
-            monthYear = _priv._getMonthYearFromCalHeader(cal);
+    _priv.showHideOptions = function _showHideOptions(elem, opts, forceHide) {
+        var inputId = opts.id.substring(opts.id.indexOf('_') + 1);
+        var $opts = $(opts);
+        var cal = document.getElementById(ID_PREFIXES.datePicker + inputId);
+        var monthYear = _priv.getMonthYearFromCalHeader(cal);
 
         forceHide = forceHide || false;
 
@@ -622,18 +638,18 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             document.getElementById(ID_PREFIXES.selectedYear + inputId).value = monthYear[1];
 
             // then refresh options to have selected month/year
-            $opts.find('div.dpMon').html(_priv._setOptionsMonths(_priv._convertDMYToNumeric({day: 1, month: monthYear[0], year: monthYear[1]}), inputId));
+            $opts.find('div.dpMon').html(_priv.setOptionsMonths(_priv.convertDMYToNumeric({day: 1, month: monthYear[0], year: monthYear[1]}), inputId));
 
-            $opts.find('div.dpYr').html(_priv._setOptionsYears(_priv._convertDMYToNumeric({day: 1, month: monthYear[0], year: monthYear[1]}), inputId));
+            $opts.find('div.dpYr').html(_priv.setOptionsYears(_priv.convertDMYToNumeric({day: 1, month: monthYear[0], year: monthYear[1]}), inputId));
 
-            _priv._positionOptions(elem, opts);
+            _priv.positionOptions(elem, opts);
 
             elem.title = OPTIONS_TOOLTIP.hide;
 
-            _priv._showOptions(opts);
+            _priv.showOptions(opts);
 
-            if (_priv._getSettings(inputId).display.enableBoundaryDetection) {
-                _priv._handleBoundaryDetection(opts);
+            if (_priv.getSettings(inputId).display.enableBoundaryDetection) {
+                _priv.handleBoundaryDetection(opts);
             }
 
             $opts.focus();
@@ -641,15 +657,15 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         else {
             elem.title = OPTIONS_TOOLTIP.show;
 
-            _priv._hideOptions(opts);
+            _priv.hideOptions(opts);
 
             $(elem).focus();
         }
     };
 
-    _priv._setOptionsSelectedMonth = function _setOptionsSelectedMonth(elem, opts, cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
+    _priv.setOptionsSelectedMonth = function _setOptionsSelectedMonth(elem, opts, cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
 
         // Unhighlight all months
         $(opts).find('a, span.disabled').each(function() {
@@ -659,15 +675,15 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         // Highlight selected month
         $(elem).parent().addClass(CLASSES.selected);
 
-        selMonth.value = _priv._getMonthValFromShortStr(elem.innerHTML);
+        selMonth.value = _priv.getMonthValFromShortStr(elem.innerHTML);
     };
 
-    _priv._setOptionsSelectedYear = function _setOptionsSelectedYear(elem, opts, cal) {
-        var yr = elem.innerHTML,
-            inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId),
-            selYear = document.getElementById(ID_PREFIXES.selectedYear + inputId),
-            divMonths = $('#dpOptions_' + inputId + ' div.dpMon').get(0);
+    _priv.setOptionsSelectedYear = function _setOptionsSelectedYear(elem, opts, cal) {
+        var yr = elem.innerHTML;
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
+        var selYear = document.getElementById(ID_PREFIXES.selectedYear + inputId);
+        var divMonths = $('#dpOptions_' + inputId + ' div.dpMon').get(0);
 
         // Unhighlight all years
         $(opts).find('a').each(function() {
@@ -680,13 +696,13 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         selYear.value = yr;
 
         // Make sure only proper months are available for selected yr
-        divMonths.innerHTML = _priv._setOptionsMonths(_priv._convertDMYToNumeric({day: 1, month: selMonth.value, year: yr}), inputId);
+        divMonths.innerHTML = _priv.setOptionsMonths(_priv.convertDMYToNumeric({day: 1, month: selMonth.value, year: yr}), inputId);
     };
 
-    _priv._setOptionsYears = function _setOptionsYears(dmyCal, inputId) {
-        var html = '',
-            i = 0,
-            selYear = document.getElementById(ID_PREFIXES.selectedYear + inputId);
+    _priv.setOptionsYears = function _setOptionsYears(dmyCal, inputId) {
+        var html = '';
+        var i = 0;
+        var selYear = document.getElementById(ID_PREFIXES.selectedYear + inputId);
 
         dmyCal.year = parseInt(dmyCal.year, 10);
 
@@ -710,7 +726,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             }
 
             // Validate date and show as clickable or read-only
-            if (_priv._validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year - (5 - i))}, inputId)) {
+            if (_priv.validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year - (5 - i))}, inputId)) {
                 html += '"><a href="#" title="' + (dmyCal.year - (5 - i)) + '" tabindex="1">' + (dmyCal.year - (5 - i)) + '</a>';
             }
             else {
@@ -731,14 +747,14 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
 
         // Option"s actions
-        if (_priv._validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year - 6)}, inputId)) {
+        if (_priv.validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year - 6)}, inputId)) {
             html += '<li class="newLine"><a href="#" class="fastNavPrevYrs" title="Previous years" tabindex="1"><img src="' + _imgPath + 'CalendarPreviousQuarter.png" alt="Previous years"></a></li>';
         }
         else {
             html += '<li class="newLine"><span class="grayedOut"><img src="' + _imgPath + 'CalendarPreviousQuarter.png" alt="Previous years"></span></li>';
         }
 
-        if (_priv._validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year + 5)}, inputId)) {
+        if (_priv.validateMinMaxRange({day: 0, month: 0, year: (dmyCal.year + 5)}, inputId)) {
             html += '<li><a href="#" class="fastNavNextYrs" title="Next years" tabindex="1"><img src="' + _imgPath + 'CalendarNextQuarter.png" alt="Next years"></a></li>';
         }
         else {
@@ -750,10 +766,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return html;
     };
 
-    _priv._setOptionsMonths = function _setOptionsMonths(dmyCal, inputId) {
-        var html ='',
-            i = 0,
-            selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
+    _priv.setOptionsMonths = function _setOptionsMonths(dmyCal, inputId) {
+        var html ='';
+        var i = 0;
+        var selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
 
         if (selMonth) {
             selMonth = parseInt(selMonth.value, 10);
@@ -777,7 +793,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             }
 
             // Validate date and show as clickable or read-only
-            if (_priv._validateMinMaxRange({day: 1, month: (i + 1), year: dmyCal.year}, inputId) || _priv._validateMinMaxRange({day: _priv._getLastDayOfMonth(new Date((i + 1) + '/01/' + dmyCal.year)), month: (i + 1), year: dmyCal.year}, inputId)) {
+            if (_priv.validateMinMaxRange({day: 1, month: (i + 1), year: dmyCal.year}, inputId) || _priv.validateMinMaxRange({day: _priv.getLastDayOfMonth(new Date((i + 1) + '/01/' + dmyCal.year)), month: (i + 1), year: dmyCal.year}, inputId)) {
                 html += '"><a href="#" title="' + MONTH_EN[i] + '" tabindex="1">' + MSHORT_EN[i] + '</a></li>';
             }
             else {
@@ -792,25 +808,25 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return html;
     };
 
-    _priv._positionOptions = function _positionOptions(elem, option) {
+    _priv.positionOptions = function _positionOptions(elem, option) {
         // Set 'x' and 'y' value to options
         option.style.left = parseInt(elem.offsetLeft + (elem.clientWidth / 2), 10) + 'px';
         option.style.top = elem.clientHeight + 'px';
     };
 
-    _priv._showOptions = function _showOptions(opts) {
+    _priv.showOptions = function _showOptions(opts) {
         $(opts).removeClass(CLASSES.hidden);
     };
 
-    _priv._hideOptions = function _hideOptions(opts) {
+    _priv.hideOptions = function _hideOptions(opts) {
         $(opts).addClass(CLASSES.hidden);
     };
 
-    _priv._handleBoundaryDetection = function _handleBoundaryDetection(elem) {
-        var bodyElem = document.body,
-            scrollLeft = bodyElem.scrollLeft,
-            scrollTop = bodyElem.scrollTop,
-            viewportHeight = window.innerHeight || document.body.parentElement.offsetHeight;
+    _priv.handleBoundaryDetection = function _handleBoundaryDetection(elem) {
+        var bodyElem = document.body;
+        var scrollLeft = bodyElem.scrollLeft;
+        var scrollTop = bodyElem.scrollTop;
+        var viewportHeight = window.innerHeight || document.body.parentElement.offsetHeight;
 
         // Get scrollbar positions
         if (scrollTop === 0) {
@@ -840,7 +856,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
     };
 
-    _priv._getMonthValFromLongStr = function _getMonthValFromLongStr(monthStr) {
+    _priv.getMonthValFromLongStr = function _getMonthValFromLongStr(monthStr) {
         var i = MONTH_EN.length;
 
         while ((i -= 1) >= 0) {
@@ -853,7 +869,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return i;
     };
 
-    _priv._getMonthValFromShortStr = function _getMonthValFromShortStr(monthStr) {
+    _priv.getMonthValFromShortStr = function _getMonthValFromShortStr(monthStr) {
         var i = MSHORT_EN.length;
 
         while ((i -= 1) >= 0) {
@@ -866,19 +882,19 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return i;
     };
 
-    _priv._getMonthYearFromCalHeader = function _getMonthYearFromCalHeader(cal) {
-        var monthYear = $(cal).find('a.monthYear').get(0),
-            splitMonYr = monthYear.innerHTML.split(' '),
-            mon = _priv._getMonthValFromLongStr(splitMonYr[0]),
-            yr = splitMonYr[1];
+    _priv.getMonthYearFromCalHeader = function _getMonthYearFromCalHeader(cal) {
+        var monthYear = $(cal).find('a.monthYear').get(0);
+        var splitMonYr = monthYear.innerHTML.split(' ');
+        var mon = _priv.getMonthValFromLongStr(splitMonYr[0]);
+        var yr = splitMonYr[1];
 
         return [mon, yr];
     };
 
-    _priv._getLastDayOfMonth = function _getLastDayOfMonth(date) {
-        var mon = date.getMonth() + 1,
-            lastDayMonth = 0,
-            dateTest = null;
+    _priv.getLastDayOfMonth = function _getLastDayOfMonth(date) {
+        var mon = date.getMonth() + 1;
+        var lastDayMonth = 0;
+        var dateTest = null;
 
         lastDayMonth = DAYS_MON[mon - 1];
         // Check for leap year
@@ -892,10 +908,11 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return lastDayMonth;
     };
 
-    _priv._getDatePickerInitialDate = function _getDatePickerInitialDate(inputId) {
-        var input = document.getElementById(inputId),
-            // Returns date as 'Month Year'
-            __buildCalDate = function __buildCalDate(dateParsed) {
+    _priv.getDatePickerInitialDate = function _getDatePickerInitialDate(inputId) {
+        var input = document.getElementById(inputId);
+
+        // Returns date as 'Month Year'
+        var _buildCalDate = function _buildCalDate(dateParsed) {
                 // local variables
                 var date = null;
 
@@ -914,36 +931,37 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
         if (input) {
             // Clean and validate date
-            return __buildCalDate(_priv._processDate($.trim(input.value), inputId));
+            return _buildCalDate(_priv.processDate($.trim(input.value), inputId));
         }
     };
 
-    _priv._getFormattedDate = function _getFormattedDate(dateStr, inputId) {
+    _priv.getFormattedDate = function _getFormattedDate(dateStr, inputId) {
         var dateParsed = {};
 
         // Validate date
-        dateParsed = _priv._processDate($.trim(dateStr), inputId);
+        dateParsed = _priv.processDate($.trim(dateStr), inputId);
+
         if (dateParsed.valid) {
-        return dateParsed.stringValue;
+            return dateParsed.stringValue;
         }
 
         return null;
     };
 
-    _priv._processDate = function _processDate(dateStr, inputId) {
+    _priv.processDate = function _processDate(dateStr, inputId) {
         var dateParsed = {
                 valid: false,
                 dmy: {},
                 stringValue: ''
-            },
-            splitDate = {},
-            dateTest = null,
-            settings = _priv._getSettings(inputId);
+            };
+        var splitDate = {};
+        var dateTest = null;
+        var settings = _priv.getSettings(inputId);
 
         dateParsed.stringValue = dateStr;
 
         // Get day, month and year separate
-        splitDate = _priv._getDateFromCulture(dateStr, inputId);
+        splitDate = _priv.getDateFromCulture(dateStr, inputId);
 
         dateParsed.dmy = splitDate.dmy;
         dateParsed.stringValue = splitDate.ordered[0] + CULTURES[settings.culture].delim + splitDate.ordered[1] + CULTURES[settings.culture].delim + splitDate.ordered[2];
@@ -957,22 +975,26 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             // Month has to match otherwise either day of month are invalid (checks for leap year)
             if (parseInt(dateParsed.dmy.month, 10) === (dateTest.getMonth() + 1)) {
-                dateParsed.valid = _priv._validateMinMaxRange(_priv._convertDMYToNumeric(dateParsed.dmy), inputId);
+                dateParsed.valid = _priv.validateMinMaxRange(_priv.convertDMYToNumeric(dateParsed.dmy), inputId);
             }
         }
 
         return dateParsed;
     };
 
-    _priv._convertDMYToNumeric = function _convertDMYToNumeric(dmy) {
-        return {day: parseInt(dmy.day, 10), month: parseInt(dmy.month, 10), year: parseInt(dmy.year, 10)};
+    _priv.convertDMYToNumeric = function _convertDMYToNumeric(dmy) {
+        return {
+            day: parseInt(dmy.day, 10),
+            month: parseInt(dmy.month, 10),
+            year: parseInt(dmy.year, 10)
+        };
     };
 
-    _priv._validateMinMaxRange = function _validateMinMaxRange(dmyCal, inputId) {
-        var settings = _priv._getSettings(inputId),
-            minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
-            maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId),
-            dateTest = null;
+    _priv.validateMinMaxRange = function _validateMinMaxRange(dmyCal, inputId) {
+        var settings = _priv.getSettings(inputId);
+        var minDate = _priv.parseDateStringToDateObject(settings.minDate, inputId);
+        var maxDate = _priv.parseDateStringToDateObject(settings.maxDate, inputId);
+        var dateTest = null;
 
         if (dmyCal.day === 0 && dmyCal.month === 0) {
             // Validate year only
@@ -982,6 +1004,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
         else {
             dateTest = new Date(dmyCal.month + '/' + dmyCal.day + '/' + dmyCal.year);
+
             if (dateTest >= minDate && dateTest <= maxDate) {
                 return true;
             }
@@ -990,7 +1013,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return false;
     };
 
-    _priv._getDateFromCulture = function _getDateFromCulture(dateStr, inputId) {
+    _priv.getDateFromCulture = function _getDateFromCulture(dateStr, inputId) {
         var dateParsed = {
                 dmy: {
                     day: '',
@@ -998,15 +1021,15 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                     year: ''
                 },
                 ordered: []
-            },
-            day = '',
-            mon = '',
-            yr = '',
-            settings = _priv._getSettings(inputId),
-            dateSplit = dateStr.split(CULTURES[settings.culture].delim),
-            maskSplit = CULTURES[settings.culture].mask.split('|'),
-            i = dateSplit.length,
-            j = 0;
+            };
+        var day = '';
+        var mon = '';
+        var yr = '';
+        var settings = _priv.getSettings(inputId);
+        var dateSplit = dateStr.split(CULTURES[settings.culture].delim);
+        var maskSplit = CULTURES[settings.culture].mask.split('|');
+        var i = dateSplit.length;
+        var j = 0;
 
         // Date split and mask split must match in length
         if (i === maskSplit.length) {
@@ -1056,26 +1079,26 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return dateParsed;
     };
 
-    _priv._parseDateStringToDateObject = function _parseDateStringToDateObject(dateStr, inputId) {
-        var dateDMY = _priv._getDateFromCulture(dateStr, inputId);
+    _priv.parseDateStringToDateObject = function _parseDateStringToDateObject(dateStr, inputId) {
+        var dateDMY = _priv.getDateFromCulture(dateStr, inputId);
 
         return new Date(dateDMY.dmy.month + '/' + dateDMY.dmy.day + '/' + dateDMY.dmy.year);
     };
 
-    _priv._setDateToCulture = function _setDateToCulture(dmyCal, inputId, culture) {
+    _priv.setDateToCulture = function _setDateToCulture(dmyCal, inputId, culture) {
         if (typeof culture === 'undefined') {
-            return _priv._setDateToSelectedCulture(dmyCal, inputId, CULTURES[_priv._getSettings(inputId).culture]);
+            return _priv.setDateToSelectedCulture(dmyCal, inputId, CULTURES[_priv.getSettings(inputId).culture]);
         }
         else {
-            return _priv._setDateToSelectedCulture(dmyCal, inputId, culture);
+            return _priv.setDateToSelectedCulture(dmyCal, inputId, culture);
         }
     };
 
-    _priv._setDateToSelectedCulture = function _setDateToSelectedCulture(dmyCal, inputId, culture) {
-        var maskSplit = culture.mask.split('|'),
-            i = maskSplit.length,
-            j = 0,
-            dateStr = '';
+    _priv.setDateToSelectedCulture = function _setDateToSelectedCulture(dmyCal, inputId, culture) {
+        var maskSplit = culture.mask.split('|');
+        var i = maskSplit.length;
+        var j = 0;
+        var dateStr = '';
 
         // Set day, month and year as a string date based on the culture's date
         while (j < i) {
@@ -1099,24 +1122,24 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return dateStr.substring(0, dateStr.length - 1);
     };
 
-    _priv._runOptionsActions = function _runOptionsActions(elem, opts, cal) {
-        var actions = $(opts).find('a'),
-            i = actions.length,
-            j = 0;
+    _priv.runOptionsActions = function _runOptionsActions(elem, opts, cal) {
+        var actions = $(opts).find('a');
+        var i = actions.length;
+        var j = 0;
 
         while (j < i) {
             if (actions.get(j) === elem) {
                 switch (j) {
                     case 0:
-                        _priv._runOptionsToday(cal);
+                        _priv.runOptionsToday(cal);
                         break;
 
                     case 1:
-                        _priv._runOptionsOK(cal);
+                        _priv.runOptionsOK(cal);
                         break;
 
                     case 2:
-                        _priv._runOptionsClose(cal);
+                        _priv.runOptionsClose(cal);
                         break;
 
                     default:
@@ -1130,21 +1153,21 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
     };
 
-    _priv._runOptionsToday = function _runOptionsToday(cal) {
-        _priv._setSelectedDate(null, cal);
+    _priv.runOptionsToday = function _runOptionsToday(cal) {
+        _priv.setSelectedDate(null, cal);
     };
 
-    _priv._runOptionsOK = function _runOptionsOK(cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId),
-            selYear = document.getElementById(ID_PREFIXES.selectedYear + inputId),
-            settings = _priv._getSettings(inputId),
-            minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
-            maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId),
-            dateTest = new Date(selMonth.value + '/01/' + selYear.value);
+    _priv.runOptionsOK = function _runOptionsOK(cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
+        var selYear = document.getElementById(ID_PREFIXES.selectedYear + inputId);
+        var settings = _priv.getSettings(inputId);
+        var minDate = _priv.parseDateStringToDateObject(settings.minDate, inputId);
+        var maxDate = _priv.parseDateStringToDateObject(settings.maxDate, inputId);
+        var dateTest = new Date(selMonth.value + '/01/' + selYear.value);
 
         // Check if month is available for year selected, else default to minDate/maxDate's month
-        if (!_priv._validateMinMaxRange(_priv._convertDMYToNumeric({day: 1, month: selMonth.value, year: selYear.value}), inputId)) {
+        if (!_priv.validateMinMaxRange(_priv.convertDMYToNumeric({day: 1, month: selMonth.value, year: selYear.value}), inputId)) {
             if (dateTest < minDate) {
                 selMonth.value = minDate.getMonth() + 1;
             }
@@ -1153,8 +1176,8 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             }
         }
 
-        cal.innerHTML = _priv._getDatePickerHtml(
-                            _priv._convertDMYToNumeric(
+        cal.innerHTML = _priv.getDatePickerHtml(
+                            _priv.convertDMYToNumeric(
                                 {
                                     day: 1,
                                     month: selMonth.value,
@@ -1162,20 +1185,20 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                                 }
                             ), inputId);
 
-        _priv._runOptionsClose(cal);
+        _priv.runOptionsClose(cal);
     };
 
-    _priv._runOptionsClose = function _runOptionsClose(cal) {
-        _priv._showHideOptions($(cal).find('a.monthYear').get(0), document.getElementById('dpOptions_' + cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1))), true);
+    _priv.runOptionsClose = function _runOptionsClose(cal) {
+        _priv.showHideOptions($(cal).find('a.monthYear').get(0), document.getElementById('dpOptions_' + cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1))), true);
     };
 
-    _priv._getSelectedDate = function _getSelectedDate(elem, cal) {
-        var dmyCal = {},
-            inputId = '',
-            hidden = null,
-            splitHdn = [],
-            $parent,
-            todaysDate = new Date();
+    _priv.getSelectedDate = function _getSelectedDate(elem, cal) {
+        var dmyCal = {};
+        var inputId = '';
+        var hidden = null;
+        var splitHdn = [];
+        var $parent;
+        var todaysDate = new Date();
 
         if (elem) {
             // Get date from calendar click
@@ -1215,40 +1238,40 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return dmyCal;
     };
 
-    _priv._setSelectedDate = function _setSelectedDate(elem, cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            input = document.getElementById(inputId),
-            dmyCal = _priv._getSelectedDate(elem, cal),
-            settings = _priv._getSettings(inputId);
+    _priv.setSelectedDate = function _setSelectedDate(elem, cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var input = document.getElementById(inputId);
+        var dmyCal = _priv.getSelectedDate(elem, cal);
+        var settings = _priv.getSettings(inputId);
 
         // Set input's value with selected day
-        input.value = _priv._getFormattedDate(_priv._setDateToCulture(dmyCal, inputId), inputId);
+        input.value = _priv.getFormattedDate(_priv.setDateToCulture(dmyCal, inputId), inputId);
 
         if (settings.display.autoError) {
-            _priv._removeInlineError(input);
+            _priv.removeInlineError(input);
         }
 
-        _priv._hideDatePicker(cal);
+        _priv.hideDatePicker(cal);
 
         $('#' + ID_PREFIXES.calIcon + inputId).focus();
     };
 
-    _priv._handleCalHeaderNavigation = function _handleCalHeaderNavigation(elem, cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            monthYear = _priv._getMonthYearFromCalHeader(cal),
-            dmyCal = {
+    _priv.handleCalHeaderNavigation = function _handleCalHeaderNavigation(elem, cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var monthYear = _priv.getMonthYearFromCalHeader(cal);
+        var dmyCal = {
                 day: 1,
                 month: monthYear[0],
                 year: monthYear[1]
-            },
-            settings = _priv._getSettings(inputId),
-            minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
-            maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId),
-            minDateMonth = minDate.getMonth() + 1,
-            maxDateMonth = maxDate.getMonth() + 1,
-            minDateYear = minDate.getFullYear(),
-            maxDateYear = maxDate.getFullYear(),
-            className = '';
+            };
+        var settings = _priv.getSettings(inputId);
+        var minDate = _priv.parseDateStringToDateObject(settings.minDate, inputId);
+        var maxDate = _priv.parseDateStringToDateObject(settings.maxDate, inputId);
+        var minDateMonth = minDate.getMonth() + 1;
+        var maxDateMonth = maxDate.getMonth() + 1;
+        var minDateYear = minDate.getFullYear();
+        var maxDateYear = maxDate.getFullYear();
+        var className = '';
 
         if (typeof elem === 'string') {
             className = elem;
@@ -1261,11 +1284,11 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             case 'fastNavPrevQtr':
                 // Make sure we only navigate when it is possible
                 if (!(dmyCal.month === minDateMonth && dmyCal.year === minDateYear)) {
-                    dmyCal.day = _priv._getLastDayOfMonth(new Date('01/' + monthYear[0] + '/' + monthYear[1]));
-                    dmyCal = _priv._previousQuarter(_priv._convertDMYToNumeric(dmyCal));
+                    dmyCal.day = _priv.getLastDayOfMonth(new Date('01/' + monthYear[0] + '/' + monthYear[1]));
+                    dmyCal = _priv.previousQuarter(_priv.convertDMYToNumeric(dmyCal));
 
-                    if (_priv._validateMinMaxRange(dmyCal, inputId)) {
-                        cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                    if (_priv.validateMinMaxRange(dmyCal, inputId)) {
+                        cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
 
                         if (cal.innerHTML.indexOf(elem.className) > -1) {
                             $(cal).find('a.' + elem.className).focus();
@@ -1279,7 +1302,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                         if (dmyCal.month < minDateMonth || dmyCal.year < minDateYear) {
                             dmyCal.month = minDateMonth;
                             dmyCal.year = minDateYear;
-                            cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                            cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
 
                             if (cal.innerHTML.indexOf(elem.className) > -1) {
                                 $(cal).find('a.' + elem.className).focus();
@@ -1295,11 +1318,11 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             case 'navPrevMon':
                 // Make sure we only navigate when it is possible
                 if (!(dmyCal.month === minDateMonth && dmyCal.year === minDateYear)) {
-                    dmyCal.day = _priv._getLastDayOfMonth(new Date('01/' + monthYear[0] + '/' + monthYear[1]));
-                    dmyCal = _priv._previousMonth(_priv._convertDMYToNumeric(dmyCal));
+                    dmyCal.day = _priv.getLastDayOfMonth(new Date('01/' + monthYear[0] + '/' + monthYear[1]));
+                    dmyCal = _priv.previousMonth(_priv.convertDMYToNumeric(dmyCal));
 
-                    if (_priv._validateMinMaxRange(dmyCal, inputId)) {
-                        cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                    if (_priv.validateMinMaxRange(dmyCal, inputId)) {
+                        cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
 
                         if (cal.innerHTML.indexOf(elem.className) > -1) {
                             $(cal).find('a.' + elem.className).focus();
@@ -1314,10 +1337,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             case 'navNextMon':
                 // Make sure we only navigate when it is possible
                 if (!(dmyCal.month === maxDateMonth && dmyCal.year === maxDateYear)) {
-                    dmyCal = _priv._nextMonth(_priv._convertDMYToNumeric(dmyCal));
+                    dmyCal = _priv.nextMonth(_priv.convertDMYToNumeric(dmyCal));
 
-                    if (_priv._validateMinMaxRange(dmyCal, inputId)) {
-                        cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                    if (_priv.validateMinMaxRange(dmyCal, inputId)) {
+                        cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
 
                         if (cal.innerHTML.indexOf(elem.className) > -1) {
                             $(cal).find('a.' + elem.className).focus();
@@ -1332,10 +1355,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             case 'fastNavNextQtr':
                 // Make sure we only navigate when it is possible
                 if (!(dmyCal.month === maxDateMonth && dmyCal.year === maxDateYear)) {
-                    dmyCal = _priv._nextQuarter(_priv._convertDMYToNumeric(dmyCal));
+                    dmyCal = _priv.nextQuarter(_priv.convertDMYToNumeric(dmyCal));
 
-                    if (_priv._validateMinMaxRange(dmyCal, inputId)) {
-                        cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                    if (_priv.validateMinMaxRange(dmyCal, inputId)) {
+                        cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
 
                         if (cal.innerHTML.indexOf(elem.className) > -1) {
                             $(cal).find('a.' + elem.className).focus();
@@ -1349,7 +1372,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                         if (dmyCal.month > maxDateMonth || dmyCal.year > maxDate.getFullYear()) {
                             dmyCal.month = maxDateMonth;
                             dmyCal.year = maxDateYear;
-                            cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                            cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
 
                             if (cal.innerHTML.indexOf(elem.className) > -1) {
                                 $(cal).find('a.' + elem.className).focus();
@@ -1365,11 +1388,11 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             case 'navPrevYear':
                 // Make sure we only navigate when it is possible
                 if (!(dmyCal.month === maxDateMonth && dmyCal.year === maxDateYear)) {
-                    dmyCal.day = _priv._getLastDayOfMonth(new Date('01/' + monthYear[0] + '/' + monthYear[1]));
-                    dmyCal = _priv._previousYear(_priv._convertDMYToNumeric(dmyCal));
+                    dmyCal.day = _priv.getLastDayOfMonth(new Date('01/' + monthYear[0] + '/' + monthYear[1]));
+                    dmyCal = _priv.previousYear(_priv.convertDMYToNumeric(dmyCal));
 
-                    if (_priv._validateMinMaxRange(dmyCal, inputId)) {
-                        cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                    if (_priv.validateMinMaxRange(dmyCal, inputId)) {
+                        cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
                     }
                 }
                 break;
@@ -1377,10 +1400,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             case 'navNextYear':
                 // Make sure we only navigate when it is possible
                 if (!(dmyCal.month === maxDateMonth && dmyCal.year === maxDateYear)) {
-                    dmyCal = _priv._nextYear(_priv._convertDMYToNumeric(dmyCal));
+                    dmyCal = _priv.nextYear(_priv.convertDMYToNumeric(dmyCal));
 
-                    if (_priv._validateMinMaxRange(dmyCal, inputId)) {
-                        cal.innerHTML = _priv._getDatePickerHtml(dmyCal, inputId);
+                    if (_priv.validateMinMaxRange(dmyCal, inputId)) {
+                        cal.innerHTML = _priv.getDatePickerHtml(dmyCal, inputId);
                     }
                 }
                 break;
@@ -1390,28 +1413,28 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
     };
 
-    _priv._handleOptionsNavigation = function _handleOptionsNavigation(elem, cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            startOptYr = parseInt(document.getElementById('startOptYr_' + inputId).value, 10),
-            endOptYr = parseInt(document.getElementById('endOptYr_' + inputId).value, 10),
-            selYear = parseInt(document.getElementById(ID_PREFIXES.selectedYear + inputId).value, 10),
-            divMonths = $('#dpOptions_' + inputId).find('div.dpMon').get(0),
-            divYears = $('#dpOptions_' + inputId).find('div.dpYr').get(0),
-            settings = _priv._getSettings(inputId),
-            minDate = _priv._parseDateStringToDateObject(settings.minDate, inputId),
-            maxDate = _priv._parseDateStringToDateObject(settings.maxDate, inputId);
+    _priv.handleOptionsNavigation = function _handleOptionsNavigation(elem, cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var startOptYr = parseInt(document.getElementById('startOptYr_' + inputId).value, 10);
+        var endOptYr = parseInt(document.getElementById('endOptYr_' + inputId).value, 10);
+        var selYear = parseInt(document.getElementById(ID_PREFIXES.selectedYear + inputId).value, 10);
+        var divMonths = $('#dpOptions_' + inputId).find('div.dpMon').get(0);
+        var divYears = $('#dpOptions_' + inputId).find('div.dpYr').get(0);
+        var settings = _priv.getSettings(inputId);
+        var minDate = _priv.parseDateStringToDateObject(settings.minDate, inputId);
+        var maxDate = _priv.parseDateStringToDateObject(settings.maxDate, inputId);
 
         switch (elem.className) {
             case 'fastNavPrevYrs':
                 // Make sure we can only navigate to allowed years by min/max date
-                if (_priv._validateMinMaxRange({day: 31, month: 12, year: (startOptYr - 1)}, inputId)) {
-                    divYears.innerHTML = _priv._setOptionsYears({day: 1, month: 1, year: (startOptYr - 5)}, inputId);
+                if (_priv.validateMinMaxRange({day: 31, month: 12, year: (startOptYr - 1)}, inputId)) {
+                    divYears.innerHTML = _priv.setOptionsYears({day: 1, month: 1, year: (startOptYr - 5)}, inputId);
 
                     if (selYear >= (startOptYr - 10) && selYear < startOptYr) {
-                        divMonths.innerHTML = _priv._setOptionsMonths({day: 31, month: 12, year: selYear}, inputId);
+                        divMonths.innerHTML = _priv.setOptionsMonths({day: 31, month: 12, year: selYear}, inputId);
                     }
                     else {
-                        divMonths.innerHTML = _priv._setOptionsMonths({day: 31, month: 12, year: (startOptYr - 1)}, inputId);
+                        divMonths.innerHTML = _priv.setOptionsMonths({day: 31, month: 12, year: (startOptYr - 1)}, inputId);
                     }
 
                     if (minDate.getFullYear() < (startOptYr - 10)) {
@@ -1425,14 +1448,14 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             case 'fastNavNextYrs':
                 // Make sure we can only navigate to allowed years by min/max date
-                if (_priv._validateMinMaxRange({day: 1, month: 1, year: (endOptYr + 1)}, inputId)) {
-                    divYears.innerHTML = _priv._setOptionsYears({day: 1, month: 1, year: (endOptYr + 6)}, inputId);
+                if (_priv.validateMinMaxRange({day: 1, month: 1, year: (endOptYr + 1)}, inputId)) {
+                    divYears.innerHTML = _priv.setOptionsYears({day: 1, month: 1, year: (endOptYr + 6)}, inputId);
 
                     if (selYear > endOptYr && selYear <= (endOptYr + 10)) {
-                        divMonths.innerHTML = _priv._setOptionsMonths({day: 1, month: 1, year: selYear}, inputId);
+                        divMonths.innerHTML = _priv.setOptionsMonths({day: 1, month: 1, year: selYear}, inputId);
                     }
                     else {
-                        divMonths.innerHTML = _priv._setOptionsMonths({day: 1, month: 1, year: (endOptYr + 1)}, inputId);
+                        divMonths.innerHTML = _priv.setOptionsMonths({day: 1, month: 1, year: (endOptYr + 1)}, inputId);
                     }
 
                     if (maxDate.getFullYear() > (endOptYr + 10)) {
@@ -1451,10 +1474,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._previousQuarter = function _previousQuarter(dmyCal) {
+    _priv.previousQuarter = function _previousQuarter(dmyCal) {
         dmyCal.month += -3;
 
-        return _priv._recalculateDMY(dmyCal);
+        return _priv.recalculateDMY(dmyCal);
     };
 
     /**
@@ -1462,10 +1485,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._previousMonth = function _previousMonth(dmyCal) {
+    _priv.previousMonth = function _previousMonth(dmyCal) {
         dmyCal.month += -1;
 
-        return _priv._recalculateDMY(dmyCal);
+        return _priv.recalculateDMY(dmyCal);
     };
 
     /**
@@ -1473,10 +1496,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._nextMonth = function _nextMonth(dmyCal) {
+    _priv.nextMonth = function _nextMonth(dmyCal) {
         dmyCal.month += 1;
 
-        return _priv._recalculateDMY(dmyCal);
+        return _priv.recalculateDMY(dmyCal);
     };
 
     /**
@@ -1484,10 +1507,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._nextQuarter = function _nextQuarter(dmyCal) {
+    _priv.nextQuarter = function _nextQuarter(dmyCal) {
         dmyCal.month += 3;
 
-        return _priv._recalculateDMY(dmyCal);
+        return _priv.recalculateDMY(dmyCal);
     };
 
     /**
@@ -1495,10 +1518,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._previousYear = function _previousYear(dmyCal) {
+    _priv.previousYear = function _previousYear(dmyCal) {
         dmyCal.month += -12;
 
-        return _priv._recalculateDMY(dmyCal);
+        return _priv.recalculateDMY(dmyCal);
     };
 
     /**
@@ -1506,10 +1529,10 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._nextYear = function _nextYear(dmyCal) {
+    _priv.nextYear = function _nextYear(dmyCal) {
         dmyCal.month += 12;
 
-        return _priv._recalculateDMY(dmyCal);
+        return _priv.recalculateDMY(dmyCal);
     };
 
     /**
@@ -1517,7 +1540,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
      * @param   {Object}  dmyCal  Calendar object
      * @return  {Object}          Updated calendar object
      */
-    _priv._recalculateDMY = function _recalculateDMY(dmyCal) {
+    _priv.recalculateDMY = function _recalculateDMY(dmyCal) {
         if (dmyCal.month <= 0) {
             dmyCal.month += 12;
             dmyCal.year -= 1;
@@ -1530,20 +1553,20 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         return dmyCal;
     };
 
-    _priv._showInlineError = function _showInlineError(elem) {
+    _priv.showInlineError = function _showInlineError(elem) {
         $(elem).addClass(CLASSES.invalidDate);
     };
 
-    _priv._removeInlineError = function _removeInlineError(elem) {
+    _priv.removeInlineError = function _removeInlineError(elem) {
         $(elem).removeClass(CLASSES.invalidDate);
     };
 
-    _priv._forceOptionsOK = function _forceOptionsOK(cal) {
-        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            okBtn = document.getElementById('dpOK_' + inputId),
-            opts = document.getElementById('dpOther_' + inputId);
+    _priv.forceOptionsOK = function _forceOptionsOK(cal) {
+        var inputId = cal.id.substring(cal.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var okBtn = document.getElementById('dpOK_' + inputId);
+        var opts = document.getElementById('dpOther_' + inputId);
 
-        _priv._runOptionsActions(okBtn, opts, cal);
+        _priv.runOptionsActions(okBtn, opts, cal);
     };
 
     ////////////
@@ -1551,52 +1574,52 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
     ////////////
 
     _events._iconClick = function _iconClick(ev) {
-        var target = ev.target,
-            iconId = target.id.substring(target.id.indexOf(ID_PREFIXES.calIcon) + ID_PREFIXES.calIcon.length),
-            cal = document.getElementById(ID_PREFIXES.datePicker + iconId);
+        var target = ev.target;
+        var iconId = target.id.substring(target.id.indexOf(ID_PREFIXES.calIcon) + ID_PREFIXES.calIcon.length);
+        var cal = document.getElementById(ID_PREFIXES.datePicker + iconId);
 
         // Hide other datepickers
-        _priv._hideAllDatePickers(iconId);
+        _priv.hideAllDatePickers(iconId);
 
-        _priv._showHideDatePicker(target, cal);
+        _priv.showHideDatePicker(target, cal);
 
         // Do we need this?
         // ev.preventDefault();
     };
 
     _events._inputBlur = function _inputBlur(ev) {
-        var input = ev.target,
-            dateParsed = null,
-            settings = _priv._getSettings(input.id);
+        var input = ev.target;
+        var dateParsed = null;
+        var settings = _priv.getSettings(input.id);
 
         if (input) {
             if ($.trim(input.value).length > 0) {
-                dateParsed = _priv._getFormattedDate(input.value, input.id);
+                dateParsed = _priv.getFormattedDate(input.value, input.id);
                 if (dateParsed) {
                     input.value = dateParsed;
                     if (settings.display.autoError) {
-                        _priv._removeInlineError(input);
+                        _priv.removeInlineError(input);
                     }
                 }
                 else {
                     if (settings.display.autoError) {
-                        _priv._showInlineError(input);
+                        _priv.showInlineError(input);
                     }
                 }
             }
             else {
                 if (settings.display.autoError) {
-                    _priv._removeInlineError(input);
+                    _priv.removeInlineError(input);
                 }
             }
         }
     };
 
     _events._calClick = function _calClick(ev) {
-        var icon = ev.target,
-            parent = icon,
-            clickElem = null,
-            clickParent = null;
+        var icon = ev.target;
+        var parent = icon;
+        var clickElem = null;
+        var clickParent = null;
 
         // Use delegation on the calendar div container to know what was clicked
         while (parent.id.indexOf(ID_PREFIXES.datePicker) < 0) {
@@ -1616,16 +1639,16 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 case 'navPrevMon':
                 case 'navNextMon':
                 case 'fastNavNextQtr':
-                    _priv._handleCalHeaderNavigation(clickElem, parent);
+                    _priv.handleCalHeaderNavigation(clickElem, parent);
                     break;
 
                 case 'monthYear':
-                    _priv._showHideOptions(clickElem, document.getElementById('dpOptions_' + parent.id.substring(parent.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1))));
+                    _priv.showHideOptions(clickElem, document.getElementById('dpOptions_' + parent.id.substring(parent.id.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1))));
                     break;
 
                 case 'fastNavPrevYrs':
                 case 'fastNavNextYrs':
-                    _priv._handleOptionsNavigation(clickElem, parent);
+                    _priv.handleOptionsNavigation(clickElem, parent);
                     break;
 
                 default:
@@ -1634,25 +1657,25 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                     clickParent = clickElem;
                     while (clickParent !== parent && clickParent.nodeName !== 'BODY') {
                         if (clickParent.className === 'dpMon') {
-                            _priv._setOptionsSelectedMonth(clickElem, clickParent, parent);
+                            _priv.setOptionsSelectedMonth(clickElem, clickParent, parent);
                             if (ev.type === 'dblclick') {
-                                _priv._forceOptionsOK(parent);
+                                _priv.forceOptionsOK(parent);
                             }
                             break;
                         }
                         else if (clickParent.className === 'dpYr') {
-                            _priv._setOptionsSelectedYear(clickElem, clickParent, parent);
+                            _priv.setOptionsSelectedYear(clickElem, clickParent, parent);
                             if (ev.type === 'dblclick') {
-                                _priv._forceOptionsOK(parent);
+                                _priv.forceOptionsOK(parent);
                             }
                             break;
                         }
                         else if (clickParent.className === 'dpOther') {
-                            _priv._runOptionsActions(clickElem, clickParent, parent);
+                            _priv.runOptionsActions(clickElem, clickParent, parent);
                             break;
                         }
                         else if (clickParent.className === 'dpDays') {
-                            _priv._setSelectedDate(clickElem, parent);
+                            _priv.setSelectedDate(clickElem, parent);
                             break;
                         }
 
@@ -1668,20 +1691,20 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
     };
 
     _events._calKeydown = function _calKeydown(ev) {
-        var elem = ev.target,
-            parentId = $(elem).closest('.dp').attr('id'),
-            inputId = parentId.substring(parentId.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1)),
-            $dpOptions = $('#dpOptions_' + inputId),
-            $calIcon = $('#' + ID_PREFIXES.calIcon + inputId),
-            calIcon = $calIcon.get(0),
-            $cal = $('#' + ID_PREFIXES.datePicker + inputId),
-            cal = $cal.get(0),
-            linksCal = [],
-            linksOpts = [];
+        var elem = ev.target;
+        var parentId = $(elem).closest('.dp').attr('id');
+        var inputId = parentId.substring(parentId.indexOf(ID_PREFIXES.datePicker + '_') + (ID_PREFIXES.datePicker.length + 1));
+        var $dpOptions = $('#dpOptions_' + inputId);
+        var $calIcon = $('#' + ID_PREFIXES.calIcon + inputId);
+        var calIcon = $calIcon.get(0);
+        var $cal = $('#' + ID_PREFIXES.datePicker + inputId);
+        var cal = $cal.get(0);
+        var linksCal = [];
+        var linksOpts = [];
 
         switch (ev.keyCode) {
             case 27: // 'Esc' was pressed, close calendar
-                _priv._showHideDatePicker(calIcon, cal, true);
+                _priv.showHideDatePicker(calIcon, cal, true);
                 break;
 
             case 9: // 'Shift + Tab' (ev.shiftKey) or 'Tab' (!ev.shiftKey)
@@ -1690,7 +1713,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
                 // Calendar
                 if ((elem.id === ('dpCalWrap_' + inputId) && ev.shiftKey) || (linksCal[linksCal.length - 1] === elem && !ev.shiftKey)) {
-                    _priv._hideDatePicker(cal);
+                    _priv.hideDatePicker(cal);
                     $calIcon.focus();
 
                     // Do we need this?
@@ -1698,7 +1721,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 }
                 // Options
                 if ((elem.id === ('dpOptions_' + inputId) && ev.shiftKey) || (linksOpts[linksOpts.length - 1] === elem && !ev.shiftKey)) {
-                    _priv._runOptionsClose(cal);
+                    _priv.runOptionsClose(cal);
 
                     // Do we need this?
                     // ev.preventDefault();
@@ -1708,7 +1731,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             case 37: // left arrow goes back 1 month
                 if ($dpOptions.hasClass(CLASSES.hidden)) {
-                    _priv._handleCalHeaderNavigation($cal.find('.navPrevMon').get(0), cal);
+                    _priv.handleCalHeaderNavigation($cal.find('.navPrevMon').get(0), cal);
 
                     // Do we need this?
                     // ev.preventDefault();
@@ -1718,7 +1741,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             case 39: // right arrow goes forward 1 month
                 if ($dpOptions.hasClass(CLASSES.hidden)) {
-                    _priv._handleCalHeaderNavigation($cal.find('.navNextMon').get(0), cal);
+                    _priv.handleCalHeaderNavigation($cal.find('.navNextMon').get(0), cal);
 
                     // Do we need this?
                     // ev.preventDefault();
@@ -1728,7 +1751,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             case 38: // up arrow goes forward 1 year
                 if ($dpOptions.hasClass(CLASSES.hidden)) {
-                    _priv._handleCalHeaderNavigation('navNextYear', cal);
+                    _priv.handleCalHeaderNavigation('navNextYear', cal);
                     $cal.find('a.monthYear').focus();
 
                     // Do we need this?
@@ -1739,7 +1762,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             case 40: // down arrow goes back 1 year
                 if ($dpOptions.hasClass(CLASSES.hidden)) {
-                    _priv._handleCalHeaderNavigation('navPrevYear', cal);
+                    _priv.handleCalHeaderNavigation('navPrevYear', cal);
                     $cal.find('a.monthYear').focus();
 
                     // Do we need this?
@@ -1754,24 +1777,22 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
     };
 
     _events._bodyClick = function _bodyClick(ev) {
-        var $target = $(ev.target),
-            $parent = $target.closest(SELECTORS.icon + ', .dp, .dpCalWrap, .dpOptWrap');
+        var $target = $(ev.target);
+        var $parent = $target.closest(SELECTORS.icon + ', .dp, .dpCalWrap, .dpOptWrap');
 
         // Check to see whether click happened inside or outside calendar
         if (!$parent.length) {
             // Make sure calendar is closed
-            _priv._hideAllDatePickers();
+            _priv.hideAllDatePickers();
         }
     };
 
     _events._windowResize = function _windowResize( /*ev*/ ) {
         // Reposition opened calendars
         $('div.dp:not(.hidden)').each(function() {
-            _priv._setDatePickerPosition(this);
+            _priv.setDatePickerPosition(this);
         });
     };
-
-    $(document).ready(_init);
 
     //////////////////////////////////////////
     // Expose public properties and methods //
