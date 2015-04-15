@@ -20,7 +20,7 @@ form {
 
 // * @section    Selection groups
 // * --------------------------------------------------------
-// Add media queries for IE8 support
+// Add media queries to ignore IE8
 @media (min-width: 0px) {
     .cui-selection-group {
         label {
