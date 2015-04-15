@@ -1,13 +1,47 @@
-define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
+define(['jquery', 'cui', 'css!datepickerStyle'], function ($, cui) {
     var VERSION = {
             name: 'datepicker',
             version: '1.0.0',
             date: '20010101'
         };
     // Constants
-    var MONTH_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November' ,'December'];
-    var MSHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var DAYS_WK_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var MONTH_EN = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+    var MSHORT_EN = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ];
+    var DAYS_WK_EN = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ];
     var DAYS_MON = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var CULTURES = {
             USA: {
@@ -26,7 +60,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
     // CSS hooks
     var CLASSES = {
-            hidden: 'hidden',
+            hidden: 'cui-hidden',
             selected: 'selected',
             invalidDate: 'invalidDate'
         };
@@ -58,7 +92,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
     // Private API
     var _priv = {};
     var _events = {};
-    var _imgPath = '../../dist/images/component/datepicker/';
+    var _imgPath = '../../dist/images/';
     var _defaultSettings = {
             datePickers: [
                 {
@@ -367,6 +401,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         else {
             prevMon = dmyCal.month - 1;
             prevYr = dmyCal.year;
+
             if (nextMon > 12) {
                 nextMon = 1;
                 nextYr += 1;
@@ -396,6 +431,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(prevMon + '/' + (lastDayPrevMonth - weekday + 1) + '/' + prevYr);
+
             if (_priv.validateMinMaxRange({day: (lastDayPrevMonth - weekday + 1), month: prevMon, year: prevYr}, inputId)) {
                 html += '"><a href="#" role="button" title="' + _getDayTitle(titleDate) + '" tabindex="1">' + (lastDayPrevMonth - weekday + 1) + '</a></li>';
             }
@@ -407,7 +443,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         }
         i = 0;
 
-        // Month"s days
+        // Month's days
         while (i < lastDayMonth) {
             // Counts the number of days used in row (1...7)
             daysCnt += 1;
@@ -460,6 +496,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
             // Validate date and show as clickable or read-only
             titleDate = new Date(nextMon + '/' + (i + 1) + '/' + nextYr);
+
             if (_priv.validateMinMaxRange({day: (i + 1), month: nextMon, year: nextYr}, inputId)) {
                 html += '"><a href="#" role="button" title="' + _getDayTitle(titleDate) + '" tabindex="1">' + (i + 1) + '</a></li>';
             }
@@ -606,7 +643,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
             inputId = '';
         }
 
-        $('div.dp').each(function() {
+        $('div.dp').each(function () {
             var $cal = $(this);
 
             if (this.id !== (ID_PREFIXES.datePicker + inputId)) {
@@ -667,7 +704,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         var selMonth = document.getElementById(ID_PREFIXES.selectedMonth + inputId);
 
         // Unhighlight all months
-        $(opts).find('a, span.disabled').each(function() {
+        $(opts).find('a, span.disabled').each(function () {
             $(this).parent().removeClass(CLASSES.selected);
         });
 
@@ -685,7 +722,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         var divMonths = $('#dpOptions_' + inputId + ' div.dpMon').get(0);
 
         // Unhighlight all years
-        $(opts).find('a').each(function() {
+        $(opts).find('a').each(function () {
             $(this).parent().removeClass(CLASSES.selected);
         });
 
@@ -1700,10 +1737,12 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
         var cal = $cal.get(0);
         var linksCal = [];
         var linksOpts = [];
+        var isDpOptsHidden = $dpOptions.hasClass(CLASSES.hidden);
 
         switch (ev.keyCode) {
             case 27: // 'Esc' was pressed, close calendar
                 _priv.showHideDatePicker(calIcon, cal, true);
+
                 break;
 
             case 9: // 'Shift + Tab' (ev.shiftKey) or 'Tab' (!ev.shiftKey)
@@ -1729,7 +1768,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 break;
 
             case 37: // left arrow goes back 1 month
-                if ($dpOptions.hasClass(CLASSES.hidden)) {
+                if (isDpOptsHidden) {
                     _priv.handleCalHeaderNavigation($cal.find('.navPrevMon').get(0), cal);
 
                     // Do we need this?
@@ -1739,7 +1778,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 break;
 
             case 39: // right arrow goes forward 1 month
-                if ($dpOptions.hasClass(CLASSES.hidden)) {
+                if (isDpOptsHidden) {
                     _priv.handleCalHeaderNavigation($cal.find('.navNextMon').get(0), cal);
 
                     // Do we need this?
@@ -1749,7 +1788,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 break;
 
             case 38: // up arrow goes forward 1 year
-                if ($dpOptions.hasClass(CLASSES.hidden)) {
+                if (isDpOptsHidden) {
                     _priv.handleCalHeaderNavigation('navNextYear', cal);
                     $cal.find('a.monthYear').focus();
 
@@ -1760,7 +1799,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
                 break;
 
             case 40: // down arrow goes back 1 year
-                if ($dpOptions.hasClass(CLASSES.hidden)) {
+                if (isDpOptsHidden) {
                     _priv.handleCalHeaderNavigation('navPrevYear', cal);
                     $cal.find('a.monthYear').focus();
 
@@ -1788,7 +1827,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function($, cui) {
 
     _events._windowResize = function _windowResize( /*ev*/ ) {
         // Reposition opened calendars
-        $('div.dp:not(.hidden)').each(function() {
+        $('div.dp:not(.hidden)').each(function () {
             _priv.setDatePickerPosition(this);
         });
     };
