@@ -1,3 +1,7 @@
+// CUI settings
+@import "../../cui/scss/_settings";
+
+// Component user settings
 @import "../_settings";
 
 // Calendar icon
@@ -6,7 +10,7 @@
     width: 20px;
     height: 19px;
     border: 1px solid transparent;
-    background: transparent url("CalendarSprite.png") 0 0 no-repeat;
+    background: transparent url("#{$cui-images-path}CalendarSprite.png") 0 0 no-repeat;
     vertical-align: middle;
     border-radius: 4px;
     margin: 0;
