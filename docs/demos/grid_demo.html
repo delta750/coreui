@@ -47,6 +47,12 @@
         color: #795da3;
         font-weight: 600
     }
+
+    code {
+        font-family: Consolas, "Lucida Console", Monaco, monospace;
+        font-size: 0.9em;
+        color: #0086b3;
+    }
     </style>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
@@ -61,6 +67,7 @@
                 <li>Gutters</li>
                 <li>Push columns</li>
                 <li>Hide columns</li>
+                <li>Responsive flex box option</li>
                 <li>Mixins for customizing columns, gutters, etc.</li>
             </ul>
         </div>
@@ -346,12 +353,49 @@
             </div>
         </div>
     </div>
+    <div class="cui-row">
+        <div class="cui-col-small-12 no-debug">
+            <h2>Flex box</h2>
+            <p>This will apply flex box styles only at the specified breakpoint(s). The styles allow you to have containers with fluid widths and equal heights, however it is not supported by IE 8 or IE 9.</p>
+            <p>Remember to use <code>.cui-row-{breakpoint}-flex</code> on the row element.
+        </div>
+    </div>
+    <div class="cui-row cui-row-small-flex">
+        <div class="cui-col-small-flex">
+            sm-<span class="fill">flex</span>
+        </div>
+        <div class="cui-col-small-flex">
+            sm-<span class="fill">flex</span>
+        </div>
+    </div>
+    <div class="cui-row cui-row-medium-flex">
+        <div class="cui-col-small-12 cui-col-medium-flex">
+            sm-12, md-<span class="fill">flex</span>
+        </div>
+        <div class="cui-col-small-12 cui-col-medium-flex">
+            sm-12, md-<span class="fill">flex</span>
+        </div>
+        <div class="cui-col-small-12 cui-col-medium-flex">
+            sm-12, md-<span class="fill">flex</span>
+        </div>
+    </div>
+    <div class="cui-row cui-row-large-flex">
+        <div class="cui-col-small-12 cui-col-medium-6 cui-col-large-flex">
+            sm-12, med-6, lg-<span class="fill">flex</span>
+        </div>
+        <div class="cui-col-small-12 cui-col-medium-3 cui-col-large-flex">
+            sm-12, med-3, lg-<span class="fill">flex</span>
+        </div>
+        <div class="cui-col-small-12 cui-col-medium-3 cui-col-large-flex">
+            sm-12, med-3, lg-<span class="fill">flex</span>
+        </div>
+    </div>
 
     <script id="require" src="../../dist/js/cui.js"></script>
     <script>
         require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
-            // Floating box that indicates the current breakpoint
+            // Floating box to indicate the current breakpoint
             (function () {
                 var box = document.createElement('div');
 
