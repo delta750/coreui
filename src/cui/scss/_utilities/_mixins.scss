@@ -256,6 +256,10 @@
     @include clearfix;
 }
 
+@function column-width-calc($colNumber, $colTotal) {
+    @return percentage($colNumber / $colTotal);
+}
+
 // Returns the styles for a single column
 @mixin grid-column($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
     @if $size == "small" {
@@ -295,7 +299,7 @@
     display: -ms-flexbox;  // TWEENER - IE 10
     display: -webkit-flex; // NEW - Chrome
     display: flex;         // NEW, Spec - Opera 12.1, Firefox 20+
- }
+}
 
 // Child element (column) within a flex container
 @mixin flex-col($val: 1, $width: false) {

@@ -14,13 +14,22 @@
 </head>
 <body class="debug">
     <style>
-    [class^="cui-col-"]:not(.no-debug),
-    [class^="cui-filler-col-"]:not(.no-debug),
-    [class^="cui-fixed-col-"]:not(.no-debug),
-    [class^="cui-hide-col-"]:not(.no-debug) {
+    [class^="cui-col-"],
+    [class^="cui-filler-col-"],
+    [class^="cui-fixed-col-"],
+    [class^="cui-hide-col-"] {
         background: silver;
         line-height: 1.5em;
         border: 1px dotted #fff;
+    }
+
+    [class^="cui-col-"].no-debug,
+    [class^="cui-filler-col-"].no-debug,
+    [class^="cui-fixed-col-"].no-debug,
+    [class^="cui-hide-col-"].no-debug {
+        background: white;
+        border: none;
+        line-height: normal;
     }
 
     .level {

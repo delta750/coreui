@@ -162,3 +162,9 @@ $cui-bp-medium:        480px !default;
 $cui-bp-medium-minus:  $cui-bp-medium - 1px !default;
 $cui-bp-large:         786px !default;
 $cui-bp-large-minus:   $cui-bp-large - 1px !default;
+
+// Breakpoints used for generating grid classes -- this should match the list above
+$cui-grid-breakpoints: (
+    ("medium" $cui-bp-medium),
+    ("large" $cui-bp-large)
+);

@@ -49,13 +49,46 @@ nav > header {
 // * @section    Column generation
 // * --------------------------------------------------------
 
-$cui-grid-breakpoints: (
-    ("medium" $cui-bp-medium),
-    ("large" $cui-bp-large)
-);
+// Generates fixed and filler classes for a given breakpoint
+@mixin generate-fixed-filler-columns($breakpointName: "") {
+    // Fixed & filler column layout approach:
+    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give filler columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the filler columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
+    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Filler columns use `width: calc(100% - Npx)` and no `margin-left`.
 
-@function column-width-calc($colNumber, $colTotal) {
-    @return percentage($colNumber / $colTotal);
+    $sizes: (100, 200, 300, 400);
+
+    // Fixed
+    @each $size in $sizes {
+        .cui-fixed-col-#{$breakpointName}-#{$size}px {
+            width: #{$size}px;
+        }
+    }
+
+    // Filler
+
+    .no-csscalc [class*="cui-col-#{$breakpointName}-right"],
+    .no-csscalc [class*="cui-col-#{$breakpointName}-left"] {
+        float: none;
+        width: 100%;
+    }
+
+    // Specific filler sizes
+    @each $size in $sizes {
+        .cui-col-#{$breakpointName}-right-#{$size}px,
+        .cui-col-#{$breakpointName}-left-#{$size}px {
+            width: calc(100% - #{$size}px);
+        }
+
+        .no-csscalc {
+            .cui-col-#{$breakpointName}-right-#{$size}px {
+                margin-left: #{$size}px;
+            }
+
+            .cui-col-#{$breakpointName}-left-#{$size}px {
+                margin-right: #{$size}px;
+            }
+        }
+    }
 }
 
 // Generates column classes for all breakpoint sizes
@@ -79,12 +112,12 @@ $cui-grid-breakpoints: (
 
         // Flex box
         .cui-row-#{$breakpointName}-flex {
-            @include row();
-            @include flex-row();
+            @include row;
+            @include flex-row;
         }
 
         .cui-col-#{$breakpointName}-flex {
-            @include flex-col();
+            @include flex-col;
             float: none; // Override default value since `float` is not needed for flex box
         }
     }
@@ -94,6 +127,7 @@ $cui-grid-breakpoints: (
     @mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
         @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
         @include utility-classes($breakpointName);
+        @include generate-fixed-filler-columns($breakpointName);
     }
 
     // Finally, generate the classes for each size:
@@ -154,64 +188,16 @@ $cui-grid-breakpoints: (
     }
 }
 
-// Generate fixed and filler classes for a given breakpoint
-@mixin generate-fixed-filler-columns($breakpointName: "") {
-    // Fixed & filler column layout approach:
-    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give filler columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the filler columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
-    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Filler columns use `width: calc(100% - Npx)` and no `margin-left`.
 
-    $sizes: (100, 200, 300, 400);
-
-    // Fixed
-    @each $size in $sizes {
-        [class*="cui-fixed-col-#{$breakpointName}-"][class*="#{$breakpointName}-#{$size}"] {
-            width: #{$size}px;
-        }
-    }
-
-    // Filler
-
-    // "push" = to the right
-    // "pull" = to the left
-
-    .no-csscalc [class*="cui-col-#{$breakpointName}-right"],
-    .no-csscalc [class*="cui-col-#{$breakpointName}-left"] {
-        float: none;
-        width: 100%;
-    }
-
-    // Specific filler sizes
-    @each $size in $sizes {
-        [class*="cui-col-#{$breakpointName}-right"][class*="#{$breakpointName}-right-#{$size}px"],
-        [class*="cui-col-#{$breakpointName}-left"][class*="#{$breakpointName}-left-#{$size}px"] {
-            width: calc(100% - #{$size}px);
-        }
-
-        .no-csscalc {
-            [class*="cui-col-#{$breakpointName}-right"][class*="#{$breakpointName}-right-#{$size}px"] {
-                margin-left: #{$size}px;
-            }
-
-            [class*="cui-col-#{$breakpointName}-left"][class*="#{$breakpointName}-left-#{$size}px"] {
-                margin-right: #{$size}px;
-            }
-        }
-    }
-}
-
-// Generate the grid and column classes
+// * @section    Generate column classes
+// * --------------------------------------------------------
 @include generate-grid($cui-grid-column-count);
 
 
-// * @section    Small column widths
+// * @section    Visibility classes
 // * --------------------------------------------------------
-// Fixed/filler
-@media only screen and (max-width: $cui-bp-medium-minus) {
-    @include generate-fixed-filler-columns("small");
-}
 
-// * @section    Tablet (medium) column widths
-// * --------------------------------------------------------
+// Medium (tablet) column widths
 @media only screen and (min-width: $cui-bp-medium) {
     .cui-hide-col-small,
     .cui-hide-col-large {
@@ -219,21 +205,12 @@ $cui-grid-breakpoints: (
     }
 }
 
-// Fixed/filler
-@media only screen and (min-width: $cui-bp-medium) and (max-width: $cui-bp-large-minus) {
-    @include generate-fixed-filler-columns("medium");
-}
-
-
-// * @section    Desktop (large) column widths
-// * --------------------------------------------------------
+// Large (desktop) column widths
 @media only screen and (min-width: $cui-bp-large) {
     .cui-hide-col-small,
     .cui-hide-col-medium {
         display: block;
     }
-
-    @include generate-fixed-filler-columns("large");
 }
 
 
