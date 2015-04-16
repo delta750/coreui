@@ -117,10 +117,9 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function ($, cui) {
     // Constructor //
     /////////////////
 
-    var DatePicker = function (elem, menuDefinitions, options) {
+    var DatePicker = function (elem, options) {
         this.elem = elem;
         this.$elem = $(elem);
-        this.menuDefinitions = menuDefinitions;
         this.options = options;
 
         // This next line takes advantage of HTML5 data attributes
@@ -140,9 +139,8 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function ($, cui) {
     DatePicker.prototype.defaults = {};
 
     /**
-     * Initializes the plugin and menu(s), and displays menu(s)
-     * May be called multiple times. If no menus are provided, some general setup will be performed.
-     * @param  {Array} menuArray  An array of menu objects, or a single object
+     * Initializes the plugin and date picker and adds a click event to the icon
+     * May be called multiple times. If no date pickers are provided, some general setup will be performed.
      * @return {Boolean}          True if no problems were encountered
      */
     DatePicker.prototype.init = function () {
