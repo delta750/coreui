@@ -173,29 +173,54 @@
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
-            <h2>Filler on small</h2>
-            <p>Filler.</p>
-        </div>
-        <div class="cui-col-small-3 cui-col-medium-4">
-            sm-3, md-4
-        </div>
-        <div class="cui-filler-col-small cui-col-medium-8">
-            sm-<span class="fill">fill</span>, md-8
-        </div>
-    </div>
-    <div class="cui-row">
-        <div class="cui-col-small-12 no-debug">
             <h2>Fixed + filler</h2>
             <p>Fixed column(s) with filler to use left space.</p>
         </div>
-        <div class="cui-col-small-6 cui-fixed-col-medium-200">
-            sm-6, md-<span class="fix">fix</span>-200
+    </div>
+    <div class="cui-row">
+        <div class="cui-fixed-col-small-200px cui-col-medium-6">
+            sm-<span class="fix">fix</span>-200px, md-6
         </div>
-        <div class="cui-col-small-3 cui-col-medium-4">
-            sm-3, md-4
+        <div class="cui-col-small-right-200px cui-col-medium-6">
+            sm-<span class="fill">fill</span>, md-6
         </div>
-        <div class="cui-col-small-3 cui-filler-col-medium">
-            sm-3, md-<span class="fill">fill</span>
+    </div>
+    <div class="cui-row">
+        <div class="cui-col-small-6 cui-fixed-col-medium-200px">
+            sm-6, md-<span class="fix">fix</span>-200px
+        </div>
+        <div class="cui-col-small-6 cui-col-medium-right-200px">
+            sm-6, md-<span class="fill">fill</span>
+        </div>
+    </div>
+    <div class="cui-row">
+        <div class="cui-col-small-6 cui-fixed-col-large-200px">
+            sm-6, lg-<span class="fix">fix</span>-200px
+        </div>
+        <div class="cui-col-small-6 cui-col-large-right-200px">
+            sm-6, lg-<span class="fill">fill</span>
+        </div>
+    </div>
+    <div class="cui-row">
+        <div class="cui-col-small-6 cui-fixed-col-large-200px">
+            sm-6, lg-<span class="fix">fix</span>-200px
+        </div>
+        <div class="cui-col-small-6 cui-fixed-col-large-100px">
+            sm-6, lg-<span class="fix">fix</span>-100px
+        </div>
+        <div class="cui-col-small-6 cui-col-large-right-300px">
+            sm-6, lg-<span class="fill">fill</span>
+        </div>
+    </div>
+    <div class="cui-row">
+        <div class="cui-col-small-6 cui-col-large-left-400px">
+            sm-6, lg-<span class="fill">fill</span>
+        </div>
+        <div class="cui-col-small-6 cui-fixed-col-large-200px">
+            sm-6, lg-<span class="fix">fix</span>-200px
+        </div>
+        <div class="cui-col-small-6 cui-fixed-col-large-200px">
+            sm-6, lg-<span class="fix">fix</span>-200px
         </div>
     </div>
     <div class="cui-row">
@@ -321,16 +346,21 @@
             </div>
         </div>
     </div>
+
+    <script id="require" src="../../dist/js/cui.js"></script>
     <script>
-        // Floating box that indicates the current breakpoint
-        (function () {
-            var box = document.createElement('div');
+        require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
-            box.innerHTML = 'Current breakpoint: <strong class="cui-hide-for-medium cui-hide-for-large">small</strong><strong class="cui-hide-for-small cui-hide-for-large">medium</strong><strong class="cui-hide-for-small cui-hide-for-medium">large</strong>';
-            box.style.cssText = 'position: fixed; top: 12px; right: 5px; padding: 3px; border:1px solid #444; background:#fff; box-shadow: 0 0 2px rgba(0,0,0,0.25);';
+            // Floating box that indicates the current breakpoint
+            (function () {
+                var box = document.createElement('div');
 
-            document.body.appendChild(box);
-        }());
+                box.innerHTML = 'Current breakpoint: <strong class="cui-hide-for-medium cui-hide-for-large">small</strong><strong class="cui-hide-for-small cui-hide-for-large">medium</strong><strong class="cui-hide-for-small cui-hide-for-medium">large</strong>';
+                box.style.cssText = 'position: fixed; top: 12px; right: 5px; padding: 3px; border:1px solid #444; background:#fff; box-shadow: 0 0 2px rgba(0,0,0,0.25);';
+
+                document.body.appendChild(box);
+            }());
+        });
     </script>
 </body>
 </html>
