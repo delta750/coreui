@@ -169,7 +169,7 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
     /**
      * Initializes the plugin and tooltip(s), and displays tooltip(s)
      * May be called multiple times. If no tooltips are provided, some general setup will be performed.
-     * @return {Boolean}          True if no problems were encountered
+     * @return {Object}   Instance of Tooltip
      */
     Tooltip.prototype.init = function _Tooltip_init() {
         $body = $('body');
@@ -182,9 +182,6 @@ define(['jquery', 'cui', 'kind', 'css!tooltipStyle'], function($, cui, kind) {
 
         // Event listeners
         _events.setup.page();
-
-        // Tooltip setup?
-        // $mountNode = this.$elem;
 
         return this;
     };
