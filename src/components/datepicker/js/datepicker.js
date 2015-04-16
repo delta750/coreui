@@ -141,7 +141,7 @@ define(['jquery', 'cui', 'css!datepickerStyle'], function ($, cui) {
     /**
      * Initializes the plugin and date picker and adds a click event to the icon
      * May be called multiple times. If no date pickers are provided, some general setup will be performed.
-     * @return {Boolean}          True if no problems were encountered
+     * @return {Object}   Instance of DatePicker
      */
     DatePicker.prototype.init = function () {
         // Introduce defaults that can be extended either globally or using an object literal.
