@@ -76,6 +76,17 @@ $cui-grid-breakpoints: (
             float: none;
             width: auto;
         }
+
+        // Flex box
+        .cui-row-#{$breakpointName}-flex {
+            @include row();
+            @include flex-row();
+        }
+
+        .cui-col-#{$breakpointName}-flex {
+            @include flex-col();
+            float: none; // Override default value since `float` is not needed for flex box
+        }
     }
 
     // Helper method that calls the actual class-creating mixins above
