@@ -289,30 +289,37 @@
 // * --------------------------------------------------------
 // Not supported by IE 8 and IE 9
 // Parent container that will make all DIRECT children become flex items
-@mixin flex-wrapper {
-    // display: -webkit-box; // OLD - iOS 6-, Safari 3.1-6
-    // display: -moz-box;    // OLD - Firefox 19- (buggy but mostly works)
-    display: -ms-flexbox;    // TWEENER - IE 10
-    display: -webkit-flex;   // NEW - Chrome
-    display: flex;           // NEW, Spec - Opera 12.1, Firefox 20+
+@mixin flex-row {
+    display: -webkit-box;  // OLD - iOS 6-, Safari 3.1-6
+    display: -moz-box;     // OLD - Firefox 19- (buggy but mostly works)
+    display: -ms-flexbox;  // TWEENER - IE 10
+    display: -webkit-flex; // NEW - Chrome
+    display: flex;         // NEW, Spec - Opera 12.1, Firefox 20+
  }
 
-//
-@mixin flex-col-size($size: 1, $width: auto) {
-    // -webkit-box-flex: $size; // OLD - iOS 6-, Safari 3.1-6
-    // -moz-box-flex: $size;    // OLD - Firefox 19-
-    // width: $width;           // For old syntax, otherwise collapses.
-    -webkit-flex: $size;        // Chrome
-    -ms-flex: $size;            // IE 10
-    flex: $size;                // NEW, Spec - Opera 12.1, Firefox 20+
+// Child element (column) within a flex container
+@mixin flex-col($val: 1, $width: false) {
+    -webkit-box-flex: $val; // OLD - iOS 6-, Safari 3.1-6
+       -moz-box-flex: $val; // OLD - Firefox 19-
+
+    @if $width != false {
+        width: $width;      // For old syntax, otherwise collapses.
+    }
+
+    -webkit-flex: $val;     // Chrome
+        -ms-flex: $val;     // IE 10
+            flex: $val;     // NEW, Spec - Opera 12.1, Firefox 20+
 }
 
+// Optionally override the source order of a child element
 @mixin flex-col-order($order: 1) {
-    // -webkit-box-ordinal-group: $order; // OLD - iOS 6-, Safari 3.1-6
-    // -moz-box-ordinal-group: $order;    // OLD - Firefox 19-
+    -webkit-box-ordinal-group: $order; // OLD - iOS 6-, Safari 3.1-6
+       -moz-box-ordinal-group: $order; // OLD - Firefox 19-
+
     -ms-flex-order: $order;            // TWEENER - IE 10
-    -webkit-order: $order;             // NEW - Chrome
-    order: $order;                     // NEW, Spec - Opera 12.1, Firefox 20+
+
+     -webkit-order: $order;            // NEW - Chrome
+             order: $order;            // NEW, Spec - Opera 12.1, Firefox 20+
 }
 
 

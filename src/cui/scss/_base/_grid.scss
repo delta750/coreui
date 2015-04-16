@@ -78,13 +78,13 @@ $cui-grid-breakpoints: (
         }
 
         // Flex box
-        .cui-col-#{$breakpointName}-flex-wrapper {
-            @include flex-wrapper();
-            float: none; // Override default value since `float` is not needed for flex box
+        .cui-row-#{$breakpointName}-flex {
+            @include row();
+            @include flex-row();
         }
 
         .cui-col-#{$breakpointName}-flex {
-            @include flex-col-size();
+            @include flex-col();
             float: none; // Override default value since `float` is not needed for flex box
         }
     }
