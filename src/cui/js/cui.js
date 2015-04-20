@@ -52,9 +52,12 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
     // Place the lazyloader into the cui namespace.
     cui.load = lazyLoader.load;
 
-    // Browser support
+    /////////////////////
+    // Browser support //
+    /////////////////////
+
     // CSS calc()
-    (function() {
+    (function () {
         var el = document.createElement('div');
 
         el.style.cssText = 'width: calc(1px);';
@@ -67,6 +70,40 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
         // else {
         //     $(document.documentElement).addClass('csscalc');
         // }
+    }());
+
+    // Flex box
+    // Adapted from Modernizr 2.8.1
+    (function () {
+        var mStyle = document.createElement('modernizr').style;
+
+        function testProps(props) {
+            var prop;
+            var i;
+
+            for (i in props) {
+                prop = props[i];
+
+                if (prop.indexOf('-') === -1 && mStyle[prop] !== undefined) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function testPropsAll(prop) {
+            var cssomPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
+            var ucProp = prop.charAt(0).toUpperCase() + prop.slice(1);
+            var props = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
+
+            return testProps(props);
+        }
+
+        // These two tests are for modern and legacy flex box implementations, respectively
+        if (!testPropsAll('flexWrap') && !testPropsAll('boxDirection')) {
+            $(document.documentElement).addClass('no-flexbox');
+        }
     }());
 
     return cui;
