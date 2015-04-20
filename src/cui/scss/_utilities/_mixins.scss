@@ -421,3 +421,21 @@
 
     @return if($minus, $result * -1, $result);
 }
+
+// Returns the numeric value and unit of a string as an array
+// Similar to calling both `toNumber` and `getUnit` at once
+// Also "fixes" the values 33, 66, and 67 to have repeating decimals so they become true thirds
+@function getNumberAndUnit($x) {
+    $unit: getUnit($x);
+    $value: toNumber($x);
+
+    // Handle special values that should have repeating units
+    @if $value == 33 {
+        $value: (1 / 3) * 100;
+    }
+    @elseif $value == 67 or $value == 66 {
+        $value: (2 / 3) * 100;
+    }
+
+    @return ($value, $unit);
+}

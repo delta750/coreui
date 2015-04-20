@@ -57,8 +57,9 @@ nav > header {
 
     // Fixed
     @each $size in $cui-grid-fixed-sizes {
-        $value: toNumber($size);
-        $unit: getUnit($size);
+        $x: getNumberAndUnit($size);
+        $value: nth($x, 1);
+        $unit: nth($x, 2);
 
         .cui-fixed-col-#{$breakpointName}-#{$size} {
             width: #{$value}#{$unit};
@@ -75,8 +76,9 @@ nav > header {
 
     // Specific filler sizes
     @each $size in $cui-grid-filler-sizes {
-        $value: toNumber($size);
-        $unit: getUnit($size);
+        $x: getNumberAndUnit($size);
+        $value: nth($x, 1);
+        $unit: nth($x, 2);
 
         .cui-col-#{$breakpointName}-right-#{$size},
         .cui-col-#{$breakpointName}-left-#{$size} {
