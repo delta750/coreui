@@ -55,12 +55,13 @@ nav > header {
     // Give fixed columns `width: Npx` and let them inherit `float: left`. Give filler columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the filler columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
     // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Filler columns use `width: calc(100% - Npx)` and no `margin-left`.
 
-    $sizes: (100, 200, 300, 400);
-
     // Fixed
-    @each $size in $sizes {
-        .cui-fixed-col-#{$breakpointName}-#{$size}px {
-            width: #{$size}px;
+    @each $size in $cui-grid-fixed-sizes {
+        $value: toNumber($size);
+        $unit: getUnit($size);
+
+        .cui-fixed-col-#{$breakpointName}-#{$size} {
+            width: #{$value}#{$unit};
         }
     }
 
@@ -73,19 +74,22 @@ nav > header {
     }
 
     // Specific filler sizes
-    @each $size in $sizes {
-        .cui-col-#{$breakpointName}-right-#{$size}px,
-        .cui-col-#{$breakpointName}-left-#{$size}px {
-            width: calc(100% - #{$size}px);
+    @each $size in $cui-grid-filler-sizes {
+        $value: toNumber($size);
+        $unit: getUnit($size);
+
+        .cui-col-#{$breakpointName}-right-#{$size},
+        .cui-col-#{$breakpointName}-left-#{$size} {
+            width: calc(100% - #{$value}#{$unit});
         }
 
         .no-csscalc {
-            .cui-col-#{$breakpointName}-right-#{$size}px {
-                margin-left: #{$size}px;
+            .cui-col-#{$breakpointName}-right-#{$size} {
+                margin-left: #{$value}#{$unit};
             }
 
-            .cui-col-#{$breakpointName}-left-#{$size}px {
-                margin-right: #{$size}px;
+            .cui-col-#{$breakpointName}-left-#{$size} {
+                margin-right: #{$value}#{$unit};
             }
         }
     }
