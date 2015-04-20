@@ -15,7 +15,7 @@
 <body class="debug">
     <style>
     [class^="cui-col-"],
-    [class^="cui-filler-col-"],
+    [class^="cui-flex-col-"],
     [class^="cui-fixed-col-"],
     [class^="cui-hide-col-"] {
         background: silver;
@@ -24,7 +24,7 @@
     }
 
     [class^="cui-col-"].no-debug,
-    [class^="cui-filler-col-"].no-debug,
+    [class^="cui-flex-col-"].no-debug,
     [class^="cui-fixed-col-"].no-debug,
     [class^="cui-hide-col-"].no-debug {
         background: white;
@@ -37,7 +37,7 @@
         font-weight: 600
     }
 
-    .fill {
+    .flex {
         color: #0086b3;
         font-weight: 600
     }
@@ -70,7 +70,7 @@
                 <li>Mobile first</li>
                 <li>Based on rows and columns</li>
                 <li>12-column default grid</li>
-                <li>Fluid and/or fixed with filler when needed</li>
+                <li>Fluid and/or fixed with flex when needed</li>
                 <li>Responsive with three breakpoints (≤480px, ≤768px and ≥769px)</li>
                 <li>Gutters</li>
                 <li>Push columns</li>
@@ -186,56 +186,86 @@
             sm-6. Subsequent columns continue along the new row.
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-flex-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Fixed + filler</h2>
             <p>Fixed column(s) with filler to use left space.</p>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-flex-row">
         <div class="cui-fixed-col-small-200px cui-col-medium-6">
             sm-<span class="fix">fix</span>-200px, md-6
         </div>
-        <div class="cui-col-small-right-200px cui-col-medium-6">
-            sm-<span class="fill">fill</span>, md-6
+        <div class="cui-flex-col-small-200px cui-col-medium-6">
+            sm-<span class="flex">flex</span>, md-6
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-flex-row">
         <div class="cui-col-small-6 cui-fixed-col-medium-200px">
             sm-6, md-<span class="fix">fix</span>-200px
         </div>
-        <div class="cui-col-small-6 cui-col-medium-right-200px">
-            sm-6, md-<span class="fill">fill</span>
+        <div class="cui-col-small-6 cui-flex-col-medium-200px">
+            sm-6, md-<span class="flex">flex</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-flex-row">
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
             sm-6, lg-<span class="fix">fix</span>-200px
         </div>
-        <div class="cui-col-small-6 cui-col-large-right-200px">
-            sm-6, lg-<span class="fill">fill</span>
+        <div class="cui-col-small-6 cui-flex-col-large-200px">
+            sm-6, lg-<span class="flex">flex</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-flex-row">
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
             sm-6, lg-<span class="fix">fix</span>-200px
         </div>
         <div class="cui-col-small-6 cui-fixed-col-large-100px">
             sm-6, lg-<span class="fix">fix</span>-100px
         </div>
-        <div class="cui-col-small-6 cui-col-large-right-300px">
-            sm-6, lg-<span class="fill">fill</span>
+        <div class="cui-col-small-6 cui-flex-col-large-300px">
+            sm-6, lg-<span class="flex">flex</span>
         </div>
     </div>
-    <div class="cui-row">
-        <div class="cui-col-small-6 cui-col-large-left-400px">
-            sm-6, lg-<span class="fill">fill</span>
+    <div class="cui-flex-row">
+        <div class="cui-col-small-6 cui-flex-col-large-400px">
+            sm-6, lg-<span class="flex">flex</span>
         </div>
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
             sm-6, lg-<span class="fix">fix</span>-200px
         </div>
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
             sm-6, lg-<span class="fix">fix</span>-200px
+        </div>
+    </div>
+    <div class="cui-flex-row">
+        <div class="cui-fixed-col-small-33pc">
+            sm-<span class="fix">fix</span>-33pc
+        </div>
+        <div class="cui-fixed-col-small-33pc">
+            sm-<span class="fix">fix</span>-33pc
+        </div>
+        <div class="cui-fixed-col-small-33pc">
+            sm-<span class="fix">fix</span>-33pc
+        </div>
+    </div>
+    <div class="cui-flex-row">
+        <div class="cui-flex-col-small">
+            sm-<span class="flex">flex</span>
+        </div>
+        <div class="cui-flex-col-small">
+            sm-<span class="flex">flex</span>
+        </div>
+        <div class="cui-flex-col-small">
+            sm-<span class="flex">flex</span>
+        </div>
+    </div>
+    <div class="cui-flex-row">
+        <div class="cui-col-small-12 cui-fixed-col-medium-33pc">
+            sm-12, md-33%
+        </div>
+        <div class="cui-col-small-12 cui-fixed-col-medium-67pc">
+            sm-12, md-67%
         </div>
     </div>
     <div class="cui-row">
@@ -293,9 +323,30 @@
                 <div class="cui-col-small-12 cui-col-medium-2">
                     sm-12 md-2 <span class="level">L2</span>
                 </div>
-                <div class="cui-col-small-12 cui-filler-col-medium">
-                    sm-12 md-<span class="fill">fill</span> <span class="level">L2</span>
+                <div class="cui-col-small-12 cui-flex-col-medium">
+                    sm-12 md-<span class="flex">flex</span> <span class="level">L2</span>
                 </div>
+            </div>
+        </div>
+        <div class="cui-col-small-12 no-debug">
+            <h2>Nesting with a mixture of grid and flex</h2>
+        </div>
+        <div class="cui-row">
+            <div class="cui-col-small-12">
+                <div class="cui-flex-row">
+                    <div class="cui-fixed-col-small-200px">
+                        sm-<span class="fix">fix</span>-200px
+                    </div>
+                    <div class="cui-flex-col-small-200px">
+                        sm-<span class="flex">flex</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cui-col-small-12 cui-col-large-6">
+                sm-12, lg-3
+            </div>
+            <div class="cui-col-small-12 cui-col-large-6">
+                sm-12, lg-3
             </div>
         </div>
     </div>
@@ -359,43 +410,6 @@
                     <span>C</span>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="cui-row">
-        <div class="cui-col-small-12 no-debug">
-            <h2>Flex box</h2>
-            <p>This will apply flex box styles only at the specified breakpoint(s). The styles allow you to have containers with fluid widths and equal heights, however it is not supported by IE 8 or IE 9.</p>
-            <p>Remember to use <code>.cui-row-{breakpoint}-flex</code> on the row element.
-        </div>
-    </div>
-    <div class="cui-row cui-row-small-flex">
-        <div class="cui-col-small-flex">
-            sm-<span class="fill">flex</span>
-        </div>
-        <div class="cui-col-small-flex">
-            sm-<span class="fill">flex</span>
-        </div>
-    </div>
-    <div class="cui-row cui-row-medium-flex">
-        <div class="cui-col-small-12 cui-col-medium-flex">
-            sm-12, md-<span class="fill">flex</span>
-        </div>
-        <div class="cui-col-small-12 cui-col-medium-flex">
-            sm-12, md-<span class="fill">flex</span>
-        </div>
-        <div class="cui-col-small-12 cui-col-medium-flex">
-            sm-12, md-<span class="fill">flex</span>
-        </div>
-    </div>
-    <div class="cui-row cui-row-large-flex">
-        <div class="cui-col-small-12 cui-col-medium-6 cui-col-large-flex">
-            sm-12, med-6, lg-<span class="fill">flex</span>
-        </div>
-        <div class="cui-col-small-12 cui-col-medium-3 cui-col-large-flex">
-            sm-12, med-3, lg-<span class="fill">flex</span>
-        </div>
-        <div class="cui-col-small-12 cui-col-medium-3 cui-col-large-flex">
-            sm-12, med-3, lg-<span class="fill">flex</span>
         </div>
     </div>
 
