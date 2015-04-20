@@ -17,8 +17,11 @@
 }
 
 .cui-flex-row {
-    // @include row; //TODO: Not sure if we need this... will have to test with nesting
     @include flex-row;
+
+    .no-flexbox & {
+        @include row;
+    }
 }
 
 [class*="cui-col-"] {

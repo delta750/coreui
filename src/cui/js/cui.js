@@ -58,9 +58,12 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
 
     // CSS calc()
     (function () {
+        var prop = 'width:';
+        var value = 'calc(10px);';
         var el = document.createElement('div');
+        var prefixes = ['-webkit-', '-moz-', '-o-', '-ms-', ''];
 
-        el.style.cssText = 'width: calc(1px);';
+        el.style.cssText = prop + prefixes.join(value + prop) + value;
 
         // No support
         if (!el.style.length) {
@@ -73,7 +76,7 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
     }());
 
     // Flex box
-    // Adapted from Modernizr 2.8.1
+    // Adapted from Modernizr 2.8.3
     (function () {
         var mStyle = document.createElement('modernizr').style;
 
