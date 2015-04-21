@@ -272,10 +272,6 @@
         @include pointbreak($cui-bp-medium) {
             width: column-width-calc($numerator, $denominator);
         }
-
-        @include pointbreak($cui-bp-large) {
-            width: 100%;
-        }
     }
     @else {
         // Large
