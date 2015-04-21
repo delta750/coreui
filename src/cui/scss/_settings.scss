@@ -117,6 +117,11 @@ $cui-grid-gutter-width:    10px !default;
 $cui-grid-row-margin:      0 auto $cui-grid-gutter-width auto !default;
 $cui-grid-column-padding:  0 $cui-grid-gutter-width !default;
 
+// Sizes for fixed column classes
+$cui-grid-fixed-sizes:     (100px, 200px, 33pc, 67pc) !default;
+// Sizes for flexible column classes -- these should generally mirror and/or complement the fixed column sizes defined above
+$cui-grid-flex-sizes:    (100px, 200px, 300px, 400px, 33pc, 67pc) !default;
+
 
 // * @section    Headers
 // * --------------------------------------------------------

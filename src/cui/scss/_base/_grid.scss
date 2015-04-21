@@ -9,11 +9,19 @@
 
 // * @section    Row and col structures
 // * @desc       The grid's row and columns (default cols 12)
-// *             - Fluid & fixed + fluid layouts with fillers
+// *             - Fluid & fixed + fluid layouts with flexes
 // *             - Clearfix to force new row
 // * --------------------------------------------------------
 .cui-row {
     @include row;
+}
+
+.cui-flex-row {
+    @include flex-row;
+
+    .no-flexbox & {
+        @include row;
+    }
 }
 
 [class*="cui-col-"] {
@@ -25,23 +33,33 @@
     float: left;
 }
 
+// [class*="cui-flex-col-"] {
+//     @include flex-col;
+
+//     .no-flexbox & {
+//         float: none;
+//         width: 100%;
+//     }
+// }
+
 [class*="cui-col-"],
 [class*="cui-fixed-col-"],
-[class*="cui-filler-col-"] {
+[class*="cui-flex-col-"] {
     position: relative;
     @include clearfix;
 }
 
 [class*="cui-col-"],
 [class*="cui-fixed-col-"],
-[class*="cui-filler-col-"],
+[class*="cui-flex-col-"],
 section > header,
 nav > header {
     padding: $cui-grid-column-padding;
 }
 
 .cui-row,
-.cui-clearfix {
+.cui-clearfix,
+.cui-flex-row {
     @include clearfix;
 }
 
@@ -49,43 +67,60 @@ nav > header {
 // * @section    Column generation
 // * --------------------------------------------------------
 
-// Generates fixed and filler classes for a given breakpoint
-@mixin generate-fixed-filler-columns($breakpointName: "") {
-    // Fixed & filler column layout approach:
-    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give filler columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the filler columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
-    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Filler columns use `width: calc(100% - Npx)` and no `margin-left`.
-
-    $sizes: (100, 200, 300, 400);
+// Generates fixed and flex classes for a given breakpoint
+@mixin generate-fixed-flex-columns($breakpointName: "") {
+    // Fixed & flex column layout approach:
+    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give flex columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the flex columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
+    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Flex columns use `width: calc(100% - Npx)` and no `margin-left`.
 
     // Fixed
-    @each $size in $sizes {
-        .cui-fixed-col-#{$breakpointName}-#{$size}px {
-            width: #{$size}px;
+
+    @each $size in $cui-grid-fixed-sizes {
+        $x: getNumberAndUnit($size);
+        $value: nth($x, 1);
+        $unit: nth($x, 2);
+
+        .cui-flex-row .cui-fixed-col-#{$breakpointName}-#{$size} {
+            width: #{$value}#{$unit};
         }
     }
 
-    // Filler
+    // Flexible
 
-    .no-csscalc [class*="cui-col-#{$breakpointName}-right"],
-    .no-csscalc [class*="cui-col-#{$breakpointName}-left"] {
+    .no-csscalc [class*="cui-flex-col-#{$breakpointName}"] {
         float: none;
         width: 100%;
     }
 
-    // Specific filler sizes
-    @each $size in $sizes {
-        .cui-col-#{$breakpointName}-right-#{$size}px,
-        .cui-col-#{$breakpointName}-left-#{$size}px {
-            width: calc(100% - #{$size}px);
+    // Automatic sizing
+    .cui-flex-col-#{$breakpointName} {
+        @include flex-col;
+    }
+
+    // Specific flex sizes
+    @each $size in $cui-grid-flex-sizes {
+        $x: getNumberAndUnit($size);
+        $value: nth($x, 1);
+        $unit: nth($x, 2);
+
+        .cui-flex-col-#{$breakpointName}-#{$size} {
+            @include flex-col(1 0 #{$value}#{$unit});
+
+            .no-flexbox & {
+                width: calc(100% - #{$value}#{$unit});
+            }
         }
 
         .no-csscalc {
-            .cui-col-#{$breakpointName}-right-#{$size}px {
-                margin-left: #{$size}px;
+            // Flex col is to the left of the fixed col
+            .cui-flex-col-#{$breakpointName}-#{$size} {
+                margin-right: #{$value}#{$unit};
             }
 
-            .cui-col-#{$breakpointName}-left-#{$size}px {
-                margin-right: #{$size}px;
+            // Flex col is to the right of the fixed col
+            [class*="cui-fixed-col-#{$breakpointName}"] + .cui-flex-col-#{$breakpointName}-#{$size} {
+                margin-right: auto;
+                margin-left: #{$value}#{$unit};
             }
         }
     }
@@ -109,17 +144,6 @@ nav > header {
             float: none;
             width: auto;
         }
-
-        // Flex box
-        .cui-row-#{$breakpointName}-flex {
-            @include row;
-            @include flex-row;
-        }
-
-        .cui-col-#{$breakpointName}-flex {
-            @include flex-col;
-            float: none; // Override default value since `float` is not needed for flex box
-        }
     }
 
     // Helper method that calls the actual class-creating mixins above
@@ -127,7 +151,7 @@ nav > header {
     @mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
         @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
         @include utility-classes($breakpointName);
-        @include generate-fixed-filler-columns($breakpointName);
+        @include generate-fixed-flex-columns($breakpointName);
     }
 
     // Finally, generate the classes for each size:
