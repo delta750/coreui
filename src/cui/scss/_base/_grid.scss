@@ -25,31 +25,19 @@
 }
 
 [class*="cui-col-"] {
-    min-height: 1.5em;
-    float: left;
+    @include col;
 }
 
 [class*="cui-fixed-col-"] {
     float: left;
 }
 
-// [class*="cui-flex-col-"] {
-//     @include flex-col;
-
-//     .no-flexbox & {
-//         float: none;
-//         width: 100%;
-//     }
-// }
-
-[class*="cui-col-"],
 [class*="cui-fixed-col-"],
 [class*="cui-flex-col-"] {
     position: relative;
     @include clearfix;
 }
 
-[class*="cui-col-"],
 [class*="cui-fixed-col-"],
 [class*="cui-flex-col-"],
 section > header,

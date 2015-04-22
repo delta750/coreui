@@ -256,6 +256,14 @@
     @include clearfix;
 }
 
+@mixin col() {
+    min-height: $cui-grid-column-min-height;
+    float: left;
+    position: relative;
+    padding: $cui-grid-column-padding;
+    @include clearfix;
+}
+
 @function column-width-calc($colNumber, $colTotal) {
     @return percentage($colNumber / $colTotal);
 }
@@ -264,20 +272,19 @@
 @mixin grid-column($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
     @if $size == "small" {
         // Don't use a media query for the base size because IE8 won't see it
+        @include col;
         width: column-width-calc($numerator, $denominator);
     }
     @elseif $size == "medium" {
-        width: 100%;
-
         @include pointbreak($cui-bp-medium) {
+            @include col;
             width: column-width-calc($numerator, $denominator);
         }
     }
     @else {
         // Large
-        width: 100%;
-
         @include pointbreak($cui-bp-large) {
+            @include col;
             width: column-width-calc($numerator, $denominator);
         }
     }

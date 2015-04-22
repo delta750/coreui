@@ -112,6 +112,7 @@ $cui-input-difference-in-padding-value: 1px !default;
 
 // * @section    Grid
 // * --------------------------------------------------------
+$cui-grid-column-min-height:    1.5em !default;
 $cui-grid-column-count:    12 !default;
 $cui-grid-gutter-width:    10px !default;
 $cui-grid-row-margin:      0 auto $cui-grid-gutter-width auto !default;
