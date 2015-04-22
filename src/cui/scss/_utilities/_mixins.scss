@@ -158,6 +158,10 @@
             hyphens: $type;
 }
 
+@mixin align-right {
+    text-align: right;
+}
+
 
 // * @section    Sticky positioning
 // * --------------------------------------------------------
