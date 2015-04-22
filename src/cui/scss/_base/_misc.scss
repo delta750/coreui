@@ -14,5 +14,5 @@
 }
 
 .cui-align-right {
-	text-align: right;
+    @include align-right;
 }
