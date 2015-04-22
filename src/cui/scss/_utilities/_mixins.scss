@@ -269,6 +269,7 @@
 
 // * @section    Grid
 // * --------------------------------------------------------
+// Standard row
 @mixin row($margin: $cui-grid-row-margin, $width: 100%) {
     width: $width;
     clear: both;
@@ -276,6 +277,7 @@
     @include clearfix;
 }
 
+// Standard column
 @mixin col() {
     float: left;
     position: relative;
@@ -284,6 +286,7 @@
     @include clearfix;
 }
 
+// Standard fixed column
 @mixin fixed-col() {
     float: left;
     position: relative;
@@ -291,14 +294,77 @@
     @include clearfix;
 }
 
+// Fixed column styles for a given width and breakpoint
+@mixin grid-col-fixed($width: 0, $breakpointName: "small") {
+    @mixin grid-col-fixed-helper($width: 0, $breakpointName: "small") {
+        .cui-flex-row & {
+            width: $width;
+        }
+    }
+
+    @if $breakpointName == "small" {
+        @include grid-col-fixed-helper($width, $breakpointName);
+    }
+    @elseif $breakpointName == "medium" {
+        @include pointbreak($cui-bp-medium) {
+            @include grid-col-fixed-helper($width, $breakpointName);
+        }
+    }
+    @else {
+        @include pointbreak($cui-bp-large) {
+            @include grid-col-fixed-helper($width, $breakpointName);
+        }
+    }
+}
+
+@mixin grid-col-flex($breakpointName: "small", $width: false) {
+    @mixin grid-col-flex-helper($breakpointName: "small", $width: false) {
+        @if $width != false {
+            @include flex-col(1 0 $width);
+
+            // Legacy support for non-flexbox and non-calc browsers
+            .no-flexbox & {
+                width: calc(100% - $width);
+            }
+
+            // Flex col is to the left of the fixed col
+            .no-csscalc {
+                margin-right: $width;
+            }
+
+            // Flex col is to the right of the fixed col
+            .no-csscalc [class*="cui-fixed-col-#{$breakpointName}"] + & {
+                margin-right: auto;
+                margin-left: $width;
+            }
+        }
+        @else {
+            @include flex-col;
+        }
+    }
+
+    @if $breakpointName == "small" {
+        @include grid-col-flex-helper($breakpointName, $width);
+    }
+    @elseif $breakpointName == "medium" {
+        @include pointbreak($cui-bp-medium) {
+            @include grid-col-flex-helper($breakpointName, $width);
+        }
+    }
+    @else {
+        @include pointbreak($cui-bp-large) {
+            @include grid-col-flex-helper($breakpointName, $width);
+        }
+    }
+}
+
 @function column-width-calc($colNumber, $colTotal) {
     @return percentage($colNumber / $colTotal);
 }
 
-// Returns the styles for a single column
-@mixin grid-column($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
+// Returns the helper for a single column
+@mixin grid-col($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
     @if $size == "small" {
-        // Don't use a media query for the base size because IE8 won't see it
         @include col;
         width: column-width-calc($numerator, $denominator);
     }
@@ -309,7 +375,6 @@
         }
     }
     @else {
-        // Large
         @include pointbreak($cui-bp-large) {
             @include col;
             width: column-width-calc($numerator, $denominator);
@@ -364,11 +429,7 @@
 // * @section    Breakpoints
 // * --------------------------------------------------------
 // Breakpoint wrapper
-@mixin pointbreak($size: "", $max: false) {
-    @if $size == "" {
-        $size: $cui-bp-medium;
-    }
-
+@mixin pointbreak($size: "medium", $max: false) {
     @if $size == hires {
         @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 192dpi) { @content; }
     }
