@@ -80,11 +80,16 @@ $cui-button-primary-border-hover-color: #444440 !default;
 $cui-button-primary-bg-hover-color:     #50504b !default;
 
 // Icon buttons
-$cui-button-icon-padding-top:    7px !default;
-$cui-button-icon-padding-right:  8px !default;
-$cui-button-icon-padding-bottom: 8px !default;
-$cui-button-icon-padding-left:   8px !default;
+$cui-button-icon-padding-top:    0 !default;
+$cui-button-icon-padding-right:  0 !default;
+$cui-button-icon-padding-bottom: 0 !default;
+$cui-button-icon-padding-left:   0 !default;
 $cui-button-icon-padding:        $cui-button-icon-padding-top $cui-button-icon-padding-right $cui-button-icon-padding-bottom $cui-button-icon-padding-left !default;
+$cui-button-icon-margin-top:     0 !default;
+$cui-button-icon-margin-right:   0 !default;
+$cui-button-icon-margin-bottom:  0 !default;
+$cui-button-icon-margin-left:    0 !default;
+$cui-button-icon-margin:         $cui-button-icon-margin-top $cui-button-icon-margin-right $cui-button-icon-margin-bottom $cui-button-icon-margin-left !default;
 
 $cui-button-icon-width:    24px !default;
 $cui-button-icon-height:   24px !default;

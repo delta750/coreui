@@ -250,6 +250,22 @@
     text-shadow: $cui-button-primary-text-shadow;
 }
 
+@mixin button-icon($width: $cui-button-icon-width, $height: $cui-button-icon-height) {
+    position: relative;
+    display: inline-block;
+    width: $width;
+    height: $height;
+    padding: $cui-button-icon-padding;
+    margin: $cui-button-icon-margin;
+    font-size: $cui-font-size;
+    color: transparent;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    vertical-align: top;
+    @include hide-text;
+}
+
 
 // * @section    Grid
 // * --------------------------------------------------------
