@@ -257,7 +257,14 @@
 }
 
 @mixin col() {
+    float: left;
+    position: relative;
     min-height: $cui-grid-column-min-height;
+    padding: $cui-grid-column-padding;
+    @include clearfix;
+}
+
+@mixin fixed-col() {
     float: left;
     position: relative;
     padding: $cui-grid-column-padding;
@@ -306,6 +313,10 @@
 
 // Child element (column) within a flex container
 @mixin flex-col($val: 1, $width: false) {
+    position: relative;
+    padding: $cui-grid-column-padding;
+    @include clearfix;
+
     -webkit-box-flex: $val; // OLD - iOS 6-, Safari 3.1-6
        -moz-box-flex: $val; // OLD - Firefox 19-
 
