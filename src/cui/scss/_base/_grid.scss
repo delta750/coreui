@@ -29,17 +29,9 @@
 }
 
 [class*="cui-fixed-col-"] {
-    float: left;
+    @include fixed-col;
 }
 
-[class*="cui-fixed-col-"],
-[class*="cui-flex-col-"] {
-    position: relative;
-    @include clearfix;
-}
-
-[class*="cui-fixed-col-"],
-[class*="cui-flex-col-"],
 section > header,
 nav > header {
     padding: $cui-grid-column-padding;
