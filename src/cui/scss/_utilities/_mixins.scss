@@ -297,9 +297,7 @@
 // Fixed column styles for a given width and breakpoint
 @mixin grid-col-fixed($width: 0, $breakpointName: "small") {
     @mixin grid-col-fixed-helper($width: 0, $breakpointName: "small") {
-        .cui-flex-row & {
-            width: $width;
-        }
+        width: $width;
     }
 
     @if $breakpointName == "small" {
