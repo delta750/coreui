@@ -114,9 +114,7 @@ nav > header {
         }
 
         .cui-inline-col-#{$breakpointName} {
-            display: inline-block;
-            float: none;
-            width: auto;
+            @include inline-col;
         }
     }
 

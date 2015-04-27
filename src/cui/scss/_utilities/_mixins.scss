@@ -294,6 +294,13 @@
     @include clearfix;
 }
 
+// Standard inline column
+@mixin inline-col() {
+    display: inline-block;
+    float: none;
+    width: auto;
+}
+
 // Row styles for a given type and breakpoint (types: "row", "flex")
 @mixin grid-row($type: "row", $breakpointName: "small") {
     @if $breakpointName == "small" {
