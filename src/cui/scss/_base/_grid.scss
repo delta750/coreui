@@ -18,10 +18,6 @@
 
 .cui-flex-row {
     @include flex-row;
-
-    .no-flexbox & {
-        @include row;
-    }
 }
 
 [class*="cui-col-"] {
@@ -37,9 +33,7 @@ nav > header {
     padding: $cui-grid-column-padding;
 }
 
-.cui-row,
-.cui-clearfix,
-.cui-flex-row {
+.cui-clearfix {
     @include clearfix;
 }
 
