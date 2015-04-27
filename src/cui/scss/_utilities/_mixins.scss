@@ -294,6 +294,38 @@
     @include clearfix;
 }
 
+// Row styles for a given type and breakpoint (types: "row", "flex")
+@mixin grid-row($type: "row", $breakpointName: "small") {
+    @if $breakpointName == "small" {
+        @if $type == "flex" {
+            @include flex-row;
+        }
+        @else {
+            @include row;
+        }
+    }
+    @elseif $breakpointName == "medium" {
+        @include pointbreak($cui-bp-medium) {
+            @if $type == "flex" {
+                @include flex-row;
+            }
+            @else {
+                @include row;
+            }
+        }
+    }
+    @else {
+        @include pointbreak($cui-bp-large) {
+            @if $type == "flex" {
+                @include flex-row;
+            }
+            @else {
+                @include row;
+            }
+        }
+    }
+}
+
 // Fixed column styles for a given width and breakpoint
 @mixin grid-col-fixed($width: 0, $breakpointName: "small") {
     @mixin grid-col-fixed-helper($width: 0, $breakpointName: "small") {
