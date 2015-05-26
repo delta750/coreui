@@ -12,7 +12,7 @@ module.exports = function(grunt) {
             var path = grunt.option.flags()[0].split('--path=')[1];
 
             // Need to change the base path to match where the actual project root is located
-            grunt.file.setBase('../../../');
+            grunt.file.setBase('../../../../');
 
             // Load all its node modules so we dont have to do it in the sub directory.
             require('load-grunt-tasks')(grunt);

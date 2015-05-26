@@ -11,7 +11,6 @@
 // * --------------------------------------------------------
 $cui-font-basic:           Arial, sans-serif !default;
 $cui-font-family:          "Proxima Nova", $cui-font-basic !default;
-$cui-font-family-monospace: Menlo, Consolas, monospace !default;
 $cui-font-size:            16px !default;
 $cui-font-weight-light:    400 !default;
 $cui-font-weight-semibold: 600 !default;
@@ -80,16 +79,11 @@ $cui-button-primary-border-hover-color: #444440 !default;
 $cui-button-primary-bg-hover-color:     #50504b !default;
 
 // Icon buttons
-$cui-button-icon-padding-top:    0 !default;
-$cui-button-icon-padding-right:  0 !default;
-$cui-button-icon-padding-bottom: 0 !default;
-$cui-button-icon-padding-left:   0 !default;
+$cui-button-icon-padding-top:    7px !default;
+$cui-button-icon-padding-right:  8px !default;
+$cui-button-icon-padding-bottom: 8px !default;
+$cui-button-icon-padding-left:   8px !default;
 $cui-button-icon-padding:        $cui-button-icon-padding-top $cui-button-icon-padding-right $cui-button-icon-padding-bottom $cui-button-icon-padding-left !default;
-$cui-button-icon-margin-top:     0 !default;
-$cui-button-icon-margin-right:   0 !default;
-$cui-button-icon-margin-bottom:  0 !default;
-$cui-button-icon-margin-left:    0 !default;
-$cui-button-icon-margin:         $cui-button-icon-margin-top $cui-button-icon-margin-right $cui-button-icon-margin-bottom $cui-button-icon-margin-left !default;
 
 $cui-button-icon-width:    24px !default;
 $cui-button-icon-height:   24px !default;
@@ -117,16 +111,10 @@ $cui-input-difference-in-padding-value: 1px !default;
 
 // * @section    Grid
 // * --------------------------------------------------------
-$cui-grid-column-min-height:    1.5em !default;
 $cui-grid-column-count:    12 !default;
 $cui-grid-gutter-width:    10px !default;
 $cui-grid-row-margin:      0 auto $cui-grid-gutter-width auto !default;
 $cui-grid-column-padding:  0 $cui-grid-gutter-width !default;
-
-// Sizes for fixed column classes
-$cui-grid-fixed-sizes:     (100px, 200px, 33pc, 67pc) !default;
-// Sizes for flexible column classes -- these should generally mirror and/or complement the fixed column sizes defined above
-$cui-grid-flex-sizes:    (100px, 200px, 300px, 400px, 33pc, 67pc) !default;
 
 
 // * @section    Headers
@@ -174,9 +162,3 @@ $cui-bp-medium:        480px !default;
 $cui-bp-medium-minus:  $cui-bp-medium - 1px !default;
 $cui-bp-large:         786px !default;
 $cui-bp-large-minus:   $cui-bp-large - 1px !default;
-
-// Breakpoints used for generating grid classes -- this should match the list above
-$cui-grid-breakpoints: (
-    ("medium" $cui-bp-medium),
-    ("large" $cui-bp-large)
-);

@@ -1,30 +1,28 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
+
     var
+    // Banner for JavaScript files
+    // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
+    jsBanner = '/*! <%= pkg.title %>\n' +
+             ' *  @description  <%= pkg.description %>\n' +
+             ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+             ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+             '<%= pkg.author.name %>\n */\n',
 
-        // Banner for JavaScript files
-        // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-        jsBanner = '/*! <%= pkg.title %>\n' +
-                   ' *  @description  <%= pkg.description %>\n' +
-                   ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-                   ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-                   '<%= pkg.author.name %>\n */\n',
+    // This banner will appear at the top style sheets
+    cssBanner = '@charset "utf-8";\n' + jsBanner,
 
-        // This banner will appear at the top style sheets
-        cssBanner = '@charset "utf-8";\n' + jsBanner,
+    // Insert the Live Reload script
+    liveReloadInjection =
+        '\n(function(){' +
+        'var s = document.createElement("script");' +
+        's.src="//localhost:35729/livereload.js";' +
+        'document.head.appendChild(s);' +
+        '}()s);';
 
-        // Insert the Live Reload script
-        liveReloadInjection =
-            '\n(function(){' +
-                'var s = document.createElement("script");' +
-                's.src="//localhost:35729/livereload.js";' +
-                'document.head&&document.head.appendChild(s);' +
-            '}());';
-
-    /////////////////////////////
-    // Configure Grunt plugins //
-    /////////////////////////////
-
+    // // Project configuration.
     grunt.initConfig({
+
         // All Grunt modules must be listed in the `package.json` file
         pkg: grunt.file.readJSON('package.json'),
 
@@ -41,37 +39,53 @@ module.exports = function (grunt) {
             ],
         },
 
-        // https://github.com/gruntjs/grunt-contrib-jshint
-        // Supported options: http://jshint.com/docs/
-        // Help with debugging common error messages: http://jslinterrors.com/
-        jshint: {
-            options: {
-                curly: true,
-                eqeqeq: true,
-                browser: true,
-                unused: 'vars',
+        copy: {
+            // Copy rule handes modules that do now have dist folders
+            fonts: {
+                expand: true,
+                cwd: 'src/cui/fonts',
+                src: ['**'],
+                dest: 'dist/fonts',
+                filter: 'isFile',
             },
-            files: [
-                'src/**/*.js',
-                '!src/cui/js/vendor/*.js',
-                '!src/components/**/*.js',
-                '!tasks/**/*.js',
-            ],
+            images: {
+                expand: true,
+                cwd: 'src/',
+                src: [
+                        'cui/images/**.*',
+                        'project/images/**.*'
+                    ],
+                dest: 'dist/images',
+                filter: 'isFile',
+                flatten: true,
+            },
         },
 
-        // https://github.com/gruntjs/grunt-contrib-uglify
-        uglify: {
-            // Global uglify options
-            options: {
-                banner: jsBanner,
-                preserveComments: 'some',
-                sourceMap: false,
-                mangle: false,
-            },
+        // Items are dynamically added here.
+        concat: {},
 
-            vendor: {
-                files: {
-                    'dist/js/vendor/html5shiv.js': ['src/cui/js/vendor/html5shiv.js'],
+        // Local server at http://localhost:8888
+        // https://github.com/gruntjs/grunt-contrib-connect
+        connect: {
+            server: {
+                options: {
+                    port: 8888,
+                },
+            },
+        },
+
+        // Builds the default javascript cui library using r.js compiler
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: '', // Where all our resources will be
+                    name: 'tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
+                    paths: {}, // Generate build file
+                    include: [], // Generate build file
+                    optimize: 'uglify2',
+                    generateSourceMaps: true,
+                    preserveLicenseComments: false,
+                    out: 'dist/js/cui.js', // Where the final project will be output
                 }
             },
         },
@@ -91,39 +105,24 @@ module.exports = function (grunt) {
             },
         },
 
-        // Add banner to CSS files
-        // https://github.com/gruntjs/grunt-contrib-concat
-        concat: {
-            cuiCSS: {
-                options: {
-                    banner: cssBanner,
-                },
-                src: ['dist/css/cui/cui.css'],
-                dest: 'dist/css/cui/cui.css',
+        // Locations to look for components
+        subGrunt: {
+            components: {
+                files: [{
+                    cwd: 'src/components/',
+                    src: '*',
+                }],
             },
-            cuiJS: {
-                options: {
-                    banner: jsBanner,
-                },
-                src: ['dist/js/cui.js'],
-                dest: 'dist/js/cui.js',
-            },
-            project: {
-                options: {
-                    banner: cssBanner,
-                },
-                src: ['dist/css/project/project.css'],
-                dest: 'dist/css/project/project.css',
-            },
+        },
 
-            // Development only
-            devJS: {
-                options: {
-                    footer: liveReloadInjection,
-                },
-                src: ['dist/js/cui.js'],
-                dest: 'dist/js/cui.js',
-            },
+        uglify: {
+            // Global uglify options
+            options: {
+                banner: jsBanner,
+                preserveComments: 'some',
+                sourceMap: false,
+                mangle: false,
+            }
         },
 
         // https://github.com/gruntjs/grunt-contrib-watch
@@ -150,8 +149,8 @@ module.exports = function (grunt) {
 
             sass: {
                 files: [
-                    'src/cui/**/*.scss',
-                    'src/project/**/*.scss',
+                    'src/cui/scss/**/*.scss',
+                    'src/project/scss/**/*.scss',
                 ],
                 tasks: [
                     'sass:cui',
@@ -175,109 +174,20 @@ module.exports = function (grunt) {
             },
         },
 
-        copy: {
-            // Copy rule handes modules that do now have dist folders
-            fonts: {
-                expand: true,
-                cwd: 'src/cui/fonts',
-                src: ['**'],
-                dest: 'dist/fonts',
-                filter: 'isFile',
-            },
-            images: {
-                expand: true,
-                cwd: 'src/',
-                src: [
-                        'cui/images/**.*',
-                        'project/images/**.*',
-                        'components/*/images/**.*'
-                    ],
-                dest: 'dist/images',
-                filter: 'isFile',
-                flatten: true,
-            },
-        },
+        /***
+         * CUSTOM TASKS BELOW
+         ***/
 
-        // Builds the default javascript cui library using r.js compiler
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: 'src/', // Where all our resources will be
-                    name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
-                    paths: {}, // Generate build file
-                    include: [], // Generate build file
-                    optimize: 'uglify2',
-                    generateSourceMaps: true,
-                    preserveLicenseComments: false,
-                    out: 'dist/js/cui.js', // Where the final project will be output
-                }
-            },
-        },
+        // Require Manager Script. Please leave this task blank
+        requireManager: {}
 
-        // Local server at http://localhost:8888
-        // https://github.com/gruntjs/grunt-contrib-connect
-        connect: {
-            server: {
-                options: {
-                    port: 8888,
-                },
-            },
-        },
 
-        // Pass the component location and glob pattern
-        requireManager: {
-            options: {
-                components: {
-                    cwd: 'src/components',
-                    src: '*',
-                },
-            },
-        },
-
-        // Locations to look for components
-        subGrunt: {
-            components: {
-                files: [{
-                    cwd: 'src/components/',
-                    src: '*',
-                }],
-            },
-        },
-
-        // https://github.com/treasonx/grunt-markdown
-        markdown: {
-            options: {
-                highlight: 'auto',
-                template: 'docs/src/_includes/templates/default.html',
-                markdownOptions: {
-                    highlight: 'manual', // 'auto',
-                    gfm: true,
-                },
-            },
-            prod: {
-                files: [{
-                    expand: true,
-                    cwd: 'docs/src',
-                    src: ['**/*.md'],
-                    dest: 'docs/dist',
-                    ext: '.html',
-
-                    // This plugin has (had?) a bug that makes it impossible to put the files where we want them, so we add this function to change the path that Grunt generates and move the file
-                    // See: https://github.com/treasonx/grunt-markdown/issues/43
-                    // HTML files should end up in the `Documentation` folder
-                    // rename: function (dest, src) {
-                    //     // Get the file name and prepend the directory name
-                    //     return 'docs/dist/' +  src.split('/').pop();
-                    // },
-                }],
-            },
-        },
     });
 
-    // Load all Grunt tasks
+    // Generic Load Task
     require('load-grunt-tasks')(grunt);
 
-    // Project Specfic tasks
+    // Load local tasks in the task folder.
     grunt.loadTasks('tasks');
 
     ////////////////
@@ -289,18 +199,46 @@ module.exports = function (grunt) {
     // Production: package files for distribution
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function (args) {
+
+        // Dynamically add production concats
+        var concat = grunt.config.get('concat');
+
+        concat = {
+            cuiCSS: {
+                options: {
+                    banner: cssBanner,
+                },
+                src: ['dist/css/cui/cui.css'],
+                dest: 'dist/css/cui/cui.css',
+            },
+            cuiJS: {
+                options: {
+                    banner: jsBanner,
+                },
+                src: ['dist/js/cui.js'],
+                dest: 'dist/js/cui.js',
+            },
+            project: {
+                options: {
+                    banner: cssBanner,
+                },
+                src: ['dist/css/project/project.css'],
+                dest: 'dist/css/project/project.css',
+            },
+        }
+
+        grunt.config.set('concat', concat);
+
         grunt.task.run([
             'clean',
-            'jshint',
+            // 'jshint',
             'subGrunt',
             'requireManager',
             'copy',
             'requirejs',
             'uglify',
             'sass',
-            'concat:cuiCSS',
-            'concat:cuiJS',
-            'concat:project',
+            'concat'
         ]);
     });
 
@@ -315,16 +253,30 @@ module.exports = function (grunt) {
         grunt.config.set('sass.options.sourceMap', true);
         grunt.config.set('uglify.options.sourceMap', true);
 
+        var concat = grunt.config.get('concat');
+
+        concat = {
+            devJS: {
+                options: {
+                    footer: liveReloadInjection
+                },
+                src: ['dist/js/cui.js'],
+                dest: 'dist/js/cui.js'
+            }
+        };
+
+        grunt.config.set('concat', concat);
+
         grunt.task.run([
             'clean',
-            'jshint',
+            // 'jshint',
             'subGrunt',
             'requireManager',
             'copy',
             'requirejs',
             'uglify',
             'sass',
-            'concat:devJS',
+            'concat',
             'connect',
             'watch'
         ]);
@@ -350,8 +302,7 @@ module.exports = function (grunt) {
                 grunt.log.writeln('processed ' + dir);
                 grunt.log.writeln(result);
                 done();
-            }
-            else {
+            } else {
                 grunt.log.writeln('processing ' + dir + ' failed: ' + code);
                 grunt.log.writeln(result);
                 done(false);

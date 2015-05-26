@@ -1,116 +1,126 @@
-/***
- * ===
- *  Build.js
- *  ----------
- *  The build module is responspible for creating all the dynamic grunt task that are part of the component
- *  integration process.
- * ===
- ***/
-
 'use strict';
 
-var path = require('path');
+// Custom node modules
+var fs = require('../utilites/fs');
+var verbose = require('../utilites/verbose');
 
-// Inculde our utility object
-var _util = require('../utility');
-var _include = require('./include');
-var _lazy = require('./lazy');
-
+/**
+* Sort:
+* Take component folder and files and define the individual asset types.
+*
+* Params:
+* - none -
+* @return - {object} - copy of all public functions used to manage require manager
+*/
 var build = function() {
 
-    // This function creates all the specific asset task for the lazy loaded resources.
-    var assets = function(rm, next) {
+    var settings = function(rm, next) {
 
-        var grunt = rm.grunt;
+        var anonymousWrapper = {
+            start: "(function () {",
+            end: "}());"
+        };
 
-        _util.console('ok', 'Building Grunt Tasks for Assets');
+        var config = {
+            start: 'var scripts = document.getElementById("require"),' +
+                   'src = scripts.src,' +
+                   'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));' +
+                   'require.config({ baseUrl: baseUrl, paths:',
+            end: '});'
+        };
 
-        // Loop the components again
-        rm.definedComponents.forEach(function(component) {
+        //Create a write object
+        var ws = new fs.writeStream('settings');
 
-            // Check to see if we are handleing lazy load components or include components.
-            if (!component.lazy) {
+        // Setup the write callback
+        ws.on('finish', function() {
 
-                _include.component(component, grunt);
+            var contents = this.data();
 
-            }
-            else {
+            // Build destination
+            var dist = fs.pathJoin(rm.options.paths.temp, rm.options.files.settings);
 
-                _lazy.component(component, grunt);
-            }
-
+            fs.writeFile(dist, contents);
         });
 
-        var watch = grunt.config.get('watch');
+        var projectSettingsPath = (rm.options.paths.rootSrc) ? fs.pathJoin(rm.options.paths.rootSrc, rm.options.files.projectJS) : rm.options.files.projectJS;
+        var projectSettings = fs.readFile(projectSettingsPath);
 
-        _util.writeJSON(path.join(rm.options.components.folders.temp, 'watch.json'), watch);
+        // Check to see if project settings can be returned.
+        if (!projectSettings) {
+
+            verbose.log(1, "No project setting file could be found at: " + projectSettingsPath, "warn");
+
+            // Set to nothing to prevent error
+            projectSettings = "";
+        }
+
+        var lazyPaths = rm.options.registered.lazy;
+
+        // Build the files
+        ws.write(anonymousWrapper.start);
+        ws.write(config.start);
+        ws.write(JSON.stringify(lazyPaths));
+        ws.write(config.end);
+        ws.write(projectSettings)
+        ws.write(anonymousWrapper.end);
+
+        // Close the stream and
+        ws.end();
 
         next(rm);
-    }
 
-    var require = function(rm, next) {
+    };
 
-        var grunt = rm.grunt;
-        var options = rm.options;
+    var includeStyles = function(rm, next) {
 
-        _util.console('ok', 'Building Grunt Tasks for Require');
+        var header = "// DO NOT ALTER THIS FILE \n" +
+                     "// This file is used by require manager to include assets (component/libraires/etc) .scss files\n"
 
-        // Load in the base file from the default location unless the user has indicated an override.
-        if (!options.components.requireJS.customBase) {
-            var baseJSON = path.join(options.components.folders.partial, options.components.requireJS.baseFile);
-        }
-        else {
+        //Create a write object
+        var ws = new fs.writeStream('settings');
 
-            // Custom base, just use the basefile defined
-            var baseJSON = options.components.requireJS.baseFile;
-        }
+        // Setup the write callback
+        ws.on('finish', function() {
 
-        var baseJSON = grunt.file.readJSON(baseJSON);
+            var contents = this.data();
 
-        // Check to see if we have addtional definitions to include
-        if (Object.keys(rm.includeComponent).length > 0) {
+            // Build destination
+            var dist = (rm.options.paths.rootSrc) ? fs.pathJoin(rm.options.paths.rootSrc, rm.options.files.styles) : rm.options.files.styles;
 
-            Object.keys(rm.includeComponent).forEach(function(include) {
+            fs.writeFile(dist, contents);
+        });
 
-                baseJSON.libs[include] = rm.includeComponent[include];
-                baseJSON.include.push(include);
+        var includeStyles = rm.options.write.includeStyle;
+
+        // Write the header
+        ws.write(header);
+
+        if (includeStyles.length !== 0) {
+
+            includeStyles.forEach(function(style) {
+
+                ws.write('@import "' + style + '";');
 
             });
 
+            ws.end();
+
+            next(rm);
+
+        } else {
+
+            next(rm);
         }
 
-        // Get the base requireJS options
-        var requireOptions = grunt.config.get('requirejs.compile.options');
-
-        // Add the library and include definitions
-        requireOptions.paths = baseJSON.libs;
-        requireOptions.include = baseJSON.include;
-
-        // Check to see if the build type is production, if so turn off the source map item and turn on
-        if (grunt.config.get('prodBuild')) {
-            requireOptions.generateSourceMaps = false;
-        }
-
-        var settingsFile = path.join('../', options.components.folders.temp, options.components.requireJS.filename.split('.js')[0]);
-
-        // Update settings path location
-        requireOptions.name = settingsFile;
-
-        // Reset options for the build.
-        grunt.config.set('requirejs.compile.options', requireOptions);
-
-        // For debug purposes write this build file out
-        var jsonFile = path.join(options.components.folders.temp, 'build.json');
-
-        _util.writeJSON(jsonFile, baseJSON);
-
-        next(rm);
     }
 
     return {
-        assets: assets,
-        require: require
+        includeStyles: includeStyles,
+        settings: settings
     };
+
 }
 
+// Expor the manager function as a module
 module.exports = exports = new build();

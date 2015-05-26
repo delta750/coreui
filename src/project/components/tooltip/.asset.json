@@ -1,0 +1,5 @@
+{
+    "name": "tooltip",
+    "lazy": true,
+    "sources": ["script","style"]
+}
