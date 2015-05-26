@@ -11,7 +11,7 @@ function include() {
 		// Loop through all the files for this source
 		var sourceFileList = sourceDef.files.concat();
 
-		// Name space for newly create paths 
+		// Name space for newly create paths
 		var reserved = [];
 
 		// Iterate all files and generate a name
@@ -22,8 +22,15 @@ function include() {
 			// Go make a pathName for this asset
 			var name = pathName.generate(file, asset.preferences || false, "script", reserved, options.registered.include, options.registered.lazy);
 
+            // Remove extensions
+            var filepath = file.fullpath.split('.')[0];
+
+            filepath = filepath.replace('src/', '');
+
+            console.log(filepath);
+
 			// Now that we have the name, we need to input the correct path. In this case we can use the file current path
-			options.registered.include[name] = file.fullpath.split('.')[0];
+			options.registered.include[name] = filepath;
 
 			if (files.length !== 0) {
 				nextFile(files);
@@ -38,7 +45,7 @@ function include() {
 		// Loop through all the files for this source
 		var sourceFileList = sourceDef.files.concat();
 
-		// Name space for newly create paths 
+		// Name space for newly create paths
 		var reserved = [];
 
 		// Grunt tasks
@@ -50,7 +57,7 @@ function include() {
 
 			var file = files.shift();
 
-			// Included Styles are not treated the same as srcpts. Instead depending 
+			// Included Styles are not treated the same as srcpts. Instead depending
 			// on the type the include process is going to change.
 			if (file.ext === "css") {
 
@@ -63,7 +70,7 @@ function include() {
 			}
 
 			if (files.length !== 0) {
-				
+
 				nextFile(files);
 
 			} else {

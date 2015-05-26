@@ -71,6 +71,16 @@ module.exports = function(grunt) {
                 },
                 tasks: {},
                 write: {
+                    buildOrder: [
+                        'requirejs',
+                        'css',
+                        'text',
+                        'json',
+                        'domReady',
+                        'lazyLoader',
+                        'jquery',
+                        'cui'
+                    ],
                     includeStyle: []
                 }
             });

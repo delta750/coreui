@@ -14,11 +14,11 @@ module.exports = function(grunt) {
 
     // Insert the Live Reload script
     liveReloadInjection =
-        '\n(function(){' +
+    '\n(function(){' +
         'var s = document.createElement("script");' +
         's.src="//localhost:35729/livereload.js";' +
         'document.head.appendChild(s);' +
-        '}()s);';
+    '}());';
 
     // // Project configuration.
     grunt.initConfig({
@@ -59,6 +59,14 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 flatten: true,
             },
+            templates: {
+                expand: true,
+                cwd: 'src/templates',
+                src: ['**/*.html'],
+                dest: 'dist/templates',
+                filter: 'isFile',
+                flatten: true
+            }
         },
 
         // Items are dynamically added here.
@@ -78,11 +86,11 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: '', // Where all our resources will be
-                    name: 'tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
+                    baseUrl: 'src/', // Where all our resources will be
+                    name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
                     paths: {}, // Generate build file
                     include: [], // Generate build file
-                    optimize: 'uglify2',
+                    optimize: 'none', //'uglify2',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
                     out: 'dist/js/cui.js', // Where the final project will be output
@@ -231,7 +239,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean',
-            // 'jshint',
+            //'jshint',
             'subGrunt',
             'requireManager',
             'copy',

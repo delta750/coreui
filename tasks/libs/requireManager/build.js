@@ -18,7 +18,7 @@ var build = function() {
 
         var anonymousWrapper = {
             start: "(function () {",
-            end: "}());"
+            end: "})();"
         };
 
         var config = {

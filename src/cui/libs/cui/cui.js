@@ -47,6 +47,8 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
      */
     cui.init = function() {
         // `cui` namespace is now loaded
+
+        console.log("CUI and Require and done!");
     };
 
     // Place the lazyloader into the cui namespace.

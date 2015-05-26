@@ -56,7 +56,7 @@ var manager = function() {
         //verbose.verbosity(3);
 
         // Log that the init started
-        // verbose.log(3, "Manager Init executed", 'debug');
+        verbose.log(3, "Manager Init executed", 'debug');
 
         // Save off some instance variables
         this.task = task;

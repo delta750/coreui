@@ -15,6 +15,41 @@ var verbose = require('../utilites/verbose');
 */
 var config = function() {
 
+    // Function controls the order in which inclded libraries are built
+    function buildOrder (definedOrder, includePaths, cb) {
+
+        var orderedPath = {};
+
+        console.log("buildOrder called");
+
+        (function nextInclude(ordered) {
+
+            var item = ordered.shift();
+
+            if (includePaths[item]) {
+
+                // Move the path in
+                orderedPath[item] = includePaths[item];
+
+                delete includePaths[item];
+
+            }
+
+            if (ordered.length !== 0) {
+
+                nextInclude(ordered);
+            } else {
+
+                var orderedList = Object.keys(orderedPath);
+
+                cb(orderedPath, orderedList);
+            }
+
+
+        })(definedOrder);
+
+    }
+
     var mode = function(rm, next) {
 
         var grunt = rm.grunt;
@@ -76,23 +111,26 @@ var config = function() {
     var requireJS = function(rm, next) {
 
         var grunt = rm.grunt;
-        var includePaths = rm.options.registered.include;
 
         // Get a copy of the running GruntJS config
         var requireOptions = grunt.config.get('requirejs.compile.options');
 
-        var libsArray = Object.keys(includePaths);
+        buildOrder(rm.options.write.buildOrder, rm.options.registered.include, function(includePaths, includeList) {
 
-        // Add the compiled paths
-        requireOptions.paths = includePaths;
+            // Add the compiled paths
+            requireOptions.paths = includePaths;
 
-        // Add the namves to the include array.
-        requireOptions.include = libsArray;
+            // Add the namves to the include array.
+            requireOptions.include = includeList;
 
-        // Update the running config
-        grunt.config.set('requirejs.compile.options', requireOptions);
+            console.log(requireOptions);
 
-        next(rm);
+            // Update the running config
+            grunt.config.set('requirejs.compile.options', requireOptions);
+
+            next(rm);
+        });
+
     };
 
     var watch = function(rm, next) {
