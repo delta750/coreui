@@ -14,16 +14,16 @@
         </h2>
 
         <!-- Class based test -->
-        <p class="helloWolrd">
+        <p class="helloWorld">
         </p>
 
         <!-- Element based test -->
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li data-plugin-options='{"message":"Hello Item 1!"}'></li>
+            <li data-plugin-options='{"message":"Hello Item 2!"}'></li>
+            <li data-plugin-options='{"message":"Hello Item 3!"}'></li>
+            <li data-plugin-options='{"message":"Hello Item 4!"}'></li>
+            <li data-plugin-options='{"message":"Hello Item 5!"}'></li>
         </ul>
 
         <script id="require" src="../../js/cui.js"></script>
@@ -31,7 +31,17 @@
             require(['jquery','cui', 'domReady!'], function($,cui) {
 
                 cui.load('hello-world', function() {
-                    console.log("Hello world plugin loaded");
+
+
+                    // Setup the id (h2)
+                    $('#helloWorld').helloWorld();
+
+                    // Setup the classe (p)
+                    $('.helloWorld').helloWorld({message: "Hello Classe Element!"});
+
+                    // Setup the element selctors (ul li's)
+                    $('ul li').helloWorld();
+
                 });
 
             });
