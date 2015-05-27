@@ -1,4 +1,4 @@
-define(['jquery', 'cui', 'css!datepickerStyle'], function ($, cui) {
+define(['jquery', 'cui'], function ($, cui) {
     var VERSION = {
             name: 'datepicker',
             version: '1.0.0',

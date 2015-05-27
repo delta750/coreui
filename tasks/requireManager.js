@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                         'tasks'
                     ],
                     files: [
-                        '.asset.json',
+                        'asset.json',
                         '.gitignore',
                         '.editorconfig',
                         'componentBuild.js',
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     build: 'Gruntfile.js',
-                    config: '.asset.json',
+                    config: 'asset.json',
                     projectJS: 'project/js/project.js',
                     settings: 'settings.js',
                     styles: 'cui/scss/_utilities/_assets.scss'
