@@ -20,8 +20,6 @@ var config = function() {
 
         var orderedPath = {};
 
-        console.log("buildOrder called");
-
         (function nextInclude(ordered) {
 
             var item = ordered.shift();
@@ -40,6 +38,10 @@ var config = function() {
                 nextInclude(ordered);
             } else {
 
+                if (Object.keys(includePaths).length >= 1) {
+                    orderedPath = obj.merge(orderedPath, includePaths);
+                }
+
                 var orderedList = Object.keys(orderedPath);
 
                 cb(orderedPath, orderedList);
@@ -49,6 +51,34 @@ var config = function() {
         })(definedOrder);
 
     }
+
+    var dump = function(rm, next) {
+
+        var grunt = rm.grunt;
+
+        var taskArray = ['copy', 'concat', 'uglify', 'sass', 'watch', 'requirejs'];
+
+        (function nextConfig(configs) {
+
+            var c = configs.shift();
+
+            var taskConfigs = grunt.config.get(c);
+
+            var logPath = fs.pathJoin(rm.options.paths.log, c + ".json");
+
+            fs.writeJSON(logPath, taskConfigs);
+
+            if (configs.length !== 0) {
+                nextConfig(configs);
+
+            } else {
+
+                next(rm);
+            }
+
+        })(taskArray);
+
+    };
 
     var mode = function(rm, next) {
 
@@ -122,8 +152,6 @@ var config = function() {
 
             // Add the namves to the include array.
             requireOptions.include = includeList;
-
-            console.log(requireOptions);
 
             // Update the running config
             grunt.config.set('requirejs.compile.options', requireOptions);
@@ -205,6 +233,7 @@ var config = function() {
     }
 
     return {
+        dump: dump,
         dynamic: dynamic,
         mode: mode,
         requireJS: requireJS,

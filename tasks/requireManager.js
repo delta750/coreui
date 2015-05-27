@@ -49,12 +49,15 @@ module.exports = function(grunt) {
                         style: 'css'
                     },
                     discoveredFolders: [],
+                    log: 'tasks/libs/requireManager/logs',
                     rootSrc: 'src',
                     sourceDir: ['components', 'libs'],
-                    specialAssets: [
-                        'fonts',
-                        'images'
-                    ],
+                    specialAssets: {
+                        'docs': "docs",
+                        'fonts': "dist/fonts",
+                        'images': "dist/images",
+                        'tests': "dist/tests/:name"
+                    },
                     temp: 'tasks/libs/requireManager/temp/'
                 },
                 registered: {
@@ -93,7 +96,6 @@ module.exports = function(grunt) {
                 search = require('./libs/requireManager/search'),
                 tasks = require('./libs/requireManager/tasks');
 
-
             manager.init(this, grunt, options)
                 .step("Search for valid component folders", search.folders)
                 .step("Looking up all of the files and create defintion", search.files)
@@ -105,6 +107,7 @@ module.exports = function(grunt) {
                 .step("Update dynamic Grunt config", config.dynamic)
                 .step("Generate include style scss import", build.includeStyles)
                 .step("Build watch tasks", config.watch)
+                .step("Saving debug data", config.dump)
                 .execute();
         }
     );

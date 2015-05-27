@@ -357,7 +357,7 @@ var fileSystem = function() {
      **/
     var writeJSON = function(path, data) {
 
-        var data = JSON.stringify(data);
+        var data = JSON.stringify(data, null, 4);
 
         this.writeFile(path, data);
 

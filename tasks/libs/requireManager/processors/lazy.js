@@ -28,7 +28,7 @@ function lazy() {
 
 			// Now that we have the name, we need to input the correct path.
 			// This path is where the lazy asset will belone when its done
-			options.registered.lazy[name] = fs.pathJoin(options.paths.dest.script, file.name);
+			options.registered.lazy[name] = fs.pathJoin(options.paths.dest.script, file.name.split('.')[0]);
 
 			// Now that we have created the lazy load path object for the config. Next we need to move this file into
 			// the right path location, but for now lets adde it to the task array

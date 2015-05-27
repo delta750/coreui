@@ -7,6 +7,27 @@ var gruntTasks = require('./processors/gruntTasks');
 
 function tasks() {
 
+    function copyPath(folder, configPath, asset) {
+
+        var RegEx = /(:)\w+/g;
+
+        var dynamicName;
+
+        while ((dynamicName = RegEx.exec(configPath)) !== null) {
+
+            // Remove the special character
+            var partial = dynamicName[0].replace(dynamicName[1], "");
+
+            console.log(partial);
+
+            configPath = configPath.replace(dynamicName[0], asset[partial]);
+
+        }
+
+        return configPath;
+
+    }
+
 	var assets = function(rm, next) {
 
 		var assetList = Object.keys(rm.options.assets);
@@ -24,6 +45,8 @@ function tasks() {
 					folders: rm.options.excludes.folders
 				}
 			}
+
+            var specialAssetFolders = Object.keys(rm.options.paths.specialAssets)
 
 			// Now to generate tasks based on the existing folder structure
 			fs.recursive(asset.rootpath, searchFilters, function(folderList) {
@@ -47,11 +70,13 @@ function tasks() {
 								// Ignore build subpath in all cases
 								if (folder.name !== buildDir && folder.subpath.indexOf(buildDir) === -1) {
 
-									if (rm.options.paths.specialAssets.indexOf(folder.name) !== -1) {
-										
+									if (specialAssetFolders.indexOf(folder.name) !== -1) {
+
+                                        var assetDest = copyPath(folder, rm.options.paths.specialAssets[folder.name], asset);
+
 										// We have found a special assets folder.
 										// In this case we can simply create copy tasks.
-										gruntTasks.process("copy", folder.name, asset, [folder], fs.pathJoin("dist", folder.name), false, function(name, config){
+										gruntTasks.process("copy", folder.name, asset, [folder], assetDest, false, function(name, config){
 
 											var task = {
 												type: "copy",
@@ -62,20 +87,23 @@ function tasks() {
 											gruntTasks.store(asset, rm.options, task);
 
 										});
-										
+
 									}
 
 								}
 
 							} else {
 
-								// No build directory to worry about, lets look for the 
+								// No build directory to worry about, lets look for the
 								// special folder names
-								if (rm.options.paths.specialAssets.indexOf(folder.name) !== -1) {
-									
+								if (specialAssetFolders.indexOf(folder.name) !== -1) {
+
+                                    // Special Asset destination
+                                    var assetDest = copyPath(folder, rm.options.paths.specialAssets[folder.name], asset);
+
 									// We have found a special assets folder.
 									// In this case we can simply create copy tasks.
-									gruntTasks.process("copy", folder.name, asset, [folder], fs.pathJoin("dist", folder.name), false, function(name, config){
+									gruntTasks.process("copy", folder.name, asset, [folder], assetDest, false, function(name, config){
 
 										var task = {
 											type: "copy",

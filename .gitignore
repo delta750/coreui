@@ -8,4 +8,8 @@ Thumbs.db
 
 # Temp
 local_docs/
+tasks/libs/requireManager/logs
 tasks/libs/requireManager/temp
+
+# For GitEYE GUI
+/.project
