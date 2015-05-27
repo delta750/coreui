@@ -17,9 +17,7 @@ function tasks() {
 
             // Remove the special character
             var partial = dynamicName[0].replace(dynamicName[1], "");
-
-            console.log(partial);
-
+            
             configPath = configPath.replace(dynamicName[0], asset[partial]);
 
         }

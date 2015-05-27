@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 
 var gruntTasks = require('./gruntTasks');
 var pathName = require('./pathName');
@@ -25,9 +26,8 @@ function include() {
             // Remove extensions
             var filepath = file.fullpath.split('.')[0];
 
-            filepath = filepath.replace('src/', '');
-
-            console.log(filepath);
+            // === need to re-address this path.sep option ===
+            filepath = filepath.replace('src' + path.sep, '');
 
 			// Now that we have the name, we need to input the correct path. In this case we can use the file current path
 			options.registered.include[name] = filepath;

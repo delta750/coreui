@@ -25,7 +25,7 @@ var process = function() {
 			var assetName = assets.shift();
 			var asset = rm.options.assets[assetName];
 
-			var sourceList = Object.keys(asset.sources);
+			var sourceList = Object.keys(asset.sources).concat();
 
 			// Loop through the next source
 			(function nextSource(sources) {
@@ -98,7 +98,9 @@ var process = function() {
 				if (sources.length !== 0) {
 					
 					nextSource(sources);
-				} 
+				}
+
+
 
 			})(sourceList);
 
@@ -127,11 +129,13 @@ var process = function() {
 
 			try {
 
-				processor = require('./processors/' + processor);
+				var processorPath = fs.pathJoin("./", "processors", processor)
+
+				processor = require( "./" + processorPath );
 
 			} catch(e) {
 
-				verbose.log(1, "Processor not found: " + processor, "error");
+				verbose.log(1, "Processor load failed for: " + processor, "error");
 
 				processor = undefined;
 

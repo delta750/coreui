@@ -334,6 +334,8 @@ var fileSystem = function() {
      **/
 	var writeFile = function (path, data) {
 
+		path = this.unixifyPath(path);
+
         // Trim the filename off the path for mkdirp
 		var folderpath = path.substring(0, path.lastIndexOf('/'));
 

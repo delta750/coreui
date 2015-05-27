@@ -113,16 +113,6 @@ module.exports = function(grunt) {
             },
         },
 
-        // Locations to look for components
-        subGrunt: {
-            components: {
-                files: [{
-                    cwd: 'src/components/',
-                    src: '*',
-                }],
-            },
-        },
-
         uglify: {
             // Global uglify options
             options: {
@@ -187,7 +177,23 @@ module.exports = function(grunt) {
          ***/
 
         // Require Manager Script. Please leave this task blank
-        requireManager: {}
+        requireManager: {},
+
+
+        // Locations to look for components
+        subGrunt: {
+            components: {
+                files: [{
+                    cwd: 'src',
+                    src: [
+                        'cui/components/*',
+                        'cui/libs/*',
+                        'project/components/*',
+                        'project/libs/*'
+                    ],
+                }],
+            },
+        }
 
 
     });

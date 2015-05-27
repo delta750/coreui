@@ -37,10 +37,19 @@ var build = function() {
 
             var contents = this.data();
 
-            // Build destination
-            var dist = fs.pathJoin(rm.options.paths.temp, rm.options.files.settings);
+            try {
 
-            fs.writeFile(dist, contents);
+                // Build destination
+                var dist = fs.pathJoin(rm.options.paths.temp, rm.options.files.settings);
+
+                fs.writeFile(dist, contents);
+                
+            } catch(e) {
+
+                console.log(e);
+            }
+
+            
         });
 
         var projectSettingsPath = (rm.options.paths.rootSrc) ? fs.pathJoin(rm.options.paths.rootSrc, rm.options.files.projectJS) : rm.options.files.projectJS;

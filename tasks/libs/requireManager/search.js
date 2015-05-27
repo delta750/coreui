@@ -273,6 +273,7 @@ var search = function() {
 					assetFolders(assets);
 				} else {
 
+					// Save off all the discovered folders
 					rm.options.paths.discoveredFolders = discoveredPaths;
 
 					next(rm);
