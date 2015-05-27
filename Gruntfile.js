@@ -82,6 +82,23 @@ module.exports = function(grunt) {
             },
         },
 
+        // https://github.com/gruntjs/grunt-contrib-jshint
+        // Supported options: http://jshint.com/docs/
+        // Help with debugging common error messages: http://jslinterrors.com/
+        // Basic hinting is provided for the projectjs. Additional hinting should be setup
+        // the supporting component folders manually.
+        jshint: {
+            options: {
+                curly: true,
+                eqeqeq: true,
+                browser: true,
+                unused: 'vars',
+            },
+            files: [
+                'src/project/js/**/*.js',
+            ],
+        },
+
         // Builds the default javascript cui library using r.js compiler
         requirejs: {
             compile: {
@@ -245,7 +262,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean',
-            //'jshint',
+            'jshint',
             'subGrunt',
             'requireManager',
             'copy',
@@ -283,7 +300,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean',
-            // 'jshint',
+            'jshint',
             'subGrunt',
             'requireManager',
             'copy',

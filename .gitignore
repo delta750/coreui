@@ -6,6 +6,12 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Component and Library ignores
+src/cui/components/*/tasks
+src/cui/libs/*/tasks
+src/project/components/*/tasks
+src/project/libs/*/tasks
+
 # Temp
 local_docs/
 tasks/libs/requireManager/logs
