@@ -77,7 +77,7 @@ function include() {
 
 				if (cssTasks.length !== 0) {
 
-					gruntTasks.process("concat", "style", asset, cssTasks, "dist/css/project/project.css", "file", function(name, config) {
+					gruntTasks.process("concat", "style", asset, cssTasks, "dist/css/main.css", "file", function(name, config) {
 
 						var task = {
 							type: "concat",

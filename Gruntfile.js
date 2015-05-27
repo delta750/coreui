@@ -110,7 +110,7 @@ module.exports = function(grunt) {
                     optimize: 'none', //'uglify2',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
-                    out: 'dist/js/cui.js', // Where the final project will be output
+                    out: 'dist/js/main.js', // Where the final project will be output
                 }
             },
         },
@@ -124,8 +124,7 @@ module.exports = function(grunt) {
 
             cui: {
                 files: {
-                    'dist/css/cui/cui.css': 'src/cui/scss/cui.scss',
-                    'dist/css/project/project.css': 'src/project/scss/project.scss',
+                    'dist/css/main.css': ['src/cui/scss/cui.scss', 'src/project/scss/project.scss']
                 },
             },
         },
@@ -239,23 +238,16 @@ module.exports = function(grunt) {
                 options: {
                     banner: cssBanner,
                 },
-                src: ['dist/css/cui/cui.css'],
-                dest: 'dist/css/cui/cui.css',
+                src: ['dist/css/main.css'],
+                dest: 'dist/css/main.css',
             },
             cuiJS: {
                 options: {
                     banner: jsBanner,
                 },
-                src: ['dist/js/cui.js'],
-                dest: 'dist/js/cui.js',
-            },
-            project: {
-                options: {
-                    banner: cssBanner,
-                },
-                src: ['dist/css/project/project.css'],
-                dest: 'dist/css/project/project.css',
-            },
+                src: ['dist/js/main.js'],
+                dest: 'dist/js/main.js',
+            }
         }
 
         grunt.config.set('concat', concat);
@@ -291,8 +283,8 @@ module.exports = function(grunt) {
                 options: {
                     footer: liveReloadInjection
                 },
-                src: ['dist/js/cui.js'],
-                dest: 'dist/js/cui.js'
+                src: ['dist/js/main.js'],
+                dest: 'dist/js/main.js'
             }
         };
 

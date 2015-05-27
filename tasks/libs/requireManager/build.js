@@ -24,7 +24,7 @@ var build = function() {
         var config = {
             start: 'var scripts = document.getElementById("require"),' +
                    'src = scripts.src,' +
-                   'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/cui"));' +
+                   'baseUrl = src.substring(src.indexOf(document.location.pathname), src.lastIndexOf("/main.js"));' +
                    'require.config({ baseUrl: baseUrl, paths:',
             end: '});'
         };
@@ -43,13 +43,13 @@ var build = function() {
                 var dist = fs.pathJoin(rm.options.paths.temp, rm.options.files.settings);
 
                 fs.writeFile(dist, contents);
-                
+
             } catch(e) {
 
                 console.log(e);
             }
 
-            
+
         });
 
         var projectSettingsPath = (rm.options.paths.rootSrc) ? fs.pathJoin(rm.options.paths.rootSrc, rm.options.files.projectJS) : rm.options.files.projectJS;
