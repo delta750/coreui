@@ -31,7 +31,7 @@ The `asset.json` file contains information about how the component should be bui
 
 The `_settings.scss` file allows developers to customize your component's style. You should put any customizable styles (i.e. Sass variables) into this file that a developer may want to change.
 
-Ideally, a developer should never have to change your `js/validator.js` or `scss/validator.scss` files to suit their needs &mdash; the component should be completely configurable by changing `component.json` and `_settings.scss` and should inherit the project's look and feel as much as possible.
+Ideally, a developer should never have to change your `js/validator.js` or `scss/validator.scss` files to suit their needs &mdash; the component should be completely configurable by changing `asset.json` and `_settings.scss` and should inherit the project's look and feel as much as possible.
 
 ## `asset.json`
 
