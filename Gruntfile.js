@@ -99,6 +99,35 @@ module.exports = function(grunt) {
             ],
         },
 
+        // https://github.com/treasonx/grunt-markdown
+        markdown: {
+            options: {
+                highlight: 'auto',
+                template: 'src/cui/docs/src/_includes/templates/default.html',
+                markdownOptions: {
+                    highlight: 'manual', // 'auto',
+                    gfm: true,
+                },
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/cui/docs/src/',
+                    src: ['**/*.md'],
+                    dest: 'docs/dist',
+                    ext: '.html',
+
+                    // This plugin has (had?) a bug that makes it impossible to put the files where we want them, so we add this function to change the path that Grunt generates and move the file
+                    // See: https://github.com/treasonx/grunt-markdown/issues/43
+                    // HTML files should end up in the `Documentation` folder
+                    // rename: function (dest, src) {
+                    //     // Get the file name and prepend the directory name
+                    //     return 'docs/dist/' +  src.split('/').pop();
+                    // },
+                }],
+            },
+        },
+
         // Builds the default javascript cui library using r.js compiler
         requirejs: {
             compile: {
@@ -348,7 +377,20 @@ module.exports = function(grunt) {
 
     // Documentation
     grunt.registerTask('docs', 'Documentation', function (args) {
+
+        var copy = grunt.config.get('copy');
+
+        copy = {
+            docAssets: {
+                src: ['src/cui/docs/src/_includes'],
+                dest: 'docs/dist/_includes/css/'
+            }
+        };
+
+        grunt.config.set('copy', copy);
+
         grunt.task.run([
+            'copy',
             'connect',
             'markdown',
             'watch:markdown',
