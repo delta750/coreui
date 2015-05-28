@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/frg-coreui">
+    <link href="/docs/_includes/css/markdown.css" rel="stylesheet">
+    <link href="/docs/_includes/css/markdown-github.css" rel="stylesheet">
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="using-components">Using Components</h1>
+<p>Components are standalone modules consisting of JavaScript and/or CSS. Each component is completely independent and may be bundled with the project&#39;s JS/CSS or loaded separately (e.g. based on some condition).</p>
+<p><em>This guide is for <strong>implementing</strong> a pre-made component in your project. For creating your own component, see the <a href="authoring.html">authoring documentation</a></em></p>
+<h2 id="usage">Usage</h2>
+<p>Download the component you want to add to your project and place it in its own folder under <code>/src/components/</code>. It will be compiled automatically when you use <a href="../core/build-process.html">Grunt</a>.</p>
+<p>A component&#39;s code may be included in two ways: bundled with <code>cui.js</code> and/or <code>cui.css</code>; or as separate <code>myComponent.js</code> and <code>myComponent.css</code> files which must be conditionally loaded. Components that you will use regularly on most pages should be bundled, while less frequently used components should be loaded conditionally.</p>
+<h2 id="conditional-loading">Conditional loading</h2>
+<p>Use <code>cui.load()</code> to load components:</p>
+<pre><code class="lang-js"><span class="hljs-comment">// Check for specific elements</span>
+<span class="hljs-keyword">if</span> ($(<span class="hljs-string">'.tooltip'</span>).length) {
+    cui.load([<span class="hljs-string">'tooltip'</span>]); <span class="hljs-comment">// Loads the tooltip component</span>
+}
+</code></pre>
+<p>The component will load asynchronously and then initialize itself when it&#39;s ready.</p>
+<p>You can also load multiple components with a single call:</p>
+<pre><code class="lang-js">cui.load([<span class="hljs-string">'tooltip'</span>, <span class="hljs-string">'validator'</span>]);
+</code></pre>
+<p>If you need to interact with a component (for example, a component that doesn&#39;t do anything automatically), pass a callback function to <code>cui.load()</code>:</p>
+<pre><code class="lang-js">cui.load([<span class="hljs-string">'validator'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'Validator has loaded!'</span>);
+    <span class="hljs-comment">// Your code here</span>
+});
+</code></pre>
+<p>Because assets are managed by <a href="http://requirejs.org">RequireJS</a> a given component will only load once even if you call <code>cui.load()</code> multiple times. Also, if a component has additional dependencies they will be loaded before your callback function is executed.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Inside a component&#39;s folder you will find two files that you may edit: <code>component.json</code> and <code>_settings.scss</code>.</p>
+<pre><code>src/
+    ├─ components/
+        ├─  validator/
+            ├─ images/
+            ├─ js/
+            ├─ scss/
+            ├─ component<span class="hljs-class">.json</span>
+            ├─ _settings.scss
+</code></pre><h3 id="-component-json-"><code>component.json</code></h3>
+<p>This file defines how your component will be built.</p>
+<h4 id="options">Options</h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>lazy</strong></td>
+<td>Boolean</td>
+<td>Indicates that this component should be lazy-loadable or not. If <code>true</code>, separate <code>myComponent.js</code> and <code>myComponent.css</code> files will be generated and you will need to include them in your project manually. If <code>false</code>, the JS and CSS will be bundled with <code>cui.js</code>. <em>(Default: <code>true</code>)</em></td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>String</td>
+<td>Overrides the component folder name with a developer-defined name. Please note this does not prevent or override other items with the same name. It also does not override the default concatenation of defined names when components have multiple asset types. For example, component called <code>alpha</code> the script would be defined as <code>alpha</code> but the stylesheet would still be defined as <code>alphaStyle</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_settings-scss">_settings.scss</h3>
+<p>This file contains Sass variables that you may change to alter the component&#39;s styles.</p>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>

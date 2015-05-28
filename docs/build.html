@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/frg-coreui">
+    <link href="/docs/_includes/css/markdown.css" rel="stylesheet">
+    <link href="/docs/_includes/css/markdown-github.css" rel="stylesheet">
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="building-projects">Building Projects</h1>
+<p>Core UI uses <a href="http://gruntjs.com/">GruntJS</a> to build source code into polished, deployable files. Grunt leverages <a href="http://nodejs.org/download/">Node.js</a> modules to lint, minify, and compile your code.</p>
+<p>Grunt can be run from a terminal or command prompt using one of the commands below. Just make sure you&#39;ve navigated to your project folder (use <code>cd folder_name</code> to change directories).</p>
+<h2 id="commands">Commands</h2>
+<h3 id="-grunt-"><code>grunt</code></h3>
+<p>This creates a simple, no-frills build in the <code>/dist/</code> folder that is ready for deployment. JavaScript will be linted and all code will be concatenated.</p>
+<h3 id="-grunt-dev-"><code>grunt dev</code></h3>
+<p>This task is ideal for development. It will lint and compile your code just like <code>grunt</code>, however it will also include <a href="http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/">source maps</a> for easy debugging and start a simple web server at <a href="http://localhost:8888">localhost:8888</a>.</p>
+<p>Grunt will continously watch your files for changes and automatically re-compile them. Press <code>Control+C</code> to stop this process and the server.</p>
+<p>Before deploying you should run plain ol&#39; <code>grunt</code> one more time to clean up the source maps and other debugging code.</p>
+<h3 id="-grunt-server-"><code>grunt server</code></h3>
+<p>This starts a simple web server at <a href="http://localhost:8888">localhost:8888</a> so you can view your pages, test ajax requests, etc. It does not build anything, so you must have run <code>grunt</code> or <code>grunt dev</code> previously.</p>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>

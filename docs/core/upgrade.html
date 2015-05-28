@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/frg-coreui">
+    <link href="/docs/_includes/css/markdown.css" rel="stylesheet">
+    <link href="/docs/_includes/css/markdown-github.css" rel="stylesheet">
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="upgrading-core-ui">Upgrading Core UI</h1>
+<h2 id="forked-projects">Forked projects</h2>
+<p>If you started your project by forking the Core UI repository, all you have to do is... (TODO: can you just pull from frg-coreui/master into your own repo?)</p>
+<h2 id="standalone-projects">Standalone projects</h2>
+<p>Since all of your files are in the <code>/src/project/</code> folder, upgrading is easy.</p>
+<ol>
+<li>Download and unzip the <a href="https://github.com/ny/frg-coreui/archive/master.zip">latest release</a><ul>
+<li>You can also download <a href="https://github.com/ny/frg-coreui/releases">specific releases</a></li>
+</ul>
+</li>
+<li>Replace everything in <code>/src/</code> except your <code>project</code> folder<ul>
+<li>It&#39;s recommended that you delete the <code>/dist/</code> folder to clear out any old files. All necessary files and folders will be recreated.</li>
+</ul>
+</li>
+<li>On the command line, run <code>npm install</code> to make sure you have the latest Node modules for the release</li>
+<li>Use Grunt to build your project as usual</li>
+</ol>
+<p>TODO: Better title for this section. I meant to describe completely separate respos that have no &quot;link&quot; to the frg-coreui repo.</p>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>
