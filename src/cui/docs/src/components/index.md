@@ -6,9 +6,9 @@ Components are standalone modules consisting of JavaScript and/or CSS. Each comp
 
 ## Usage
 
-Download the component you want to add to your project and place it in its own folder under `/src/components/`. It will be compiled automatically when you use [Grunt](../core/build-process.html).
+Download the component you want to add to your project and place it in its either the `/src/cui/components/` or `src/project/components`. If the component is an official `cui` or Core UI component, place it in the `src/cui/components`. If the component is not officially supported or being developer internally, place it in the `src/projects/components` directory instead. It will be compiled automatically when you use [Grunt](../core/build-process.html).
 
-A component's code may be included in two ways: bundled with `cui.js` and/or `cui.css`; or as separate `myComponent.js` and `myComponent.css` files which must be conditionally loaded. Components that you will use regularly on most pages should be bundled, while less frequently used components should be loaded conditionally.
+A component's code may be included in two ways: bundled with `main.js` and/or `main.css`; or as separate `myComponent.js` and `myComponent.css` files which must be conditionally loaded. Components that you will use regularly on most pages should be bundled, while less frequently used components should be loaded conditionally.
 
 ## Conditional loading
 
@@ -42,7 +42,7 @@ Because assets are managed by [RequireJS](http://requirejs.org) a given componen
 
 ## Configuration
 
-Inside a component's folder you will find two files that you may edit: `component.json` and `_settings.scss`.
+Inside a component's folder you will find two files that you may edit: `asset.json` and `_settings.scss`.
 
 ```
 src/
@@ -51,20 +51,14 @@ src/
             ├─ images/
             ├─ js/
             ├─ scss/
-            ├─ component.json
+            ├─ asset.json
             ├─ _settings.scss
 ```
 
-### `component.json`
+### `asset.json`
 
-This file defines how your component will be built.
+This file defines how your component will be built. For more information on the different options, take a look at [authoring components](authoring.html) documentation.
 
-#### Options
-
-Option        | Data Type    | Description
---------------|--------------|-------------
-**lazy**      | Boolean | Indicates that this component should be lazy-loadable or not. If `true`, separate `myComponent.js` and `myComponent.css` files will be generated and you will need to include them in your project manually. If `false`, the JS and CSS will be bundled with `cui.js`. *(Default: `true`)*
-**name**      | String       | Overrides the component folder name with a developer-defined name. Please note this does not prevent or override other items with the same name. It also does not override the default concatenation of defined names when components have multiple asset types. For example, component called `alpha` the script would be defined as `alpha` but the stylesheet would still be defined as `alphaStyle`.
 
 ### _settings.scss
 

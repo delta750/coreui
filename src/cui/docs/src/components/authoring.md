@@ -82,3 +82,5 @@ Load Type | Description
 css!      | Use when declaring `css` dependencies
 json!     | Use when declaring `json` specific file. For this type, be sure to add `.json` to the name of the define
 text!     | Use when loading any other type of text-based assets, including HTML, `.hbs` templates, etc. Also be sure to define the proper file extention with this item.
+
+Before attempting to build a new component form scratch or modifying an existing component, please try out the [simple component creation](tutorial.html) tutorial. It will go over it more fine detail the steps require to register, build and test components.

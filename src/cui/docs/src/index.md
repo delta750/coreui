@@ -19,7 +19,7 @@ Core UI is designed for easy development of web applications and static web page
 
 [Authoring your own component](components/authoring.html)
 
-[Simple Component Tutorial](components/tutorial.html)
+[Simple component creation yutorial](components/tutorial.html)
 
 ### Core components
 
