@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'src/cui/docs/src/',
                     src: ['**/*.md'],
-                    dest: 'docs/dist',
+                    dest: 'docs',
                     ext: '.html',
 
                     // This plugin has (had?) a bug that makes it impossible to put the files where we want them, so we add this function to change the path that Grunt generates and move the file
@@ -379,17 +379,31 @@ module.exports = function(grunt) {
     grunt.registerTask('docs', 'Documentation', function (args) {
 
         var copy = grunt.config.get('copy');
+        var clean = grunt.config.get('clean');
+
+        clean = {
+            dist: [
+                'docs'
+            ],
+        };
 
         copy = {
             docAssets: {
-                src: ['src/cui/docs/src/_includes'],
-                dest: 'docs/dist/_includes/css/'
-            }
+                expand: true,
+                cwd: 'src/cui/docs/src/_includes',
+                src: ['**/*.css'],
+                dest: 'docs/_includes/css',
+                filter: 'isFile',
+                flatten: true,
+            },
         };
 
         grunt.config.set('copy', copy);
+        grunt.config.set('clean', clean);
+
 
         grunt.task.run([
+            'clean',
             'copy',
             'connect',
             'markdown',

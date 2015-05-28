@@ -40,8 +40,6 @@
         },
         appendText: function() {
 
-            console.log(this.config);
-
             this.$elem.append(document.createTextNode(this.config.message));
         }
 
