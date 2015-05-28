@@ -154,3 +154,5 @@ Next we need to create a new script section just underneth the `main.js`. This i
 ```
 
 By default we created a very simple module and because we didnt not declare it in any special why, the module was prebuilt and shipped inside of Core UI main.js. So in order to use this module we simply need to wait for the document to be ready and then we just need to call it. To test your plugin, open a terminal or command prompt window that has access to nodejs. Then simple travel to the project folder root and enter the command `grunt dev`. Once the terminal returns the status of `Waiting...` Simply go check you [test page](http://localhost:8888/dist/tests/helloWolrd/). You should see something similar to the image below.
+
+![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")

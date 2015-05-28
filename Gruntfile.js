@@ -390,12 +390,20 @@ module.exports = function(grunt) {
         copy = {
             docAssets: {
                 expand: true,
-                cwd: 'src/cui/docs/src/_includes',
+                cwd: 'src/cui/docs/src/_includes/css',
                 src: ['**/*.css'],
                 dest: 'docs/_includes/css',
                 filter: 'isFile',
                 flatten: true,
             },
+            images: {
+                expand: true,
+                cwd: 'src/cui/docs/src/_includes/images',
+                src: ['**/*.*'],
+                dest: 'docs/_includes/images',
+                filter: 'isFile',
+                flatten: true,
+            }
         };
 
         grunt.config.set('copy', copy);
