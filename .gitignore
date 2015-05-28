@@ -1,9 +1,5 @@
-# Generated folders
 node_modules/
 dist/
-docs/
-
-# Support Files
 *.sublime-*
 *.log
 */.gitignore
