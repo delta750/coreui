@@ -28,10 +28,7 @@
 
         <script id="require" src="../../js/main.js"></script>
         <script>
-            require(['jquery','cui', 'domReady!'], function($,cui) {
-
-                cui.load('hello-world', function() {
-
+                require(['helloWorld', 'domReady!'], function() {
 
                     // Setup the id (h2)
                     $('#helloWorld').helloWorld();
@@ -43,8 +40,6 @@
                     $('ul li').helloWorld();
 
                 });
-
-            });
         </script>
 	</body>
 </html>

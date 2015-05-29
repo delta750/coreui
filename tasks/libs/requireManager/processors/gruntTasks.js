@@ -31,7 +31,7 @@ function gruntTask() {
 					// Fix the extension
 					var newDest = dest[i].replace('scss', 'css');
 
-					config.files[dest[i]] = source[i];
+					config.files[newDest] = source[i];
 				}
 
 				break;
