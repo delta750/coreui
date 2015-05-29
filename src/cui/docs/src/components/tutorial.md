@@ -219,7 +219,7 @@ So now that we have this component all setup; lets make it conditionally loadabl
 }
 ```
 
-At this point, if you rebuild the project with another `grunt dev` command, the project will build correctly, but the text will no longer have any styles. This is because we switched the component from a included state to an external lazy loadable state. This means that all dependancies have to be declaire that are to be loaded seperately. To fix this style bug we need to make a small change to the UMD definition portion of the plugin. In the very top of the plugin we have to add the component stylesheet rules. To do this simply add `css!helloWorld-style` to the AMD define part of the UMD header of the component JavaScript file. It should look like this.
+At this point, if you rebuild the project with another `grunt dev` command, the project will build correctly, but the text will no longer have any styles. This is because we switched the component from a included state to an external lazy loadable state. This means that all dependancies have to be declared that are to be loaded seperately. To fix this style bug we need to make a small change to the UMD definition portion of the plugin. In the very top of the plugin we have to add the component stylesheet rules. To do this simply add `css!helloWorld-style` to the AMD define part of the UMD header of the component JavaScript file. It should look like this.
 
 ```js
 // File: src/project/components/js/helloWorld/helloWorld.js
@@ -240,10 +240,10 @@ At this point, if you rebuild the project with another `grunt dev` command, the 
 
 }));
 ```
-The reason developers are being asked to do this is to help prevent additional called
 
+One of the big advantages of using Core UI is that it will do to the best of its ability concatinate and minify similar resources down to into a single http requests per asset type. When we build the included verson of component stylesheets it was bundled with the Core UI `main.css`. Now that it is marked as a lazy loaded component, we need to declare this dependancey. 
 
-You might have noticed that a special prefix (`css!`) is added in front of the new dependancy. This is because requireJS by default does not support loading of anything other than Javascript files. But when you use Core UI we have baked in all the additional functionality needed to lazy load stylesheet (`css!`), JSON dataset (`json!`) and text (`text!`) based contents like Handlebars templates. You might have also notices, that although we added a an additional dependancy to the definition the `factory` function still only hase the `$` in the function argument. This is because script styles provide no useable return to the function, so it is safe to omit the argument.
+You might have also noticed that a special prefix (`css!`) is added in front of the new dependancy. This is because requireJS by default does not support loading of anything other than Javascript files. But when you use Core UI we have baked in all the additional functionality needed to lazy load stylesheet (`css!`), JSON dataset (`json!`) and text (`text!`) based contents like Handlebars templates. You might have also notices, that although we added a an additional dependancy to the definition the `factory` function still only hase the `$` in the function argument. This is because script styles provide no useable return to the function, so it is safe to omit the argument.
 
-At this point you should have a fully working component. This component is can be easily toggled between lazy loading and included by making only a few changes to the code or event better shared, by simply making a copy of the component directory.
+At this point you should have a fully working lazy loadable component. If you wanted to toggle this componenet back, simple remove the style dependancy from the AMD define section and in the `asset.json` file switch the `lazy` property value to `false`.
 
