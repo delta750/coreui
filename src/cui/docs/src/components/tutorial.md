@@ -1,20 +1,23 @@
-# Creating your First Core UI Component
+# Creating a component in Core UI
 
-Sooner or later, every developer is going to run across the need of some form of functionality that is not already being provided. But to properly intergrate that component into Core UI could be alittle confusing. So, lets create a simple Hello World component. The purpose of this component is to append a simple text message to any valid jQuery selectable element that a developer could provide. We also want to provide the developers with a way to override the default jQuery setting to change the message out directly using a options provided during execution, or by options attached using the `data-` HTML 5 attributes on the elements.
+Components in Core UI are structured in a standardized way. This helps to your project maintain separation between each moving part and ensures that testing is simplified and consistent.
+
+Here we will create a Hello World component which will append a simple text message to an element. It will also want to provide developers the option of overriding the default settings, either at the time of execution or by embedding the settings in a `data-` attribute.
 
 ## Prerequisites
 
-Before we get started, make sure you have all of the following.
+Be sure to have the following:
 
-- A recently cloned copy of [Core UI](https://github.com/ny/coreui)
-- A copy of Node JS (v0.10.38 and below, Do not use a more modern version)
-- A simple text editor or other IDE environment.
+- An up-to-date copy of [Core UI](https://github.com/ny/coreui)
+- [Node JS](https://nodejs.org/) (version 0.10 is recommended; newer versions are not yet supported)
 
-## Creating a simple script component
+## Adding JavaScript
 
-To start the creation process, lets add a folder to your project called `hello-world` to your `src/project/components` folder. If you dont have this `components` folder go ahead and create this as well.
+Create a folder called `hello-world` to the `src/project/components` folder. If you dont have a `components` folder go ahead and create one.
 
-Next inside of the `helloWorld` folder, create the following directory structure:
+Next, inside of the `helloWorld` folder, create two more folders, `js` and `test`. The former will contain the actual script while the latter will be used for automated testing of the component.
+
+You should have the following structure:
 
 ```
 helloWorld/
@@ -22,98 +25,108 @@ helloWorld/
     ├─ test/
 ```
 
-To start, lets flesh our the actual component code. Create the `helloWorld.js` file in the `js` folder; and add the following UMD ceremony boiler plate.
+Let's flesh out the actual component code. Create a file called `helloWorld.js` in the `js` folder and add the following boilerplate.
 
 ```js
 // File: src/project/components/js/helloWorld/helloWorld.js
 
 (function (factory) {
-
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
+        // Register as an anonymous module (AMD)
         define(['jquery'], factory);
-    } else {
+    }
+    else {
         // Browser globals
         factory(jQuery);
     }
-
 }(function ($) {
 
-    // Plugin code will go here.
+    // Component code
 
 }));
 ```
 
-The above code simply does the check to see if the AMD definition was defined. If it can find it, it will register the component using the AMD define method. This code is a requirement and this particular ceremony is the recommended standard for all Core UI components. With the ceremony in place, we can now focus on the actual plugin code. Simply add the following code under the plugin comment.
+This allows the component to be defined as an [asynchronous module](https://en.wikipedia.org/wiki/Asynchronous_module_definition). All Core UI components are defined this way ***(...because why? lazyloading, and what else?)***
+
+Now we can write the actual code for our component. There are many ways to [structure jQuery plugins](https://github.com/jquery-boilerplate/jquery-patterns). Here we will use a [highly configurable, mutable](https://github.com/jquery-boilerplate/jquery-patterns/blob/master/patterns/jquery.highly-configurable.plugin.boilerplate.js) plugin pattern, but of course when authoring your own components you may choose a more suitable pattern.
+
+Start by defining the plugin's name under the `Component code` comment:
 
 ```js
-// File: src/project/components/js/helloWorld/helloWorld.js
-
-// ... ceremoney start omitted ---
-
-// Plugin name, abstracted for single point of control
-var pluginName = "helloWorld";
-
-// Pluggin constructor
-var Plugin = function (elem, options) {
-
-    this.elem = elem;
-    this.$elem = $(elem);
-    this.options = options;
-
-    // Get HTML 5 data-attribute options
-    this.metadata = this.$elem.data('plugin-options');
-}
-
-// Plugin options and methods
-Plugin.prototype = {
-
-    // Plugin default options
-    defaults: {
-        message: 'Hello World'
-    },
-
-    // Plugin initialization code
-    init:  function() {
-
-        this.config = $.extend({}, this.defaults, this.options, this.metadata);
-
-        // Call the default function that should be executed
-        this.appendText();
-
-        return this;
-    },
-
-    // Plugin method
-    appendText: function() {
-
-        this.$elem.append(document.createTextNode(this.config.message));
-    }
-
-}
-
-// Create a short cut path to the default plugin definitions
-Plugin.defaults = Plugin.prototype.defaults;
-
-
-// Create the plugin in the jQuery namespace
-$.fn[pluginName] = function (options) {
-
-    // Iterate of each plugin individually and create a new instance for each occurance.
-    return this.each(function() {
-
-        // Create an instance of the plugin for each specific element.
-        new Plugin(this, options).init();
-
-    });
-};
-
-// ... ceremoney end omitted ---
-
-
+    // Plugin name, abstracted for single point of control
+    var pluginName = "helloWorld";
 ```
 
-Thats it! At this point you have create a very simple hello world component. Things to note, there are many different ways to create jQuery components, this tutorial is only going to show you one particular way. It is highly recommended that you do some research on what method to us based on the type of plugin/component being built.
+This lets us abstract the name from the rest of our code to keep it portable. Note that we are not creating a global variable because we're inside a an anonymous function wrapper.
+
+Next, below the name, add the constructor:
+
+```js
+    // Plugin constructor
+    var HelloWorld = function (elem, options) {
+        this.elem = elem;
+        this.$elem = $(elem);
+        this.options = options;
+
+        // Look for additional options in the element's data attribute
+        this.metadata = this.$elem.data('helloworld-options');
+    }
+```
+
+The contructor is pretty barebones &mdash; essentially it gathers and stores the element and any options that were passed.
+
+Next we build the constructor's prototype object which will contain its public properties and methods. Add the following below the constructor:
+
+```js
+    // Plugin options and methods
+    HelloWorld.prototype = {
+        // Default options
+        defaults: {
+            message: 'Hello World'
+        },
+
+        // Initialization code
+        init: function () {
+            this.config = $.extend({}, this.defaults, this.options, this.metadata);
+
+            // Call the default function that should be executed
+            this.appendText();
+
+            return this;
+        },
+
+        // Example method
+        appendText: function() {
+            this.$elem.append(document.createTextNode(this.config.message));
+        }
+    }
+```
+
+Now we have some default options (`message`), an `init` function which we'll come back to later, and the "main" function of this example, `appendText`.
+
+Since the `prototype` properties are public and may be overwritten, we'll store a copy of our default settings in a "private" property:
+
+```js
+    // Copy the default plugin definitions
+    HelloWorld.defaults = HelloWorld.prototype.defaults;
+```
+
+Finally, we need to register the plugin with jQuery. By leveraging its `$.fn` method we can make our plugin chainable so it behaves like any other jQuery function.
+
+```js
+    // Create the plugin in the jQuery namespace
+    $.fn[pluginName] = function (options) {
+        // Iterate of each plugin individually and create a new instance for each occurance
+        return this.each(function () {
+            // Create an instance of the plugin for each individual element
+            new HelloWorld(this, options).init();
+        });
+    };
+```
+
+And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file](And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file]https://gist.github.com/patik/4943ee297b0b75d23409).
+
+## Testing
 
 Now to test our new component and jQuery plugin, we should generate a test page. It is recommended that all components have a test page that accompanys them. A component can have as many test files as needed and they should all be specified in the `tests` folder right inside of the component directory. To get started create a `index.html` file inside our components `tests` directory. But, when we create this test, we could really be testing using the compiled CUI resources. To bootstrap your test page, take a copy of the base test template file from `src/cui/templates/base-test.html`. This template will take care of all your pathing issues as long as your test pages are inside of the component tests folder. Once copied, add the following code to the body section of the HTML right before the Core UI (`main.js`) script tag.
 
@@ -141,6 +154,7 @@ Now to test our new component and jQuery plugin, we should generate a test page.
 
 <!-- Template end omitted -->
 ```
+
 Next we need to create a new script section just underneth the `main.js`. This is where we will start using our newly created plugin, but first we need to use require to load it and its dependancies. To do this start by adding the following:
 
 ```html
@@ -241,7 +255,7 @@ At this point, if you rebuild the project with another `grunt dev` command, the 
 }));
 ```
 
-One of the big advantages of using Core UI is that it will do to the best of its ability concatinate and minify similar resources down to into a single http requests per asset type. When we build the included verson of component stylesheets it was bundled with the Core UI `main.css`. Now that it is marked as a lazy loaded component, we need to declare this dependancey. 
+One of the big advantages of using Core UI is that it will do to the best of its ability concatinate and minify similar resources down to into a single http requests per asset type. When we build the included verson of component stylesheets it was bundled with the Core UI `main.css`. Now that it is marked as a lazy loaded component, we need to declare this dependancey.
 
 You might have also noticed that a special prefix (`css!`) is added in front of the new dependancy. This is because requireJS by default does not support loading of anything other than Javascript files. But when you use Core UI we have baked in all the additional functionality needed to lazy load stylesheet (`css!`), JSON dataset (`json!`) and text (`text!`) based contents like Handlebars templates. You might have also notices, that although we added a an additional dependancy to the definition the `factory` function still only hase the `$` in the function argument. This is because script styles provide no useable return to the function, so it is safe to omit the argument.
 
