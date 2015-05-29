@@ -2,11 +2,15 @@
 
 Sooner or later, every developer is going to run across the need of some form of functionality that is not already being provided. But to properly intergrate that component into Core UI could be alittle confusing. So, lets create a simple Hello World component. The purpose of this component is to append a simple text message to any valid jQuery selectable element that a developer could provide. We also want to provide the developers with a way to override the default jQuery setting to change the message out directly using a options provided during execution, or by options attached using the `data-` HTML 5 attributes on the elements.
 
+## Prerequisites
+
 Before we get started, make sure you have all of the following.
 
 - A recently cloned copy of [Core UI](https://github.com/ny/coreui)
 - A copy of Node JS (v0.10.38 and below, Do not use a more modern version)
 - A simple text editor or other IDE environment.
+
+## Creating a simple script component
 
 To start the creation process, lets add a folder to your project called `hello-world` to your `src/project/components` folder. If you dont have this `components` folder go ahead and create this as well.
 
@@ -21,7 +25,7 @@ helloWorld/
 To start, lets flesh our the actual component code. Create the `helloWorld.js` file in the `js` folder; and add the following UMD ceremony boiler plate.
 
 ```js
-// File: src/project/components/helloWorld/helloWorld.js
+// File: src/project/components/js/helloWorld/helloWorld.js
 
 (function (factory) {
 
@@ -43,7 +47,7 @@ To start, lets flesh our the actual component code. Create the `helloWorld.js` f
 The above code simply does the check to see if the AMD definition was defined. If it can find it, it will register the component using the AMD define method. This code is a requirement and this particular ceremony is the recommended standard for all Core UI components. With the ceremony in place, we can now focus on the actual plugin code. Simply add the following code under the plugin comment.
 
 ```js
-// File: src/project/components/helloWorld/helloWorld.js
+// File: src/project/components/js/helloWorld/helloWorld.js
 
 // ... ceremoney start omitted ---
 
@@ -135,6 +139,8 @@ Now to test our new component and jQuery plugin, we should generate a test page.
 Next we need to create a new script section just underneth the `main.js`. This is where we will start using our newly created plugin, but first we need to use require to load it and its dependancies. To do this start by adding the following:
 
 ```html
+<!-- File: src/project/components/helloWorld/tests.helloWorld.html -->
+
 <script>
 
     $(document).ready(function) {
@@ -156,3 +162,66 @@ Next we need to create a new script section just underneth the `main.js`. This i
 By default we created a very simple module and because we didnt not declare it in any special why, the module was prebuilt and shipped inside of Core UI main.js. So in order to use this module we simply need to wait for the document to be ready and then we just need to call it. To test your plugin, open a terminal or command prompt window that has access to nodejs. Then simple travel to the project folder root and enter the command `grunt dev`. Once the terminal returns the status of `Waiting...` Simply go check you [test page](http://localhost:8888/dist/tests/helloWolrd/). You should see something similar to the image below.
 
 ![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")
+
+## Adding in some style.
+
+This is a great first start, but it would be nice to include some styles as well. So first, we need to make a slight change to the existing `helloWorld.js` file to add classes to the elements we add text too. This will allow use to create special styles that can override the base Core UI styles. To do this lets add one more step to the appendText method of our component.
+
+```js
+
+// File: src/project/components/js/helloWorld/helloWorld.js
+
+// beggining of file omitted
+
+appendText: function() {
+    this.$elem.addClass("helloText");
+
+}
+
+// end of file omitted
+
+```
+
+Next we need to create the component styles we want to add. To do this, we need to add a folder for our component project called `scss`. Inside of this folder create a file called helloWorld.scss and add the following contents.
+
+```scss
+// File: src/project/components/js/helloWorld/helloWorld.js
+
+$primary: blue;
+
+.helloText {
+    color: $primary;
+}
+```
+No lets text these changes. If you are still running the old `grunt dev` task, kill it via `ctrl+c` and then start another `grunt-dev` task. If you still have the old browser open, simply refresh the page again.
+
+![Finished hello world component page with styles](/docs/_includes/images/hello-world-done-blue.png "Finished hello world component page with styles")
+
+## Lets load this conditionally
+
+So now that we have this component all setup; lets make it conditionally loadable. This is pretty simple actually. First we need to make a component `asset.json` config file. This will allow component developers and consumers to control its loading method. To do this in the root of your component folder create the `asset.json` and set its contents to be:
+
+```json
+{
+    "lazy": true
+}
+```
+
+At this point, if you rebuild the project with another `grunt dev` command, the project will build correctly, but the test page will no longer work. This is because the `helloWorld` component was never built into the `main.js`. So to correct this action we need to make a few changes. First lets fix the loading of the module on the test page. First lets do this by fixing the in page javascript. In this case we need to replace the traditional jQuery domcument reay and selections with a require wrapper. Change the page script to match the below:
+
+```js
+require(['jquery','helloWorld', 'domReady!'], function($) {
+
+    // Setup the id (h2)
+    $('#helloWorld').helloWorld();
+
+    // Setup the classe (p)
+    $('.helloWorld').helloWorld({message: "Hello Classe Element!"});
+
+    // Setup the element selctors (ul li's)
+    $('ul li').helloWorld();
+
+});
+```
+
+As you can see in the example. The we declared the `jquery` dependancy as well as the component we just built. The last dependancey of `domReady!` is the requirejs equivalent of the jquery `$(document).ready` syntax.
