@@ -46,7 +46,7 @@ Let's flesh out the actual component code. Create a file called `helloWorld.js` 
 }));
 ```
 
-This allows the component to be defined as an [asynchronous module](https://en.wikipedia.org/wiki/Asynchronous_module_definition). All Core UI components are defined this way ***(...because why? lazyloading, and what else?)***
+This allows the component to be defined as an [asynchronous module](https://en.wikipedia.org/wiki/Asynchronous_module_definition). All Core UI components are defined this way as it make the components modular in nature. Core UI use the AMD specification because it was written with the web in mind and is the preferred structure for [RequireJS](http://requirejs.org) modules.
 
 Now we can write the actual code for our component. There are many ways to [structure jQuery plugins](https://github.com/jquery-boilerplate/jquery-patterns). Here we will use a [highly configurable, mutable](https://github.com/jquery-boilerplate/jquery-patterns/blob/master/patterns/jquery.highly-configurable.plugin.boilerplate.js) plugin pattern, but of course when authoring your own components you may choose a more suitable pattern.
 
@@ -124,7 +124,7 @@ Finally, we need to register the plugin with jQuery. By leveraging its `$.fn` me
     };
 ```
 
-And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file](And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file]https://gist.github.com/patik/4943ee297b0b75d23409).
+And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file](https://gist.github.com/patik/4943ee297b0b75d23409).
 
 ### Try it
 
@@ -154,26 +154,33 @@ To try out the component we can create a short HTML file. Let's put it in the `t
 </html>
 ```
 
-Open the page in a browser and you should see "Hello World!" printed in large letters. If you only see a blank page, make sure you've [built the project](../getting-started.html) at least once.
+Open the page in a browser and you should see "Hello World!" printed in large letters. If you only see a blank page, make sure you've [built the project](../getting-started.html) at least once. When the page loads, the words "Hello World" should appear at the top of the page.
 
-## Testing
+#### Lets try to use some options
 
-Now to test our new component and jQuery plugin, we should generate a test page. It is recommended that all components have a test page that accompanys them. A component can have as many test files as needed and they should all be specified in the `tests` folder right inside of the component directory. To get started create a `index.html` file inside our components `tests` directory. But, when we create this test, we could really be testing using the compiled CUI resources. To bootstrap your test page, take a copy of the base test template file from `src/cui/templates/base-test.html`. This template will take care of all your pathing issues as long as your test pages are inside of the component tests folder. Once copied, add the following code to the body section of the HTML right before the Core UI (`main.js`) script tag.
+Inside our test page, just under the `h2` reference lets add a paragraph tag and use a class to test the component.
 
 ```html
-<!-- File: src/project/components/helloWorld/tests/helloWorld.html -->
 
-<!-- Template start omitted -->
+<p class="helloWorld"></p>
 
-<!-- ID based test -->
-<h2 id="helloWorld">
-</h2>
+```
 
-<!-- Class based test -->
-<p class="helloWorld">
-</p>
+Next, back in the script tag under the id test selector, add a new jQuery selector using the newly create `.helloWorld` class. But, this time we will pass in an options object overrideing the message text to be `Hello Class Element!`.
 
-<!-- Element based test -->
+```js
+// Class Test
+$('.helloWorld').helloWorld({message: "Hello Class Element!"});
+```
+
+Once finished, rebuild the project and refreash the test page. This time two hello messages should appear, one saying "Hello World", the other saying "Hello Class Element!"
+
+#### Trying html options.
+
+For a final test of the component, we need to try passing in options via the html `data-` attribute. To begin, under the element test, add an unordered list and a handful of list items. On each of the list items create a data attribute similar to the example below:
+
+```html
+
 <ul>
     <li data-plugin-options='{"message":"Hello Item 1!"}'></li>
     <li data-plugin-options='{"message":"Hello Item 2!"}'></li>
@@ -182,82 +189,53 @@ Now to test our new component and jQuery plugin, we should generate a test page.
     <li data-plugin-options='{"message":"Hello Item 5!"}'></li>
 </ul>
 
-<!-- Template end omitted -->
 ```
 
-Next we need to create a new script section just underneth the `main.js`. This is where we will start using our newly created plugin, but first we need to use require to load it and its dependancies. To do this start by adding the following:
+Next, lets alter the page script one last time. This time using a jQuery selector that selects all of the list items.
 
-```html
-<!-- File: src/project/components/helloWorld/tests/helloWorld.html -->
+```js
 
-<!-- Template start omitted -->
+$('ul li').helloWorld();
 
-<script>
-
-    require(['helloWorld', 'domReady!'], function() {
-
-        // Setup the id (h2)
-        $('#helloWorld').helloWorld();
-
-        // Setup the classe (p)
-        $('.helloWorld').helloWorld({message: "Hello Classe Element!"});
-
-        // Setup the element selctors (ul li's)
-        $('ul li').helloWorld();
-
-    });
-
-</script>
-
-<!-- Template end omitted -->
 ```
 
-Since we are using requireJS we will need build our in page script to match the syntax preferred by requireJS. In order to test our component, we all need to call it and we want to only execute it once we know the page is ready. To meet these dependancy requirements we simple need to list `helloWorld` and `domReady!`. The name of our component has defaulted to the name of our component directory since we didnt specify a specific name. The `domReady!` functionality is a requireJS plugin that has been prebaked into Core UI from the start and is the recommended method for waiting for the page to be ready before executing code. You may have notices, we didnt list jQuery specifically. This is because jQuery is already a dependancy of the `helloWorld` component and requireJS will make sure its include for us before executing any of the code below.
-
-Now that you have all of these im place, it a great time to test your newely create component. To do this in a node command prompt or terminal, move to the project directory and execute the command `grunt dev`. This will actively build your project and start a test web server. Once you see the `Waiting ... ` in the command propmt, simple visit your new test server in any browser at [http://localhost:8888/dist/test/helloWorld](http://localhost:8888/dist/test/helloWorld). You should see something similar to the image below.
+Rebuild the project and reload the test page again. The test page should now appear with the appended messages in the `h2`, `p` and in a different message in each `li` elements. The image below represents an example of what you should expect to see. For reference, here is the [complete `helloWorld.js` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
 
 ![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")
 
-## Adding in some style.
+## Adding SASS.
 
-This is a great first start, but it would be nice to include some styles as well. So first, we need to make a slight change to the existing `helloWorld.js` file to add classes to the elements we add text too. This will allow use to create special styles that can override the base Core UI styles. To do this lets add one more step to the appendText method of our component.
-
-```js
-// File: src/project/components/js/helloWorld/helloWorld.js
-
-// beggining of file omitted
-
-appendText: function() {
-    this.$elem.addClass("helloText");
-
-}
-
-// end of file omitted
-
-```
-
-Next we need to create the component styles we want to add based off the additional style classe. To do this, we need to add a folder for our component project called `scss`. Inside of this folder create a file called helloWorld.scss and add the following contents.
+Start by creating a `scss` folder in the root of the `helloWorld` component. Inside this new folder, create a `helloWorld.scss` file and add the following contents:
 
 ```scss
-// File: src/project/components/js/helloWorld/helloWorld.js
 
 $primary: blue;
 
 .helloText {
     color: $primary;
 }
+
 ```
-Now lets test these changes. If you are still running the old `grunt dev` task, kill it via `ctrl+c` and then start another `grunt-dev` task. If you still have the old browser open, simply refresh the [page](http://localhost:8888/dist/test/helloWorld).
+
+Now we need to add a class hook in our HTML so these style get applied. To do this, modify the components `appendText` method in the `helloWorld.js` file to add a class to each element that it appends text too.
+
+```js
+
+appendText: function() {
+    this.$elem.addClass('helloText');
+}
+
+```
+
+Once finished, rebuild the project again and browse to the test page. The contents of the page should remain the same, but the color of all the appended text should have turned blue. The image below represents and example of how the test page should render. For your reference, a copy of the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
 
 ![Finished hello world component page with styles](/docs/_includes/images/hello-world-done-blue.png "Finished hello world component page with styles")
 
-## Lets load this conditionally
+## Making the component lazy loadable.
 
-So now that we have this component all setup; lets make it conditionally loadable. This is pretty simple actually. First we need to make a component `asset.json` config file. This will allow component developers and consumers to control its loading method. To do this in the root of your component folder create the `asset.json` and set its contents to be:
+Now its possible that a project may require a peice of functionality only one a few specific pages or in special testable circumstances. When this is the case its best to make a component lazy loadable. This benefits the standard code base in that its make the `main.js` and `main.css` files slighly smaller. But also makes it
 
 ```json
-// File: src/project/components/js/helloWorld/asset.json
-
 {
     "lazy": true
 }
