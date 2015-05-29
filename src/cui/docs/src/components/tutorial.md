@@ -118,6 +118,10 @@ Thats it! At this point you have create a very simple hello world component. Thi
 Now to test our new component and jQuery plugin, we should generate a test page. It is recommended that all components have a test page that accompanys them. A component can have as many test files as needed and they should all be specified in the `tests` folder right inside of the component directory. To get started create a `index.html` file inside our components `test` directory. But when we create this test, we could really be testing using the compiled CUI resources. To bootstrap your test page, take a copy of the base template file from `src/cui/templates/base-test.html`. This template will take care of all your pathing issues as long as the test page is being created inside of the component test folder. Once copied, add the following code to the body section of the HTML right before the Core UI (`main.js`) script tag.
 
 ```html
+<!-- File: src/project/components/helloWorld/tests/helloWorld.html -->
+
+<!-- Template start omitted -->
+
 <!-- ID based test -->
 <h2 id="helloWorld">
 </h2>
@@ -135,11 +139,14 @@ Now to test our new component and jQuery plugin, we should generate a test page.
     <li data-plugin-options='{"message":"Hello Item 5!"}'></li>
 </ul>
 
+<!-- Template end omitted -->
 ```
 Next we need to create a new script section just underneth the `main.js`. This is where we will start using our newly created plugin, but first we need to use require to load it and its dependancies. To do this start by adding the following:
 
 ```html
-<!-- File: src/project/components/helloWorld/tests.helloWorld.html -->
+<!-- File: src/project/components/helloWorld/tests/helloWorld.html -->
+
+<!-- Template start omitted -->
 
 <script>
 
@@ -157,6 +164,8 @@ Next we need to create a new script section just underneth the `main.js`. This i
     });
 
 </script>
+
+<!-- Template end omitted -->
 ```
 
 By default we created a very simple module and because we didnt not declare it in any special why, the module was prebuilt and shipped inside of Core UI main.js. So in order to use this module we simply need to wait for the document to be ready and then we just need to call it. To test your plugin, open a terminal or command prompt window that has access to nodejs. Then simple travel to the project folder root and enter the command `grunt dev`. Once the terminal returns the status of `Waiting...` Simply go check you [test page](http://localhost:8888/dist/tests/helloWolrd/). You should see something similar to the image below.
@@ -168,7 +177,6 @@ By default we created a very simple module and because we didnt not declare it i
 This is a great first start, but it would be nice to include some styles as well. So first, we need to make a slight change to the existing `helloWorld.js` file to add classes to the elements we add text too. This will allow use to create special styles that can override the base Core UI styles. To do this lets add one more step to the appendText method of our component.
 
 ```js
-
 // File: src/project/components/js/helloWorld/helloWorld.js
 
 // beggining of file omitted
@@ -202,6 +210,8 @@ No lets text these changes. If you are still running the old `grunt dev` task, k
 So now that we have this component all setup; lets make it conditionally loadable. This is pretty simple actually. First we need to make a component `asset.json` config file. This will allow component developers and consumers to control its loading method. To do this in the root of your component folder create the `asset.json` and set its contents to be:
 
 ```json
+// File: src/project/components/js/helloWorld/asset.json
+
 {
     "lazy": true
 }
@@ -209,7 +219,12 @@ So now that we have this component all setup; lets make it conditionally loadabl
 
 At this point, if you rebuild the project with another `grunt dev` command, the project will build correctly, but the test page will no longer work. This is because the `helloWorld` component was never built into the `main.js`. So to correct this action we need to make a few changes. First lets fix the loading of the module on the test page. First lets do this by fixing the in page javascript. In this case we need to replace the traditional jQuery domcument reay and selections with a require wrapper. Change the page script to match the below:
 
-```js
+```html
+<!-- File: src/project/components/helloWorld/tests/helloWorld.html -->
+
+<!-- Template start omitted -->
+
+<script>
 require(['jquery','helloWorld', 'domReady!'], function($) {
 
     // Setup the id (h2)
@@ -222,6 +237,36 @@ require(['jquery','helloWorld', 'domReady!'], function($) {
     $('ul li').helloWorld();
 
 });
+</script>
+
+<!-- Template end omitted -->
 ```
 
-As you can see in the example. The we declared the `jquery` dependancy as well as the component we just built. The last dependancey of `domReady!` is the requirejs equivalent of the jquery `$(document).ready` syntax.
+As you can see in the example. We had to switch the requireJS structure which requries us to use declare all of our dependancies. So for this particular component, we need to include jQuery, the component itself, and the domReady plugin. You may also notice that the only argument in the function callback is the jQuery `$`. This is because, out of all our dependancies, jQuery is the only one that has a useable return type. This is because in this example our component bakes functionality right into the jQuery namespace and domReady! statment is the require equivalent of the jQuery `$(document).ready`.
+
+Now the page should be runnable, but our styles are missing! To fix this we need to tweak our component definition to include its style dependanceies. To do this simply add `css!helloWorld-style` to the AMD define part of the UMD header of the component JavaScript file. It should look like this.
+
+```js
+// File: src/project/components/js/helloWorld/helloWorld.js
+
+(function (factory) {
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery', 'css!helloWorld-style'], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+
+}(function ($) {
+
+    // Plugin code will go here.
+
+}));
+```
+
+You might have noticed that a special prefix (`css!`) is added in front of the new dependancy. This is because requireJS by default does not support loading of anything other than Javascript files. But when you use Core UI we have baked in all the additional functionality needed to lazy load stylesheet (`css!`), JSON dataset (`json!`) and text (`text!`) based contents like Handlebars templates. You might have also notices, that although we added a an additional dependancy to the definition the `factory` function still only hase the `$` in the function argument. This is because script styles provide no useable return to the function, so it is safe to omit the argument.
+
+At this point you should have a fully working component. This component is can be easily toggled between lazy loading and included by making only a few changes to the code or event better shared, by simply making a copy of the component directory.
+
