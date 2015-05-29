@@ -15,14 +15,14 @@ Be sure to have the following:
 
 Create a folder called `hello-world` to the `src/project/components` folder. If you dont have a `components` folder go ahead and create one.
 
-Next, inside of the `helloWorld` folder, create two more folders, `js` and `test`. The former will contain the actual script while the latter will be used for automated testing of the component.
+Next, inside of the `helloWorld` folder, create two more folders, `js` and `tests`. The former will contain the actual script while the latter will be used for automated testing of the component.
 
 You should have the following structure:
 
 ```
 helloWorld/
     ├─ js/
-    ├─ test/
+    ├─ tests/
 ```
 
 Let's flesh out the actual component code. Create a file called `helloWorld.js` in the `js` folder and add the following boilerplate.
@@ -125,6 +125,36 @@ Finally, we need to register the plugin with jQuery. By leveraging its `$.fn` me
 ```
 
 And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file](And now the plugin is ready. For reference, here is the [complete `helloWorld.js` file]https://gist.github.com/patik/4943ee297b0b75d23409).
+
+### Try it
+
+To try out the component we can create a short HTML file. Let's put it in the `tests` folder so we can reuse the file for testing later. Create the file `src/project/components/helloWorld/tests/helloWorld.html` and add the following:
+
+```html
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello World Test</title>
+        <link href="../../css/main.css" rel="stylesheet" type="text/css" media="all">
+        <!--[if lt IE 9]><script src="../js/components/html5shiv.js"></script><![endif]-->
+    </head>
+    <body>
+        <h2 id="helloWorld"></h2>
+
+        <script id="require" src="../../js/main.js"></script>
+        <script>
+            require(['helloWorld', 'domReady!'], function() {
+                // ID test
+                $('#helloWorld').helloWorld();
+            });
+        </script>
+    </body>
+</html>
+```
+
+Open the page in a browser and you should see "Hello World!" printed in large letters. If you only see a blank page, make sure you've [built the project](../getting-started.html) at least once.
 
 ## Testing
 
