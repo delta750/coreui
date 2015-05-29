@@ -21,6 +21,21 @@ function gruntTask() {
 		switch (type) {
 
 			case "sass":
+
+				// Add the files sub object
+				config['files'] = {};
+
+				// Loop through and do the one to one match
+				for (var i = 0, len = source.length; i < len; i++) {
+
+					// Fix the extension
+					var newDest = dest[i].replace('scss', 'css');
+
+					config.files[dest[i]] = source[i];
+				}
+
+				break;
+
 			case "uglify":
 
 				// Add the files sub object

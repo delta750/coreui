@@ -105,22 +105,15 @@ var build = function() {
         // Write the header
         ws.write(header);
 
-        if (includeStyles.length !== 0) {
+        includeStyles.forEach(function(style) {
 
-            includeStyles.forEach(function(style) {
+            ws.write('@import "' + style + '";');
 
-                ws.write('@import "' + style + '";');
+        });
 
-            });
+        ws.end();
 
-            ws.end();
-
-            next(rm);
-
-        } else {
-
-            next(rm);
-        }
+        next(rm);
 
     }
 

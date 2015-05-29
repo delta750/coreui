@@ -86,6 +86,8 @@ function lazy() {
 
 			} else if (file.ext === "scss") {
 
+				options.registered.lazy[name] = fs.pathJoin(options.paths.dest.style, file.name.replace('.scss', ''));
+
 				scssTasks.push(file);
 
 			}
