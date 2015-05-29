@@ -150,7 +150,7 @@ Next we need to create a new script section just underneth the `main.js`. This i
 
 <script>
 
-    $(document).ready(function) {
+    $(document).ready(function() {
 
         // Setup the id (h2)
         $('#helloWorld').helloWorld();
@@ -168,7 +168,9 @@ Next we need to create a new script section just underneth the `main.js`. This i
 <!-- Template end omitted -->
 ```
 
-By default we created a very simple module and because we didnt not declare it in any special why, the module was prebuilt and shipped inside of Core UI main.js. So in order to use this module we simply need to wait for the document to be ready and then we just need to call it. To test your plugin, open a terminal or command prompt window that has access to nodejs. Then simple travel to the project folder root and enter the command `grunt dev`. Once the terminal returns the status of `Waiting...` Simply go check you [test page](http://localhost:8888/dist/tests/helloWolrd/). You should see something similar to the image below.
+Since we are using requireJS we will need build our in page script to match the syntax preferred by requireJS. In order to test our component, we all need to call it and we want to only execute it once we know the page is ready. To meet these dependancy requirements we simple need to list `helloWorld` and `domReady!`. The name of our component has defaulted to the name of our component directory since we didnt specify a specific name. The `domReady!` functionality is a requireJS plugin that has been prebaked into Core UI from the start and is the recommended method for waiting for the page to be ready before executing code. You may have notices, we didnt list jQuery specifically. This is because jQuery is already a dependancy of the `helloWorld` component and requireJS will make sure its include for us before executing any of the code below.
+
+Now that you have all of these im place, it a great time to test your newely create component. To do this in a node command prompt or terminal, move to the project directory and execute the command `grunt dev`. This will actively build your project and start a test web server. Once you see the `Waiting ... ` in the command propmt, simple visit your new test server in any browser at [http://localhost:8888/dist/test/helloWorld](http://localhost:8888/dist/test/helloWorld). You should see something similar to the image below.
 
 ![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")
 
