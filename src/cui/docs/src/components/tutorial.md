@@ -161,7 +161,6 @@ Open the page in a browser and you should see "Hello World!" printed in large le
 Inside our test page, just under the `h2` reference lets add a paragraph tag and use a class to test the component.
 
 ```html
-
 <p class="helloWorld"></p>
 
 ```
@@ -180,7 +179,6 @@ Once finished, rebuild the project and refreash the test page. This time two hel
 For a final test of the component, we need to try passing in options via the html `data-` attribute. To begin, under the element test, add an unordered list and a handful of list items. On each of the list items create a data attribute similar to the example below:
 
 ```html
-
 <ul>
     <li data-plugin-options='{"message":"Hello Item 1!"}'></li>
     <li data-plugin-options='{"message":"Hello Item 2!"}'></li>
@@ -194,12 +192,11 @@ For a final test of the component, we need to try passing in options via the htm
 Next, lets alter the page script one last time. This time using a jQuery selector that selects all of the list items.
 
 ```js
-
 $('ul li').helloWorld();
 
 ```
 
-Rebuild the project and reload the test page again. The test page should now appear with the appended messages in the `h2`, `p` and in a different message in each `li` elements. The image below represents an example of what you should expect to see. For reference, here is the [complete `helloWorld.js` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
+Rebuild the project and reload the test page again. The test page should now appear with the appended messages in the `h2`, `p` and in a different message in each `li` elements. The image below represents an example of what you should expect to see. For reference, here is the [complete `helloWorld.html` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
 
 ![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")
 
@@ -208,7 +205,6 @@ Rebuild the project and reload the test page again. The test page should now app
 Start by creating a `scss` folder in the root of the `helloWorld` component. Inside this new folder, create a `helloWorld.scss` file and add the following contents:
 
 ```scss
-
 $primary: blue;
 
 .helloText {
@@ -220,7 +216,6 @@ $primary: blue;
 Now we need to add a class hook in our HTML so these style get applied. To do this, modify the components `appendText` method in the `helloWorld.js` file to add a class to each element that it appends text too.
 
 ```js
-
 appendText: function() {
     this.$elem.addClass('helloText');
 }
@@ -233,39 +228,69 @@ Once finished, rebuild the project again and browse to the test page. The conten
 
 ## Making the component lazy loadable.
 
-Now its possible that a project may require a peice of functionality only one a few specific pages or in special testable circumstances. When this is the case its best to make a component lazy loadable. This benefits the standard code base in that its make the `main.js` and `main.css` files slighly smaller. But also makes it
+When building out a project, some of the functionality or style used in that project may only apply for a handful of circumstances. When this happens its best practices to not include these additional resources in your base assets (`main.js` and `main.css`). In stead they should be lazy loadable so they can be directly or conditionally loaded on pages that need them.
+
+To make a component lazy loadable we need to creat a new component configuration file. In the root of our `helloWorld` component create a `asset.json` file. Inside it add the following contents:
 
 ```json
 {
     "lazy": true
 }
+
 ```
 
-At this point, if you rebuild the project with another `grunt dev` command, the project will build correctly, but the text will no longer have any styles. This is because we switched the component from a included state to an external lazy loadable state. This means that all dependancies have to be declared that are to be loaded seperately. To fix this style bug we need to make a small change to the UMD definition portion of the plugin. In the very top of the plugin we have to add the component stylesheet rules. To do this simply add `css!helloWorld-style` to the AMD define part of the UMD header of the component JavaScript file. It should look like this.
+With this single file in place, simply rebuilding the project will recreate the base assets and list `helloWorld` component as being lazy loadable. But, before it can be considered the conversion complete, one more change has to be made, and that is to make the component styles a dependancy of the component itself. Lazy loadable components and there asset types (script, styles, etc...) are not auto bundled together on purpose. To give developers the maximum amount of control possible, developers must specifiy in all of the required dependancies. Now to add back the styles, lets change the `helloWorld.js` file. In the AMD define statment we nedd to add one more item to the array and; `css!helloWorld-style`. Note that special `css!` command in fornt. This prefix to the component tells requireJS that the this specific dependancy is a style sheet and will change the load process during runtime.
 
 ```js
-// File: src/project/components/js/helloWorld/helloWorld.js
+define(['jquery', 'css!helloWorld-style'], factory);
 
-(function (factory) {
+```
+### Trying it out with conditional lazy loading.
 
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery', 'css!helloWorld-style'], factory);
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
+Now rebuilding the project and refreash the test page should cause the page to render simliar to our prior examples. The only diffrence this time is the in page code will make additional `http` request on launch to get the component `helloWorld` assets. But, lets try to load this resource conditionally. To do that, lets create a second test page in the components `tests` folder. Lets call this one `helloWolrd-lazy.html` and bootstrap it with the same `base-test.html`. The only difference here is we will add a few different elements to the page. The script section has also changed so that is is going to attempt to find specific elements and load them only if them using the `cui.load` function if elments are found.
 
-}(function ($) {
+```html
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello World Test</title>
+        <link href="../../css/main.css" rel="stylesheet" type="text/css" media="all">
+        <!--[if lt IE 9]><script src="../js/components/html5shiv.js"></script><![endif]-->
+    </head>
+    <body>
 
-    // Plugin code will go here.
+        <p class="conditional"></p>
+        <p class="conditional"></p>
+        <p class="conditional"></p>
 
-}));
+        <script id="require" src="../../js/main.js"></script>
+        <script>
+
+            // Wait for the page to be ready
+            require(['domReady!'], function() {
+
+                // Poll the page for specific elements with specific classes
+                var conditionalElem = $('.conditional-true');
+
+                // Check to see if the page has any elements with our specific class.
+                if (conditionalElem.length >= 1) {
+
+                    // We have elements, so using the cui namespace load the helloWorld Component
+                    cui.load('helloWorld', function() {
+
+                        // Kick of the helloWorldPlugin
+                        conditionalElem.helloWorld();
+                    });
+                }
+
+            });
+        </script>
+    </body>
+</html>
+
 ```
 
-One of the big advantages of using Core UI is that it will do to the best of its ability concatinate and minify similar resources down to into a single http requests per asset type. When we build the included verson of component stylesheets it was bundled with the Core UI `main.css`. Now that it is marked as a lazy loaded component, we need to declare this dependancey.
-
-You might have also noticed that a special prefix (`css!`) is added in front of the new dependancy. This is because requireJS by default does not support loading of anything other than Javascript files. But when you use Core UI we have baked in all the additional functionality needed to lazy load stylesheet (`css!`), JSON dataset (`json!`) and text (`text!`) based contents like Handlebars templates. You might have also notices, that although we added a an additional dependancy to the definition the `factory` function still only hase the `$` in the function argument. This is because script styles provide no useable return to the function, so it is safe to omit the argument.
-
-At this point you should have a fully working lazy loadable component. If you wanted to toggle this componenet back, simple remove the style dependancy from the AMD define section and in the `asset.json` file switch the `lazy` property value to `false`.
+When you build the project and run the above test page, nothing should happen. Now go back and change one of the elements `conditional` classes to be `conditional-true`. When you reload the page this time, the script tag should find a conditional element that meets our requirements and the `cui.load` process will request the helloWorld resources. For your reference, here is a complete of the [helloWorld-lazy.html test page](https://gist.github.com/JeffHerb/aa9d25c9b615093fb324).
 
