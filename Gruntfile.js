@@ -34,6 +34,7 @@ module.exports = function(grunt) {
         clean: {
             dist: [
                 'dist',
+                'docs',
                 'src/components/**/dist/',
                 '!src/components/**/node_modules/**/dist/',
             ],
@@ -202,7 +203,7 @@ module.exports = function(grunt) {
 
             markdown: {
                 files: [
-                    'docs/src/**/*.*',
+                    'cui/docs/src/**/*.*',
                 ],
                 tasks: [
                     'markdown',
