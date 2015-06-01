@@ -196,7 +196,7 @@ $('li').helloWorld();
 
 Rebuild the project and reload the test page again. You should see three different sets of customized messages in the `h2`, `p`, and `li` elements:
 
-![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")
+![Finished hello world component page](/docs/_includes/images/hello-world-basic.png "Finished hello world component page")
 
 For reference, here is the [complete `helloWorld.html` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
 
@@ -205,24 +205,25 @@ For reference, here is the [complete `helloWorld.html` file](https://gist.github
 Start by creating a `scss` folder alongside the `js` and `tests` folders. Inside, create a `helloWorld.scss` file and add the following:
 
 ```scss
-$primary: blue;
+$primary: #fe57a1;
 
 .helloText {
     color: $primary;
 }
 ```
 
-Now we need to add a class hook in our HTML so the style will get applied. Modify the `appendText` method in the `helloWorld.js` file to add a class to each element that it appends text too.
+Now we need to add a class hook in our HTML so the style will get applied. Add another line to the `appendText` method in the `helloWorld.js` file to add a class to each element:
 
 ```js
 appendText: function() {
+    this.$elem.append(document.createTextNode(this.config.message));
     this.$elem.addClass('helloText');
 }
 ```
 
-Rebuild the project again and refresh the test page. The contents of the page should remain the same, but the color of all the appended text should have turned `blue`:
+Rebuild the project again and refresh the test page. The contents of the page should remain the same, but the color of all the appended text should have changed:
 
-![Finished hello world component page with styles](/docs/_includes/images/hello-world-done-blue.png "Finished hello world component page with styles")
+![Finished hello world component page with styles](/docs/_includes/images/hello-world-with-style.png "Finished hello world component page with styles")
 
 For your reference, here is the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
 
