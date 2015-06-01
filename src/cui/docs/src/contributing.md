@@ -15,7 +15,7 @@ Todo.
 
 ## Reporting issues
 
-Before opening a new issue, please use the [Filter box to search past issues](https://github.com/ny/frg-coreui/issues?q=is%3Aissue+is%3Aopen+) to see if the topic has been covered.
+Before opening a new issue, please use the [Filter box to search past issues](https://github.com/ny/coreui/issues?q=is%3Aissue+is%3Aopen+) to see if the topic has been covered.
 
 Be sure that the issue is in Core UI and not your project's code. You should be able to duplicate the issue by [creating a new Core UI project](getting-started.md) and recreating the problem there.
 
@@ -25,7 +25,7 @@ TODO:
 
 ### Labels
 
-You should normally add one or two [labels](https://github.com/ny/frg-coreui/labels) to a new issue to help the team tackle problems efficiently.
+You should normally add one or two [labels](https://github.com/ny/coreui/labels) to a new issue to help the team tackle problems efficiently.
 
 ## Code Guidelines
 
@@ -35,11 +35,11 @@ Todo.
 
 Please see the [guidelines]() to determine whether you feature belongs in Core UI, in your own project, or in another repository.
 
-[Open a new issue](https://github.com/ny/frg-coreui/issues/new) and use the `feature` label. You may add another label such as `css` or `javascript` if it's appropriate. Feel free to use the `question` label if you're not sure where your feature request fits.
+[Open a new issue](https://github.com/ny/coreui/issues/new) and use the `feature` label. You may add another label such as `css` or `javascript` if it's appropriate. Feel free to use the `question` label if you're not sure where your feature request fits.
 
 ### Pull requests
 
-[Fork the repository](https://github.com/ny/frg-coreui/fork) to make changes, fix bugs, add new features, etc. When you are done, open a pull request (TODO: put a link here?) and it will be reviewed.
+[Fork the repository](https://github.com/ny/coreui/fork) to make changes, fix bugs, add new features, etc. When you are done, open a pull request (TODO: put a link here?) and it will be reviewed.
 
 TODO:
 
