@@ -21,7 +21,7 @@ src/
                 ├─ validator.js
             ├─ scss/
                 ├─ validator.scss
-            ├─ component.json
+            ├─ asset.json
             ├─ _settings.scss
 ```
 
