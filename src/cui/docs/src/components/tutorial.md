@@ -54,7 +54,7 @@ Start by defining the plugin's name under the `Component code` comment:
 
 ```js
     // Plugin name, abstracted for single point of control
-    var pluginName = "helloWorld";
+    var pluginName = 'helloWorld';
 ```
 
 This lets us abstract the name from the rest of our code to keep it portable. Note that we are not creating a global variable because we're inside a an anonymous function wrapper.
@@ -70,7 +70,7 @@ Next, below the name, add the constructor:
 
         // Look for additional options in the element's data attribute
         this.metadata = this.$elem.data('helloworld-options');
-    }
+    };
 ```
 
 The contructor is pretty barebones &mdash; essentially it gathers and stores the element and any options that were passed.
@@ -99,7 +99,7 @@ Next we build the constructor's prototype object which will contain its public p
         appendText: function() {
             this.$elem.append(document.createTextNode(this.config.message));
         }
-    }
+    };
 ```
 
 Now we have some default options (`message`), an `init` function which we'll come back to later, and the "main" function of this example, `appendText`.
@@ -168,7 +168,7 @@ Next, back in the script tag under the ID test selector, add a new jQuery select
 
 ```js
 // Class Test
-$('.helloWorld').helloWorld({message: "Hello Class Element!"});
+$('.helloWorld').helloWorld({message: 'Hello Class Element!'});
 ```
 
 Rebuild the project and refresh the test page. This time two hello messages appear: one saying "Hello World", the other saying "Hello Class Element!"
@@ -179,18 +179,18 @@ For a final test of the component, try passing the options using the `data-` att
 
 ```html
 <ul>
-    <li data-plugin-options='{"message":"Hello Item 1!"}'></li>
-    <li data-plugin-options='{"message":"Hello Item 2!"}'></li>
-    <li data-plugin-options='{"message":"Hello Item 3!"}'></li>
-    <li data-plugin-options='{"message":"Hello Item 4!"}'></li>
-    <li data-plugin-options='{"message":"Hello Item 5!"}'></li>
+    <li data-helloworld-options='{"message":"Hello Item 1!"}'></li>
+    <li data-helloworld-options='{"message":"Hello Item 2!"}'></li>
+    <li data-helloworld-options='{"message":"Hello Item 3!"}'></li>
+    <li data-helloworld-options='{"message":"Hello Item 4!"}'></li>
+    <li data-helloworld-options='{"message":"Hello Item 5!"}'></li>
 </ul>
-
 ```
 
 Next, let's alter the page script one last time. This time using a jQuery selector that selects all of the list items using an element selector.
 
 ```js
+// HTML test
 $('li').helloWorld();
 ```
 
