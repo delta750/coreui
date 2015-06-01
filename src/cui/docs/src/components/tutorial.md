@@ -158,7 +158,7 @@ Open the page in a browser and you should see "Hello World!" printed in large le
 
 #### Lets try to use some options
 
-Inside our test page, just under the `h2` reference lets add a paragraph tag and use a class to test the component.
+Inside our test page, just under the `h2` reference lets add a paragraph tag and use a `class` as the script hook for the `helloWorld` component.
 
 ```html
 <p class="helloWorld"></p>
@@ -176,7 +176,7 @@ Once finished, rebuild the project and refreash the test page. This time two hel
 
 #### Trying html options.
 
-For a final test of the component, we need to try passing in options via the html `data-` attribute. To begin, under the element test, add an unordered list and a handful of list items. On each of the list items create a data attribute similar to the example below:
+For a final test of the component, we need to try passing in options via the html `data-` attribute. To begin, under the other test elements, add an unordered list and a handful of list items. On each of the list items create a data attribute similar to the example below:
 
 ```html
 <ul>
@@ -189,7 +189,7 @@ For a final test of the component, we need to try passing in options via the htm
 
 ```
 
-Next, lets alter the page script one last time. This time using a jQuery selector that selects all of the list items.
+Next, lets alter the page script one last time. This time using a jQuery selector that selects all of the list items using an element selector.
 
 ```js
 $('ul li').helloWorld();
@@ -222,7 +222,7 @@ appendText: function() {
 
 ```
 
-Once finished, rebuild the project again and browse to the test page. The contents of the page should remain the same, but the color of all the appended text should have turned blue. The image below represents and example of how the test page should render. For your reference, a copy of the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
+Once finished, rebuild the project again and browse to the test page. The contents of the page should remain the same, but the color of all the appended text should have turned `blue`. The image below represents an example of how the test page should render. For your reference, a copy of the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
 
 ![Finished hello world component page with styles](/docs/_includes/images/hello-world-done-blue.png "Finished hello world component page with styles")
 
@@ -230,7 +230,7 @@ Once finished, rebuild the project again and browse to the test page. The conten
 
 When building out a project, some of the functionality or style used in that project may only apply for a handful of circumstances. When this happens its best practices to not include these additional resources in your base assets (`main.js` and `main.css`). In stead they should be lazy loadable so they can be directly or conditionally loaded on pages that need them.
 
-To make a component lazy loadable we need to creat a new component configuration file. In the root of our `helloWorld` component create a `asset.json` file. Inside it add the following contents:
+To make a component lazy loadable we need to create a new component configuration file. In the root of our `helloWorld` component create a `asset.json` file. Inside it add the following contents:
 
 ```json
 {
@@ -239,7 +239,9 @@ To make a component lazy loadable we need to creat a new component configuration
 
 ```
 
-With this single file in place, simply rebuilding the project will recreate the base assets and list `helloWorld` component as being lazy loadable. But, before it can be considered the conversion complete, one more change has to be made, and that is to make the component styles a dependancy of the component itself. Lazy loadable components and there asset types (script, styles, etc...) are not auto bundled together on purpose. To give developers the maximum amount of control possible, developers must specifiy in all of the required dependancies. Now to add back the styles, lets change the `helloWorld.js` file. In the AMD define statment we nedd to add one more item to the array and; `css!helloWorld-style`. Note that special `css!` command in fornt. This prefix to the component tells requireJS that the this specific dependancy is a style sheet and will change the load process during runtime.
+When the asset file is in place, rebuilding the project will recreate the base assets and this time the require manager will list the `helloWorld` component as being lazy loadable. But, before it can be considered the conversion complete, one more change has to be made. By default we excluded including the style dependence as being part of the component.
+
+Lazy loadable components and there asset types (script, styles, etc...) are not auto bundled together on purpose. To give developers the maximum amount of control possible, developers must specify all of the dependencies a component might have when they are lazy loadable. Now to add back the styles, change the `helloWorld.js` file. In the AMD define statement we need to add `css!helloWorld-style` to the dependency array. Note that special `css!` command in front. This prefix tells requireJS that the this specific dependency is a style sheet and that it needs to load it in a different manner.
 
 ```js
 define(['jquery', 'css!helloWorld-style'], factory);
@@ -247,7 +249,9 @@ define(['jquery', 'css!helloWorld-style'], factory);
 ```
 ### Trying it out with conditional lazy loading.
 
-Now rebuilding the project and refreash the test page should cause the page to render simliar to our prior examples. The only diffrence this time is the in page code will make additional `http` request on launch to get the component `helloWorld` assets. But, lets try to load this resource conditionally. To do that, lets create a second test page in the components `tests` folder. Lets call this one `helloWolrd-lazy.html` and bootstrap it with the same `base-test.html`. The only difference here is we will add a few different elements to the page. The script section has also changed so that is is going to attempt to find specific elements and load them only if them using the `cui.load` function if elments are found.
+Now rebuilding the project and refresh the test page should cause the page to render similar to our prior examples. The only difference this time is the in page code will make additional `http` request on launch to get the component `helloWorld` assets. But, lets try to load this resource conditionally. To do that, lets create a second test page in the components `tests` folder. Lets call this one `helloWolrd-lazy.html` and bootstrap it with the same `base-test.html` page used in the prior test page.
+
+This time, lets create a few elements that are all the same from the beginning. On the first test we dont want the conditional to exist so nothing should load. IF you use chrome when testing, watch the network tab. The helloWolrd resources should not be called as the conditional will not be meet never meet.
 
 ```html
 <!doctype html>
@@ -292,5 +296,7 @@ Now rebuilding the project and refreash the test page should cause the page to r
 
 ```
 
-When you build the project and run the above test page, nothing should happen. Now go back and change one of the elements `conditional` classes to be `conditional-true`. When you reload the page this time, the script tag should find a conditional element that meets our requirements and the `cui.load` process will request the helloWorld resources. For your reference, here is a complete of the [helloWorld-lazy.html test page](https://gist.github.com/JeffHerb/aa9d25c9b615093fb324).
+Now go back and change one of the elements `conditional` classes to be `conditional-true`. When you reload the page this time, the script tag should find a conditional element that meets our requirements and the `cui.load` process will request the helloWorld resources.
+
+For your reference, here is a complete of the [helloWorld-lazy.html test page](https://gist.github.com/JeffHerb/aa9d25c9b615093fb324).
 
