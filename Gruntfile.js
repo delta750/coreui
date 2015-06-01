@@ -34,9 +34,11 @@ module.exports = function(grunt) {
         clean: {
             dist: [
                 'dist',
-                'docs',
                 'src/components/**/dist/',
                 '!src/components/**/node_modules/**/dist/',
+            ],
+            docs: [
+                'docs',
             ],
         },
 
@@ -380,13 +382,6 @@ module.exports = function(grunt) {
     grunt.registerTask('docs', 'Documentation', function (args) {
 
         var copy = grunt.config.get('copy');
-        var clean = grunt.config.get('clean');
-
-        clean = {
-            dist: [
-                'docs'
-            ],
-        };
 
         copy = {
             docAssets: {
@@ -408,11 +403,9 @@ module.exports = function(grunt) {
         };
 
         grunt.config.set('copy', copy);
-        grunt.config.set('clean', clean);
-
 
         grunt.task.run([
-            'clean',
+            'clean:docs',
             'copy',
             'connect',
             'markdown',
