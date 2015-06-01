@@ -1,6 +1,9 @@
 # Folder to ignore
 node_modules/
 dist/
+docs/
+!/src/cui/docs/
+
 
 *.sublime-*
 *.log
