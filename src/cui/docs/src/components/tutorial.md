@@ -156,27 +156,26 @@ To try out the component we can create a short HTML file. Let's put it in the `t
 
 Open the page in a browser and you should see "Hello World!" printed in large letters. If you only see a blank page, make sure you've [built the project](../getting-started.html) at least once. When the page loads, the words "Hello World" should appear at the top of the page.
 
-#### Lets try to use some options
+#### JavaScript settings
 
-Inside our test page, just under the `h2` reference lets add a paragraph tag and use a `class` as the script hook for the `helloWorld` component.
+Inside the test page, just under the `h2` element add a paragraph tag and use a `class` as the script hook for the `helloWorld` component.
 
 ```html
 <p class="helloWorld"></p>
-
 ```
 
-Next, back in the script tag under the id test selector, add a new jQuery selector using the newly create `.helloWorld` class. But, this time we will pass in an options object overrideing the message text to be `Hello Class Element!`.
+Next, back in the script tag under the ID test selector, add a new jQuery selector using the newly create `.helloWorld` class. But this time pass an object that overrides the message text with `Hello Class Element!`.
 
 ```js
 // Class Test
 $('.helloWorld').helloWorld({message: "Hello Class Element!"});
 ```
 
-Once finished, rebuild the project and refreash the test page. This time two hello messages should appear, one saying "Hello World", the other saying "Hello Class Element!"
+Rebuild the project and refresh the test page. This time two hello messages appear: one saying "Hello World", the other saying "Hello Class Element!"
 
-#### Trying html options.
+#### HTML settings
 
-For a final test of the component, we need to try passing in options via the html `data-` attribute. To begin, under the other test elements, add an unordered list and a handful of list items. On each of the list items create a data attribute similar to the example below:
+For a final test of the component, try passing the options using the `data-` attribute. Below the other test elements, add an unordered list and a handful of list items. On each of the list items create a `data-` attribute similar to the example below:
 
 ```html
 <ul>
@@ -189,20 +188,21 @@ For a final test of the component, we need to try passing in options via the htm
 
 ```
 
-Next, lets alter the page script one last time. This time using a jQuery selector that selects all of the list items using an element selector.
+Next, let's alter the page script one last time. This time using a jQuery selector that selects all of the list items using an element selector.
 
 ```js
-$('ul li').helloWorld();
-
+$('li').helloWorld();
 ```
 
-Rebuild the project and reload the test page again. The test page should now appear with the appended messages in the `h2`, `p` and in a different message in each `li` elements. The image below represents an example of what you should expect to see. For reference, here is the [complete `helloWorld.html` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
+Rebuild the project and reload the test page again. You should see three different sets of customized messages in the `h2`, `p`, and `li` elements:
 
 ![Finished hello world component page](/docs/_includes/images/hello-world-done.png "Finished hello world component page")
 
-## Adding SASS.
+For reference, here is the [complete `helloWorld.html` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
 
-Start by creating a `scss` folder in the root of the `helloWorld` component. Inside this new folder, create a `helloWorld.scss` file and add the following contents:
+## Adding Sass
+
+Start by creating a `scss` folder alongside the `js` and `tests` folders. Inside, create a `helloWorld.scss` file and add the following:
 
 ```scss
 $primary: blue;
@@ -210,48 +210,71 @@ $primary: blue;
 .helloText {
     color: $primary;
 }
-
 ```
 
-Now we need to add a class hook in our HTML so these style get applied. To do this, modify the components `appendText` method in the `helloWorld.js` file to add a class to each element that it appends text too.
+Now we need to add a class hook in our HTML so the style will get applied. Modify the `appendText` method in the `helloWorld.js` file to add a class to each element that it appends text too.
 
 ```js
 appendText: function() {
     this.$elem.addClass('helloText');
 }
-
 ```
 
-Once finished, rebuild the project again and browse to the test page. The contents of the page should remain the same, but the color of all the appended text should have turned `blue`. The image below represents an example of how the test page should render. For your reference, a copy of the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
+Rebuild the project again and refresh the test page. The contents of the page should remain the same, but the color of all the appended text should have turned `blue`:
 
 ![Finished hello world component page with styles](/docs/_includes/images/hello-world-done-blue.png "Finished hello world component page with styles")
 
-## Making the component lazy loadable.
+For your reference, here is the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
 
-When building out a project, some of the functionality or style used in that project may only apply for a handful of circumstances. When this happens its best practices to not include these additional resources in your base assets (`main.js` and `main.css`). In stead they should be lazy loadable so they can be directly or conditionally loaded on pages that need them.
+## Lazy loading
 
-To make a component lazy loadable we need to create a new component configuration file. In the root of our `helloWorld` component create a `asset.json` file. Inside it add the following contents:
+Sometimes a component is only needed under certain circumstances. It's best practices not to include those additional resources in your base assets (`main.js` and `main.css`). Instead they should be lazy loaded so they only download when necessary. (This is not to be confused with [#conditional-loading](conditional loading) which is covered later.)
+
+To make a component lazy-loadable it needs a configuration file. In the root of the `helloWorld` component create a file called `asset.json` and add the following:
 
 ```json
 {
     "lazy": true
 }
-
 ```
 
-When the asset file is in place, rebuilding the project will recreate the base assets and this time the require manager will list the `helloWorld` component as being lazy loadable. But, before it can be considered the conversion complete, one more change has to be made. By default we excluded including the style dependence as being part of the component.
+Now when you rebuild the project it will recreate the base assets separate from the `helloWorld` assets. But one more change has to be made if we want to include styles.
 
-Lazy loadable components and there asset types (script, styles, etc...) are not auto bundled together on purpose. To give developers the maximum amount of control possible, developers must specify all of the dependencies a component might have when they are lazy loadable. Now to add back the styles, change the `helloWorld.js` file. In the AMD define statement we need to add `css!helloWorld-style` to the dependency array. Note that special `css!` command in front. This prefix tells requireJS that the this specific dependency is a style sheet and that it needs to load it in a different manner.
+Lazy loaded components and their asset types (script, styles, etc) are not automatically bundled together by default. To give developers the maximum amount of control possible, developers must specify all of the dependencies a component might have when it is lazy loaded.
+
+To add the styles you'll need to edit the `helloWorld.js` file. In the `define` statement add `css!helloWorld-style` to the dependency array.
 
 ```js
 define(['jquery', 'css!helloWorld-style'], factory);
-
 ```
-### Trying it out with conditional lazy loading.
 
-Now rebuilding the project and refresh the test page should cause the page to render similar to our prior examples. The only difference this time is the in page code will make additional `http` request on launch to get the component `helloWorld` assets. But, lets try to load this resource conditionally. To do that, lets create a second test page in the components `tests` folder. Lets call this one `helloWolrd-lazy.html` and bootstrap it with the same `base-test.html` page used in the prior test page.
+Note the special `css!` prefix &mdash; this tells Core UI that the dependency `helloWorld-style` is a style sheet and therefore it needs to be loaded in a different manner than other assets.
 
-This time, lets create a few elements that are all the same from the beginning. On the first test we dont want the conditional to exist so nothing should load. IF you use chrome when testing, watch the network tab. The helloWolrd resources should not be called as the conditional will not be meet never meet.
+### Conditional lazy loading
+
+In the lazy load example you may have noticed that the browser had to make additional `http` requests for each asset of the `helloWorld` component on *every* page load. We can avoid that by loading the assets conditionally.
+
+The built in method `cui.load` can load components, for example:
+
+```js
+    cui.load('helloWorld', function() {
+        // Kick of the helloWorldPlugin
+        conditionalElem.helloWorld();
+    });
+```
+
+To run this conditionally we can wrap an `if` statement around it. Suppose you only want the message to appear when the page contains a paragraph:
+
+```js
+    if ($('p').length > 0) {
+        cui.load('helloWorld', function() {
+            // Kick of the helloWorldPlugin
+            conditionalElem.helloWorld();
+        });
+    }
+```
+
+To try this, create a second test page in the component's `tests` folder called `helloWorld-lazy.html` and add the following:
 
 ```html
 <!doctype html>
@@ -259,15 +282,13 @@ This time, lets create a few elements that are all the same from the beginning. 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hello World Test</title>
+        <title>Hello World Conditional Test</title>
         <link href="../../css/main.css" rel="stylesheet" type="text/css" media="all">
         <!--[if lt IE 9]><script src="../js/components/html5shiv.js"></script><![endif]-->
     </head>
     <body>
 
-        <p class="conditional"></p>
-        <p class="conditional"></p>
-        <p class="conditional"></p>
+        <!-- <p></p> -->
 
         <script id="require" src="../../js/main.js"></script>
         <script>
@@ -275,28 +296,30 @@ This time, lets create a few elements that are all the same from the beginning. 
             // Wait for the page to be ready
             require(['domReady!'], function() {
 
-                // Poll the page for specific elements with specific classes
-                var conditionalElem = $('.conditional-true');
+                // Query the page for specific elements with specific classes
+                var $paragraphs = $('p');
 
-                // Check to see if the page has any elements with our specific class.
-                if (conditionalElem.length >= 1) {
+                // Check to see if the page has any paragraphs
+                if ($paragraphs.length > 0) {
 
-                    // We have elements, so using the cui namespace load the helloWorld Component
+                    // We have elements, so using the `cui` namespace load the helloWorld Component
                     cui.load('helloWorld', function() {
 
-                        // Kick of the helloWorldPlugin
-                        conditionalElem.helloWorld();
+                        // Call the helloWorldPlugin
+                        $paragraphs.helloWorld();
                     });
                 }
 
             });
+
         </script>
     </body>
 </html>
-
 ```
 
-Now go back and change one of the elements `conditional` classes to be `conditional-true`. When you reload the page this time, the script tag should find a conditional element that meets our requirements and the `cui.load` process will request the helloWorld resources.
+Launch the page and notice that no "Hello world!" message appears. If you open your browser's developer tools and watch the network tab you'll notice that the helloWorld assets are never loaded.
 
-For your reference, here is a complete of the [helloWorld-lazy.html test page](https://gist.github.com/JeffHerb/aa9d25c9b615093fb324).
+Now edit the file to uncomment the `<p>` element and refresh the page. This time, the script tag finds a conditional element that meets our requirement and the `cui.load` process requests the helloWorld assets.
+
+For reference, here is a complete of the [helloWorld-lazy.html test page](https://gist.github.com/JeffHerb/aa9d25c9b615093fb324).
 
