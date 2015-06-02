@@ -1,8 +1,9 @@
-/*jshint unused: false */
-define(['domReady', 'jquery', 'cui'], function(domReady, $, cui) {
+// Kicks off the global project scripts
+require(['jquery', 'cui', 'domReady!'], function($, cui) {
 
-    var app = {};
+    // This is the init new line.
 
-    return app;
+    // Declares the first document.ready to make sure this code runs first.
+    cui.init();
 
 });

@@ -1,151 +1,180 @@
-/***
- * ===
- *  Manager.js
- *  ----------
- *  The manager module is responspible for provideing require manager with a basic way of iterating steps,
- *  storing and importing default options, and capturing user defined task options and values.
- * ===
- ***/
-
 'use strict';
 
-var _util = require('../utility');
+// Custom node modules
+var verbose = require('../utilites/verbose');
 
-var requireManager = function() {
+/**
+* Manager:
+* Responsible for building the init function and grunt variable spaces, providing an
+* api to register tasks, and lastly executing those tasks in the specified order.
+*
+* Params:
+* - none -
+* @return - {object} - copy of all public functions used to manage require manager
+*/
+var manager = function() {
 
-    // Array to hold all the different steps that need to be executes
+    /**
+     * Private
+     **/
+
+    // Variables
+    //=============
+
     var steps = [];
 
-    // Object to hold default grunt task options.
-    var defaultOptions = {
-        components: {
-            cwd: 'components/',
-            src: '*',
-            files: {
-                settings: {
-                    component: 'component.json',
-                    script: 'settings.json',
-                    style: 'settings.scss',
-                },
-                build: 'Gruntfile.js',
-                includeStyle: 'includeStyles.scss'
-            },
-            folders: {
-                build: 'dist',
-                temp: 'tasks/libs/requireManager/temp',
-                partial: 'tasks/libs/requireManager/_partials'
-            },
-            requireJS: {
-                anonymousWrapper: true,
-                baseUrl: true,
-                filename: 'settings.js',
-                customBase: false,
-                baseFile: 'build.json',
-                customInit: false,
-                initFile: 'init.js'
-            }
-        }
-    };
+    // Functions
+    //=============
 
-    var init = function(task, grunt) {
+    // -- None --
 
-        // Save off the tasks settings and grunt object
+    /**
+     * Public
+     **/
+
+    // Variables
+    //=============
+
+    // -- None --
+
+    // Functions
+    //=============
+
+    /**
+     * Init:
+     * The starting point for the require manager process
+     *
+     * Params:
+     * task - {object} - copy of the require manager task process
+     * grunt - {object} - copy of the grunt object module
+     * options - {object} - copy of the task options object
+     * @return - {this} - copy of the manager object
+     **/
+    var init = function(task, grunt, options) {
+
+        // Set the verbosity of this runtime
+        //verbose.verbosity(3);
+
+        // Log that the init started
+        verbose.log(3, "Manager Init executed", 'debug');
+
+        // Save off some instance variables
         this.task = task;
         this.grunt = grunt;
+        this.options = options;
 
-        // Save off pull task options into the defaulf option object.
-        this.options = _util.merge(defaultOptions, task.options({}));
+        // Debug logging
+        // verbose.log(3, "Manager init ended!", 'debug');
 
-        // Pull in the default definition. These are external json files for simplisty in changeability.
-        this.defaults = {
-            components: grunt.file.readJSON('tasks/libs/requireManager/definitions/component.json'),
-            assets: grunt.file.readJSON('tasks/libs/requireManager/definitions/assets.json')
-        }
-
-        // Array to hold component objects (pre processesing)
-        this.definedComponents = [];
-
-        // Sorted definition files
-        this.lazyComponent = {};
-        this.includeComponent = {};
-
-        // Files to exclude when multiple grabs occur
-        this.excludeFiles = [
-            defaultOptions.components.files.build,
-            defaultOptions.components.files.settings.component,
-            defaultOptions.components.files.settings.script,
-            defaultOptions.components.files.settings.style,
-            'package.json',
-            '.gitignore',
-            '.jshintrc',
-            '.editorconfig'
-        ];
-
-        // Files/Folders to flush each time
-        _util.flushFile('src/cui/scss/_utilities/_components.scss');
-
-        // Return itself so the process can move on.
-        return this;
-
-    };
-
-    var addStep = function(func) {
-
-        // Add function to step array
-        steps.push(func);
-
-        // Return itself so the process can move on.
+        // Return the inited space
         return this;
 
     }
 
-    // Function will cause all the buffered steps to begin
+    /**
+     * Step:
+     * This is the api entry point for registering process steps
+     *
+     * Params:
+     * title - {string} - proper title that is displayed while executing
+     * func - {function} - step function
+     * @return - {this} - copy of the manager object
+     **/
+    var step = function(title, func) {
+
+        steps.push({
+            title: title,
+            func: func
+        })
+
+        return this;
+
+    }
+
+    /**
+     * Execute:
+     * This is the api entry point for registering process steps
+     *
+     * Params:
+     * [callback] - {function} - optional function that should be executed when all steps are completed.
+     * @return - {boolean} - returns true when the entire process is finished.
+     **/
     var execute = function(callback) {
 
+        // Make a copy of the manager for reference
         var self = this;
 
-        // See if no steps remain
-        if (steps.length === 0) {
+        // Check to see if there is anything to execute
+        if (steps.length >= 1) {
 
+            verbose.log(3, "There are " + steps.length + " registered steps", "debug");
+
+            // Pull the first step off the top
+            var step = steps.shift();
+
+            // If a title is defined display it.
+            if (step.title) {
+                verbose.log(1, step.title);
+            }
+
+            // Execute this step and pass it what it will need to keep the step chain going
+            step.func(self, function next(requrieManager) {
+
+                // Check to see if more steps remain
+                if (steps.length >= 1) {
+
+                    // Get the next step
+                    step = steps.shift();
+
+                    // If a title is defined display it.
+                    if (step.title) {
+                        verbose.log(1, step.title);
+                    }
+
+                    // Execute the next step
+                    step.func(self, next);
+
+                } else {
+
+                    // Check to see if a callback was defined
+                    if (callback) {
+
+                        // It was so call it.
+                        callback(null, true);
+                    }
+
+                    // End the entire require manager process
+                    return true;
+
+                }
+
+            });
+
+        } else {
+
+            verbose.log(0, "Nothing to execute", "info");
+
+            // Check to see if a callback was defined
             if (callback) {
+
+                // It was so call it.
                 callback(null, true);
             }
 
+            // End the entire require manager process
             return true;
-
         }
-
-        // Set the starting step
-        var step = 0;
-
-        // Execute the next step in the steps array, plus pass it a callback.
-        steps[step++](self, function next(requireManager) {
-
-            if (step < steps.length) {
-
-                steps[step++](self, next);
-
-            }
-            else {
-
-                if (callback) {
-                    callback(null, true);
-                }
-
-                return true;
-
-            }
-
-        });
 
     }
 
+    // Return the public namespace
     return {
         init: init,
-        addStep: addStep,
+        step: step,
         execute: execute
     }
 
 }
 
-module.exports = exports = new requireManager();
+// Expor the manager function as a module
+module.exports = exports = new manager();

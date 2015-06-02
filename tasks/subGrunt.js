@@ -2,8 +2,12 @@ module.exports = function(grunt) {
 
     'use strict';
 
+    // Native modules
     var path = require('path');
-    var _util = require('./libs/utility');
+
+    // Custome modules
+    var fs = require('./libs/utilites/fs');
+    var verbose = require('./libs/utilites/verbose');
 
     // Define the Grunt Multitask for the Require Manager Task;
     grunt.registerMultiTask(
@@ -33,10 +37,9 @@ module.exports = function(grunt) {
                     var taskFolder = path.join(componentFolder, 'tasks');
                     var componentBuild = path.join(taskFolder, componentBuildTask);
 
-
                     if (grunt.file.exists(gruntFilePath)) {
 
-                        grunt.log.ok('Gruntfile file found in component folder: ' + componentFolder);
+                        grunt.log.ok('Gruntfile file found in asset folder: ' + componentFolder);
 
                         // We know we have a component build process, now we need to check for the componentBuild task
                         if (grunt.file.exists(taskFolder)) {
@@ -45,8 +48,10 @@ module.exports = function(grunt) {
 
                         } else {
 
-                            var source = _util.unixifyPath('tasks/libs/componentBuild.js');
-                            var dest = _util.unixifyPath(componentBuild);
+                            verbose.log(0, "Asset build file found in: " + componentFolder + ", but its missing the componement build task." , "warn");
+
+                            var source = fs.unixifyPath('tasks/libs/utilites/componentBuild.js');
+                            var dest = fs.unixifyPath(componentBuild);
 
                             // component needs the extra task, so lets manually inject it into that project.
                             grunt.file.copy(source, dest);

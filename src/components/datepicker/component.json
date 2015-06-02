@@ -1,5 +1,0 @@
-{
-    "name": "datepicker",
-    "lazy": true,
-    "assets": ["script", "style"]
-}

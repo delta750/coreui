@@ -1,234 +1,197 @@
 'use strict';
-var path = require('path');
 
-// Inculde our utility object
-var _util = require('../utility');
+// Custom node modules
+var fs = require('../utilites/fs');
+var obj = require('../utilites/object');
+var verbose = require('../utilites/verbose');
 
-// Function used to find specific asset files.
-var process = function () {
+/**
+* Process:
+* Searches for asset folders, files and creats a default configuration/ source defintion file list.
+*
+* Params:
+* - none -
+* @return - {object} - copy of all public functions used to manage require manager
+*/
+var process = function() {
 
-    function formatName(string) {
+	var assets = function(rm, next) {
 
-        // Since it multiple, we will use the name as out base
-        // Remove all extensions and min names parts
-        var string = string.split('.')[0];
+		var assetList = Object.keys(rm.options.assets);
 
-        // split the name on any hypens
-        var stringParts = string.split('-');
+		// Loo through the next asset
+		(function nextAsset(assets) {
 
-        for (var i = 0, len = stringParts.length; i < len; i++) {
+			var assetName = assets.shift();
+			var asset = rm.options.assets[assetName];
 
-            if (i !== 0) {
-                stringParts[i] = _util.uCaseFirst(stringParts[i]);
-            }
+			var sourceList = Object.keys(asset.sources).concat();
 
-        }
+			// Loop through the next source
+			(function nextSource(sources) {
 
-        return stringParts.join('');
+				// Ge the next source
+				var source = sources.shift();
+				var sourceDef = rm.options.assets[assetName].sources[source];
 
-    }
+				var fileList = asset.files.concat();
 
-    function cleanUpFilename(fileDef) {
+				var sourceFiles = [];
 
-        // Check if the filetype is a script
-        if (fileDef.type === "script" || fileDef.type === "style") {
+				// Loop through a set of files
+				(function nextFile(files) {
 
-            return fileDef.filename.substr(0, fileDef.filename.lastIndexOf('.'));
+					var file = files.shift();
 
-        } else {
+					// Add some stats to the file for later use, just in case.
+					file.rootFolder = asset.name;
 
-            return fileDef.filename;
-        }
+					// Check to see if this file is acceptable based on name
+					if (rm.options.excludes.files.indexOf(file.name) === -1) {
 
-    }
+						// Check to see if the file is withing the source allowable file types
+						if (sourceDef.ext.indexOf(file.ext) !== -1) {
 
-    function cleanUpFilePath(fileDef) {
+							// Check to see if this is suppose to be related to a build directory
+							if (asset.build) {
 
-        // Clean up the filename first
+								// Use the build directory,
+								var buildDir = (asset.buildDir) ? asset.buildDir : rm.options.paths.buildDir;
 
-        var filePath = "";
+								if (file.fullpath.indexOf(buildDir) !== -1) {
 
-        // Check if the filetype is a script
-        if (fileDef.type === "script" || fileDef.type === "style") {
+									// This file is an acceptable name, extension and in a directory
+									sourceFiles.push(file);
 
-            filePath = fileDef.filePath.substr(0, fileDef.filePath.lastIndexOf('.'));
+								}
 
-        }
-        else {
+							} else {
 
-            filePath = fileDef.filePath;
-        }
+								// This is an acceptable name and extension, no limit to directory
+								sourceFiles.push(file);
 
-        // Remove souce from the path if it exists
+							}
 
-        if (filePath.indexOf('src/') !== -1) {
-            filePath = filePath.replace('src/', '');
-        }
+						}
 
-        return filePath;
+					}
 
-    }
+					if (files.length !== 0) {
+						nextFile(files);
+					}
 
-    // This function uses the component definition information to construct the proper lazy path definitions.
-    // These definitions are used later inside of the settings.js file created by requireManager.
-    function lazyComponent(component, rm) {
+				})(fileList);
 
-        // Loop through and process the indivdual files.
-        component.files.assets.forEach(function(file) {
+				// Remove unneeded source definition
+				if (sourceFiles.length !== 0) {
 
-            // Pull the load path
-            var loadDirectory = component.assets[file.type].lazyPath;
+					// Save the files to the source array
+					sourceDef['files'] = sourceFiles;
 
-            // Depending on the search type we change how the load string is formed
-            if (component.assets[file.type].search === 'single') {
+				} else {
 
-                // Check to see if the component name is used yet.
-                if (rm.lazyComponent[component.name]) {
+					verbose.log(2, "Unable to find any files that match the assets source defintion (" + source + ") in: " + asset.rootpath, "warn");
 
-                    var tempName = component.name + _util.uCaseFirst(file.type);
+					delete rm.options.assets[assetName].sources[source];
+				}
 
-                    // Check to see if the component name with the asset type included is used
-                    if (!rm.lazyComponent[tempName]) {
+				if (sources.length !== 0) {
+					
+					nextSource(sources);
+				}
 
-                        // Use the component name and the asset type
-                        rm.lazyComponent[tempName] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
-                    }
 
-                }
-                else {
 
-                    // The component name is not in use
-                    rm.lazyComponent[component.name] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
+			})(sourceList);
 
-                }
+			if (assets.length !== 0) {
 
-            }
-            else {
+				nextAsset(assets);
+			} else {
 
-                var filename = formatName(file.filename);
+				next(rm);
+			}
 
-                if (rm.lazyComponent[filename]) {
+		})(assetList);
+	}
 
-                    var tempName = filename + _util.uCaseFirst(file.type);
+	var paths = function(rm, next) {
 
-                    if (!rm.lazyComponent[tempName]) {
+		var assetList = Object.keys(rm.options.assets);
 
-                        // Use the component name and the asset type
-                        rm.lazyComponent[tempName] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
-                    }
+		// Loo through the next asset
+		(function nextAsset(assets) {
 
-                }
-                else {
+			var assetName = assets.shift();
+			var asset = rm.options.assets[assetName];
 
-                    rm.lazyComponent[filename] = _util.unixifyPath(path.join(loadDirectory, cleanUpFilename(file)));
-                }
+			var processor = (asset.lazy) ? "lazy" : "include";
 
-            }
+			try {
 
-        });
+				var processorPath = fs.pathJoin("./", "processors", processor)
 
-    }
+				processor = require( "./" + processorPath );
 
-    // This function uses the component definition to create the internal path defintions for the resource used
-    // during the requireJS grunt task build.
-    function includeComponent(component, rm) {
+			} catch(e) {
 
-        // Loop through each file
-        component.files.assets.forEach(function(file) {
+				verbose.log(1, "Processor load failed for: " + processor, "error");
 
-            // We will use the component name for the include name
-            var includeName = component.name;
+				processor = undefined;
 
-            // Filter out only scripts here. We need to handle other files differently.
-            if (file.type === 'script') {
+			}
 
-                // Depending on the search type we change how the load string is formed
-                if (component.assets[file.type].search === 'single') {
+			var sourceList = Object.keys(asset.sources);
 
-                    // Check to see if the component name is used yet.
-                    if (rm.includeComponent[component.name]) {
+			// Loop through the next source
+			(function nextSource(sources) {
 
-                        var tempName = component.name + _util.uCaseFirst(file.type);
+				// Ge the next source
+				var source = sources.shift();
+				var sourceDef = rm.options.assets[assetName].sources[source];
 
-                        // Check to see if the component name with the asset type included is used
-                        if (!rm.includeComponent[tempName]) {
+				// Only run if a valid processor is found.
+				if (processor) {
 
-                            // Use the component name and the asset type
-                            rm.includeComponent[tempName] = cleanUpFilePath(file);
-                        }
+					// Check for a processor for this type of asset
+					if (processor[source]) {
+					
+						// Call the processor function
+						processor[source](asset, sourceDef, rm.options, function(task) {});
 
-                    }
-                    else {
+					} else {
 
-                        // The component name is not in use
-                        rm.includeComponent[component.name] = cleanUpFilePath(file);
+						verbose.log(1, "Processor not found: " + processor, "error");
+					}
 
-                    }
+				}
 
-                }
-                else {
+				if (sources.length !== 0) {
+					
+					nextSource(sources);
+				} 
 
-                    var filename = formatName(file.filename);
+			})(sourceList);
 
-                    if (rm.includeComponent[filename]) {
+			if (assets.length !== 0) {
 
-                        var tempName = filename + _util.uCaseFirst(file.type);
+				nextAsset(assets);
+			} else {
 
-                        if (!rm.includeComponent[tempName]) {
+				next(rm);
+			}
 
-                            // Use the component name and the asset type
-                            rm.includeComponent[tempName] = cleanUpFilePath(file);
-                        }
+		})(assetList);
 
-                    }
-                    else {
+		next(rm);
+	}
 
-                        rm.includeComponent[filename] = cleanUpFilePath(file);
-                    }
+	return {
+		assets: assets,
+		paths: paths
+	}
 
-                }
+}
 
-            }
-
-        });
-
-    }
-
-    // Function recieved basic component information and will attempt to find addest with the same name.
-    var components = function (rm, next) {
-
-        var options = rm.options;
-        var grunt = rm.grunt;
-        var task = rm.task;
-
-        // Indicate the step started.
-        _util.console('ok', 'Process Component Files');
-
-        // Loop through the component folders
-        rm.definedComponents.forEach(function(component) {
-
-            // We neeed to determine what action are going to happen based of the component
-            // Load type
-            if (component.lazy) {
-
-                lazyComponent(component, rm);
-
-            }
-            else {
-
-                includeComponent(component, rm);
-
-            }
-
-        });
-
-        next(rm);
-    };
-
-    return {
-        components: components,
-    };
-
-};
-
+// Expor the manager function as a module
 module.exports = exports = new process();

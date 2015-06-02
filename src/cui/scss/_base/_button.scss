@@ -34,7 +34,6 @@ input[type="submit"] {
 // * @section   Specific button styles
 // * @desc      Primary button
 // * --------------------------------------------------------
-input[type="submit"],
 .cui-button-primary {
     @include button-primary;
 }

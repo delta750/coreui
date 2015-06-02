@@ -9,30 +9,37 @@
 
 // * @section    Row and col structures
 // * @desc       The grid's row and columns (default cols 12)
-// *             - Fluid & fixed + fluid layouts with flexes
+// *             - Fluid & fixed + fluid layouts with fillers
 // *             - Clearfix to force new row
 // * --------------------------------------------------------
 .cui-row {
     @include row;
 }
 
-.cui-flex-row {
-    @include flex-row;
-}
-
 [class*="cui-col-"] {
-    @include col;
+    min-height: 1.5em;
 }
 
 [class*="cui-fixed-col-"] {
-    @include fixed-col;
+    float: left;
 }
 
+[class*="cui-col-"],
+[class*="cui-fixed-col-"],
+[class*="cui-filler-col-"] {
+    position: relative;
+    @include clearfix;
+}
+
+[class*="cui-col-"],
+[class*="cui-fixed-col-"],
+[class*="cui-filler-col-"],
 section > header,
 nav > header {
     padding: $cui-grid-column-padding;
 }
 
+.cui-row,
 .cui-clearfix {
     @include clearfix;
 }
@@ -41,63 +48,13 @@ nav > header {
 // * @section    Column generation
 // * --------------------------------------------------------
 
-// Generates fixed and flex classes for a given breakpoint
-@mixin generate-fixed-flex-columns($breakpointName: "") {
-    // Fixed & flex column layout approach:
-    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give flex columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the flex columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
-    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Flex columns use `width: calc(100% - Npx)` and no `margin-left`.
+$cui-grid-breakpoints: (
+    ("medium" $cui-bp-medium),
+    ("large" $cui-bp-large)
+);
 
-    // Fixed
-
-    @each $size in $cui-grid-fixed-sizes {
-        $x: getNumberAndUnit($size);
-        $value: nth($x, 1);
-        $unit: nth($x, 2);
-
-        .cui-flex-row .cui-fixed-col-#{$breakpointName}-#{$size} {
-            width: #{$value}#{$unit};
-        }
-    }
-
-    // Flexible
-
-    .no-csscalc [class*="cui-flex-col-#{$breakpointName}"] {
-        float: none;
-        width: 100%;
-    }
-
-    // Automatic sizing
-    .cui-flex-col-#{$breakpointName} {
-        @include flex-col;
-    }
-
-    // Specific flex sizes
-    @each $size in $cui-grid-flex-sizes {
-        $x: getNumberAndUnit($size);
-        $value: nth($x, 1);
-        $unit: nth($x, 2);
-
-        .cui-flex-col-#{$breakpointName}-#{$size} {
-            @include flex-col(1 0 #{$value}#{$unit});
-
-            .no-flexbox & {
-                width: calc(100% - #{$value}#{$unit});
-            }
-        }
-
-        .no-csscalc {
-            // Flex col is to the left of the fixed col
-            .cui-flex-col-#{$breakpointName}-#{$size} {
-                margin-right: #{$value}#{$unit};
-            }
-
-            // Flex col is to the right of the fixed col
-            [class*="cui-fixed-col-#{$breakpointName}"] + .cui-flex-col-#{$breakpointName}-#{$size} {
-                margin-right: auto;
-                margin-left: #{$value}#{$unit};
-            }
-        }
-    }
+@function column-width-calc($colNumber, $colTotal) {
+    @return percentage($colNumber / $colTotal);
 }
 
 // Generates column classes for all breakpoint sizes
@@ -109,12 +66,24 @@ nav > header {
 
     // Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
     @mixin utility-classes($breakpointName) {
+        [class*="cui-col-#{$breakpointName}-"] {
+            float: left;
+        }
+
+        [class*="cui-filler-col-#{$breakpointName}"] {
+            float: none;
+            width: auto;
+            overflow: hidden;
+        }
+
         .cui-hide-col-#{$breakpointName} {
             @include hide-voluntary;
         }
 
         .cui-inline-col-#{$breakpointName} {
-            @include inline-col;
+            display: inline-block;
+            float: none;
+            width: auto;
         }
     }
 
@@ -123,7 +92,6 @@ nav > header {
     @mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
         @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
         @include utility-classes($breakpointName);
-        @include generate-fixed-flex-columns($breakpointName);
     }
 
     // Finally, generate the classes for each size:
@@ -184,24 +152,26 @@ nav > header {
     }
 }
 
-
-// * @section    Generate column classes
-// * --------------------------------------------------------
+// Generate the grid and column classes
 @include generate-grid($cui-grid-column-count);
 
 
-// * @section    Visibility classes
+// * @section    Tablet (medium) column widths
 // * --------------------------------------------------------
-
-// Medium (tablet) column widths
 @media only screen and (min-width: $cui-bp-medium) {
     .cui-hide-col-small,
     .cui-hide-col-large {
         display: block;
     }
+
+    [class$="medium-200"] {
+        width: 200px;
+    }
 }
 
-// Large (desktop) column widths
+
+// * @section    Desktop (large) column widths
+// * --------------------------------------------------------
 @media only screen and (min-width: $cui-bp-large) {
     .cui-hide-col-small,
     .cui-hide-col-medium {
