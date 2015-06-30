@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Template - Core UI</title>
-    <link href="../../dist/css/cui/cui.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../../../dist/css/main.css" rel="stylesheet" type="text/css" media="all">
     <!--[if lt IE 9]><script src="../../dist/js/vendor/html5shiv.js"></script><![endif]-->
 </head>
 <body>
@@ -212,6 +212,17 @@
                         </div>
                         <div class="cui-data">
                             <input type="text" class="date" id="date2" data-date="{mask:'mm/dd/yyyy'}" tabindex="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cui-row">
+                    <div class="cui-col-small-12 cui-data-left">
+                        <div class="cui-data">
+                            <input type="checkbox" id="checkbox1" tabindex="1">
+                        </div>
+                        <div class="cui-label">
+                            <label for="checkbox1">Data goes left, label right (cui-data-left)</label>
                         </div>
                     </div>
                 </div>
@@ -460,7 +471,7 @@
         </div>
     </footer>
 
-    <script id="require" src="../../dist/js/cui.js"></script>
+    <script id="require" src="../../dist/js/main.js"></script>
     <script>
     require(['jquery', 'cui', 'domReady!'], function($, cui) {
 

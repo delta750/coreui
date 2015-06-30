@@ -50,15 +50,18 @@ legend {
     padding-right: 0;
 }
 
+.cui-data-left .cui-data,
 .cui-label {
     padding-right: 0.2em;
     cursor: default; // Ensures all "labels" get the same arrowhead cursor whether or not they contain a `<label>` element
 }
 
+.cui-data-left .cui-label,
 .cui-data {
     padding-left: 0.2em;
 }
 
+section .cui-data-left .cui-label,
 section .cui-data {
     float: none;
     display: table-cell;
