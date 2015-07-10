@@ -9,17 +9,17 @@
 
 // * @section    Fonts
 // * --------------------------------------------------------
-$cui-font-basic:                Arial, sans-serif !default;
-$cui-font-family:              "Proxima Nova", $cui-font-basic !default;
-$cui-font-family-monospace:    Menlo, Consolas, monospace !default;
-$cui-font-size:                16px !default;
-$cui-font-weight-light:        400 !default;
-$cui-font-weight-semibold:     600 !default;
-$cui-line-height:              1 !default;
+$cui-font-basic:           Arial, sans-serif !default;
+$cui-font-family:          "Proxima Nova", $cui-font-basic !default;
+$cui-font-family-monospace: Menlo, Consolas, monospace !default;
+$cui-font-size:            16px !default;
+$cui-font-weight-light:    400 !default;
+$cui-font-weight-semibold: 600 !default;
+$cui-line-height:          1 !default;
 // Headings
-$cui-font-heading:             $cui-font-family !default;
+$cui-font-heading:         $cui-font-family !default;
 // Required asterisk
-$cui-font-required:            1.1em $cui-font-basic !default;
+$cui-font-required:        1.1em $cui-font-basic !default;
 
 
 // * @section    Colors
@@ -80,10 +80,10 @@ $cui-button-primary-border-hover-color: #444440 !default;
 $cui-button-primary-bg-hover-color:     #50504b !default;
 
 // Icon buttons
-$cui-button-icon-padding-top:    7px !default;
-$cui-button-icon-padding-right:  8px !default;
-$cui-button-icon-padding-bottom: 8px !default;
-$cui-button-icon-padding-left:   8px !default;
+$cui-button-icon-padding-top:    0 !default;
+$cui-button-icon-padding-right:  0 !default;
+$cui-button-icon-padding-bottom: 0 !default;
+$cui-button-icon-padding-left:   0 !default;
 $cui-button-icon-padding:        $cui-button-icon-padding-top $cui-button-icon-padding-right $cui-button-icon-padding-bottom $cui-button-icon-padding-left !default;
 $cui-button-icon-margin-top:     0 !default;
 $cui-button-icon-margin-right:   0 !default;

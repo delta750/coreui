@@ -241,6 +241,21 @@ module.exports = function(grunt) {
                     ],
                 }],
             },
+        },
+
+        folderCopy: {
+            docs: {
+                files: [{
+                    cwd: 'src',
+                    src: [
+                        'cui/components/*',
+                        'cui/libs/*',
+                        'project/components/*',
+                        'project/libs/*'
+                    ],
+                    folderNames: ['docs','tests']
+                }],
+            },
         }
 
 
