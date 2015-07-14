@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                             //console.log(folder.split('/')[folder.split('/').length -1]);
 
                             var cwd = copyFolder[copy];
-                            var dest = path.join(copy, folderName);
+                            var dest = path.join(copy, 'components', folderName);
 
                             copyTask[folderName + "-" + copy] = {
                                 expand: true,
