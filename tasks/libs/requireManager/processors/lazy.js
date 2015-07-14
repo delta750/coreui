@@ -80,13 +80,17 @@ function lazy() {
 			// Included scripts are a bit harder. How they are included is based on the file type
 			if (file.ext === "css") {
 
-				options.registered.lazy[name] = fs.pathJoin(options.paths.dest.style, file.name);
+				options.registered.lazy[name] = fs.pathJoin(options.paths.dest.style, file.name.replace('.css', ''));
 
 				cssTasks.push(file);
 
 			} else if (file.ext === "scss") {
 
-				options.registered.lazy[name] = fs.pathJoin(options.paths.dest.style, file.name.replace('.scss', ''));
+				if (file.name.indexOf("_") === -1) {
+
+					options.registered.lazy[name] = fs.pathJoin(options.paths.dest.style, file.name.replace('.scss', ''));
+
+				}
 
 				scssTasks.push(file);
 
