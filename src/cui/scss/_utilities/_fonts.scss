@@ -122,3 +122,15 @@
     font-weight: 200;
     font-style: italic;
 }
+
+/* D Sari Bold */
+@font-face {
+    font-family: "D Sari Bold";
+    src: url("../fonts/dsari/dsari-bold.eot");
+    src: url("../fonts/dsari/dsari-bold.eot?#iefix") format("embedded-opentype"),
+         url("../fonts/dsari/dsari-bold.woff2") format("woff2"),
+         url("../fonts/dsari/dsari-bold.woff") format("woff"),
+         url("../fonts/dsari/dsari-bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
