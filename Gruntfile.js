@@ -156,7 +156,7 @@ module.exports = function(grunt) {
 
             cui: {
                 files: {
-                    'dist/css/main.css': ['src/cui/scss/cui.scss', 'src/project/scss/project.scss']
+                    'dist/css/main.css': ['src/project/scss/project.scss']
                 },
             },
         },
