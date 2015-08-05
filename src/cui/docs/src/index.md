@@ -4,13 +4,13 @@
 
 Core UI is designed for easy development of web applications and static web pages. It is platform agnostic and strives to be independent and flexible.
 
-[Check out the demo](../demos/template.html)
+**Check out our [introduction to Core UI](core/index.html)**
 
 ## Usage
 
 - [Getting started](getting-started.html)
-- [Intro to Core UI](core/index.html)
 - [Project structure](project/index.html)
+- [How to build and run your project](build.html)
 - [Upgrading Core UI](core/upgrade.html)
 
 ## Components

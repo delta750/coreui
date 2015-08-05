@@ -205,7 +205,7 @@ module.exports = function(grunt) {
 
             markdown: {
                 files: [
-                    'cui/docs/src/**/*.*',
+                    'src/cui/docs/**/*.*',
                 ],
                 tasks: [
                     'markdown',
