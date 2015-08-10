@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test Page - Core UI</title>
+        <link href="css/main.css" rel="stylesheet" type="text/css" media="all">
+        <!--[if lt IE 9]><script src="js/components/html5shiv.js"></script><![endif]-->
+    </head>
+    <body>
+        <main role="main" class="cui-row">
+            <div class="cui-col-small-12"><h1>Welcome to Core UI</h1></div>
+            <div class="cui-col-small-12"><p><strong><a href="/docs/">Documentation</a></strong></p></div>
+        </main>
+        <script id="require" src="js/main.js"></script>
+        <script>
+            require(['jquery', 'cui', 'domReady!'], function ($, cui) {
+                // You could insert code here, or list additional components on the line above
+                // console.log('The page has loaded');
+            });
+        </script>
+    </body>
+</html>
