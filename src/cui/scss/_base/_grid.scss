@@ -37,6 +37,27 @@ nav > header {
     @include clearfix;
 }
 
+// Flex box shorthand classes
+// These give all columns equal width with their siblings without having to specify a breakpoint or number.
+// Only supported in modern (flex-box-supportive) browsers. Has no effect in older browsers.
+.cui-col,
+.cui-col-small {
+    @include flex-col(1);
+}
+
+// Use these breakpoint-specific classes to restrict the behavior
+// For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens and equal-width on medium screens
+@include pointbreak($cui-bp-medium) {
+    .cui-col-medium {
+        @include flex-col(1);
+    }
+}
+
+@include pointbreak($cui-bp-large) {
+    .cui-col-large {
+        @include flex-col(1);
+    }
+}
 
 // * @section    Column generation
 // * --------------------------------------------------------
@@ -55,7 +76,15 @@ nav > header {
         $unit: nth($x, 2);
 
         .cui-flex-row .cui-fixed-col-#{$breakpointName}-#{$size} {
-            width: #{$value}#{$unit};
+            // Flex box styles
+            @if $cui-grid-use-legacy-styles == false {
+                flex-basis: #{$value}#{$unit};
+                max-width: #{$value}#{$unit};
+            }
+            // Legacy styles
+            @else {
+                width: #{$value}#{$unit};
+            }
         }
     }
 
@@ -68,7 +97,7 @@ nav > header {
 
     // Automatic sizing
     .cui-flex-col-#{$breakpointName} {
-        @include flex-col;
+        @include flex-col(1);
     }
 
     // Specific flex sizes
@@ -144,42 +173,62 @@ nav > header {
     }
 }
 
+// Generates all of the column classes for all breakpoints
+// e.g. `cui-col-small-6`, `cui-col-medium-4`, etc
 @mixin generate-column($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
     // Loop through each column creating the grid
     @for $i from 1 to $numColumns + 1 {
+        // Percentage-based width of the column
+        $width: column-width-calc($i, $numColumns);
 
         // Create this column number and assign it the correct width.
         .cui-col-#{$breakpointName}-#{$i} {
-            width: column-width-calc($i, $numColumns);
+            // Flex box styles
+            @if $cui-grid-use-legacy-styles == false {
+                flex-basis: $width;
+                max-width: $width;
+            }
+            // Legacy styles
+            @else {
+                width: $width;
+            }
         }
 
-        @if $breakpointMaxWidth != "" {
-            @if $i == 6 {
-                // Make sure every column that begins a new "row" clears the elements before it.
-                // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
-                // We're using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
-                //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
-                //FIXME: This currently only generates for the small (no-MQ) breakpoint
-                @include pointbreak($breakpointMaxWidth, true) {
-                    .cui-col-#{$breakpointName}-#{$i}:nth-child(2n+3) {
-                        clear: both;
+        @if $cui-grid-use-legacy-styles {
+            @if $breakpointMaxWidth != "" {
+                @if $i == 6 {
+                    // Make sure every column that begins a new "row" clears the elements before it.
+                    // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
+                    // We're using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
+                    //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
+                    //FIXME: This currently only generates for the small (no-MQ) breakpoint
+                    @include pointbreak($breakpointMaxWidth, true) {
+                        .cui-col-#{$breakpointName}-#{$i}:nth-child(2n+3) {
+                            clear: both;
+                        }
                     }
                 }
             }
         }
     }
 
-    // Loop through again this time creating the `push` classes
+    // Loop through again, this time creating the `push` classes
     @for $i from 1 to $numColumns {
+        // Percentage-based width of the column
+        $width: column-width-calc($i, $numColumns);
+
         .cui-push-#{$breakpointName}-#{$i} {
-            margin-left: column-width-calc($i, $numColumns);
+            margin-left: $width;
         }
     }
 
-    // Loop through again this time creating the `pull` classes
+    // Loop through again, this time creating the `pull` classes
     @for $i from 1 to $numColumns {
+        // Percentage-based width of the column
+        $width: column-width-calc($i, $numColumns);
+
         .cui-pull-#{$breakpointName}-#{$i} {
-            margin-right: column-width-calc($i, $numColumns);
+            margin-right: $width;
         }
     }
 }

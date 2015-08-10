@@ -12,7 +12,7 @@
 
 // List containing messages
 .cui-messages {
-    @include row();
+    @include row;
 
     ul {
         list-style: none outside none;

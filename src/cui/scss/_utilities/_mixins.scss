@@ -270,20 +270,39 @@
 // * @section    Grid
 // * --------------------------------------------------------
 // Standard row
-@mixin row($margin: $cui-grid-row-margin, $width: 100%) {
-    width: $width;
-    clear: both;
+@mixin row($margin: $cui-grid-row-margin, $width: 100%, $force-legacy: false) {
+    // Non-flex box
+    @if $cui-grid-use-legacy-styles or $force-legacy {
+        width: $width;
+        clear: both;
+        @include clearfix;
+    }
+    // Flex box
+    @else {
+        @include flex-row;
+    }
+
     margin: $margin;
-    @include clearfix;
 }
 
 // Standard column
 @mixin col() {
-    float: left;
-    position: relative;
+    // Flex box
+    @if $cui-grid-use-legacy-styles == false {
+        @include grid-col-flex;
+    }
+    // Legacy (non-flex box)
+    @else {
+        float: left;
+        position: relative;
+        @include clearfix;
+        // By default, use up the whole width of the row
+        // E.g. a column with only a `col-large-` class should be 100% width on small and medium sized screens
+        width: 100%;
+    }
+
     min-height: $cui-grid-column-min-height;
     padding: $cui-grid-column-padding;
-    @include clearfix;
 }
 
 // Standard fixed column
@@ -303,6 +322,11 @@
 
 // Row styles for a given type and breakpoint (types: "row", "flex")
 @mixin grid-row($type: "row", $breakpointName: "small") {
+    // Use legacy type if the project set this flag
+    @if $cui-grid-use-legacy-styles {
+        $type: "row";
+    }
+
     @if $breakpointName == "small" {
         @if $type == "flex" {
             @include flex-row;
@@ -357,9 +381,10 @@
 @mixin grid-col-flex($breakpointName: "small", $width: false) {
     @mixin grid-col-flex-helper($breakpointName: "small", $width: false) {
         @if $width != false {
-            @include flex-col(1 0 $width);
+            @include flex-col(0 0 $width);
 
             // Legacy support for non-flexbox and non-calc browsers
+            // Note that this is separate than `$cui-grid-use-legacy-styles`. Even with that flag turned on you can still use flex box in supporting browsers and fall back to more basic CSS using the `.no-flexbox` class added by Modernizr.
             .no-flexbox & {
                 width: calc(100% - $width);
             }
@@ -376,7 +401,18 @@
             }
         }
         @else {
-            @include flex-col;
+            @include flex-col(0 0 100%);
+        }
+    }
+
+    // By default, use up the whole width of the row
+    // E.g. a column with only a `col-large-` class should be 100% width on small and medium sized screens
+    @if $cui-grid-use-legacy-styles == false {
+        @if $width != false {
+            max-width: $width;
+        }
+        @else {
+            max-width: 100%;
         }
     }
 
@@ -434,13 +470,17 @@
 
     @include clearfix;
 
+    flex: 0 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+
     .no-flexbox & {
-        @include row;
+        @include row(null, null, true);
     }
 }
 
 // Child element (column) within a flex container
-@mixin flex-col($val: 1, $width: false) {
+@mixin flex-col($val: 0 0 auto, $width: false) {
     position: relative;
     padding: $cui-grid-column-padding;
     @include clearfix;
@@ -459,6 +499,8 @@
 
 // Optionally override the source order of a child element
 @mixin flex-col-order($order: 1) {
+                                       // The syntax varied per browser for a while
+                                       //     before settling upon a standard:
     -webkit-box-ordinal-group: $order; // OLD - iOS 6-, Safari 3.1-6
        -moz-box-ordinal-group: $order; // OLD - Firefox 19-
 
