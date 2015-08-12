@@ -423,6 +423,14 @@ module.exports = function(grunt) {
                 dest: 'docs/_includes/images',
                 filter: 'isFile',
                 flatten: true,
+            },
+            demos: {
+                expand: true,
+                cwd: 'src/cui/docs/demos/',
+                src: ['**/*.*'],
+                dest: 'docs/demos',
+                filter: 'isFile',
+                flatten: true,
             }
         };
 
