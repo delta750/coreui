@@ -8,7 +8,6 @@ Developed by the NYS Office for Information Technology staff, Core UI is designe
 
 + Unidirectional styling - Core UI is applied to your project work and simply passes your
 project through it only applying the needed information to make it responsive.
-</br><div align=center><img src="/src/cui/docs/src/_includes/images/cuiLinear.jpg"></div>
 
 + Componentized/Modular - The project can be built modularly and then have the framework applied to it.
 Your project is seamlessly added on to the Core UI framework and integrated into your other
@@ -25,6 +24,8 @@ base for your sites and forms
 
 ## What it isn't
 + No enforced styles - Enables you to program in your own look and feel to each element of your framework.
++ Linear design promotes speed and ease of integration. This framework does not continually iterate to get style updates:
+</br><div align=center><img src="/src/cui/docs/src/_includes/images/cuiLinear.jpg"><img src="/src/cui/docs/src/_includes/images/iterate.jpg"></div></br>
 
 ## Comparison to other toolkits
 + Core UI requires less overhead processing making it more responsive with less non utilized components being loaded.
