@@ -115,7 +115,7 @@ module.exports = function(grunt) {
         markdown: {
             options: {
                 highlight: 'auto',
-                template: 'src/cui/docs/src/_includes/templates/default.html',
+                template: 'src/cui/docs/src/assets/templates/default.html',
                 markdownOptions: {
                     highlight: 'manual', // 'auto',
                     gfm: true,
@@ -410,17 +410,17 @@ module.exports = function(grunt) {
         copy = {
             docAssets: {
                 expand: true,
-                cwd: 'src/cui/docs/src/_includes/css',
+                cwd: 'src/cui/docs/src/assets/css',
                 src: ['**/*.css'],
-                dest: 'docs/_includes/css',
+                dest: 'docs/assets/css',
                 filter: 'isFile',
                 flatten: true,
             },
             images: {
                 expand: true,
-                cwd: 'src/cui/docs/src/_includes/images',
+                cwd: 'src/cui/docs/src/assets/images',
                 src: ['**/*.*'],
-                dest: 'docs/_includes/images',
+                dest: 'docs/assets/images',
                 filter: 'isFile',
                 flatten: true,
             },

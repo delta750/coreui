@@ -196,7 +196,7 @@ $('li').helloWorld();
 
 Rebuild the project and reload the test page again. You should see three different sets of customized messages in the `h2`, `p`, and `li` elements:
 
-![Finished hello world component page](/docs/_includes/images/hello-world-basic.png "Finished hello world component page")
+![Finished hello world component page](/docs/assets/images/hello-world-basic.png "Finished hello world component page")
 
 For reference, here is the [complete `helloWorld.html` file](https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb).
 
@@ -223,7 +223,7 @@ appendText: function() {
 
 Rebuild the project again and refresh the test page. The contents of the page should remain the same, but the color of all the appended text should have changed:
 
-![Finished hello world component page with styles](/docs/_includes/images/hello-world-with-style.png "Finished hello world component page with styles")
+![Finished hello world component page with styles](/docs/assets/images/hello-world-with-style.png "Finished hello world component page with styles")
 
 For your reference, here is the [updated `helloWorld.js`](https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b) file and the [complete `helloWorld.scss` file](https://gist.github.com/JeffHerb/5fc2a41859b277136302).
 

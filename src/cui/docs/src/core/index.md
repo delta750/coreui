@@ -26,8 +26,8 @@ content and functionality
     - You don't need to overwrite Core UI's styles with your own and duplicate the amount of CSS you're delivering to the user
 + Linear design promotes speed and ease of integration
     - The toolkit inherits your styles rather than imposing styles that you must override:
-    ![](/src/cui/docs/src/_includes/images/cuiLinear.jpg)
-    ![](/src/cui/docs/src/_includes/images/iterate.jpg)
+    ![](/src/cui/docs/src/assets/images/cuiLinear.jpg)
+    ![](/src/cui/docs/src/assets/images/iterate.jpg)
 + Any component can be bundled with your project or loaded conditionally
 + Core UI can have pages styled independently from each other with no global styles or formatting
 
