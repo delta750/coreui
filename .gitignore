@@ -24,3 +24,4 @@ tasks/libs/requireManager/temp
 
 # For GitEYE GUI
 /.project
+src/cui/scss/_utilities/_assets.scss

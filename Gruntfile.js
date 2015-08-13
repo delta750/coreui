@@ -62,9 +62,16 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 flatten: true,
             },
+            html: {
+                expand: true,
+                cwd: 'src/project/html',
+                src: ['**/*.html'],
+                dest: 'dist',
+                filter: 'isFile'
+            },
             templates: {
                 expand: true,
-                cwd: 'src/templates',
+                cwd: 'src/project/templates',
                 src: ['**/*.html'],
                 dest: 'dist/templates',
                 filter: 'isFile',
@@ -80,6 +87,8 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
+                    open: 'http://localhost:8888/dist/',
+                    livereload: true,
                     port: 8888,
                 },
             },
@@ -348,7 +357,7 @@ module.exports = function(grunt) {
             'sass',
             'concat',
             'connect',
-            'watch'
+            'docs'
         ]);
     });
 
@@ -414,6 +423,14 @@ module.exports = function(grunt) {
                 dest: 'docs/_includes/images',
                 filter: 'isFile',
                 flatten: true,
+            },
+            demos: {
+                expand: true,
+                cwd: 'src/cui/docs/demos/',
+                src: ['**/*.*'],
+                dest: 'docs/demos',
+                filter: 'isFile',
+                flatten: true,
             }
         };
 
@@ -422,9 +439,8 @@ module.exports = function(grunt) {
         grunt.task.run([
             'clean:docs',
             'copy',
-            'connect',
             'markdown',
-            'watch:markdown',
+            'watch',
         ]);
     });
 
