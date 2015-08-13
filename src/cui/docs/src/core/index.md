@@ -19,17 +19,18 @@ content and functionality
     - Supports a wide variety of devices without special coding or add-ons
 + Ease of standardization
     - Use the same components across all projects in your web environment
+    
+    ![](/src/cui/docs/src/_includes/images/components.jpg)
 
 ## Comparison to other toolkits
 
 + No enforced styles
     - You don't need to overwrite Core UI's styles with your own and duplicate the amount of CSS you're delivering to the user
 + Linear design promotes speed and ease of integration
-    - The toolkit inherits your styles rather than imposing styles that you must override:
-    ![](/src/cui/docs/src/_includes/images/cuiLinear.jpg)
-    ![](/src/cui/docs/src/_includes/images/iterate.jpg)
-+ Any component can be bundled with your project or loaded conditionally
-+ Core UI can have pages styled independently from each other with no global styles or formatting
+    - The toolkit inherits your styles rather than imposing styles that you must override:</ul>
+![](/src/cui/docs/src/_includes/images/cuiLinear.jpg)![](/src/cui/docs/src/_includes/images/iterate.jpg)
+<li> Any component can be bundled with your project or loaded conditionally
+<li> Core UI can have pages styled independently from each other with no global styles or formatting
 
 ## What's next
 
