@@ -1,26 +1,24 @@
 module.exports = function(grunt) {
-
-    var
     // Banner for JavaScript files
     // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-    jsBanner = '/*! <%= pkg.title %>\n' +
-             ' *  @description  <%= pkg.description %>\n' +
-             ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-             ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-             '<%= pkg.author.name %>\n */\n',
+    var jsBanner = '/*! <%= pkg.title %>\n' +
+                 ' *  @description  <%= pkg.description %>\n' +
+                 ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+                 ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+                 '<%= pkg.author.name %>\n */\n';
 
     // This banner will appear at the top style sheets
-    cssBanner = '@charset "utf-8";\n' + jsBanner,
+    var cssBanner = '@charset "utf-8";\n' + jsBanner;
 
     // Insert the Live Reload script
-    liveReloadInjection =
-    '\n(function(){' +
-        'var s = document.createElement("script");' +
-        's.src="//localhost:35729/livereload.js";' +
-        'document.head.appendChild(s);' +
-    '}());';
+    var liveReloadInjection =
+            '\n(function(){' +
+                'var s = document.createElement("script");' +
+                's.src="//localhost:35729/livereload.js";' +
+                'document.head.appendChild(s);' +
+            '}());';
 
-    // // Project configuration.
+    // Project configuration.
     grunt.initConfig({
 
         // All Grunt modules must be listed in the `package.json` file
@@ -36,9 +34,6 @@ module.exports = function(grunt) {
                 'dist',
                 'src/components/**/dist/',
                 '!src/components/**/node_modules/**/dist/',
-            ],
-            docs: [
-                'docs',
             ],
         },
 
@@ -64,8 +59,11 @@ module.exports = function(grunt) {
             },
             html: {
                 expand: true,
-                cwd: 'src/project/html',
-                src: ['**/*.html'],
+                cwd: 'src/',
+                src: [
+                        'cui/html/**/*.html',
+                        'project/html/**/*.html',
+                    ],
                 dest: 'dist',
                 filter: 'isFile'
             },
@@ -87,9 +85,11 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
-                    open: 'http://localhost:8888/dist/',
                     livereload: true,
                     port: 8888,
+                    open: false,
+                    // Comment the line above and uncomment the line below if you would like to have a new browser tab open automatically
+                    // open: 'http://localhost:8888/dist/',
                 },
             },
         },
@@ -184,18 +184,21 @@ module.exports = function(grunt) {
         watch: {
             options: {
                 livereload: true,
+                open: false,
                 interrupt: true,
-                nospawn: true
             },
 
             scripts: {
                 files: [
                     'src/cui/**/*.js',
                     'src/project/**/*.js',
-                    // Ignore generated component files
+                    // Only watch `src/` files for components and ignore `dist/`
+                    'src/project/components/*/src/js/*.js',
                 ],
                 tasks: [
                     'jshint',
+                    'subGrunt',
+                    'requireManager',
                     'requirejs',
                     'uglify',
                     'concat:devJS',
@@ -206,15 +209,27 @@ module.exports = function(grunt) {
                 files: [
                     'src/cui/scss/**/*.scss',
                     'src/project/scss/**/*.scss',
+                    // Only watch `src/` files for components and ignore `dist/`
+                    'src/project/components/*/src/scss/*.scss',
                 ],
                 tasks: [
-                    'sass:cui',
+                    'sass',
+                ],
+            },
+
+            html: {
+                files: [
+                    'src/cui/**/*.html',
+                    'src/project/**/*.html',
+                ],
+                tasks: [
+                    'copy:html',
                 ],
             },
 
             markdown: {
                 files: [
-                    'src/cui/docs/**/*.*',
+                    'src/cui/docs/**/*.md',
                 ],
                 tasks: [
                     'markdown',
@@ -235,7 +250,6 @@ module.exports = function(grunt) {
 
         // Require Manager Script. Please leave this task blank
         requireManager: {},
-
 
         // Locations to look for components
         subGrunt: {
@@ -407,37 +421,46 @@ module.exports = function(grunt) {
 
         var copy = grunt.config.get('copy');
 
-        copy = {
-            docAssets: {
-                expand: true,
-                cwd: 'src/cui/docs/src/assets/css',
-                src: ['**/*.css'],
-                dest: 'docs/assets/css',
-                filter: 'isFile',
-                flatten: true,
-            },
-            images: {
-                expand: true,
-                cwd: 'src/cui/docs/src/assets/images',
-                src: ['**/*.*'],
-                dest: 'docs/assets/images',
-                filter: 'isFile',
-                flatten: true,
-            },
-            demos: {
-                expand: true,
-                cwd: 'src/cui/docs/demos/',
-                src: ['**/*.*'],
-                dest: 'docs/demos',
-                filter: 'isFile',
-                flatten: true,
-            }
+        copy.docAssets = {
+            expand: true,
+            cwd: 'src/cui/docs/src/assets/css',
+            src: ['**/*.css'],
+            dest: 'dist/css',
+            filter: 'isFile',
+            flatten: true,
+        };
+
+        copy.projectDocAssets = {
+            expand: true,
+            cwd: 'src/project/docs',
+            src: ['**/*.*'],
+            dest: 'docs/project',
+            filter: 'isFile',
+        };
+
+        copy.images = {
+            expand: true,
+            cwd: 'src/cui/docs/src/assets/images',
+            src: ['**/*.*'],
+            dest: 'docs/assets/images',
+            filter: 'isFile',
+            flatten: true,
+        };
+
+        copy.demos = {
+            expand: true,
+            cwd: 'src/cui/docs/demos/',
+            src: ['**/*.*'],
+            dest: 'docs/demos',
+            filter: 'isFile',
+            flatten: true,
         };
 
         grunt.config.set('copy', copy);
 
         grunt.task.run([
-            'clean:docs',
+            'subGrunt',
+            'folderCopy',
             'copy',
             'markdown',
             'watch',
@@ -445,5 +468,5 @@ module.exports = function(grunt) {
     });
 
     // Set the default task to the production build
-    grunt.registerTask('default', 'prod');
+    grunt.registerTask('default', 'dev');
 };
