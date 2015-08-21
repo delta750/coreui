@@ -58,15 +58,29 @@ module.exports = function(grunt) {
                 flatten: true,
             },
             html: {
-                expand: true,
-                cwd: 'src/',
-                src: [
-                        'cui/docs/**/*.html',
-                        'cui/html/**/*.html',
-                        'project/html/**/*.html',
-                    ],
-                dest: 'dist',
-                filter: 'isFile'
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/cui/html/',
+                        src: ['**/*.html'],
+                        dest: 'dist',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/cui/docs/',
+                        src: ['**/*.html'],
+                        dest: 'dist',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/project/html/',
+                        src: ['**/*.html'],
+                        dest: 'dist',
+                        filter: 'isFile'
+                    },
+                ]
             },
             templates: {
                 expand: true,
