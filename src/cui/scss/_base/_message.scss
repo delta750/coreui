@@ -14,6 +14,8 @@
 .cui-messages {
     @include row($cui-grid-row-margin, 100%, true);
     margin: 0 1em 0 1em;
+    padding: 0.4em 0;
+    line-height: normal;
 
     .cui-error,
     .cui-warning,
