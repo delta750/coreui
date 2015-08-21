@@ -61,6 +61,7 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'src/',
                 src: [
+                        'cui/docs/**/*.html',
                         'cui/html/**/*.html',
                         'project/html/**/*.html',
                     ],
