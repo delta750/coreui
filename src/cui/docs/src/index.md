@@ -33,6 +33,10 @@ Core UI is designed for easy development of web applications and static web page
 
 [How to contribute](contributing.html)
 
+## Upgrading Core UI
+
+[How to upgrade Core UI](upgrading-core-ui.html)
+
 ## Authors
 
 The project is developed by the [New York State Office of Information Technology Services](https://github.com/ny) as part of a cross-cluster effort between [Manuel Farfan](https://github.com/mfarfanr), [Craig Patik](https://github.com/patik) and [Jeff Herb](https://github.com/JeffHerb).
