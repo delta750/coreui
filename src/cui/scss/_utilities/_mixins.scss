@@ -287,18 +287,18 @@
 
 // Standard column
 @mixin col() {
-    // Flex box
-    @if $cui-grid-use-legacy-styles == false {
-        @include grid-col-flex;
-    }
     // Legacy (non-flex box)
-    @else {
+    @if $cui-grid-use-legacy-styles {
         float: left;
         position: relative;
         @include clearfix;
         // By default, use up the whole width of the row
         // E.g. a column with only a `col-large-` class should be 100% width on small and medium sized screens
         width: 100%;
+    }
+    // Flex box
+    @else {
+        @include grid-col-flex;
     }
 
     min-height: $cui-grid-column-min-height;
@@ -381,7 +381,7 @@
 @mixin grid-col-flex($breakpointName: "small", $width: false) {
     @mixin grid-col-flex-helper($breakpointName: "small", $width: false) {
         @if $width != false {
-            @include flex-col(0 0 $width);
+            @include flex-col(0 1 $width);
 
             // Legacy support for non-flexbox and non-calc browsers
             // Note that this is separate than `$cui-grid-use-legacy-styles`. Even with that flag turned on you can still use flex box in supporting browsers and fall back to more basic CSS using the `.no-flexbox` class added by Modernizr.
@@ -401,7 +401,7 @@
             }
         }
         @else {
-            @include flex-col(0 0 100%);
+            @include flex-col(0 1 100%);
         }
     }
 
@@ -461,7 +461,7 @@
 // * --------------------------------------------------------
 // Not supported by IE 8 and IE 9
 // Parent container that will make all DIRECT children become flex items
-@mixin flex-row {
+@mixin flex-row($wrap: $cui-grid-flex-row-wrap, $direction: false) {
     display: -webkit-box;  // OLD - iOS 6-, Safari 3.1-6
     display: -moz-box;     // OLD - Firefox 19- (buggy but mostly works)
     display: -ms-flexbox;  // TWEENER - IE 10
@@ -470,9 +470,13 @@
 
     @include clearfix;
 
-    flex: 0 1 auto;
-    flex-direction: row;
-    flex-wrap: wrap;
+    @if $direction != false {
+        flex-direction: $direction;
+    }
+
+    @if $wrap != false {
+        flex-wrap: $wrap;
+    }
 
     .no-flexbox & {
         @include row(null, null, true);
@@ -489,7 +493,7 @@
        -moz-box-flex: $val; // OLD - Firefox 19-
 
     @if $width != false {
-        width: $width;      // For old syntax, otherwise collapses.
+        width: $width;      // For old syntax, otherwise it will collapse
     }
 
     -webkit-flex: $val;     // Chrome

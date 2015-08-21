@@ -98,6 +98,11 @@ nav > header {
     // Automatic sizing
     .cui-flex-col-#{$breakpointName} {
         @include flex-col(1);
+
+        // Need to override any specific values from other breakpoints
+        // For example, `<div class="cui-col-small-6 cui-flex-col-large">` would inherit 50% width from the `small` class even when the screen size is large
+        flex-basis: auto;
+        max-width: none;
     }
 
     // Specific flex sizes
