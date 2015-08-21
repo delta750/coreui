@@ -12,12 +12,12 @@
 
 // List containing messages
 .cui-messages {
-    @include row;
+    @include row($cui-grid-row-margin, 100%, true);
 
-    &.cui-error,
-    &.cui-warning,
-    &.cui-informational,
-    &.cui-success {
+    .cui-error,
+    .cui-warning,
+    .cui-informational,
+    .cui-success {
         position: relative;
         margin-bottom: 0.2em;
 
@@ -40,7 +40,7 @@
     }
 
     // Error message item
-    &.cui-error {
+    .cui-error {
         background-color: lighten($cui-color-text-error, 46%);
         border: 1px solid lighten($cui-color-text-error, 32%);
         border-radius: $cui-border-radius;
@@ -52,7 +52,7 @@
     }
 
     // Warning message item
-    &.cui-warning {
+    .cui-warning {
         background-color: lighten($cui-color-text-warning, 52%);
         border: 1px solid lighten($cui-color-text-warning, 18%);
         border-radius: $cui-border-radius;
@@ -64,7 +64,7 @@
     }
 
     // Success message item
-    &.cui-success {
+    .cui-success {
         background-color: lighten($cui-color-text-success, 46%);
         border: 1px solid lighten($cui-color-text-success, 22%);
         border-radius: $cui-border-radius;
@@ -76,7 +76,7 @@
     }
 
     // Informational message item
-    &.cui-informational {
+    .cui-informational {
         background-color: lighten($cui-color-text-information, 66%);
         border: 1px solid lighten($cui-color-text-information, 50%);
         border-radius: $cui-border-radius;
