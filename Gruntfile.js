@@ -87,7 +87,6 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true,
                     port: 8888,
-                    open: false,
                     // Comment the line above and uncomment the line below if you would like to have a new browser tab open automatically
                     // open: 'http://localhost:8888/dist/',
                 },
@@ -184,7 +183,6 @@ module.exports = function(grunt) {
         watch: {
             options: {
                 livereload: true,
-                open: false,
                 interrupt: true,
             },
 

@@ -13,6 +13,7 @@
 // List containing messages
 .cui-messages {
     @include row($cui-grid-row-margin, 100%, true);
+    margin: 0 1em 0 1em;
 
     .cui-error,
     .cui-warning,
