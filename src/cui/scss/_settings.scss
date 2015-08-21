@@ -119,12 +119,12 @@ $cui-input-difference-in-padding-value: 1px !default;
 // * --------------------------------------------------------
 
 // Whether to use legacy styles (float/width) for the grid classes rather than flex box
-// Set this to `true` in src/project/scss/_settings.scss if your project needs to support older browsers
+// Set this to `true` in src/project/scss/_settings.scss if your project needs to support older browsers (e.g. IE 9 and below)
 $cui-grid-use-legacy-styles: false !default;
 
 $cui-grid-column-min-height: 1.5em !default;
 $cui-grid-column-count:      12 !default;
-$cui-grid-gutter-width:      10px !default;
+$cui-grid-gutter-width:      0 !default;
 $cui-grid-row-margin:        0 auto $cui-grid-gutter-width auto !default;
 $cui-grid-column-padding:    0 $cui-grid-gutter-width !default;
 
