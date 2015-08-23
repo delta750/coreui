@@ -11,13 +11,17 @@
 // * --------------------------------------------------------
 $cui-font-basic:           Arial, sans-serif !default;
 $cui-font-family:          "Proxima Nova", $cui-font-basic !default;
-$cui-font-family-monospace: Menlo, Consolas, monospace !default;
+$cui-text-font:            $cui-font-family !default;
+$cui-font-monospace:       Menlo, Consolas, monospace !default;
 $cui-font-size:            16px !default;
+$cui-text-size:            16px !default;
 $cui-font-weight-light:    400 !default;
 $cui-font-weight-semibold: 600 !default;
 $cui-line-height:          1 !default;
+
 // Headings
 $cui-font-heading:         $cui-font-family !default;
+
 // Required asterisk
 $cui-font-required:        1.1em $cui-font-basic !default;
 

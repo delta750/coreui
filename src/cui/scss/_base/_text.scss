@@ -9,21 +9,41 @@
 
 // * @section    Text styles
 // * --------------------------------------------------------
-body,
-input,
-select,
-textarea,
-button {
+body {
     font-size: $cui-font-size;
     font-family: $cui-font-family;
 }
 
+// Elements that generally contain only text and not other elements
+p,
+label,
+legend,
+input,
+select,
+textarea,
+button,
+.cui-data {
+    font-size: $cui-text-size;
+    font-family: $cui-text-font;
+}
+
+// Font smoothing
 body,
 input,
 select,
 textarea {
     // Not for buttons
     -webkit-font-smoothing: antialiased;
+
+    // Note that Android 2.x can crash or ignore some font styles if this is set
+    text-rendering: optimizeLegibility;
+
+    // More about the kerning settings and browser support: http://blog.typekit.com/2014/02/05/kerning-on-the-web/
+    -webkit-font-feature-settings: "kern";
+       -moz-font-feature-settings: "kern";
+       -moz-font-feature-settings: "kern=1";
+            font-feature-settings: "kern" 1;
+    font-kerning: normal;
 }
 
 p {
