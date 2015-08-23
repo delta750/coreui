@@ -38,10 +38,16 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            // Copy rule handes modules that do now have dist folders
-            fonts: {
+            cuiFonts: {
                 expand: true,
                 cwd: 'src/cui/fonts',
+                src: ['**'],
+                dest: 'dist/fonts',
+                filter: 'isFile',
+            },
+            projectFonts: {
+                expand: true,
+                cwd: 'src/project/fonts',
                 src: ['**'],
                 dest: 'dist/fonts',
                 filter: 'isFile',
