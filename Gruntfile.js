@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         // Flag for dynamic tasks.
-        prodBuild: true,
+        prodBuild: false,
 
         // Remove temporary development files
         // https://github.com/gruntjs/grunt-contrib-clean
@@ -38,23 +38,24 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            
-            cuiFonts: {
-                expand: true,
-                cwd: 'src/cui/fonts',
-                src: ['**'],
-                dest: 'dist/fonts',
-                filter: 'isFile',
+            fonts: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/cui/fonts/',
+                        src: ['**'],
+                        dest: 'dist/fonts',
+                        filter: 'isFile',
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/project/fonts/',
+                        src: ['**'],
+                        dest: 'dist/fonts',
+                        filter: 'isFile',
+                    },
+                ],
             },
-            
-            projectFonts: {
-                expand: true,
-                cwd: 'src/project/fonts',
-                src: ['**'],
-                dest: 'dist/fonts',
-                filter: 'isFile',
-            },
-            
             images: {
                 expand: true,
                 cwd: 'src/',
@@ -73,23 +74,23 @@ module.exports = function(grunt) {
                         cwd: 'src/cui/html/',
                         src: ['**/*.html'],
                         dest: 'dist',
-                        filter: 'isFile'
+                        filter: 'isFile',
                     },
                     {
                         expand: true,
                         cwd: 'src/cui/docs/',
                         src: ['**/*.html'],
                         dest: 'dist',
-                        filter: 'isFile'
+                        filter: 'isFile',
                     },
                     {
                         expand: true,
                         cwd: 'src/project/html/',
                         src: ['**/*.html'],
                         dest: 'dist',
-                        filter: 'isFile'
+                        filter: 'isFile',
                     },
-                ]
+                ],
             },
             templates: {
                 expand: true,
@@ -97,8 +98,8 @@ module.exports = function(grunt) {
                 src: ['**/*.html'],
                 dest: 'dist/templates',
                 filter: 'isFile',
-                flatten: true
-            }
+                flatten: true,
+            },
         },
 
         // Items are dynamically added here.
@@ -182,8 +183,8 @@ module.exports = function(grunt) {
         // https://github.com/sindresorhus/grunt-sass
         sass: {
             options: {
-                sourceMap: false, // No source maps by default
-                outputStyle: 'nested', // Options: nested, compressed
+                sourceMap: true,
+                outputStyle: 'nested', // Options: "nested", "compressed" (i.e. minified)
             },
 
             cui: {
@@ -193,12 +194,12 @@ module.exports = function(grunt) {
             },
         },
 
+        // https://github.com/gruntjs/grunt-contrib-uglify
         uglify: {
-            // Global uglify options
             options: {
                 banner: jsBanner,
-                preserveComments: 'some',
-                sourceMap: false,
+                preserveComments: 'some', // Only comments with a special syntax are kept
+                sourceMap: true,
                 mangle: false,
             }
         },
@@ -322,25 +323,31 @@ module.exports = function(grunt) {
     // This is the default task (when you just type "grunt" at the command prompt)
     grunt.registerTask('prod', 'Production', function (args) {
 
+        // Set the prod flag
+        grunt.config.set("prodBuild", true);
+
+        // Disable Source Maps
+        grunt.config.set('sass.options.sourceMap', false);
+        grunt.config.set('uglify.options.sourceMap', false);
+
         // Dynamically add production concats
         var concat = grunt.config.get('concat');
 
-        concat = {
-            cuiCSS: {
-                options: {
-                    banner: cssBanner,
-                },
-                src: ['dist/css/main.css'],
-                dest: 'dist/css/main.css',
+        concat.cuiCSS = {
+            options: {
+                banner: cssBanner,
             },
-            cuiJS: {
-                options: {
-                    banner: jsBanner,
-                },
-                src: ['dist/js/main.js'],
-                dest: 'dist/js/main.js',
-            }
-        }
+            src: ['dist/css/main.css'],
+            dest: 'dist/css/main.css',
+        };
+
+        concat.cuiJS = {
+            options: {
+                banner: jsBanner,
+            },
+            src: ['dist/js/main.js'],
+            dest: 'dist/js/main.js',
+        };
 
         grunt.config.set('concat', concat);
 
@@ -360,13 +367,6 @@ module.exports = function(grunt) {
     // Development: compile script and styles, start a local server, and watch for file changes
     // Only use this for local development
     grunt.registerTask('dev', 'Development', function (args) {
-
-        // Set the prod flag to false.
-        grunt.config.set("prodBuild", false);
-
-        // Enable Source Maps
-        grunt.config.set('sass.options.sourceMap', true);
-        grunt.config.set('uglify.options.sourceMap', true);
 
         var concat = grunt.config.get('concat');
 
