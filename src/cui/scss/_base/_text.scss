@@ -12,9 +12,30 @@
 body {
     font-size: $cui-font-size;
     font-family: $cui-font-family;
+    color: $cui-text-color;
 }
 
-// Elements that generally contain only text and not other elements
+p {
+    margin: 0;
+    padding-bottom: $cui-paragraph-padding;
+    line-height: $cui-color-text-line-height;
+}
+
+code {
+    font-family: $cui-font-monospace;
+    color: $cui-code-color;
+}
+
+input,
+select,
+button,
+textarea {
+    // In many (older?) browsers, inputs do not inherit color from the `<body>`
+    color: $cui-input-color;
+}
+
+// Elements that generally contain only text and no other elements
+// Note that `<span>` is purposely not listed because it may be used for other purposes. Text-containing `<span>`s should likely be inside another element like `<p>` or `<label>`.
 p,
 label,
 legend,
@@ -27,14 +48,22 @@ button,
     font-family: $cui-text-font;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $cui-font-heading;
+    color: $cui-heading-color;
+}
+
 // Font smoothing
 body,
 input,
 select,
-textarea {
-    // Not for buttons
-    -webkit-font-smoothing: antialiased;
-
+textarea,
+button {
     // Note that Android 2.x can crash or ignore some font styles if this is set
     text-rendering: optimizeLegibility;
 
@@ -46,8 +75,11 @@ textarea {
     font-kerning: normal;
 }
 
-p {
-    margin: 0;
-    padding-bottom: $cui-paragraph-padding;
-    line-height: $cui-color-text-line-height;
+body,
+input,
+select,
+textarea {
+    // Not for buttons or elements with a dark background and light text
+    // Use `-webkit-font-smoothing: subpixel-antialiased;` on specific elements to disable this and use the operating system's default rendering instead
+    -webkit-font-smoothing: antialiased;
 }
