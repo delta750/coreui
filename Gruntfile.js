@@ -38,6 +38,7 @@ module.exports = function(grunt) {
         },
 
         copy: {
+            
             cuiFonts: {
                 expand: true,
                 cwd: 'src/cui/fonts',
@@ -45,6 +46,7 @@ module.exports = function(grunt) {
                 dest: 'dist/fonts',
                 filter: 'isFile',
             },
+            
             projectFonts: {
                 expand: true,
                 cwd: 'src/project/fonts',
@@ -52,6 +54,7 @@ module.exports = function(grunt) {
                 dest: 'dist/fonts',
                 filter: 'isFile',
             },
+            
             images: {
                 expand: true,
                 cwd: 'src/',
