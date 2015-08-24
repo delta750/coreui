@@ -367,14 +367,12 @@ module.exports = function(grunt) {
 
         var concat = grunt.config.get('concat');
 
-        concat = {
-            devJS: {
-                options: {
-                    footer: liveReloadInjection
-                },
-                src: ['dist/js/main.js'],
-                dest: 'dist/js/main.js'
-            }
+        concat.devJS = {
+            options: {
+                footer: liveReloadInjection
+            },
+            src: ['dist/js/main.js'],
+            dest: 'dist/js/main.js'
         };
 
         grunt.config.set('concat', concat);
