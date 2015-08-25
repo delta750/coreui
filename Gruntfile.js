@@ -79,7 +79,10 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'src/cui/docs/',
-                        src: ['**/*.html'],
+                        src: [
+                                '**/*.html',
+                                '!src/**/*.html',
+                            ],
                         dest: 'dist',
                         filter: 'isFile',
                     },
@@ -239,11 +242,12 @@ module.exports = function(grunt) {
                     'sass',
                 ],
             },
-
             html: {
                 files: [
-                    'src/cui/**/*.html',
-                    'src/project/**/*.html',
+                    'src/cui/html/**/*.html',
+                    'src/cui/docs/**/*.html',
+                    '!src/cui/docs/src/**/*.html',
+                    'src/project/html/**/*.html',
                 ],
                 tasks: [
                     'copy:html',
