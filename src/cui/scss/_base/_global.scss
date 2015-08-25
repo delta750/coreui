@@ -20,11 +20,14 @@ legend {
     display: inline-block;
 }
 
-// * @section    Browser inconsistencies
-// * @bugfix     Avoid box model inconsistencies
+// * @section    Browser box model consistency
 // * --------------------------------------------------------
-*,
-*:after,
-*:before {
+html {
     @include box-sizing;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
