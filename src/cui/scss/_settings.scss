@@ -62,6 +62,27 @@ $cui-images-path:          "/dist/images/" !default;
 $cui-touch-min-height:     44px !default;
 
 
+// * @section    Inputs
+// * --------------------------------------------------------
+$cui-input-border-color:    $cui-color-light-gray-alt-2 !default;
+$cui-input-border-width:    1px !default;
+$cui-input-border:          $cui-input-border-width solid $cui-input-border-color !default;
+$cui-input-border-color-focus:  #66afe9 !default;
+$cui-input-border-radius:   $cui-border-radius !default;
+$cui-input-padding-top:     4px !default;
+$cui-input-padding-right:   6px !default;
+$cui-input-padding-bottom:  $cui-input-padding-top !default;
+$cui-input-padding-left:    $cui-input-padding-right !default;
+$cui-input-padding:         $cui-input-padding-top $cui-input-padding-right $cui-input-padding-bottom $cui-input-padding-left !default;
+$cui-input-bg-color:        $cui-color-white !default;
+$cui-input-bg-hover-color:  $cui-color-light-gray !default;
+$cui-input-font-size:       $cui-font-size !default;
+$cui-input-font-weight:     $cui-font-weight-light !default;
+$cui-input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
+
+$cui-input-difference-in-padding-value: 1px !default;
+
+
 // * @section    Buttons
 // * --------------------------------------------------------
 $cui-button-hover-color:     $cui-color-light-gray !default;
@@ -76,9 +97,14 @@ $cui-button-margin-bottom:   0 !default;
 $cui-button-margin-left:     0.5em !default;
 $cui-button-margin:          $cui-button-margin-top $cui-button-margin-right $cui-button-margin-bottom $cui-button-margin-left !default;
 $cui-button-border-color:    #a5a5a3 !default;
+$cui-button-border-style:    solid !default;
 $cui-button-border-width:    1px !default;
+$cui-button-border:          $cui-button-border-width $cui-button-border-style $cui-button-border-color !default;
 $cui-button-bg-color:        #d0d0ce !default;
 $cui-button-text-shadow:     rgb(255, 255, 255) 0 1px 0 !default;
+$cui-button-border-radius:   $cui-input-border-radius !default;
+$cui-button-font-size:       $cui-input-font-size !default;
+$cui-button-font-weight:     $cui-input-font-weight !default;
 
 // Primary button
 $cui-button-primary-text-color:         $cui-color-white !default;
@@ -103,26 +129,6 @@ $cui-button-icon-margin:         $cui-button-icon-margin-top $cui-button-icon-ma
 
 $cui-button-icon-width:    24px !default;
 $cui-button-icon-height:   24px !default;
-
-
-// * @section    Inputs
-// * --------------------------------------------------------
-$cui-input-border-color:    $cui-color-light-gray-alt-2 !default;
-$cui-input-border-width:    1px !default;
-$cui-input-border:          $cui-input-border-width solid $cui-input-border-color !default;
-$cui-input-border-color-focus:  #66afe9 !default;
-$cui-input-border-radius:   $cui-border-radius !default;
-$cui-input-padding-top:     4px !default;
-$cui-input-padding-right:   6px !default;
-$cui-input-padding-bottom:  $cui-input-padding-top !default;
-$cui-input-padding-left:    $cui-input-padding-right !default;
-$cui-input-padding:         $cui-input-padding-top $cui-input-padding-right $cui-input-padding-bottom $cui-input-padding-left !default;
-$cui-input-bg-hover-color:  $cui-color-light-gray !default;
-$cui-input-font-size:       14px !default;
-$cui-input-font-weight:     $cui-font-weight-light !default;
-$cui-input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
-
-$cui-input-difference-in-padding-value: 1px !default;
 
 
 // * @section    Grid
@@ -185,6 +191,11 @@ $cui-table-row-bg-hover-color:  $cui-color-light-gray-alt-3;
 
 // * @section    Lists
 // * --------------------------------------------------------
+$cui-list-margin-top:     0 !default;
+$cui-list-margin-right:   0 !default;
+$cui-list-margin-bottom:  0 !default;
+$cui-list-margin-left:    0 !default;
+$cui-list-margin:         $cui-list-margin-top $cui-list-margin-right $cui-list-margin-bottom $cui-list-margin-left !default;
 $cui-list-inline-spacing: 1em !default;
 
 

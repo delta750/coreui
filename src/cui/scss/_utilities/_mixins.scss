@@ -210,13 +210,13 @@
 // Standard button style
 @mixin button {
     color: $cui-color-dark-gray;
-    border: $cui-input-border;
-    border-radius: $cui-border-radius;
+    border: $cui-button-border;
+    border-radius: $cui-button-border-radius;
     margin: 0;
     text-decoration: none;
-    font-size: $cui-input-font-size;
-    font-weight: $cui-input-font-weight;
-    background-color: $cui-input-bg-hover-color;
+    font-size: $cui-button-font-size;
+    font-weight: $cui-button-font-weight;
+    background-color: $cui-button-bg-color;
     text-shadow: $cui-button-text-shadow;
     white-space: nowrap;
     -webkit-font-smoothing: none;

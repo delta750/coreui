@@ -423,19 +423,6 @@ module.exports = function(grunt) {
         });
     });
 
-    ///////////////////
-    // Miscellaneous //
-    ///////////////////
-
-    // Start a local server
-    // e.g. http://localhost:8888
-    grunt.registerTask('server', 'Server', function (args) {
-        grunt.task.run([
-            'connect',
-            'watch:noop',
-        ]);
-    });
-
     // Documentation
     grunt.registerTask('docs', 'Documentation', function (args) {
 
@@ -487,6 +474,19 @@ module.exports = function(grunt) {
         ]);
     });
 
-    // Set the default task to the production build
+    ///////////////////
+    // Miscellaneous //
+    ///////////////////
+
+    // Start a local server
+    // e.g. http://localhost:8888
+    grunt.registerTask('server', 'Server', function (args) {
+        grunt.task.run([
+            'connect',
+            'watch:noop',
+        ]);
+    });
+
+    // Set the default task to the development build
     grunt.registerTask('default', 'dev');
 };
