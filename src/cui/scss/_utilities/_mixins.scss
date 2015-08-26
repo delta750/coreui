@@ -209,23 +209,23 @@
 
 // Standard button style
 @mixin button {
-    color: $cui-color-dark-gray;
+    color: $cui-button-color;
     border: $cui-button-border;
     border-radius: $cui-button-border-radius;
     margin: 0;
-    text-decoration: none;
+    text-decoration: $cui-button-text-decoration;
     font-size: $cui-button-font-size;
     font-weight: $cui-button-font-weight;
     background-color: $cui-button-bg-color;
     text-shadow: $cui-button-text-shadow;
-    white-space: nowrap;
-    -webkit-font-smoothing: none;
+    white-space: $cui-button-text-wrapping;
 }
 
 @mixin button-primary {
-    color: $cui-color-white;
+    color: $cui-button-primary-color;
     border: $cui-button-primary-border;
     background-color: $cui-button-primary-bg-color;
+    text-decoration: $cui-button-primary-text-decoration;
     text-shadow: $cui-button-primary-text-shadow;
     -webkit-font-smoothing: none;
 

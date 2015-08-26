@@ -100,20 +100,24 @@ $cui-button-border-color:    #a5a5a3 !default;
 $cui-button-border-style:    solid !default;
 $cui-button-border-width:    1px !default;
 $cui-button-border:          $cui-button-border-width $cui-button-border-style $cui-button-border-color !default;
+$cui-button-color:           $cui-color-dark-gray !default;
 $cui-button-bg-color:        #d0d0ce !default;
 $cui-button-text-shadow:     rgb(255, 255, 255) 0 1px 0 !default;
 $cui-button-border-radius:   $cui-input-border-radius !default;
 $cui-button-font-size:       $cui-input-font-size !default;
 $cui-button-font-weight:     $cui-input-font-weight !default;
+$cui-button-text-wrapping:   nowrap !default; // Value provided to the `white-space` property
+$cui-button-text-decoration: none !default;
 
 // Primary button
-$cui-button-primary-text-color:         $cui-color-white !default;
+$cui-button-primary-color:              $cui-color-white !default;
 $cui-button-primary-bg-color:           $cui-color-dark-gray-alt-2 !default;
 $cui-button-primary-border-color:       #5a5a56 !default;
 $cui-button-primary-border:             $cui-button-border-width solid $cui-button-primary-border-color !default;
 $cui-button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;
 $cui-button-primary-border-hover-color: #444440 !default;
 $cui-button-primary-bg-hover-color:     #50504b !default;
+$cui-button-primary-text-decoration:    none !default;
 
 // Icon buttons
 $cui-button-icon-padding-top:    0 !default;
