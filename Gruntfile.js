@@ -105,8 +105,29 @@ module.exports = function(grunt) {
             },
         },
 
-        // Items are dynamically added here.
-        concat: {},
+        concat: {
+            devJS: {
+                options: {
+                    footer: liveReloadInjection
+                },
+                src: ['dist/js/main.js'],
+                dest: 'dist/js/main.js'
+            },
+            prodCSS: {
+                options: {
+                    banner: cssBanner,
+                },
+                src: ['dist/css/main.css'],
+                dest: 'dist/css/main.css',
+            },
+            prodJS: {
+                options: {
+                    banner: jsBanner,
+                },
+                src: ['dist/js/main.js'],
+                dest: 'dist/js/main.js',
+            },
+        },
 
         // Local server at http://localhost:8888
         // https://github.com/gruntjs/grunt-contrib-connect
@@ -334,27 +355,6 @@ module.exports = function(grunt) {
         grunt.config.set('sass.options.sourceMap', false);
         grunt.config.set('uglify.options.sourceMap', false);
 
-        // Dynamically add production concats
-        var concat = grunt.config.get('concat');
-
-        concat.cuiCSS = {
-            options: {
-                banner: cssBanner,
-            },
-            src: ['dist/css/main.css'],
-            dest: 'dist/css/main.css',
-        };
-
-        concat.cuiJS = {
-            options: {
-                banner: jsBanner,
-            },
-            src: ['dist/js/main.js'],
-            dest: 'dist/js/main.js',
-        };
-
-        grunt.config.set('concat', concat);
-
         grunt.task.run([
             'clean',
             'jshint',
@@ -364,26 +364,14 @@ module.exports = function(grunt) {
             'requirejs',
             'uglify',
             'sass',
-            'concat'
+            'concat:prodCSS',
+            'concat:prodJS',
         ]);
     });
 
     // Development: compile script and styles, start a local server, and watch for file changes
     // Only use this for local development
     grunt.registerTask('dev', 'Development', function (args) {
-
-        var concat = grunt.config.get('concat');
-
-        concat.devJS = {
-            options: {
-                footer: liveReloadInjection
-            },
-            src: ['dist/js/main.js'],
-            dest: 'dist/js/main.js'
-        };
-
-        grunt.config.set('concat', concat);
-
         grunt.task.run([
             'clean',
             'jshint',
@@ -393,7 +381,7 @@ module.exports = function(grunt) {
             'requirejs',
             'uglify',
             'sass',
-            'concat',
+            'concat:devJS',
             'connect',
             'docs'
         ]);
