@@ -103,6 +103,42 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 flatten: true,
             },
+
+            docs: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/cui/docs/src/assets/css',
+                        src: ['**/*.css'],
+                        dest: 'dist/css',
+                        filter: 'isFile',
+                        flatten: true,
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/project/docs',
+                        src: ['**/*.*'],
+                        dest: 'docs/project',
+                        filter: 'isFile',
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/cui/docs/src/assets/images',
+                        src: ['**/*.*'],
+                        dest: 'docs/assets/images',
+                        filter: 'isFile',
+                        flatten: true,
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/cui/docs/demos/',
+                        src: ['**/*.*'],
+                        dest: 'docs/demos',
+                        filter: 'isFile',
+                        flatten: true,
+                    },
+                ],
+            },
         },
 
         concat: {
@@ -136,7 +172,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true,
                     port: 8888,
-                    // Comment the line above and uncomment the line below if you would like to have a new browser tab open automatically
+                    // Uncomment the line below if you would like to have a new browser tab open automatically
                     // open: 'http://localhost:8888/dist/',
                 },
             },
@@ -165,25 +201,17 @@ module.exports = function(grunt) {
                 highlight: 'auto',
                 template: 'src/cui/docs/src/assets/templates/default.html',
                 markdownOptions: {
-                    highlight: 'manual', // 'auto',
+                    highlight: 'manual', // Other options: 'auto'
                     gfm: true,
                 },
             },
-            prod: {
+            docs: {
                 files: [{
                     expand: true,
                     cwd: 'src/cui/docs/src/',
                     src: ['**/*.md'],
                     dest: 'docs',
                     ext: '.html',
-
-                    // This plugin has (had?) a bug that makes it impossible to put the files where we want them, so we add this function to change the path that Grunt generates and move the file
-                    // See: https://github.com/treasonx/grunt-markdown/issues/43
-                    // HTML files should end up in the `Documentation` folder
-                    // rename: function (dest, src) {
-                    //     // Get the file name and prepend the directory name
-                    //     return 'docs/dist/' +  src.split('/').pop();
-                    // },
                 }],
             },
         },
@@ -263,6 +291,7 @@ module.exports = function(grunt) {
                     'sass',
                 ],
             },
+
             html: {
                 files: [
                     'src/cui/html/**/*.html',
@@ -383,14 +412,15 @@ module.exports = function(grunt) {
             'sass',
             'concat:devJS',
             'connect',
-            'docs'
+            'folderCopy',
+            'markdown',
+            'watch',
         ]);
     });
 
     // Task used to camm component builds on subfolders.
     grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function (dir) {
         var done = this.async();
-        //var options = JSON.stringify(componentOptions)
 
         grunt.log.ok(dir);
 
@@ -417,50 +447,10 @@ module.exports = function(grunt) {
 
     // Documentation
     grunt.registerTask('docs', 'Documentation', function (args) {
-
-        var copy = grunt.config.get('copy');
-
-        copy.docAssets = {
-            expand: true,
-            cwd: 'src/cui/docs/src/assets/css',
-            src: ['**/*.css'],
-            dest: 'dist/css',
-            filter: 'isFile',
-            flatten: true,
-        };
-
-        copy.projectDocAssets = {
-            expand: true,
-            cwd: 'src/project/docs',
-            src: ['**/*.*'],
-            dest: 'docs/project',
-            filter: 'isFile',
-        };
-
-        copy.images = {
-            expand: true,
-            cwd: 'src/cui/docs/src/assets/images',
-            src: ['**/*.*'],
-            dest: 'docs/assets/images',
-            filter: 'isFile',
-            flatten: true,
-        };
-
-        copy.demos = {
-            expand: true,
-            cwd: 'src/cui/docs/demos/',
-            src: ['**/*.*'],
-            dest: 'docs/demos',
-            filter: 'isFile',
-            flatten: true,
-        };
-
-        grunt.config.set('copy', copy);
-
         grunt.task.run([
             'subGrunt',
             'folderCopy',
-            'copy',
+            'copy:docs',
             'markdown',
             'watch',
         ]);
