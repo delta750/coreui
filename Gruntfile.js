@@ -110,7 +110,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src/cui/docs/src/assets/css',
                         src: ['**/*.css'],
-                        dest: 'dist/css',
+                        dest: 'docs/assets/css',
                         filter: 'isFile',
                         flatten: true,
                     },
