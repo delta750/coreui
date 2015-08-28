@@ -7,7 +7,7 @@
         "name": "New York State Office of Information Technology Services",
         "email": "tax.dl.UISupport@its.ny.gov"
     },
-    "repository": "https://github.com/ny/frg-coreui",
+    "repository": "https://github.com/ny/coreui",
     "dependencies": {
         "chalk": "^1.1.1",
         "grunt": "^0.4.5",
@@ -24,8 +24,5 @@
         "load-grunt-tasks": "^3.2.0",
         "mkdirp": "^0.5.1"
     },
-    "license": {
-        "type": "MIT",
-        "url": "http://opensource.org/licenses/MIT"
-    }
+    "license": "MIT"
 }
