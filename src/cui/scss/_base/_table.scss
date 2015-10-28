@@ -49,7 +49,7 @@ td {
 }
 
 // Table stripes
-table:not([class*="cui-no-stripes"]) tbody tr:nth-child(even) {
+table:not([class*="cui-no-stripes"]) tbody tr:not(.cui-hidden):nth-child(even) {
     background-color: $cui-table-row-bg-alt-color;
 }
 
