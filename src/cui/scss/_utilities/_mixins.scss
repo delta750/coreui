@@ -162,6 +162,10 @@
     text-align: right;
 }
 
+@mixin align-center {
+    text-align: center;
+}
+
 
 // * @section    Sticky positioning
 // * --------------------------------------------------------
@@ -227,7 +231,7 @@
     background-color: $cui-button-primary-bg-color;
     text-decoration: $cui-button-primary-text-decoration;
     text-shadow: $cui-button-primary-text-shadow;
-    -webkit-font-smoothing: none;
+    -webkit-font-smoothing: antialiased;
 
     &:hover {
         @include button-primary-hover;
@@ -239,13 +243,13 @@
 }
 
 @mixin button-primary-hover {
-    color: $cui-color-white; // Repeated for elements that only include this mixin and not the basic primary styles
+    color: $cui-button-primary-color-hover; // Repeated for elements that only include this mixin and not the basic primary styles
     border-color: $cui-button-primary-border-hover-color;
-    background-color: $cui-button-primary-bg-hover-color;
+    background-color: $cui-button-primary-bg-color-hover;
 }
 
 @mixin button-primary-active {
-    color: $cui-color-white; // Repeated for elements that only include this mixin and not the basic primary styles
+    color: $cui-button-primary-color-active; // Repeated for elements that only include this mixin and not the basic primary styles
     background-color: $cui-button-primary-bg-color;
     text-shadow: $cui-button-primary-text-shadow;
 }
@@ -540,6 +544,9 @@
 // Returns the unit from a value ("22px" -> "px")
 // Same as the native `unit()` method but it converts "pc" to "%"
 @function getUnit($val: "") {
+
+    $unit: "";
+
     // Make sure we're working with a string before checking the units
     $str: quote($val);
 
@@ -622,4 +629,14 @@
     }
 
     @return ($value, $unit);
+}
+
+@mixin required-asterisk() {
+    content: "*";
+    color: $cui-color-required-red;
+    font: $cui-font-required;
+    font-weight: $cui-font-weight-semibold;
+    position: absolute;
+    right: -3px;
+    top: 2px;
 }

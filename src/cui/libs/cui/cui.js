@@ -10,6 +10,40 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
     // Create the namespace
     var cui = {};
 
+    var defaults = {
+        optIns: {
+            iOSFix: false
+        }
+    };
+
+    var _priv = {
+        initilized: false,
+        iOSFix: function iOSFix () {
+            // Disable zooming on input focus on iOS
+            (function () {
+                function zoomDisable () {
+                    $('head').find('meta[name=viewport]').remove();
+                    $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">');
+                }
+
+                function zoomEnable () {
+                    $('head').find('meta[name=viewport]').remove();
+                    $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">');
+                }
+
+                // Disable zooming when focus begins
+                $('input[type=text], textarea').on('touchstart', function () {
+                    zoomDisable();
+                });
+
+                // Re-enable zooming after input has finished getting focus. This is not on blur, but a moment after the user stopped touching the screen.
+                $('input[type=text], textarea').on('touchend', function () {
+                    setTimeout(zoomEnable, 500);
+                });
+            }());
+        }
+    };
+
     /**
      * Non-destructive implementation for creating namespaces or adding properties inside of them
      *
@@ -19,8 +53,8 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
      * @return  {Object}             Parent of namespace
      */
     cui.namespace = function _namespace(namespace, parent) {
-        var parts = namespace.split('.'),
-            i;
+        var parts = namespace.split('.');
+        var i;
 
         parent = parent || cui;
 
@@ -39,7 +73,6 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
         }
 
         return parent;
-
     };
 
     /**
@@ -55,5 +88,4 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
     cui.load = lazyLoader.load;
 
     return cui;
-
 });

@@ -1,0 +1,22 @@
+(function () {
+
+    var scripts = document.getElementById("require"),
+        src = scripts.src,
+        baseUrl = src.substring(src.indexOf(document.location.pathname),src.lastIndexOf("/js/main.js"));
+
+    require.config({
+        baseUrl: baseUrl,
+        paths:{
+        {{#each paths}}
+            {{#if @last}}
+            "{{@key}}": "{{this}}"
+            {{else}}
+            "{{@key}}": "{{this}}",
+            {{/if}}
+        {{/each}}
+        }
+    });
+
+    {{{projectJS}}}
+
+})();

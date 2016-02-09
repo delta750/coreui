@@ -1,15 +1,6 @@
-module.exports = function(grunt) {
+    module.exports = function(grunt) {
     // Banner for JavaScript files
     // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
-    var jsBanner = '/*! <%= pkg.title %>\n' +
-                 ' *  @description  <%= pkg.description %>\n' +
-                 ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
-                 ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
-                 '<%= pkg.author.name %>\n */\n';
-
-    // This banner will appear at the top style sheets
-    var cssBanner = '@charset "utf-8";\n' + jsBanner;
-
     // Insert the Live Reload script
     var liveReloadInjection =
             '\n(function(){' +
@@ -18,23 +9,54 @@ module.exports = function(grunt) {
                 'document.head.appendChild(s);' +
             '}());';
 
+    var jsBanner = '/*! <%= pkg.title %>\n' +
+                     ' *  @description  <%= pkg.description %>\n' +
+                     ' *  @version      <%= pkg.version %>.REL<%= grunt.template.today("yyyymmdd") %>\n' +
+                     ' *  @copyright    <%= grunt.template.today("yyyy") %> ' +
+                     '<%= pkg.author.name %>\n */\n';
+
+        // This banner will appear at the top style sheets
+    var cssBanner = '@charset "utf-8";\n' + jsBanner;
+
     // Project configuration.
     grunt.initConfig({
+
+        // Expose the banners to the tasks
+        jsBanner: jsBanner,
+        cssBanner: cssBanner,
 
         // All Grunt modules must be listed in the `package.json` file
         pkg: grunt.file.readJSON('package.json'),
 
-        // Flag for dynamic tasks.
-        prodBuild: false,
+        // Variables
+        prod: false,
 
         // Remove temporary development files
         // https://github.com/gruntjs/grunt-contrib-clean
         clean: {
+            options: {
+                force:true
+            },
             dist: [
-                'dist',
-                'src/components/**/dist/',
-                '!src/components/**/node_modules/**/dist/',
+                'dist'
             ],
+        },
+
+        concat: {
+            css: {
+                options: {
+                    banner: cssBanner,
+                },
+                src: ['dist/css/main.css'],
+                dest: 'dist/css/main.css',
+            },
+            js: {
+                options: {
+                    banner: jsBanner,
+                },
+                src: ['dist/js/main.js'],
+                dest: 'dist/js/main.js',
+            }
         },
 
         copy: {
@@ -60,8 +82,8 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'src/',
                 src: [
-                        'cui/images/**.*',
-                        'project/images/**.*'
+                        'cui/images/**.{png,jpg,jpeg,gif}',
+                        'project/images/**.{png,jpg,jpeg,gif}',
                     ],
                 dest: 'dist/images',
                 filter: 'isFile',
@@ -103,7 +125,6 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 flatten: true,
             },
-
             docs: {
                 files: [
                     {
@@ -139,29 +160,17 @@ module.exports = function(grunt) {
                     },
                 ],
             },
-        },
 
-        concat: {
-            devJS: {
-                options: {
-                    footer: liveReloadInjection
-                },
-                src: ['dist/js/main.js'],
-                dest: 'dist/js/main.js'
-            },
-            prodCSS: {
-                options: {
-                    banner: cssBanner,
-                },
-                src: ['dist/css/main.css'],
-                dest: 'dist/css/main.css',
-            },
-            prodJS: {
-                options: {
-                    banner: jsBanner,
-                },
-                src: ['dist/js/main.js'],
-                dest: 'dist/js/main.js',
+            // Component documentation
+            sampleAdvancedDocs: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/project/components/sampleAdvanced/dist/docs',
+                        src: ['**/*.*'],
+                        dest: 'docs/components/sampleAdvanced',
+                    }
+                ]
             },
         },
 
@@ -172,8 +181,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true,
                     port: 8888,
-                    // Uncomment the line below if you would like to have a new browser tab open automatically
-                    // open: 'http://localhost:8888/dist/',
+                    hostname: 'localhost',
                 },
             },
         },
@@ -184,290 +192,255 @@ module.exports = function(grunt) {
         // Basic hinting is provided for the projectjs. Additional hinting should be setup
         // the supporting component folders manually.
         jshint: {
-            options: {
-                curly: true,
-                eqeqeq: true,
-                browser: true,
-                unused: 'vars',
-            },
-            files: [
-                'src/project/js/**/*.js',
-            ],
+            main: {
+                options: {
+                    curly: true,
+                    eqeqeq: true,
+                    browser: true,
+                    unused: 'vars',
+                    undef: true,
+                    unused: true,
+                    strict: false,
+                    globals: {
+                        jQuery: false,
+                        define: false,
+                        require: false,
+                        emp: false,
+                        fwData: false,
+                    },
+                },
+                src: [
+                    'src/project/js/**/*.js',
+                ],
+            }
         },
 
         // https://github.com/treasonx/grunt-markdown
         markdown: {
-            options: {
-                highlight: 'auto',
-                template: 'src/cui/docs/src/assets/templates/default.html',
-                markdownOptions: {
-                    highlight: 'manual', // Other options: 'auto'
-                    gfm: true,
+            main: {
+                options: {
+                    highlight: 'auto',
+                    template: 'src/cui/docs/src/assets/templates/default.html',
+                    markdownOptions: {
+                        highlight: 'manual', // Other options: 'auto'
+                        gfm: true,
+                    },
                 },
-            },
-            docs: {
-                files: [{
-                    expand: true,
-                    cwd: 'src/cui/docs/src/',
-                    src: ['**/*.md'],
-                    dest: 'docs',
-                    ext: '.html',
-                }],
-            },
+                docs: {
+                    files: [{
+                        expand: true,
+                        cwd: 'src/cui/docs/src/',
+                        src: ['**/*.md'],
+                        dest: 'docs',
+                        ext: '.html',
+                    }],
+                },
+            }
         },
 
-        // Builds the default javascript cui library using r.js compiler
+        // Builds the default javascript CUI library using r.js compiler
         requirejs: {
-            compile: {
+            main: {
                 options: {
                     baseUrl: 'src/', // Where all our resources will be
                     name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
                     paths: {}, // Generate build file
-                    include: [], // Generate build file
-                    optimize: 'none', //'uglify2',
+                    include: [
+                        "requirejs",
+                        "css",
+                        "text",
+                        "json",
+                        "domReady",
+                        "lazyLoader",
+                        "jquery",
+                        "cui"
+                    ],
+                    optimize: 'none', // 'uglify2',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
                     out: 'dist/js/main.js', // Where the final project will be output
-                }
+                },
             },
         },
 
         // https://github.com/sindresorhus/grunt-sass
         sass: {
-            options: {
-                sourceMap: true,
-                outputStyle: 'nested', // Options: "nested", "compressed" (i.e. minified)
-            },
-
-            cui: {
+            main: {
+                options: {
+                    sourceMap: true,
+                    outputStyle: 'nested', // Options: "nested", "compressed" (i.e. minified)
+                },
                 files: {
-                    'dist/css/main.css': ['src/project/scss/project.scss']
+                    'dist/css/main.css': 'src/project/scss/project.scss',
                 },
             },
         },
 
-        // https://github.com/gruntjs/grunt-contrib-uglify
-        uglify: {
+        // SVG optimization
+        // https://github.com/sindresorhus/grunt-svgmin
+        svgmin: {
             options: {
-                banner: jsBanner,
-                preserveComments: 'some', // Only comments with a special syntax are kept
-                sourceMap: true,
-                mangle: false,
+                plugins: [
+                    // Full list of plugins that can be disabled: https://github.com/svg/svgo/tree/master/plugins
+                    // To disable one, add a new object to this array, e.g. `{pluginName: false}`
+                    { removeUselessStrokeAndFill: false },  // don't remove Useless Strokes and Fills
+                ],
+            },
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/',
+                        src: [
+                                'cui/images/**.svg',
+                                'project/images/**.svg'
+                            ],
+                        dest: 'dist/images',
+                        filter: 'isFile',
+                        flatten: true,
+                    },
+                ],
+            },
+        },
+
+        // https://github.com/gruntjs/grunt-contrib-uglify
+        usebanner: {
+            cssBanner: {
+                options: {
+                    position: 'top',
+                    banner: cssBanner,
+                    linebreak: true
+                },
+                files: {
+                    src: [ 'dist/css/components/**/*.css' ],
+                },
+            },
+            jsBanner: {
+                options: {
+                    position: 'top',
+                    banner: jsBanner,
+                    linebreak: true
+                },
+                files: {
+                    src: [ 'dist/js/components/**/*.js' ],
+                },
             }
         },
 
-        // https://github.com/gruntjs/grunt-contrib-watch
         watch: {
             options: {
                 livereload: true,
                 interrupt: true,
+                spawn: false
             },
 
-            scripts: {
-                files: [
-                    'src/cui/**/*.js',
-                    'src/project/**/*.js',
-                    // Only watch `src/` files for components and ignore `dist/`
-                    'src/project/components/*/src/js/*.js',
-                ],
-                tasks: [
-                    'jshint',
-                    'subGrunt',
-                    'requireManager',
-                    'requirejs',
-                    'uglify',
-                    'concat:devJS',
-                ],
-            },
-
-            sass: {
-                files: [
-                    'src/cui/scss/**/*.scss',
-                    'src/project/scss/**/*.scss',
-                    // Only watch `src/` files for components and ignore `dist/`
-                    'src/project/components/*/src/scss/*.scss',
-                ],
-                tasks: [
-                    'sass',
-                ],
-            },
-
-            html: {
-                files: [
-                    'src/cui/html/**/*.html',
-                    'src/cui/docs/**/*.html',
-                    '!src/cui/docs/src/**/*.html',
-                    'src/project/html/**/*.html',
-                ],
-                tasks: [
-                    'copy:html',
-                ],
-            },
-
-            markdown: {
-                files: [
-                    'src/cui/docs/**/*.md',
-                ],
-                tasks: [
-                    'markdown',
-                ],
-            },
-
-            // This effectively does nothing but keep Grunt "running" (e.g. so the local server doesn't quit)
+            // Task is used with development builds to keep the connect server running.
             noop: {
                 files: [
                     'README.md',
                 ],
             },
-        },
 
-        /***
-         * CUSTOM TASKS BELOW
-         ***/
-
-        // Require Manager Script. Please leave this task blank
-        requireManager: {},
-
-        // Locations to look for components
-        subGrunt: {
-            components: {
-                files: [{
-                    cwd: 'src',
-                    src: [
-                        'cui/components/*',
-                        'cui/libs/*',
-                        'project/components/*',
-                        'project/libs/*'
-                    ],
-                }],
+            // Default css files
+            styles: {
+                files: ['src/project/scss/**/*.scss'],
+                tasks: ['sass:main'],
             },
         },
-
-        folderCopy: {
-            docs: {
-                files: [{
-                    cwd: 'src',
-                    src: [
-                        'cui/components/*',
-                        'cui/libs/*',
-                        'project/components/*',
-                        'project/libs/*'
-                    ],
-                    folderNames: ['docs','tests']
-                }],
-            },
-        }
-
 
     });
-
-    // Generic Load Task
-    require('load-grunt-tasks')(grunt);
-
-    // Load local tasks in the task folder.
-    grunt.loadTasks('tasks');
 
     ////////////////
     // Main tasks //
     ////////////////
 
-    // Type these at a command prompt to use Grunt, for example "grunt prod" or "grunt dev"
+    // Load npm based tasks
+    require('load-grunt-tasks')(grunt);
 
-    // Production: package files for distribution
-    // This is the default task (when you just type "grunt" at the command prompt)
+    // Load local tasks in the task folder.
+    grunt.loadTasks('tasks');
+
     grunt.registerTask('prod', 'Production', function (args) {
 
-        // Set the prod flag
-        grunt.config.set("prodBuild", true);
+        // Change some setting to optimize the build
 
-        // Disable Source Maps
-        grunt.config.set('sass.options.sourceMap', false);
-        grunt.config.set('uglify.options.sourceMap', false);
+        // =================
+        // == Build Flag ===
+        // =================
+        grunt.config.set('prod', true);
+
+        // ===========
+        // == SASS ===
+        // ===========
+        // var sass = grunt.config.get('sass');
+
+        // sass.options.sourceMap = false;
+        // sass.options.outputStyle = "compressed";
+
+        // grunt.config.set('sass', sass);
+
+        // ================
+        // == RequireJS ===
+        // ================
+
+        // var requireJS = grunt.config.get('requirejs');
+
+        // requireJS.compile.options.generateSourceMaps = false;
+        // requireJS.compile.options.optimize = "uglify2";
+
+        // grunt.config.set('requirejs', requireJS);
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Other tasks like uglify and cssmin are handled by the requireManager build process.
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         grunt.task.run([
+            'componentFinder',
             'clean',
-            'jshint',
-            'subGrunt',
-            'requireManager',
             'copy',
-            'requirejs',
-            'uglify',
+            'svgmin',
             'sass',
-            'concat:prodCSS',
-            'concat:prodJS',
+            'requirejs',
+            'concat',
+            'usebanner',
         ]);
     });
+
+    // Alias for production build
+    grunt.registerTask('dist', 'prod');
 
     // Development: compile script and styles, start a local server, and watch for file changes
     // Only use this for local development
     grunt.registerTask('dev', 'Development', function (args) {
+
+        // Dynamically alter tasks when dev is called specifically
+
+        // Get Concat settings
+        var concatObj = grunt.config.get('concat');
+
+        // Add liveload to the footer
+        concatObj.js.options['footer'] = liveReloadInjection;
+
+        // Update concat
+        grunt.config.set('concat', concatObj);
+
+        // Run the development build process
         grunt.task.run([
+            'componentFinder',
             'clean',
-            'jshint',
-            'subGrunt',
-            'requireManager',
             'copy',
-            'requirejs',
-            'uglify',
+            'svgmin',
             'sass',
-            'concat:devJS',
-            'connect',
-            'folderCopy',
-            'markdown',
+            'requirejs',
+            'concat',
+            'usebanner',
             'watch',
-        ]);
-    });
-
-    // Task used to camm component builds on subfolders.
-    grunt.registerTask('componentBuild', 'Task to kick of a component GruntTask', function (dir) {
-        var done = this.async();
-
-        grunt.log.ok(dir);
-
-        grunt.util.spawn({
-            grunt: true,
-            args:['componentBuild', '--path=' + dir ],
-            opts: {
-                cwd: dir
-            }
-        },
-
-        function (err, result, code) {
-            if (!err) {
-                grunt.log.writeln('processed ' + dir);
-                grunt.log.writeln(result);
-                done();
-            } else {
-                grunt.log.writeln('processing ' + dir + ' failed: ' + code);
-                grunt.log.writeln(result);
-                done(false);
-            }
-        });
-    });
-
-    // Documentation
-    grunt.registerTask('docs', 'Documentation', function (args) {
-        grunt.task.run([
-            'subGrunt',
-            'folderCopy',
-            'copy:docs',
-            'markdown',
-            'watch',
-        ]);
-    });
-
-    ///////////////////
-    // Miscellaneous //
-    ///////////////////
-
-    // Start a local server
-    // e.g. http://localhost:8888
-    grunt.registerTask('server', 'Server', function (args) {
-        grunt.task.run([
             'connect',
-            'watch:noop',
         ]);
     });
+
+    // Simple web server
+    grunt.registerTask('server', 'Server', ['connect', 'watch:noop']);
 
     // Set the default task to the development build
     grunt.registerTask('default', 'dev');

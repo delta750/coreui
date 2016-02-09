@@ -1,149 +1,373 @@
 'use strict';
 
-// Custom node modules
-var fs = require('../utilites/fs');
-var verbose = require('../utilites/verbose');
-var gruntTasks = require('./processors/gruntTasks');
+var _priv = {};
 
-function tasks() {
+_priv.addTask = function _add_task(currentConfig, taskList, cb) {
 
-    function copyPath(folder, configPath, asset) {
+    var newTasks = [];
 
-        var RegEx = /(:)\w+/g;
+    (function nextTask(tasks) {
 
-        var dynamicName;
+        var task = tasks.shift();
+        var taskParts = task.split(':');
 
-        while ((dynamicName = RegEx.exec(configPath)) !== null) {
+        var taskType = taskParts[0];
+        var taskName = taskParts[1];
 
-            // Remove the special character
-            var partial = dynamicName[0].replace(dynamicName[1], "");
-            
-            configPath = configPath.replace(dynamicName[0], asset[partial]);
+        if (taskType !== 'clean' && currentConfig[taskType].hasOwnProperty(taskName)) {
+
+            newTasks.push({
+                fullName: task,
+                type: taskType,
+                name: taskName
+            })
+        }
+
+        if (tasks.length !== 0) {
+
+            nextTask(tasks);
+        }
+        else {
+
+            cb(newTasks);
+        }
+
+    })(taskList.concat());
+
+}
+
+var tasks = function _tasks() {
+
+    var setOrder = function _set_order(rm, next) {
+
+        var options = rm.options;
+        var grunt = rm.grunt;
+
+        var currentConfig = grunt.config.get();
+
+        var prodBuild = currentConfig.prod;
+
+        // Variable to keep track of the tasks as they are added back to the queue
+        var taskCallOrder = [];
+
+        // Flush out unneded object items
+        delete currentConfig.pkg;
+        delete currentConfig.prod;
+        delete currentConfig.jsBanner;
+        delete currentConfig.cssBanner;
+        delete currentConfig.componentFinder;
+
+        var originalConfig = options.originalGrunt;
+
+        // Flush out unneded object items
+        delete originalConfig.pkg;
+        delete originalConfig.prod;
+        delete originalConfig.jsBanner;
+        delete originalConfig.cssBanner;
+
+        // First clear the current queue.
+        grunt.task.clearQueue();
+
+        // Manually call all of the clears
+        //grunt.task.run(['clean']);
+
+        // Add clear to the task call array
+        taskCallOrder.push('clear');
+
+        delete currentConfig.clean;
+        delete originalConfig.clean;
+
+        // Check to see if this is a production build, if so we need to remove some additional tasks.
+        if (prodBuild) {
+
+            // If this is prod build remove a few tasks completely
+            for (var i = 0, len = options.prodIgnoreTasks.length; i < len; i++) {
+
+                delete currentConfig[options.prodIgnoreTasks[i]];
+                delete originalConfig[options.prodIgnoreTasks[i]];
+            }
 
         }
 
-        return configPath;
+        // Start by looping through and finding all the tasks that need to be executed.
+        (function nextComponent(components) {
 
+            var componentName = components.shift();
+            var componentDef = rm.options.components[componentName];
+
+            //console.log(componentName);
+
+            if (!componentDef.buildTasks) {
+
+                componentDef.buildTasks = [];
+            }
+
+            if (!componentDef.distTask) {
+
+                componentDef.distTask = [];
+            }
+
+            var defaultTasks = componentDef.buildTasks.concat(componentDef.distTask.concat());
+
+            // Lets see if we have any dist tasks to execute first.
+            if (defaultTasks.length) {
+
+                _priv.addTask(currentConfig, defaultTasks, function(addList) {
+
+                    // Check to see if a list of options was returned
+                    if (addList) {
+
+                        (function nextTask(tasks) {
+
+                            var taskObj = tasks.shift();
+
+                            // Add the task to the execute queue
+                            grunt.task.run(taskObj.fullName);
+
+                            // Add this task to the list of task we called.
+                            taskCallOrder.push(taskObj.fullName);
+
+                            // Remove the task from the running config.
+                            delete currentConfig[taskObj.type][taskObj.name];
+
+                            // check to see if we can dump the running task type config because its empty.
+                            if (currentConfig[taskObj.type].length <= 1) {
+
+                                if (currentConfig[taskObj.type].length === 0) {
+
+                                    delete currentConfig[taskObj.type];
+                                }
+                                else if (currentConfig[taskObj.type].length === 1 && currentConfig.hasOwnProperty('options')) {
+
+                                    delete currentConfig[taskObj.type];
+                                }
+
+                            }
+
+                            if (tasks.length !== 0) {
+
+                                nextTask(tasks);
+                            }
+
+                        })(addList.concat())
+
+                    }
+
+                });
+            }
+
+            if (components.length !== 0) {
+
+                nextComponent(components);
+            }
+            else {
+
+                var remainingTasks = Object.keys(currentConfig);
+
+                // Loop through and remove the run last list.
+                for (var i = 0, len = options.configOrder.last.length; i < len; i++) {
+
+                    var taskName = options.configOrder.last[i];
+
+                    var taskPos = remainingTasks.indexOf(taskName);
+
+                    if (taskPos !== -1) {
+
+                        remainingTasks.splice(taskPos, 1);
+                    }
+
+                }
+
+                // Check and run any remaining tasks other than the last run list.
+                if (remainingTasks.length !== 0) {
+
+                    // Loop though any remaining unclaimed tasks
+                    (function nextTasks(tasks) {
+
+                        var task = tasks.shift();
+
+                        if (typeof currentConfig[task] === "object" && options.runAll.indexOf(task) === -1) {
+
+                            var subTasks = Object.keys(currentConfig[task]);
+
+                            if (subTasks.length !== 0) {
+
+                                (function nextSubTask(subTasks) {
+
+                                    var subTask = subTasks.shift();
+
+                                    if (subTask !== "options") {
+
+                                        grunt.task.run(task + ":" + subTask);
+
+                                        // Add subtask to the task call array
+                                        taskCallOrder.push(task + ":" + subTask);
+
+                                    }
+
+                                    if (subTasks.length !== 0) {
+
+                                        nextSubTask(subTasks);
+                                    }
+
+                                })(subTasks.concat())
+
+                            }
+                        }
+
+                        // Double check to see if this is a task that we only allow an all or nothing build to be created
+                        if (options.runAll.indexOf(task) !== -1 && currentConfig[task]) {
+
+                            grunt.task.run(task);
+
+                            // Add all related tasks to the task call array
+                            taskCallOrder.push(task);
+
+                        }
+
+                        if (tasks.length !== 0) {
+
+                            nextTasks(tasks);
+                        }
+                        else {
+
+                            // Loop through and run any last items tasks
+                            (function nextTasks(tasks) {
+
+                                var task = tasks.shift();
+
+                                if (typeof currentConfig[task] === "object" && options.runAll.indexOf(task) === -1) {
+
+                                    var subTasks = Object.keys(currentConfig[task]);
+
+                                    if (subTasks.length !== 0) {
+
+                                        (function nextSubTask(subTasks) {
+
+                                            var subTask = subTasks.shift();
+
+                                            if (subTask !== "options") {
+
+                                                grunt.task.run(task + ":" + subTask);
+
+                                                // Add subtask to the task call array
+                                                taskCallOrder.push(task + ":" + subTask);
+                                            }
+
+                                            if (subTasks.length !== 0) {
+
+                                                nextSubTask(subTasks);
+                                            }
+
+                                        })(subTasks.concat())
+
+                                    }
+
+                                }
+
+                                // Double check to see if this is a task that we only allow an all or nothing build to be created
+                                if (options.runAll.indexOf(task) !== -1 && currentConfig[task]) {
+
+                                    grunt.task.run(task);
+
+                                    // Add all related tasks to the task call array
+                                    taskCallOrder.push(task);
+                                }
+
+                                if (tasks.length !== 0) {
+
+                                    nextTasks(tasks);
+                                }
+                                else {
+
+                                    rm.options['taskRunList'] = taskCallOrder;
+
+                                    next(rm);
+                                }
+
+                            })(options.configOrder.last);
+                        }
+
+                    })(remainingTasks);
+                }
+                else {
+
+                    // Check to see if any last run items remain and run those.
+                    if (options.configOrder.last.length !== 0) {
+
+                        (function nextTasks(tasks) {
+
+                            var task = tasks.shift();
+
+                            if (typeof currentConfig[task] === "object" && options.runAll.indexOf(task) === -1) {
+
+                                var subTasks = Object.keys(currentConfig);
+
+                                if (subTasks.length !== 0) {
+
+                                    (function nextSubTask(subTasks) {
+
+                                        var subTask = subTasks.shift();
+
+                                        if (subTask !== "options") {
+
+                                            grunt.task.run(task + ":" + subTask);
+
+                                            // Add subtask to the task call array
+                                            taskCallOrder.push(task + ":" + subTask);
+                                        }
+
+                                        if (subTasks.length !== 0) {
+
+                                            nextSubTask(subTasks);
+                                        }
+
+                                    })(subTasks.concat())
+
+                                }
+
+                            }
+
+                            // Double check to see if this is a task that we only allow an all or nothing build to be created
+                            if (options.runAll.indexOf(task) !== -1 && currentConfig[task]) {
+
+                                grunt.task.run(task);
+
+                                // Add all related tasks to the task call array
+                                taskCallOrder.push(task);
+                            }
+
+                            if (tasks.length !== 0) {
+
+                                nextTasks(tasks);
+                            }
+                            else {
+
+                                rm.options['taskRunList'] = taskCallOrder;
+
+                                next(rm);
+                            }
+
+                        })(options.configOrder.last);
+
+                    }
+
+                }
+
+                rm.options['taskRunList'] = taskCallOrder;
+
+                next(rm);
+
+            }
+
+        })(Object.keys(options.components))
+
+    };
+
+    return {
+        setOrder: setOrder
     }
+}
 
-	var assets = function(rm, next) {
-
-		var assetList = Object.keys(rm.options.assets);
-
-		(function nextAsset(assets) {
-
-			var assetNames = assets.shift();
-			var asset = rm.options.assets[assetNames];
-
-			var searchFilters = {
-				filter: {
-					files: true
-				},
-				skip: {
-					folders: rm.options.excludes.folders
-				}
-			}
-
-            var specialAssetFolders = Object.keys(rm.options.paths.specialAssets)
-
-			// Now to generate tasks based on the existing folder structure
-			fs.recursive(asset.rootpath, searchFilters, function(folderList) {
-
-				// Loop through all the different asset folders
-				(function nextFolder(folders) {
-
-					// Make sure we have folders to search for.
-					if (folderList.length !== 0) {
-
-						// Get the next folder
-						var folder = folders.shift();
-
-						// Filter out excluded folders
-						if (rm.options.excludes.folders.indexOf(folder.name) === -1) {
-
-							if (asset.build) {
-
-								var buildDir = (asset.buildDir) ?  asset.buildDir : rm.options.paths.buildDir;
-
-								// Ignore build subpath in all cases
-								if (folder.name !== buildDir && folder.subpath.indexOf(buildDir) === -1) {
-
-									if (specialAssetFolders.indexOf(folder.name) !== -1) {
-
-                                        var assetDest = copyPath(folder, rm.options.paths.specialAssets[folder.name], asset);
-
-										// We have found a special assets folder.
-										// In this case we can simply create copy tasks.
-										gruntTasks.process("copy", folder.name, asset, [folder], assetDest, false, function(name, config){
-
-											var task = {
-												type: "copy",
-												name: name,
-												config: config
-											}
-
-											gruntTasks.store(asset, rm.options, task);
-
-										});
-
-									}
-
-								}
-
-							} else {
-
-								// No build directory to worry about, lets look for the
-								// special folder names
-								if (specialAssetFolders.indexOf(folder.name) !== -1) {
-
-                                    // Special Asset destination
-                                    var assetDest = copyPath(folder, rm.options.paths.specialAssets[folder.name], asset);
-
-									// We have found a special assets folder.
-									// In this case we can simply create copy tasks.
-									gruntTasks.process("copy", folder.name, asset, [folder], assetDest, false, function(name, config){
-
-										var task = {
-											type: "copy",
-											name: name,
-											config: config
-										}
-
-										gruntTasks.store(asset, rm.options, task);
-
-									});
-
-								}
-							}
-
-						};
-
-					}
-
-					if (folders.length !== 0) {
-						nextFolder(folders);
-					}
-
-				})(folderList)
-
-				if (assets.length !== 0) {
-					nextAsset(assets);
-				} else {
-
-					next(rm);
-				}
-
-			});
-
-		})(assetList);
-
-	}
-
-	return {
-		assets: assets
-	}
-
-};
-
-// Expor the manager function as a module
+// Export the manager function as a module
 module.exports = exports = new tasks();
