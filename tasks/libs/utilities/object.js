@@ -1,7 +1,5 @@
 'use strict';
 
-var verbose = require('../utilites/verbose');
-
 function object() {
 
 	var copy = function(obj) {

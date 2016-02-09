@@ -2,113 +2,65 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    var defaults = {}
+    /*
+     * Component Finder:
+     * Component finder is a Core UI module grunt task used to search a specific src/project, src/cui folder structure to discover modular components used by the Core UI framework.
+     */
+
+    // Constants
+    var TASK_DESCRIPTION = "Require Manager for Core UI.";
+
+    var defaults = {};
+
+    // Step Manager
+    var manager = require('./libs/stepManager/manager');
+
+    // Component Loader Librarys
+    var base = require('./libs/requireManager/base');
+    var build = require('./libs/requireManager/build');
+    var search = require('./libs/requireManager/search');
+    var tasks = require('./libs/requireManager/tasks');
+    var process = require('./libs/requireManager/process');
 
     // Define the Grunt Multitask for the Require Manager Task;
-    grunt.registerTask(
-        'requireManager',
-        'Special task for manageing requireJS components and base settings file',
-        function () {
+    grunt.registerTask('requireManager', TASK_DESCRIPTION, function() {
 
-            // Task options.
-            var options = this.options({
-                assets: {},
-                excludes: {
-                    folders: [
-                        '.git',
-                        'node_modules',
-                        'tasks'
-                    ],
-                    files: [
-                        'asset.json',
-                        '.gitignore',
-                        '.editorconfig',
-                        'componentBuild.js',
-                        'Gruntfile.js',
-                        'npm-modules.log',
-                        'package.json'
-                    ]
-                },
-                files: {
-                    build: 'Gruntfile.js',
-                    config: 'asset.json',
-                    projectJS: 'project/js/project.js',
-                    settings: 'settings.js',
-                    styles: 'cui/scss/_utilities/_assets.scss'
-                },
-                paths: {
-                    assetDir: ['cui', 'project'],
-                    buildDir: 'dist',
-                    dest: {
-                        script: 'components',
-                        style: '../css/components'
-                    },
-                    dist: {
-                        root: 'dist',
-                        script: 'js',
-                        style: 'css'
-                    },
-                    discoveredFolders: [],
-                    log: 'tasks/libs/requireManager/logs',
-                    rootSrc: 'src',
-                    sourceDir: ['components', 'libs'],
-                    specialAssets: {
-                        'docs': "docs",
-                        'fonts': "dist/fonts",
-                        'images': "dist/images",
-                        'tests': "dist/tests/:name"
-                    },
-                    temp: 'tasks/libs/requireManager/temp/'
-                },
-                registered: {
-                    include: {},
-                    lazy: {}
-                },
-                sources: {
-                    script: {
-                        ext: ['js']
-                    },
-                    style: {
-                        ext: ['scss','css']
-                    }
-                },
-                tasks: {},
-                write: {
-                    buildOrder: [
-                        'requirejs',
-                        'css',
-                        'text',
-                        'json',
-                        'domReady',
-                        'lazyLoader',
-                        'jquery',
-                        'cui'
-                    ],
-                    includeStyle: []
-                }
-            });
+        var options = {
+            configOrder: {
+                first: ['clean'],
 
-            // Inital manager function
-            var build = require('./libs/requireManager/build'),
-                config = require('./libs/requireManager/config'),
-                manager = require('./libs/requireManager/manager'),
-                process = require('./libs/requireManager/process'),
-                search = require('./libs/requireManager/search'),
-                tasks = require('./libs/requireManager/tasks');
+                // This order matters as task will be executed in this order!
+                last: ['sass_globbing', 'sass', 'requirejs', 'concat', 'usebanner', 'connect', 'watch']
+            },
+            prodIgnoreTasks: ['connect', 'watch'],
+            runAll: ['watch', 'connect'],
+            includeTasks: [
+                "clean:dist",
+                "sass:main",
+                "requirejs:main",
+                "concat",
+                "usebanner"
+            ],
+            excludes: {
+                folders: [
+                    '.git',
+                    'node_modules',
+                    'tasks'
+                ]
+            }
+        };
 
-            manager.init(this, grunt, options)
-                .step("Search for valid component folders", search.folders)
-                .step("Looking up all of the files and create defintion", search.files)
-                .step("Procsses file based on source defenitions", process.assets)
-                .step("Generate file load paths for each source defenition", process.paths)
-                .step("Build the settings file", build.settings)
-                .step("Generate asset tasks", tasks.assets)
-                .step("Update requireJS Grunt config", config.requireJS)
-                .step("Update dynamic Grunt config", config.dynamic)
-                .step("Generate include style scss import", build.includeStyles)
-                .step("Build watch tasks", config.watch)
-                .step("Saving debug data", config.dump)
-                .execute();
-        }
-    );
+        // Call the manager and execute the following steps.
+        manager.init(this, grunt, options)
+            .step("Startup the require manager module", base.startup)
+            .step("Search for component dist files", search.files)
+            .step("Process component folders", process.components)
+            .step("Build static asset folders tasks", build.folderTasks)
+            .step("Build the new requireJS settings file.", build.requireFile)
+            .step("Build dynamic watch tasks if needed", build.watch)
+            .step("Generate the new grunt task orders", tasks.setOrder)
+            .step("Close down the require manager module", base.closedown)
+            .execute();
+
+    });
 };

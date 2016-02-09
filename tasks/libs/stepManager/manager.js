@@ -1,7 +1,6 @@
 'use strict';
 
 // Custom node modules
-var verbose = require('../utilites/verbose');
 
 /**
 * Manager:
@@ -23,23 +22,6 @@ var manager = function() {
 
     var steps = [];
 
-    // Functions
-    //=============
-
-    // -- None --
-
-    /**
-     * Public
-     **/
-
-    // Variables
-    //=============
-
-    // -- None --
-
-    // Functions
-    //=============
-
     /**
      * Init:
      * The starting point for the require manager process
@@ -50,13 +32,7 @@ var manager = function() {
      * options - {object} - copy of the task options object
      * @return - {this} - copy of the manager object
      **/
-    var init = function(task, grunt, options) {
-
-        // Set the verbosity of this runtime
-        //verbose.verbosity(3);
-
-        // Log that the init started
-        verbose.log(3, "Manager Init executed", 'debug');
+    var init = function _init(task, grunt, options) {
 
         // Save off some instance variables
         this.task = task;
@@ -80,7 +56,7 @@ var manager = function() {
      * func - {function} - step function
      * @return - {this} - copy of the manager object
      **/
-    var step = function(title, func) {
+    var step = function _step(title, func) {
 
         steps.push({
             title: title,
@@ -99,7 +75,7 @@ var manager = function() {
      * [callback] - {function} - optional function that should be executed when all steps are completed.
      * @return - {boolean} - returns true when the entire process is finished.
      **/
-    var execute = function(callback) {
+    var execute = function _execute(callback) {
 
         // Make a copy of the manager for reference
         var self = this;
@@ -107,14 +83,14 @@ var manager = function() {
         // Check to see if there is anything to execute
         if (steps.length >= 1) {
 
-            verbose.log(3, "There are " + steps.length + " registered steps", "debug");
+            //verbose.log(3, "There are " + steps.length + " registered steps", "debug");
 
             // Pull the first step off the top
             var step = steps.shift();
 
             // If a title is defined display it.
             if (step.title) {
-                verbose.log(1, step.title);
+                //verbose.log(1, step.title);
             }
 
             // Execute this step and pass it what it will need to keep the step chain going
@@ -128,7 +104,7 @@ var manager = function() {
 
                     // If a title is defined display it.
                     if (step.title) {
-                        verbose.log(1, step.title);
+                        //verbose.log(1, step.title);
                     }
 
                     // Execute the next step
@@ -152,8 +128,6 @@ var manager = function() {
 
         } else {
 
-            verbose.log(0, "Nothing to execute", "info");
-
             // Check to see if a callback was defined
             if (callback) {
 
@@ -164,8 +138,7 @@ var manager = function() {
             // End the entire require manager process
             return true;
         }
-
-    }
+    };
 
     // Return the public namespace
     return {

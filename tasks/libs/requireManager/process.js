@@ -1,197 +1,248 @@
 'use strict';
 
-// Custom node modules
-var fs = require('../utilites/fs');
-var obj = require('../utilites/object');
-var verbose = require('../utilites/verbose');
+var fs = require('../utilities/fs');
 
-/**
-* Process:
-* Searches for asset folders, files and creats a default configuration/ source defintion file list.
-*
-* Params:
-* - none -
-* @return - {object} - copy of all public functions used to manage require manager
-*/
-var process = function() {
+var _priv = {};
 
-	var assets = function(rm, next) {
+_priv.addTaskType = function _add_task_type(task, grunt) {
 
-		var assetList = Object.keys(rm.options.assets);
+    switch (task) {
 
-		// Loo through the next asset
-		(function nextAsset(assets) {
+        case 'uglify':
 
-			var assetName = assets.shift();
-			var asset = rm.options.assets[assetName];
+            // Uglify is not a default task, so lets make sure that its created first
+            var uglifyObj = grunt.config.get('uglify');
 
-			var sourceList = Object.keys(asset.sources).concat();
+            var jsBanner = grunt.config.get('jsBanner');
 
-			// Loop through the next source
-			(function nextSource(sources) {
+            if (uglifyObj === undefined || uglifyObj === null) {
 
-				// Ge the next source
-				var source = sources.shift();
-				var sourceDef = rm.options.assets[assetName].sources[source];
+                uglifyObj = {
+                    options: {
+                        banner: jsBanner,
+                        preserveComments: false, // Only comments with a special syntax are kept
+                        sourceMap: false,
+                        mangle: false,
+                    }
+                }
 
-				var fileList = asset.files.concat();
+                grunt.config.set('uglify', uglifyObj);
+            }
 
-				var sourceFiles = [];
+            return uglifyObj;
+            break;
 
-				// Loop through a set of files
-				(function nextFile(files) {
+        case 'cssmin':
 
-					var file = files.shift();
+            // Uglify is not a default task, so lets make sure that its created first
+            var cssminObj = grunt.config.get('cssmin');
 
-					// Add some stats to the file for later use, just in case.
-					file.rootFolder = asset.name;
+            var cssBanner = grunt.config.get('cssBanner');
 
-					// Check to see if this file is acceptable based on name
-					if (rm.options.excludes.files.indexOf(file.name) === -1) {
+            if (cssminObj === undefined || cssminObj === null) {
 
-						// Check to see if the file is withing the source allowable file types
-						if (sourceDef.ext.indexOf(file.ext) !== -1) {
+                cssminObj = {
+                    options: {
+                        banner: cssBanner,
+                        roundingPrecision: -1,
+                        sourceMap: false
+                    }
+                }
 
-							// Check to see if this is suppose to be related to a build directory
-							if (asset.build) {
+                grunt.config.set('cssmin', cssminObj);
+            }
 
-								// Use the build directory,
-								var buildDir = (asset.buildDir) ? asset.buildDir : rm.options.paths.buildDir;
+            return cssminObj;
 
-								if (file.fullpath.indexOf(buildDir) !== -1) {
+            break;
 
-									// This file is an acceptable name, extension and in a directory
-									sourceFiles.push(file);
+        default:
 
-								}
+            console.log("Error: Unkown task type requested: " + task);
+            break;
 
-							} else {
+    }
 
-								// This is an acceptable name and extension, no limit to directory
-								sourceFiles.push(file);
-
-							}
-
-						}
-
-					}
-
-					if (files.length !== 0) {
-						nextFile(files);
-					}
-
-				})(fileList);
-
-				// Remove unneeded source definition
-				if (sourceFiles.length !== 0) {
-
-					// Save the files to the source array
-					sourceDef['files'] = sourceFiles;
-
-				} else {
-
-					verbose.log(2, "Unable to find any files that match the assets source defintion (" + source + ") in: " + asset.rootpath, "warn");
-
-					delete rm.options.assets[assetName].sources[source];
-				}
-
-				if (sources.length !== 0) {
-					
-					nextSource(sources);
-				}
-
-
-
-			})(sourceList);
-
-			if (assets.length !== 0) {
-
-				nextAsset(assets);
-			} else {
-
-				next(rm);
-			}
-
-		})(assetList);
-	}
-
-	var paths = function(rm, next) {
-
-		var assetList = Object.keys(rm.options.assets);
-
-		// Loo through the next asset
-		(function nextAsset(assets) {
-
-			var assetName = assets.shift();
-			var asset = rm.options.assets[assetName];
-
-			var processor = (asset.lazy) ? "lazy" : "include";
-
-			try {
-
-				var processorPath = fs.pathJoin("./", "processors", processor)
-
-				processor = require( "./" + processorPath );
-
-			} catch(e) {
-
-				verbose.log(1, "Processor load failed for: " + processor, "error");
-
-				processor = undefined;
-
-			}
-
-			var sourceList = Object.keys(asset.sources);
-
-			// Loop through the next source
-			(function nextSource(sources) {
-
-				// Ge the next source
-				var source = sources.shift();
-				var sourceDef = rm.options.assets[assetName].sources[source];
-
-				// Only run if a valid processor is found.
-				if (processor) {
-
-					// Check for a processor for this type of asset
-					if (processor[source]) {
-					
-						// Call the processor function
-						processor[source](asset, sourceDef, rm.options, function(task) {});
-
-					} else {
-
-						verbose.log(1, "Processor not found: " + processor, "error");
-					}
-
-				}
-
-				if (sources.length !== 0) {
-					
-					nextSource(sources);
-				} 
-
-			})(sourceList);
-
-			if (assets.length !== 0) {
-
-				nextAsset(assets);
-			} else {
-
-				next(rm);
-			}
-
-		})(assetList);
-
-		next(rm);
-	}
-
-	return {
-		assets: assets,
-		paths: paths
-	}
-
+    return false;
 }
 
-// Expor the manager function as a module
+var process = function _process() {
+
+    var components = function _components(rm, next) {
+
+        var options = rm.options
+        var grunt = rm.grunt;
+
+        var global = {};
+
+        var prodBuild = grunt.config.get('prod');
+
+        rm.options.lazyPaths = {};
+
+        (function nextComponent(components) {
+
+            var componentName = components.shift();
+            var componentDef = rm.options.components[componentName];
+
+            // Check to see if this is a lazy or a include task
+            var processor = require('./processor/' + componentDef.includeMethod);
+
+            // Execute component processor
+            processor.component(componentDef, grunt, global, function(resultObject) {
+
+                if (resultObject !== false) {
+
+                    // Check for key returns...
+
+                    // Loop through the returned results looking for key actions
+                    var resultKeys = Object.keys(resultObject);
+
+                    (function nextKey(keys) {
+
+                        var key = keys.shift();
+
+                        switch (key) {
+
+                            case 'map':
+
+                                (function nextMappedTask(mapped) {
+
+                                    var map = mapped.shift();
+
+                                    var gruntConfigType = grunt.config.get(map);
+
+                                    if (gruntConfigType === undefined || gruntConfigType == null) {
+
+                                        gruntConfigType = _priv.addTaskType(map, grunt);
+                                    }
+
+                                    // As long as the grunt config is not false, keep going
+                                    if (gruntConfigType) {
+
+                                        for (var i = 0, len = resultObject.map[map].length; i < len; i++) {
+
+                                            var newTask = resultObject.map[map][i];
+
+                                            gruntConfigType[newTask] = resultObject.gruntTasks[newTask];
+
+                                            // Check to see if this need to be added to the component
+                                            if (!componentDef.distTask) {
+                                                componentDef.distTask = [];
+                                            }
+
+                                            componentDef.distTask.push(map + ":" + newTask);
+
+                                        }
+
+                                        grunt.config.set(map, gruntConfigType);
+
+                                    }
+
+                                    if (mapped.length !== 0) {
+
+                                        nextMappedTask(mapped);
+                                    }
+
+
+                                })(Object.keys(resultObject.map).concat());
+                                break;
+
+                            case 'includePaths':
+
+                                // We will just update the global instance for now just in case.
+                                global.includePaths = resultObject.includePaths;
+                                break;
+
+                            case 'lazyPaths':
+
+                                if (!rm.options.lazyPaths) {
+                                    rm.options.lazyPaths = {};
+                                }
+
+                                console.log(resultObject);
+
+                                (function nextLazyPath(lazyPaths) {
+
+                                    var lPath = lazyPaths.shift();
+
+                                    if (!rm.options.lazyPaths.hasOwnProperty(lPath)) {
+
+                                        rm.options.lazyPaths[lPath] = resultObject.lazyPaths[lPath];
+                                    }
+                                    else {
+
+                                        console.log("DUPLICATE LAZY PATH!!!!!! ", lPath,  resultObject.lazyPaths[lPath]);
+                                    }
+
+                                    if (lazyPaths.length !== 0) {
+
+                                        nextLazyPath(lazyPaths);
+                                    }
+
+                                })(Object.keys(resultObject.lazyPaths))
+
+                                break;
+
+                        }
+
+                        if (keys.length !== 0) {
+
+                            nextKey(keys);
+                        }
+
+                    })(resultKeys)
+
+
+                }
+                else {
+
+                    console.log("Error processing component: " + componentName + " using method: " + componentDef.includeMethod);
+                }
+
+            });
+
+            rm.options.components[componentName] = componentDef;
+
+            if (components.length !== 0) {
+
+                nextComponent(components)
+            }
+            else {
+
+                // Last changes now that all the components have been looked through
+                if (global.includePaths) {
+
+                    var requireJSConfig = grunt.config.get('requirejs');
+
+                    requireJSConfig.main.options.paths = global.includePaths;
+
+                    var includeKeys = Object.keys(global.includePaths);
+
+                    for (var i = 0, len = includeKeys.length; i < len; i++) {
+
+                        var key = includeKeys[i];
+
+                        if (requireJSConfig.main.options.include.indexOf(key) === -1) {
+
+                            requireJSConfig.main.options.include.push(key);
+                        }
+
+                    }
+
+                    grunt.config.set('requirejs', requireJSConfig);
+
+                }
+
+                next(rm);
+            }
+
+        })(Object.keys(options.components));
+    };
+
+    return {
+        components: components
+    }
+}
+
+// Export the manager function as a module
 module.exports = exports = new process();

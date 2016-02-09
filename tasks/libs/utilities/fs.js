@@ -9,9 +9,9 @@ var util = require('util');
 // Third party modules
 var mkdirp = require('mkdirp');
 
-// Custom node modules
-var obj = require('../utilites/object');
-var verbose = require('../utilites/verbose');
+// // Custom node modules
+var obj = require('../utilities/object');
+// var verbose = require('../utilites/verbose');
 
 var fileSystem = function() {
 
@@ -24,7 +24,7 @@ var fileSystem = function() {
      * #arguements - {string}
      * @return - {string} - copy of the full path, with the base path removed.
      **/
-	var pathJoin = function() {
+	var pathJoin = function _path_join() {
 
 		var newPath = "";
 
@@ -33,13 +33,13 @@ var fileSystem = function() {
 			// Check to make sure we are adding strings together.
 			if (typeof(arguments[prop]) === 'string') {
 
-				newPath = path.join(newPath, arguments[prop]);
+                // Create the new path and unixify it just in case.
+				newPath = unixifyPath(path.join(newPath, arguments[prop]));
 			}
 
 		}
 
 		return newPath;
-
 	};
 
     /**
@@ -50,7 +50,7 @@ var fileSystem = function() {
      * path - {string} - represented desired path
      * @return - {string} - converted or original path string, depending on platform detected
      **/
-    var unixifyPath = function (path) {
+    var unixifyPath = function _unixify_path(path) {
 
         if (process.platform === 'win32') {
             return path.replace(/\\/g, '/');
@@ -58,7 +58,6 @@ var fileSystem = function() {
         else {
             return path;
         }
-
     };
 
 
@@ -73,7 +72,7 @@ var fileSystem = function() {
      *       will return only one parameter that is an array and it will contain objects if something is found. Developers should
      *       test to ensure there are contents before attempting to iterate.
      **/
-	var recursive = function(path, filters, cb) {
+	var recursive = function _recursive(path, filters, cb) {
 
 		// Default options
 		var options = {
@@ -191,61 +190,7 @@ var fileSystem = function() {
 		if (cb) {
 			cb(dirList);
 		}
-
-	}
-
-    /**
-     * Read File:
-     * Function will follow path to a file and attempt to read into memory synchronously.
-     *
-     * Params:
-     * path - {string} - the path to the target file
-     * @return - {string|boolean} - contents of the requested file or false if an error occures.
-     **/
-	var readFile = function(path) {
-
-        path = this.unixifyPath(path);
-
-		try {
-
-			var data = fs.readFileSync(path, {encoding: 'utf8'});
-
-			return data;
-
-		} catch(e) {
-
-			return false;
-
-		}
-
-	}
-
-    /**
-     * Read JSON:
-     * Function will call the readFile task and then simple run the addtional parse routine to make it
-     * a usable javascript object as soon as it is returned.
-     *
-     * Params:
-     * path - {string} - the path to the target file
-     * @return - {object|boolean} - contents of the requested file or false if an error occures.
-     **/
-	var readJSON = function(path) {
-
-		try {
-
-			var data = this.readFile(path, {encoding: 'utf8'});
-
-			data = JSON.parse(data);
-
-			return data;
-
-		} catch(e) {
-
-			return false;
-
-		}
-
-	}
+	};
 
     /**
      * Write Stream:
@@ -257,71 +202,71 @@ var fileSystem = function() {
      * o - {object} - options object // No currently setup
      * @return - {object} - a native nodejs writable stream
      **/
-	var writeStream = function(k, o) {
+    var writeStream = function(k, o) {
 
-		o = {};
+        o = {};
 
         // Get a copy of the node write stream
-		var writer = stream.Writable;
+        var writer = stream.Writable;
 
         // Memory object space
-		var mem = {};
+        var mem = {};
 
         // Create a ustom write stream function that is used for the init.
-		var writerStream = function(k, options) {
+        var writerStream = function(k, options) {
 
-			if (!(this instanceof writerStream)) {
-				return new writerStream(k, options);
-			}
+            if (!(this instanceof writerStream)) {
+                return new writerStream(k, options);
+            }
 
-			writer.call(this, options);
+            writer.call(this, options);
 
-			this.key = k;
+            this.key = k;
 
-			this.mem = mem;
+            this.mem = mem;
 
-			mem[k] = new Buffer('');
+            mem[k] = new Buffer('');
 
-			this.data = function() {
-				return mem[k];
-			}
+            this.data = function() {
+                return mem[k];
+            }
 
-			this.log = function(k) {
+            this.log = function(k) {
 
-				console.log( mem[k].toString() );
-			}
+                console.log( mem[k].toString() );
+            }
 
-		}
+        }
 
         // Have node inheret the properties of the native write stream
-		util.inherits(writerStream, writer);
+        util.inherits(writerStream, writer);
 
         // Override the default write stream. We need to do this so we can fouce the write stream
         // to store buffer information in an object for later use. Write is used to append data to
         // memory
-		writerStream.prototype._write = function (chunk, enc, cb) {
+        writerStream.prototype._write = function (chunk, enc, cb) {
 
-			try {
+            try {
 
-				var buffer = (Buffer.isBuffer(chunk)) ? chunk : new Buffer(chunk, enc);
+                var buffer = (Buffer.isBuffer(chunk)) ? chunk : new Buffer(chunk, enc);
 
-				mem[this.key] = Buffer.concat([mem[this.key], buffer]);
+                mem[this.key] = Buffer.concat([mem[this.key], buffer]);
 
 
-			} catch (e) {
+            } catch (e) {
 
-				verbose.log (1, "Writer stream failed to store value", "error");
-			}
+                verbose.log (1, "Writer stream failed to store value", "error");
+            }
 
             // End the current append process
-			cb();
+            cb();
 
-		}
+        }
 
         // Return the native node write function
-		return new writerStream(k, o);
+        return new writerStream(k, o);
 
-	}
+    }
 
     /**
      * Write File:
@@ -332,20 +277,20 @@ var fileSystem = function() {
      * data - {Buffer|string|numbers} - data content will very, but this is the data to be written to the disk.
      * @return - {none}
      **/
-	var writeFile = function (path, data) {
+    var writeFile = function (path, data) {
 
-		path = this.unixifyPath(path);
+        path = this.unixifyPath(path);
 
         // Trim the filename off the path for mkdirp
-		var folderpath = path.substring(0, path.lastIndexOf('/'));
+        var folderpath = path.substring(0, path.lastIndexOf('/'));
 
-		// Create the folder structure if its missing.
-		mkdirp.sync(folderpath);
+        // Create the folder structure if its missing.
+        mkdirp.sync(folderpath);
 
-		// Write the files
-		fs.writeFileSync(path, data);
+        // Write the files
+        fs.writeFileSync(path, data);
 
-	}
+    }
 
     /**
      * Write JSON:
@@ -367,13 +312,11 @@ var fileSystem = function() {
 
 	return {
 		pathJoin: pathJoin,
-		readFile: readFile,
-		readJSON: readJSON,
 		recursive: recursive,
         unixifyPath: unixifyPath,
-		writeFile: writeFile,
-		writeJSON: writeJSON,
-		writeStream: writeStream
+        writeStream: writeStream,
+        writeFile: writeFile,
+        writeJSON: writeJSON
 	}
 
 };
