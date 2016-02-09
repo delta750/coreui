@@ -1,6 +1,5 @@
 module.exports = function(grunt) {
-
-    // Project configuration.
+    // Project configuration
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
@@ -29,7 +28,7 @@ module.exports = function(grunt) {
         sass: {
             options: {
                 sourceMap: true,
-                outputStyle: 'nested', // Options: nested, compressed
+                outputStyle: 'nested', // Options: 'nested', 'compressed' (minified)
             },
 
             main: {
@@ -57,7 +56,7 @@ module.exports = function(grunt) {
         markdown: {
             options: {
                 highlight: 'auto',
-                template: '../../docs/src/assets/templates/default.html',
+                template: '../../../cui/docs/src/assets/templates/default.html',
                 markdownOptions: {
                     highlight: 'manual', // Other options: 'auto'
                     gfm: true,

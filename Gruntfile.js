@@ -162,13 +162,13 @@
             },
 
             // Component documentation
-            sampleDocs: {
+            sampleAdvancedDocs: {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/project/components/sample/dist/docs',
+                        cwd: 'src/project/components/sampleAdvanced/dist/docs',
                         src: ['**/*.*'],
-                        dest: 'docs/components/sample',
+                        dest: 'docs/components/sampleAdvanced',
                     }
                 ]
             },
