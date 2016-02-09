@@ -16,3 +16,7 @@
 .cui-align-right {
     @include align-right;
 }
+
+.cui-align-center {
+    @include align-center;
+}

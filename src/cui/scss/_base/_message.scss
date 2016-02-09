@@ -44,10 +44,10 @@
 
     // Error message item
     .cui-error {
-        background-color: lighten($cui-color-text-error, 46%);
-        border: 1px solid lighten($cui-color-text-error, 32%);
+        color: $cui-color-error-text;
+        background-color: $cui-color-error-background;
+        border: 1px solid $cui-color-error-border;
         border-radius: $cui-border-radius;
-        color: darken($cui-color-text-error, 14%);
 
         &:before {
             background-position: 0 0;
@@ -56,10 +56,10 @@
 
     // Warning message item
     .cui-warning {
-        background-color: lighten($cui-color-text-warning, 52%);
-        border: 1px solid lighten($cui-color-text-warning, 18%);
+        color: $cui-color-warning-text;
+        background-color: $cui-color-warning-background;
+        border: 1px solid $cui-color-warning-border;
         border-radius: $cui-border-radius;
-        color: darken($cui-color-text-warning, 14%);
 
         &:before {
             background-position: -24px 0;
@@ -68,10 +68,10 @@
 
     // Success message item
     .cui-success {
-        background-color: lighten($cui-color-text-success, 46%);
-        border: 1px solid lighten($cui-color-text-success, 22%);
+        color: $cui-color-success-text;
+        background-color: $cui-color-success-background;
+        border: 1px solid $cui-color-success-border;
         border-radius: $cui-border-radius;
-        color: darken($cui-color-text-success, 14%);
 
         &:before {
             background-position: -48px 0;
@@ -80,10 +80,10 @@
 
     // Informational message item
     .cui-informational {
-        background-color: lighten($cui-color-text-information, 66%);
-        border: 1px solid lighten($cui-color-text-information, 50%);
+        color: $cui-color-info-text;
+        background-color: $cui-color-info-background;
+        border: 1px solid $cui-color-info-border;
         border-radius: $cui-border-radius;
-        color: lighten($cui-color-text-information, 4%);
 
         &:before {
             background-position: -72px 0;

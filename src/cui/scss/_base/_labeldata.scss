@@ -65,11 +65,13 @@ section .cui-data {
 }
 
 .cui-required {
-    label:after {
-        content: "*";
-        color: $cui-color-required-red;
-        font: $cui-font-required;
-        font-weight: $cui-font-weight-semibold;
-        margin-left: 0.2em;
+    .cui-label:after {
+        @include required-asterisk();
+    }
+}
+
+fieldset.cui-required {
+    .cui-label:after {
+        @include required-asterisk();
     }
 }

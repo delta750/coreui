@@ -24,7 +24,7 @@
  * refined with help from Martin Cermak
  *
  * Sources that helped along the way:
- * - https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent
+ * - https://developer.mozilla.org/en-US/Browser_detection_using_the_user_agent
  * - http://www.phpied.com/when-is-a-stylesheet-really-loaded/
  * - https://github.com/cujojs/curl/blob/master/src/curl/plugin/css.js
  *
@@ -154,6 +154,15 @@ define(function() {
   }
 
   cssAPI.load = function(cssId, req, load, config) {
+
+    // Test for a non -style
+    // This patch is to allow for common css/js names like css!module to work instead of doing css!module-styles
+    if (cssId.indexOf('-styles') === -1) {
+        if (config.paths.hasOwnProperty(cssId + "-styles")) {
+            cssId = cssId + "-styles";
+        }
+    }
+
     (useImportLoad ? importLoad : linkLoad)(req.toUrl(cssId + '.css'), load);
   }
 

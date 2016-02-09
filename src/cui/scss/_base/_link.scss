@@ -19,7 +19,12 @@ a:focus {
     text-decoration: none;
 }
 
-a:hover,
-a:visited:hover {
+a:hover {
     text-decoration: underline;
+    color: $cui-link-color-hover;
+}
+
+a:visited,
+a:visited:hover {
+    color: $cui-link-color-visited;
 }

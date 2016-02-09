@@ -23,7 +23,7 @@ $cui-line-height:          1 !default;
 $cui-font-heading:         $cui-font-family !default;
 
 // Required asterisk
-$cui-font-required:        1.1em $cui-font-basic !default;
+$cui-font-required:        0.8em $cui-font-basic !default;
 
 
 // * @section    Colors
@@ -37,10 +37,18 @@ $cui-color-light-gray-alt:       #eeeeec !default;
 $cui-color-light-gray-alt-2:     #bfbfbd !default;
 $cui-color-light-gray-alt-3:     #e7e7e5 !default;
 $cui-color-light-gray-alt-4:     #e6ebec !default;
-$cui-color-text-error:           #b52c29 !default;
-$cui-color-text-warning:         #ba7b05 !default;
-$cui-color-text-information:     #1b2a5e !default;
-$cui-color-text-success:         #468453 !default;
+$cui-color-error-text:           #b52c2c !default;
+$cui-color-error-background:     #f9e7e7 !default;
+$cui-color-error-border:         #f4d2d2 !default;
+$cui-color-warning-text:         #806900 !default;
+$cui-color-warning-background:   #fff6cc !default;
+$cui-color-warning-border:       #ffe366 !default;
+$cui-color-info-text:            #128ec3 !default;
+$cui-color-info-background:      #f0fafe !default;
+$cui-color-info-border:          #90dcfd !default;
+$cui-color-success-text:         #3C763D !default;
+$cui-color-success-background:   #DFF0D8 !default;
+$cui-color-success-border:       #D6E9C6 !default;
 $cui-color-required-red:         #ee3300 !default;
 $cui-color-light-blue:           #19a6e2 !default;
 
@@ -48,8 +56,10 @@ $cui-color-light-blue:           #19a6e2 !default;
 $cui-text-color:    $cui-color-dark-gray !default;
 $cui-heading-color: $cui-text-color !default;
 $cui-input-color:   $cui-text-color !default;
-$cui-code-color:    $cui-color-text-success !default;
+$cui-code-color:    $cui-color-success-text !default;
 $cui-link-color:    $cui-color-light-blue !default;
+$cui-link-color-hover:    lighten($cui-color-light-blue, 10%) !default;
+$cui-link-color-visited:  darken($cui-color-light-blue, 10%) !default;
 
 
 // * @section    General
@@ -111,12 +121,14 @@ $cui-button-text-decoration: none !default;
 
 // Primary button
 $cui-button-primary-color:              $cui-color-white !default;
+$cui-button-primary-color-hover:        $cui-color-white !default;
+$cui-button-primary-color-active:       $cui-button-primary-color-hover !default;
 $cui-button-primary-bg-color:           $cui-color-dark-gray-alt-2 !default;
 $cui-button-primary-border-color:       #5a5a56 !default;
 $cui-button-primary-border:             $cui-button-border-width solid $cui-button-primary-border-color !default;
 $cui-button-primary-text-shadow:        rgb(90, 90, 90) 0 1px 0 !default;
 $cui-button-primary-border-hover-color: #444440 !default;
-$cui-button-primary-bg-hover-color:     #50504b !default;
+$cui-button-primary-bg-color-hover:     #50504b !default;
 $cui-button-primary-text-decoration:    none !default;
 
 // Icon buttons
@@ -161,7 +173,11 @@ $cui-grid-column-padding:    0 $cui-grid-gutter-width !default;
 
 // * @section    Headers
 // * --------------------------------------------------------
-$cui-header-padding:  0 0 0.4em 0 !default;
+$cui-header-padding-top:    0 !default;
+$cui-header-padding-right:  0 !default;
+$cui-header-padding-bottom: 0.4em !default;
+$cui-header-padding-left:   0 !default;
+$cui-header-padding: $cui-header-padding-top $cui-header-padding-right $cui-header-padding-bottom $cui-header-padding-left !default;
 
 
 // * @section    Sections
