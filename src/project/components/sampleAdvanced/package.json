@@ -1,0 +1,12 @@
+{
+    "name": "cui-sample-advanced",
+    "version": "0.0.1",
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-contrib-clean": "^0.6.0",
+        "grunt-contrib-copy": "^0.8.2",
+        "grunt-contrib-jshint": "^0.11.3",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-sass": "^1.1.0"
+    }
+}

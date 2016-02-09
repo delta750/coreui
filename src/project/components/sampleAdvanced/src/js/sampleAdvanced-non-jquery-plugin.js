@@ -1,0 +1,3 @@
+define(['jquery', 'cui'], function ($, cui) {
+    // Your code goes here...
+});
