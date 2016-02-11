@@ -343,7 +343,10 @@
 
             // Project styles
             styles: {
-                files: ['src/project/scss/**/*.scss'],
+                files: [
+                        'src/cui/scss/**/*.scss',
+                        'src/project/scss/**/*.scss',
+                       ],
                 tasks: ['sass:main'],
             },
 

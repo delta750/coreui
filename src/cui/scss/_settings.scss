@@ -219,6 +219,15 @@ $cui-list-margin:         $cui-list-margin-top $cui-list-margin-right $cui-list-
 $cui-list-inline-spacing: 1em !default;
 
 
+// * @section    Messages
+// * --------------------------------------------------------
+$cui-messages-margin-top:     0 !default;
+$cui-messages-margin-right:   1em !default;
+$cui-messages-margin-bottom:  0 !default;
+$cui-messages-margin-left:    0 !default;
+$cui-messages-margin:         $cui-messages-margin-top $cui-messages-margin-right $cui-messages-margin-bottom $cui-messages-margin-left !default;
+
+
 // * @section    Breakpoint
 // * --------------------------------------------------------
 $cui-bp-medium:        480px !default;
