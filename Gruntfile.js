@@ -341,10 +341,16 @@
                 ],
             },
 
-            // Default css files
+            // Project styles
             styles: {
                 files: ['src/project/scss/**/*.scss'],
                 tasks: ['sass:main'],
+            },
+
+            // Project HTML
+            html: {
+                files: ['src/project/html/**/*.html'],
+                tasks: ['copy:html'],
             },
         },
 
