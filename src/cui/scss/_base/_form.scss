@@ -216,3 +216,16 @@ textarea {
         padding-left: 4px;
     }
 }
+
+
+// * @section    Suppress spinners on number inputs
+// * --------------------------------------------------------
+input[type=number].cui-hide-spinner::-webkit-inner-spin-button,
+input[type=number].cui-hide-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number].cui-hide-spinner {
+    -moz-appearance: textfield;
+}
