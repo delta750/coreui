@@ -53,25 +53,25 @@ module.exports = function(grunt) {
         },
 
         // https://github.com/treasonx/grunt-markdown
-        markdown: {
-            options: {
-                highlight: 'auto',
-                template: '../../../cui/docs/src/assets/templates/default.html',
-                markdownOptions: {
-                    highlight: 'manual', // Other options: 'auto'
-                    gfm: true,
-                },
-            },
-            docs: {
-                files: [{
-                    expand: true,
-                    cwd: 'src/docs/',
-                    src: ['**/*.md'],
-                    dest: 'dist/docs',
-                    ext: '.html',
-                }],
-            },
-        },
+        // md2html: {
+        //     options: {
+        //         highlight: 'auto',
+        //         template: '../../../cui/docs/src/assets/templates/default.html',
+        //         markdownOptions: {
+        //             highlight: 'manual', // Other options: 'auto'
+        //             gfm: true,
+        //         },
+        //     },
+        //     docs: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: 'src/docs/',
+        //             src: ['**/*.md'],
+        //             dest: 'dist/docs',
+        //             ext: '.html',
+        //         }],
+        //     },
+        // },
 
         watch: {
             options: {
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
     grunt.loadTasks('tasks');
 
     // Default task(s)
-    grunt.registerTask('default', ['clean', 'sass', 'jshint', 'markdown', 'copy']);
+    grunt.registerTask('default', ['clean', 'sass', 'jshint', 'copy']);
 
     // Development
     grunt.registerTask('dev', ['default', 'watch']);

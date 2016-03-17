@@ -215,27 +215,19 @@
             }
         },
 
-        // https://github.com/treasonx/grunt-markdown
-        markdown: {
-            main: {
-                options: {
-                    highlight: 'auto',
-                    template: 'src/cui/docs/src/assets/templates/default.html',
-                    markdownOptions: {
-                        highlight: 'manual', // Other options: 'auto'
-                        gfm: true,
-                    },
-                },
-                docs: {
-                    files: [{
-                        expand: true,
-                        cwd: 'src/cui/docs/src/',
-                        src: ['**/*.md'],
-                        dest: 'docs',
-                        ext: '.html',
-                    }],
-                },
-            }
+        md2html: {
+          docs: {
+            options: {
+                layout: 'src/cui/docs/src/assets/templates/default.html'
+            },
+            files: [{
+              expand: true,
+              cwd: 'src/cui/docs/src',
+              src: ['**/*.md'],
+              dest: 'docs',
+              ext: '.html'
+            }]
+          }
         },
 
         // Builds the default javascript CUI library using r.js compiler
@@ -435,6 +427,7 @@
 
         // Run the development build process
         grunt.task.run([
+            'md2html', // Comment out when you dont need the getting started docs any longer
             'componentFinder',
             'clean',
             'copy',
