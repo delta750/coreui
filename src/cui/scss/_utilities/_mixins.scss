@@ -522,15 +522,43 @@
 // * @section    Breakpoints
 // * --------------------------------------------------------
 // Breakpoint wrapper
-@mixin pointbreak($size: "medium", $max: false) {
-    @if $size == hires {
+@mixin pointbreak($size: $cui-bp-medium, $max: false, $media: "") {
+    // Hi-res or retina only
+    @if $size == "hires" {
         @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 192dpi) { @content; }
     }
-    @elseif $max == false {
-        @media (min-width: $size) { @content; }
-    }
+    // All other media
     @else {
-        @media (max-width: $size) { @content; }
+        // Standard mobile-first `min-width` MQ
+        @if $max == false {
+            @if $media != "" {
+                @media #{$media} and (min-width: $size) { @content; }
+            }
+            @else {
+                // Also include a `print` MQ for medium and large styles so that prints use the desktop styles
+                @if ($print-using-large-styles == true and ($size == $cui-bp-medium or $size == $cui-bp-large)) {
+                    @media print, (min-width: $size) { @content; }
+                }
+                @else {
+                    @media (min-width: $size) { @content; }
+                }
+            }
+        }
+        // Desktop-first `max-width` MQ
+        @else {
+            @if $media != "" {
+                @media #{$media} and (max-width: $size) { @content; }
+            }
+            @else {
+                // Exclude `print` so we don't apply mobile styles to prints
+                @if $print-using-large-styles == true {
+                    @media only screen and (max-width: $size) { @content; }
+                }
+                @else {
+                    @media (max-width: $size) { @content; }
+                }
+            }
+        }
     }
 }
 
