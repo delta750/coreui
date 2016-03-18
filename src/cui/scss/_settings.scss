@@ -240,3 +240,12 @@ $cui-grid-breakpoints: (
     ("medium" $cui-bp-medium),
     ("large" $cui-bp-large)
 );
+
+
+// * @section    Print
+// * --------------------------------------------------------
+
+// Apply large-screen styles for printing
+//     Setting this to `true` will produce prints that look like the `$cui-bp-large` styles, regardless of the paper size
+//     Setting this to `false` will, in most cases, apply the appropriate media query based on the paper size (e.g. standard letter-sized paper will typically use `$cui-bp-medium` styles)
+$print-using-large-styles: false !default;

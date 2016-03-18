@@ -248,7 +248,7 @@ nav > header {
 // * --------------------------------------------------------
 
 // Medium (tablet) column widths
-@media only screen and (min-width: $cui-bp-medium) {
+@include pointbreak($cui-bp-medium) {
     .cui-hide-col-small,
     .cui-hide-col-large {
         display: block;
@@ -256,7 +256,7 @@ nav > header {
 }
 
 // Large (desktop) column widths
-@media only screen and (min-width: $cui-bp-large) {
+@include pointbreak($cui-bp-large) {
     .cui-hide-col-small,
     .cui-hide-col-medium {
         display: block;
