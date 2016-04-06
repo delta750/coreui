@@ -6,6 +6,10 @@ Core UI is being developed as a NYS cluster-combined effort between [Manuel Farf
 
 ## [Documentation](http://ny.github.io/coreui/)
 
+## Demos
+
+Clone the repo, follow the [Getting Started](src/cui/docs/src/getting-started.md) guide, then launch http://localhost:8888/docs/demos/
+
 ## Reporting bugs and known issues
 
 Before reporting new issues please make sure you have reviewed our existing and closed issues. To report new issues, please first read our [issues guidelines](https://github.com/ny/coreui/CONTRIBUTING.md) and then [open a new issue](https://github.com/ny/coreui/issues/new).
