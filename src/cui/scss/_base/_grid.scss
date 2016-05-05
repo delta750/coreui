@@ -134,31 +134,32 @@ nav > header {
     }
 }
 
+// Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
+@mixin utility-classes($breakpointName) {
+    .cui-hide-col-#{$breakpointName} {
+        @include hide-voluntary;
+    }
+
+    .cui-inline-col-#{$breakpointName} {
+        @include inline-col;
+    }
+}
+
+// Helper method that calls the actual class-creating mixins above
+// We need this because we loop through all of the breakpoints except "small" but we want to be sure we're outputting the same code for all sizes
+@mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
+    @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
+    @include utility-classes($breakpointName);
+    @include generate-fixed-flex-columns($breakpointName);
+}
+
+// Return width for a single division (column) as a percentage of the total container (row)
+@function column-width-calc($colNumber, $colTotal) {
+    @return percentage($colNumber / $colTotal);
+}
+
 // Generates column classes for all breakpoint sizes
 @mixin generate-grid($numColumns: $cui-grid-column-count) {
-    // Return width for a single division (column) as a percentage of the total container (row)
-    @function column-width-calc($colNumber, $colTotal) {
-        @return percentage($colNumber / $colTotal);
-    }
-
-    // Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
-    @mixin utility-classes($breakpointName) {
-        .cui-hide-col-#{$breakpointName} {
-            @include hide-voluntary;
-        }
-
-        .cui-inline-col-#{$breakpointName} {
-            @include inline-col;
-        }
-    }
-
-    // Helper method that calls the actual class-creating mixins above
-    // We need this because we loop through all of the breakpoints except "small" but we want to be sure we're outputting the same code for all sizes
-    @mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
-        @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
-        @include utility-classes($breakpointName);
-        @include generate-fixed-flex-columns($breakpointName);
-    }
 
     // Finally, generate the classes for each size:
 

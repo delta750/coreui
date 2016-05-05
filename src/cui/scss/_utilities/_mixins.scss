@@ -361,11 +361,12 @@
     }
 }
 
+@mixin grid-col-fixed-helper($width: 0, $breakpointName: "small") {
+    width: $width;
+}
+
 // Fixed column styles for a given width and breakpoint
 @mixin grid-col-fixed($width: 0, $breakpointName: "small") {
-    @mixin grid-col-fixed-helper($width: 0, $breakpointName: "small") {
-        width: $width;
-    }
 
     @if $breakpointName == "small" {
         @include grid-col-fixed-helper($width, $breakpointName);
@@ -382,32 +383,34 @@
     }
 }
 
-@mixin grid-col-flex($breakpointName: "small", $width: false) {
-    @mixin grid-col-flex-helper($breakpointName: "small", $width: false) {
-        @if $width != false {
-            @include flex-col(0 1 $width);
+@mixin grid-col-flex-helper($breakpointName: "small", $width: false) {
+    @if $width != false {
+        @include flex-col(0 1 $width);
 
-            // Legacy support for non-flexbox and non-calc browsers
-            // Note that this is separate than `$cui-grid-use-legacy-styles`. Even with that flag turned on you can still use flex box in supporting browsers and fall back to more basic CSS using the `.no-flexbox` class added by Modernizr.
-            .no-flexbox & {
-                width: calc(100% - $width);
-            }
-
-            // Flex col is to the left of the fixed col
-            .no-csscalc {
-                margin-right: $width;
-            }
-
-            // Flex col is to the right of the fixed col
-            .no-csscalc [class*="cui-fixed-col-#{$breakpointName}"] + & {
-                margin-right: auto;
-                margin-left: $width;
-            }
+        // Legacy support for non-flexbox and non-calc browsers
+        // Note that this is separate than `$cui-grid-use-legacy-styles`. Even with that flag turned on you can still use flex box in supporting browsers and fall back to more basic CSS using the `.no-flexbox` class added by Modernizr.
+        .no-flexbox & {
+            width: calc(100% - $width);
         }
-        @else {
-            @include flex-col(0 1 100%);
+
+        // Flex col is to the left of the fixed col
+        .no-csscalc {
+            margin-right: $width;
+        }
+
+        // Flex col is to the right of the fixed col
+        .no-csscalc [class*="cui-fixed-col-#{$breakpointName}"] + & {
+            margin-right: auto;
+            margin-left: $width;
         }
     }
+    @else {
+        @include flex-col(0 1 100%);
+    }
+}
+
+@mixin grid-col-flex($breakpointName: "small", $width: false) {
+
 
     // By default, use up the whole width of the row
     // E.g. a column with only a `col-large-` class should be 100% width on small and medium sized screens
