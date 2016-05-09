@@ -169,8 +169,8 @@
                         cwd: 'src/project/components/sampleAdvanced/dist/docs',
                         src: ['**/*.*'],
                         dest: 'docs/components/sampleAdvanced',
-                    }
-                ]
+                    },
+                ],
             },
         },
 
@@ -212,22 +212,22 @@
                 src: [
                     'src/project/js/**/*.js',
                 ],
-            }
+            },
         },
 
         md2html: {
-          docs: {
-            options: {
-                layout: 'src/cui/docs/src/assets/templates/default.html'
+            docs: {
+                options: {
+                    layout: 'src/cui/docs/src/assets/templates/default.html',
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/cui/docs/src',
+                    src: ['**/*.md'],
+                    dest: 'docs',
+                    ext: '.html',
+                }],
             },
-            files: [{
-              expand: true,
-              cwd: 'src/cui/docs/src',
-              src: ['**/*.md'],
-              dest: 'docs',
-              ext: '.html'
-            }]
-          }
         },
 
         // Builds the default javascript CUI library using r.js compiler
@@ -316,7 +316,7 @@
                 files: {
                     src: [ 'dist/js/components/**/*.js' ],
                 },
-            }
+            },
         },
 
         watch: {
@@ -346,6 +346,15 @@
             html: {
                 files: ['src/project/html/**/*.html'],
                 tasks: ['copy:html'],
+            },
+
+            // CUI docs
+            cuiDocs: {
+                files: [
+                    'src/cui/docs/**/*.*',
+                    'src/project/docs/**/*.*',
+                ],
+                tasks: ['copy:docs'],
             },
         },
 
