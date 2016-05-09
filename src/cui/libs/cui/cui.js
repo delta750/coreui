@@ -5,8 +5,7 @@
  Core script (mainly utilities) to be used across projects
 =======================================================================
 */
-define(['jquery', 'lazyLoader'], function($, lazyLoader) {
-
+define(['jquery', 'lazyLoader'], function ($, lazyLoader) {
     // Create the namespace
     var cui = {};
 
@@ -52,7 +51,7 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
      *
      * @return  {Object}             Parent of namespace
      */
-    cui.namespace = function _namespace(namespace, parent) {
+    cui.namespace = function _namespace (namespace, parent) {
         var parts = namespace.split('.');
         var i;
 
@@ -78,10 +77,8 @@ define(['jquery', 'lazyLoader'], function($, lazyLoader) {
     /**
      * Simple script init function that needs to run on every page that uses the core ui framework
      */
-    cui.init = function() {
+    cui.init = function () {
         // `cui` namespace is now loaded
-
-        // console.log('CUI and Require are done!');
     };
 
     // Place the lazyloader into the cui namespace.
