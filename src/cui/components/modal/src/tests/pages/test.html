@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Modal Test - Core UI</title>
+    <link href="/dist/css/main.css" rel="stylesheet" type="text/css" media="all">
+    <!--[if lt IE 9]><script src="/dist/js/vendor/html5shiv.js"></script><![endif]-->
+</head>
+
+<body>
+    <!-- Skip navigation for accessibility purposes -->
+    <div class="cui-hide-from-screen">
+        <a href="#nav">Go to navigation</a>
+        <a href="#main">Go to content</a>
+    </div>
+    <header class="cui-row">
+        <div class="cui-col-small-12">
+            <h1>Core UI</h1>
+        </div>
+        <div class="cui-col-small-12">
+            <h2>Modal Tests</h2>
+        </div>
+    </header>
+    <main role="main" id="main">
+        <form name="form_content" id="form_content" action="www.ny.gov" method="post">
+            <section>
+                <div class="cui-row">
+                    <div class="cui-col-small-12">
+                        <div class="cui-label">Modal 1:</div>
+                        <div class="cui-data">
+                            <button type="button" class="cui-button" id="test1" tabindex="1">Test</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-small-12">
+                        <div class="cui-label">Modal 2:</div>
+                        <div class="cui-data">
+                            <button type="button" class="cui-button" id="test2" tabindex="1">Test</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-small-12">
+                        <div class="cui-label">Modal 3:</div>
+                        <div class="cui-data">
+                            <button type="button" class="cui-button" id="test3" tabindex="1">Test</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-small-12">
+                        <div class="cui-label">Modal 4:</div>
+                        <div class="cui-data">
+                            <button type="button" class="cui-button" id="test4" tabindex="1">Test</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+    <script id="require" src="/dist/js/main.js"></script>
+    <script>
+        require(['jquery', 'cui', 'domReady!', 'modal'], function($, cui) {
+            $('#test1').modal({
+                html: 'Here is some modal text',
+                display: {
+                    height: '50%',
+                    width: '50%',
+                },
+                overlay: {
+                    supress: true,
+                    opacity: 0.9,
+                    className: 'myOverlay',
+                }
+            });
+
+            $('#test2').modal({
+                html: 'Modal #2',
+                display: {
+                    height: '90%',
+                    width: '70%',
+                    closeButton: false,
+                },
+            });
+
+            $('#test3').modal({
+                html: 'Modal #3',
+                display: {
+                    height: '30%',
+                    width: '30%',
+                    className: 'anotherModal',
+                },
+            });
+
+            $('#test4').modal({
+                html: "Modal #4",
+                display: {
+                    height: '30%',
+                    width: '30%',
+                },
+            });
+        });
+    </script>
+    <style>
+    /* Demo page styles */
+
+    .cui-modal-demo {
+        color: #fff;
+        border: 1px solid #777;
+        background-color: #444;
+        padding: 5px;
+    }
+
+    section > .cui-row {
+        margin-bottom: 2em;
+    }
+    </style>
+</body>
+
+</html>

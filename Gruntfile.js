@@ -162,6 +162,29 @@
             },
 
             // Component documentation
+
+            modalDocs: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/project/components/modal/dist/docs',
+                        src: ['**/*.*'],
+                        dest: 'docs/components/modal',
+                    },
+                ],
+            },
+
+            popoverDocs: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/project/components/popover/dist/docs',
+                        src: ['**/*.*'],
+                        dest: 'docs/components/popover',
+                    },
+                ],
+            },
+
             sampleAdvancedDocs: {
                 files: [
                     {

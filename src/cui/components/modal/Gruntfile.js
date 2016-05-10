@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 
             cui: {
                 files: {
-                    'dist/css/popover.css': ['src/scss/popover.scss']
+                    'dist/css/modal.css': ['src/scss/modal.scss']
                 },
             },
         },
@@ -78,4 +78,5 @@ module.exports = function (grunt) {
 
     // Default task(s)
     grunt.registerTask('default', ['jshint', 'clean', 'copy', 'sass', 'md2html']);
+
 };
