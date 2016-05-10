@@ -72,7 +72,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     // Function that displays a modal.
     _priv.showModal = function _showModal (modal) {
-        console.log('[showModal] A');
         // Check to see if a pre-display function needs to run i.e. table setup.
         if (typeof modal.config.beforeShowFunc === 'function') {
             modal.config.beforeShowFunc(modal);
@@ -82,18 +81,14 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             modal.$overlay.css({display: 'block'});
         }
 
-        console.log('[showModal] B');
         fastdom.mutate(function _showModal_fastdom1 () {
-            console.log('[showModal] C');
             modal.$self.css({'z-index': 1100});
 
             if (modal.config.alwaysCenter) {
-                console.log('[showModal] D');
                 fastdom.mutate(function _showModal_fastdom2 () {
                     _priv.center(modal);
 
                     fastdom.mutate(function _showModal_fastdom3 () {
-                        console.log('[A]');
                         modal.$self
                             .css({'visibility': 'visible'});
 
@@ -105,9 +100,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 });
             }
             else {
-                console.log('[showModal] E');
                 fastdom.mutate(function _showModal_fastdom4 () {
-                    console.log('[B]');
                     modal.$self
                         .css({'visibility': 'visible'});
 
@@ -143,7 +136,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     modal.$overlay.css({display: 'none'});
                 }
 
-                console.log('[C]');
                 modal.$self.css({'z-index': -1, 'visibility': 'hidden'});
 
                 $window.off('keyup.modalescape');
@@ -228,7 +220,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     var Modal = function (elem, options) {
         if (elem instanceof Node) {
-            console.log('is a node');
             // Store the element upon which the component was called
             this.elem = elem;
             // Create a jQuery version of the element
@@ -243,7 +234,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             this.metadata = this.$button.data('modal-options');
         }
         else {
-            console.log('is options');
             this.metadata = {};
 
             this.$self = false;
@@ -274,8 +264,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         if (!$window) {
             $window = $(window);
         }
-
-        console.log(modal);
 
         // Extend the config options with the defaults
         if (typeof this.options === 'string') {
@@ -342,10 +330,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             modal.$container.append(modal.config.html);
 
         }
-        else {
-            // To do: Take an existing container created by something else, wrapping it and turning it into a modal.
-            console.log('UI [modal] Source container provided.');
-        }
+        // To do: Take an existing container created by something else, wrapping it and turning it into a modal
+        // else { }
 
         // ===================
         // MODAL DISPLAY ITEMS
