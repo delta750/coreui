@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-    // Project configuration.
+    // Project configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -16,13 +16,34 @@ module.exports = function (grunt) {
                 src: ['**.js'],
                 dest: 'dist/js',
                 filter: 'isFile',
-                flatten: true,
             },
             tests: {
                 expand: true,
                 cwd: 'src/tests',
                 src: ['**/*.*'],
                 dest: 'dist/tests',
+                filter: 'isFile',
+            },
+            // Copy docs to local dist folder for initial project-level grunt task
+            docs: {
+                expand: true,
+                cwd: 'src/docs',
+                src: [
+                        '**/*.*',
+                        '!**/*.md',
+                     ],
+                dest: 'dist/docs',
+                filter: 'isFile',
+            },
+            // Copy docs to root folder when using `grunt watch` so they can be viewed in the browser
+            docsToRoot: {
+                expand: true,
+                cwd: 'dist/docs',
+                src: [
+                        '**/*.*',
+                        '!**/*.md',
+                     ],
+                dest: '../../../../docs/components/modal',
                 filter: 'isFile',
             },
         },
@@ -68,15 +89,56 @@ module.exports = function (grunt) {
                 }],
             },
         },
+
+        watch: {
+            options: {
+                livereload: 35728,
+                interrupt: true,
+            },
+
+            styles: {
+                files: [
+                    '*.scss', // Settings file
+                    'src/**/*.scss',
+                ],
+                tasks: [
+                    'sass',
+                    'copy',
+                ],
+            },
+
+            scripts: {
+                files: [
+                    'src/**/*.js',
+                ],
+                tasks: [
+                    'jshint',
+                    'copy',
+                ],
+            },
+
+            docs: {
+                files: [
+                    'src/docs/**/*.*',
+                ],
+                tasks: [
+                    'md2html',
+                    'copy:docs',
+                    'copy:docsToRoot',
+                ],
+            },
+        },
     });
 
-    // Load the plugin that provides the "uglify" task
+    // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
     // Load local tasks in the task folder
     grunt.loadTasks('tasks');
 
-    // Default task(s)
-    grunt.registerTask('default', ['jshint', 'clean', 'copy', 'sass', 'md2html']);
+    // Default task
+    grunt.registerTask('default', ['jshint', 'clean', 'sass', 'md2html', 'copy']);
 
+    // Development
+    grunt.registerTask('dev', ['default', 'watch']);
 };

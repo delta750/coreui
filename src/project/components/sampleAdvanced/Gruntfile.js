@@ -1,7 +1,6 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     // Project configuration
     grunt.initConfig({
-
         pkg: grunt.file.readJSON('package.json'),
 
         clean: {
@@ -21,6 +20,28 @@ module.exports = function(grunt) {
                 cwd: 'src/tests',
                 src: ['**/*.*'],
                 dest: 'dist/tests',
+                filter: 'isFile',
+            },
+            // Copy docs to local dist folder for initial project-level grunt task
+            docs: {
+                expand: true,
+                cwd: 'src/docs',
+                src: [
+                        '**/*.*',
+                        '!**/*.md',
+                     ],
+                dest: 'dist/docs',
+                filter: 'isFile',
+            },
+            // Copy docs to root folder when using `grunt watch` so they can be viewed in the browser
+            docsToRoot: {
+                expand: true,
+                cwd: 'dist/docs',
+                src: [
+                        '**/*.*',
+                        '!**/*.md',
+                     ],
+                dest: '../../../../docs/components/sampleAdvanced',
                 filter: 'isFile',
             },
         },
@@ -52,26 +73,20 @@ module.exports = function(grunt) {
             ],
         },
 
-        // https://github.com/treasonx/grunt-markdown
-        // md2html: {
-        //     options: {
-        //         highlight: 'auto',
-        //         template: '../../../cui/docs/src/assets/templates/default.html',
-        //         markdownOptions: {
-        //             highlight: 'manual', // Other options: 'auto'
-        //             gfm: true,
-        //         },
-        //     },
-        //     docs: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: 'src/docs/',
-        //             src: ['**/*.md'],
-        //             dest: 'dist/docs',
-        //             ext: '.html',
-        //         }],
-        //     },
-        // },
+        md2html: {
+            docs: {
+                options: {
+                    layout: 'src/cui/docs/src/assets/templates/default.html',
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/cui/docs/src',
+                    src: ['**/*.md'],
+                    dest: 'docs',
+                    ext: '.html',
+                }],
+            },
+        },
 
         watch: {
             options: {
@@ -99,18 +114,29 @@ module.exports = function(grunt) {
                     'copy',
                 ],
             },
+
+            docs: {
+                files: [
+                    'src/docs/**/*.*',
+                ],
+                tasks: [
+                    'md2html',
+                    'copy:docs',
+                    'copy:docsToRoot',
+                ],
+            },
         },
 
     });
 
-    // Load the plugin that provides the "uglify" task
+    // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
     // Load local tasks in the task folder
     grunt.loadTasks('tasks');
 
-    // Default task(s)
-    grunt.registerTask('default', ['clean', 'sass', 'jshint', 'copy']);
+    // Default task
+    grunt.registerTask('default', ['clean', 'sass', 'jshint', 'md2html', 'copy']);
 
     // Development
     grunt.registerTask('dev', ['default', 'watch']);
