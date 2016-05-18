@@ -1,0 +1,5 @@
+{
+    "name": "timer",
+    "lazy": false,
+    "sources": ["script", "style"]
+}
