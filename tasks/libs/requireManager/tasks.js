@@ -72,7 +72,7 @@ var tasks = function _tasks() {
         //grunt.task.run(['clean']);
 
         // Add clear to the task call array
-        taskCallOrder.push('clear');
+        taskCallOrder.push('clean');
 
         delete currentConfig.clean;
         delete originalConfig.clean;
