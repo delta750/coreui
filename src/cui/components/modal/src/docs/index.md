@@ -65,6 +65,7 @@ Property | Type | Description
 `height` | String | The height of the modal (must be a CSS-friendly value; default: `75%`)
 `id` | String | Optional ID to be added to the modal element
 `className` | String | Optional class name(s) to be added to the modal element
+`css` | Object | Optional inline CSS to be added to the modal element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
 
 ### Shield options
 
@@ -83,7 +84,8 @@ $('.my-button').modal({
         width: '90%',
         height: '75%',
         id: '',
-        className: ''
+        className: '',
+        css: {}
     },
     shield: {
         suppress: false,

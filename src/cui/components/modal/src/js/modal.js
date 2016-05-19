@@ -361,6 +361,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 // Apply custom size
                 modal.$self.css(css);
             }
+
+            // Check to see if there is custom inline CSS
+            if (modal.config.display.css) {
+                modal.$self.css(modal.config.display.css);
+            }
         }
 
         // =====================
