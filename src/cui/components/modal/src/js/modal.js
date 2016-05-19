@@ -374,9 +374,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         // Build the modal
         _priv.buildModal(modal);
 
-        modal.$button.on('click.modal.' + modal.config.id, function (evt) {
-            _priv.showModal(modal);
-        }.bind(modal));
+        if (modal.$button) {
+            modal.$button.on('click.modal.' + modal.config.id, function (evt) {
+                _priv.showModal(modal);
+            }.bind(modal));
+        }
 
         return modal;
     };
