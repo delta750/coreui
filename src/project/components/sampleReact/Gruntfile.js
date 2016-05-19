@@ -121,12 +121,12 @@ module.exports = function (grunt) {
 
     });
 
-    // Load all Grunt tasks
+    // Load all Grunt plugins
     require('load-grunt-tasks')(grunt);
 
     // Default task
     grunt.registerTask('default', ['jshint', 'clean', 'sass', 'babel', 'requirejs', 'copy', 'clean:jsCompiled', 'jshint']);
 
-    // Development
+    // Development task
     grunt.registerTask('dev', ['default', 'watch']);
 };
