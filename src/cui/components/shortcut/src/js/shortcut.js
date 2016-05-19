@@ -298,7 +298,6 @@ define(['jquery', 'cui'], function ($, cui) {
             return false;
         }
         else {
-            // console.info('Setup new shortcut: ', settings);
             dataStore[settings.code] = settings;
         }
 
@@ -311,7 +310,6 @@ define(['jquery', 'cui'], function ($, cui) {
      * @param   {Event}  evt  Key event (could be any type listed in `EVENT_TYPES`)
      */
     priv.onKeystroke = function _onKeystroke (evt) {
-        // console.log('Pressed "' + priv.getCustomKeyCode(evt) + '"\nkeyCode=' + evt.keyCode + '\ntype=' + evt.type);
         var $target = $(evt.target);
         var code;
         var settings;
@@ -355,7 +353,6 @@ define(['jquery', 'cui'], function ($, cui) {
         }
 
         // We're all good, so go ahead and execute the callback
-        // console.info('Everything looks good for key ' + code + ':\n    Settings:', settings, '\n    Event: ', evt);
         settings.callback(evt, settings.data);
     };
 

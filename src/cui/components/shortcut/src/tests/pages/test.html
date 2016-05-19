@@ -47,11 +47,26 @@
             shortcut.register({
                 keys: 'shift+a',
                 callback: function () { alert('Pressed A'); },
-                description: 'Simple alert',
+                description: 'Displays a simple alert',
             });
 
             // Shorthand example with no description
-            shortcut.register('shift+b', function () { alert('Pressed B'); }, 'Another simple alert');
+            shortcut.register('shift+b', function () {
+                // jQuery and `modal` were already loaded by `shortcut` so we can use them here immediately
+                $.modal({
+                    html: 'You pressed Shift+B',
+                    display: {
+                        css: {
+                            'max-width': '50%',
+                        },
+                    },
+                    overlay: {
+                        opacity: 0.25,
+                    },
+                    closeDestroy: true,
+                    closeOnEscape: true,
+                }).show();
+            });
 
             // Example with multiple keys
             shortcut.register({
