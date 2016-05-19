@@ -16,7 +16,7 @@ $emp-images-path: '../../images/';
     border: solid 1px #000;
     background: #FFF;
     padding: 1px; // This is the visual border of the outer container
-    position: absolute;
+    position: fixed;
     min-width: 25vw;
     max-height: 95%;
     max-width: 95%;
@@ -40,12 +40,18 @@ $emp-images-path: '../../images/';
     border-radius: 50%;
     color: white;
     background: black;
+    border: 1px solid black;
+
+    .cui-modal &:hover {
+        border: 1px solid lighten(black, 0%);
+        background: lighten(black, 50%); // Override standard `button:hover` style
+    }
 
     &:after {
         content: "\00D7";
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -0.5px;
+        left: 0.5px;
         text-indent: 0;
         height: 24px;
         width: 24px;
