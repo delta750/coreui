@@ -130,15 +130,12 @@ module.exports = function (grunt) {
         },
     });
 
-    // Load all grunt tasks
+    // Load all Grunt plugins
     require('load-grunt-tasks')(grunt);
-
-    // Load local tasks in the task folder
-    grunt.loadTasks('tasks');
 
     // Default task
     grunt.registerTask('default', ['jshint', 'clean', 'sass', 'md2html', 'copy']);
 
-    // Development
+    // Development task
     grunt.registerTask('dev', ['default', 'watch']);
 };
