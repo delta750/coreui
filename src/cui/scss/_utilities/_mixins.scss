@@ -276,14 +276,15 @@
 // * --------------------------------------------------------
 
 // Parent container that will make all DIRECT children become flex items
-@mixin row($wrap: $cui-grid-flex-row-wrap, $direction: false) {
-    display: -webkit-box;  // OLD - iOS 6-, Safari 3.1-6
-    display: -moz-box;     // OLD - Firefox 19- (buggy but mostly works)
+@mixin row($wrap: $cui-grid-flex-row-wrap, $direction: false, $margin: $cui-grid-row-margin, $width: false) {
     display: -ms-flexbox;  // TWEENER - IE 10
-    display: -webkit-flex; // NEW - Chrome
     display: flex;         // NEW, Spec - Opera 12.1, Firefox 20+
-
+    margin: $margin;
     @include clearfix;
+
+    @if $width != false {
+        width: $width;
+    }
 
     @if $direction != false {
         flex-direction: $direction;
@@ -303,30 +304,15 @@
     position: relative;
     padding: $cui-grid-column-padding;
     @include clearfix;
-
-    -webkit-box-flex: $val; // OLD - iOS 6-, Safari 3.1-6
-       -moz-box-flex: $val; // OLD - Firefox 19-
-
-    @if $width != false {
-        width: $width;      // For old syntax, otherwise it will collapse
-    }
-
-    -webkit-flex: $val;     // Chrome
-        -ms-flex: $val;     // IE 10
-            flex: $val;     // NEW, Spec - Opera 12.1, Firefox 20+
+    min-height: $cui-grid-column-min-height;
+    -ms-flex: $val;     // IE 10
+        flex: $val;     // NEW, Spec - Opera 12.1, Firefox 20+
 }
 
 // Optionally override the source order of a child element
 @mixin col-order($order: 1) {
-                                       // The syntax varied per browser for a while
-                                       //     before settling upon a standard:
-    -webkit-box-ordinal-group: $order; // OLD - iOS 6-, Safari 3.1-6
-       -moz-box-ordinal-group: $order; // OLD - Firefox 19-
-
-    -ms-flex-order: $order;            // TWEENER - IE 10
-
-     -webkit-order: $order;            // NEW - Chrome
-             order: $order;            // NEW, Spec - Opera 12.1, Firefox 20+
+    -ms-flex-order: $order; // Older syntax - IE 10
+             order: $order; // NEW, Spec - Opera 12.1, Firefox 20+
 }
 
 // Standard fixed column
