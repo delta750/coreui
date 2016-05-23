@@ -277,8 +277,7 @@
 
 // Parent container that will make all DIRECT children become flex items
 @mixin row($wrap: $cui-grid-flex-row-wrap, $direction: false, $margin: $cui-grid-row-margin, $width: false) {
-    display: -ms-flexbox;  // TWEENER - IE 10
-    display: flex;         // NEW, Spec - Opera 12.1, Firefox 20+
+    display: flex;
     margin: $margin;
     @include clearfix;
 
@@ -305,14 +304,12 @@
     padding: $cui-grid-column-padding;
     @include clearfix;
     min-height: $cui-grid-column-min-height;
-    -ms-flex: $val;     // IE 10
-        flex: $val;     // NEW, Spec - Opera 12.1, Firefox 20+
+    flex: $val;
 }
 
 // Optionally override the source order of a child element
 @mixin col-order($order: 1) {
-    -ms-flex-order: $order; // Older syntax - IE 10
-             order: $order; // NEW, Spec - Opera 12.1, Firefox 20+
+    order: $order;
 }
 
 // Standard fixed column
