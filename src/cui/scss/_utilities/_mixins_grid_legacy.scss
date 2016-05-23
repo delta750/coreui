@@ -117,7 +117,7 @@
 }
 
 // Return width for a single division (column) as a percentage of the total container (row)
-@function column-width-calc($colNumber, $colTotal) {
+@function legacy-column-width-calc($colNumber, $colTotal) {
     @return percentage($colNumber / $colTotal);
 }
 
@@ -148,7 +148,7 @@
     // Loop through each column creating the grid
     @for $i from 1 to $numColumns + 1 {
         // Percentage-based width of the column
-        $width: column-width-calc($i, $numColumns);
+        $width: legacy-column-width-calc($i, $numColumns);
 
         // Create this column number and assign it the correct width.
         .cui-col-#{$breakpointName}-#{$i} {
@@ -174,7 +174,7 @@
     // Loop through again, this time creating the `push` classes
     @for $i from 1 to $numColumns {
         // Percentage-based width of the column
-        $width: column-width-calc($i, $numColumns);
+        $width: legacy-column-width-calc($i, $numColumns);
 
         .cui-push-#{$breakpointName}-#{$i} {
             margin-left: $width;
@@ -184,7 +184,7 @@
     // Loop through again, this time creating the `pull` classes
     @for $i from 1 to $numColumns {
         // Percentage-based width of the column
-        $width: column-width-calc($i, $numColumns);
+        $width: legacy-column-width-calc($i, $numColumns);
 
         .cui-pull-#{$breakpointName}-#{$i} {
             margin-right: $width;
