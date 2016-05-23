@@ -445,7 +445,6 @@
     // Development: compile script and styles, start a local server, and watch for file changes
     // Only use this for local development
     grunt.registerTask('dev', 'Development', function (args) {
-
         // Dynamically alter tasks when dev is called specifically
 
         // Get Concat settings
@@ -459,9 +458,9 @@
 
         // Run the development build process
         grunt.task.run([
-            'md2html', // Comment out when you dont need the getting started docs any longer
-            'componentFinder',
             'clean',
+            'md2html', // Comment this out when you dont need the Getting Started docs any longer
+            'componentFinder',
             'copy',
             'svgmin',
             'sass',

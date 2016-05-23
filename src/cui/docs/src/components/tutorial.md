@@ -135,10 +135,9 @@ To try out the component we can create a short HTML file. Let's put it in the `t
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
         <title>Hello World Test</title>
         <link href="../../css/main.css" rel="stylesheet" type="text/css" media="all">
-        <!--[if lt IE 9]><script src="../js/components/html5shiv.js"></script><![endif]-->
     </head>
     <body>
         <h2 id="helloWorld"></h2>
@@ -282,10 +281,9 @@ To try this, create a second test page in the component's `tests` folder called 
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
         <title>Hello World Conditional Test</title>
         <link href="../../css/main.css" rel="stylesheet" type="text/css" media="all">
-        <!--[if lt IE 9]><script src="../js/components/html5shiv.js"></script><![endif]-->
     </head>
     <body>
 
