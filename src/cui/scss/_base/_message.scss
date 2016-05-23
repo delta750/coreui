@@ -12,7 +12,7 @@
 
 // List containing messages
 .cui-messages {
-    @include row($cui-grid-row-margin, 100%, true);
+    @include row($cui-grid-row-margin, 100%);
     margin: $cui-messages-margin;
     padding: 0.4em 0;
     line-height: normal;
