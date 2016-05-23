@@ -34,11 +34,11 @@
 
 // Child element (column) within a flex container
 @mixin col($val: 0 0 auto, $width: false) {
-    position: relative;
-    padding: $cui-grid-column-padding;
-    @include clearfix;
-    min-height: $cui-grid-column-min-height;
     flex: $val;
+    position: relative;
+    @include clearfix;
+    padding: $cui-grid-column-padding;
+    min-height: $cui-grid-column-min-height;
 }
 
 // Optionally override the source order of a child element
@@ -61,56 +61,37 @@
     width: auto;
 }
 
-// Row styles for a given type and breakpoint (types: "row", "flex")
-@mixin grid-row($type: "row", $breakpointName: "small") {
+@mixin grid-row($breakpointName: "small") {
+    @warn "The `grid-row` mixin is deprecated. Instead, wrap `@include row` with the appropriate media query";
+
     @if $breakpointName == "small" {
-        @if $type == "flex" {
-            @include flex-row;
-        }
-        @else {
-            @include row;
-        }
+        @include row;
     }
     @elseif $breakpointName == "medium" {
         @include pointbreak($cui-bp-medium) {
-            @if $type == "flex" {
-                @include flex-row;
-            }
-            @else {
-                @include row;
-            }
+            @include row;
         }
     }
     @else {
         @include pointbreak($cui-bp-large) {
-            @if $type == "flex" {
-                @include flex-row;
-            }
-            @else {
-                @include row;
-            }
+            @include row;
         }
     }
-}
-
-@mixin grid-col-fixed-helper($width: 0, $breakpointName: "small") {
-    width: $width;
 }
 
 // Fixed column styles for a given width and breakpoint
 @mixin grid-col-fixed($width: 0, $breakpointName: "small") {
-
     @if $breakpointName == "small" {
-        @include grid-col-fixed-helper($width, $breakpointName);
+        width: $width;
     }
     @elseif $breakpointName == "medium" {
         @include pointbreak($cui-bp-medium) {
-            @include grid-col-fixed-helper($width, $breakpointName);
+            width: $width;
         }
     }
     @else {
         @include pointbreak($cui-bp-large) {
-            @include grid-col-fixed-helper($width, $breakpointName);
+            width: $width;
         }
     }
 }
@@ -169,12 +150,12 @@
 }
 
 // Returns the helper for a single column
-@mixin grid-col($numerator: 1, $denominator: $cui-grid-column-count, $size: "small") {
-    @if $size == "small" {
+@mixin grid-col($numerator: 1, $denominator: $cui-grid-column-count, $breakpointName: "small") {
+    @if $breakpointName == "small" {
         @include col;
         width: column-width-calc($numerator, $denominator);
     }
-    @elseif $size == "medium" {
+    @elseif $breakpointName == "medium" {
         @include pointbreak($cui-bp-medium) {
             @include col;
             width: column-width-calc($numerator, $denominator);
@@ -205,7 +186,7 @@
         $value: nth($x, 1);
         $unit: nth($x, 2);
 
-        .cui-flex-row .cui-fixed-col-#{$breakpointName}-#{$size} {
+        .cui-fixed-col-#{$breakpointName}-#{$size} {
             flex-basis: #{$value}#{$unit};
             max-width: #{$value}#{$unit};
         }
@@ -213,17 +194,17 @@
 
     // Flexible
 
-    .no-csscalc [class*="cui-flex-col-#{$breakpointName}"] {
+    .no-csscalc [class*="cui-col-#{$breakpointName}"] {
         float: none;
         width: 100%;
     }
 
     // Automatic sizing
-    .cui-flex-col-#{$breakpointName} {
+    .cui-col-#{$breakpointName} {
         @include col(1);
 
         // Need to override any specific values from other breakpoints
-        // For example, `<div class="cui-col-small-6 cui-flex-col-large">` would inherit 50% width from the `small` class even when the screen size is large
+        // For example, `<div class="cui-col-small-6 cui-col-large">` would inherit 50% width from the `small` class even when the screen size is large
         flex-basis: auto;
         max-width: none;
     }
@@ -234,7 +215,7 @@
         $value: nth($x, 1);
         $unit: nth($x, 2);
 
-        .cui-flex-col-#{$breakpointName}-#{$size} {
+        .cui-col-#{$breakpointName}-#{$size} {
             @include col(1 0 #{$value}#{$unit});
 
             .no-flexbox & {
@@ -244,12 +225,12 @@
 
         .no-csscalc {
             // Flex col is to the left of the fixed col
-            .cui-flex-col-#{$breakpointName}-#{$size} {
+            .cui-col-#{$breakpointName}-#{$size} {
                 margin-right: #{$value}#{$unit};
             }
 
             // Flex col is to the right of the fixed col
-            [class*="cui-fixed-col-#{$breakpointName}"] + .cui-flex-col-#{$breakpointName}-#{$size} {
+            [class*="cui-fixed-col-#{$breakpointName}"] + .cui-col-#{$breakpointName}-#{$size} {
                 margin-right: auto;
                 margin-left: #{$value}#{$unit};
             }

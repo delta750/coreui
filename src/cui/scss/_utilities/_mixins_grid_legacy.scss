@@ -26,21 +26,20 @@
     // E.g. a column with only a `col-large-` class should be 100% width on small and medium sized screens
     width: 100%;
 }
-@mixin legacy-grid-row($type: "row", $breakpointName: "small") {
-    // Force the type to `row` for legacy styles
-    $type: "row";
+@mixin legacy-grid-row($breakpointName: "small") {
+    @warn "The `legacy-grid-row` mixin is deprecated. Instead, wrap `@include legacy-row` with the appropriate media query";
 
     @if $breakpointName == "small" {
-        @include row;
+        @include legacy-row;
     }
     @elseif $breakpointName == "medium" {
         @include pointbreak($cui-bp-medium) {
-            @include row;
+            @include legacy-row;
         }
     }
     @else {
         @include pointbreak($cui-bp-large) {
-            @include row;
+            @include legacy-row;
         }
     }
 }

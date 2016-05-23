@@ -12,7 +12,6 @@
 <body class="debug">
     <style>
         [class^="cui-col"],
-        [class^="cui-flex-col-"],
         [class^="cui-fixed-col-"],
         [class^="cui-hide-col-"] {
             background: silver;
@@ -21,7 +20,6 @@
         }
 
         [class^="cui-col-"].no-debug,
-        [class^="cui-flex-col-"].no-debug,
         [class^="cui-fixed-col-"].no-debug,
         [class^="cui-hide-col-"].no-debug {
             background: white;
@@ -31,27 +29,29 @@
 
         .level {
             color: #000;
-            font-weight: 600
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .flex {
             color: #0086b3;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .fix {
             color: #df5000;
-            font-weight: 600
+            font-weight: 600;
         }
 
         .push {
             color: #a71d5d;
-            font-weight: 600
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .hide {
             color: #795da3;
-            font-weight: 600
+            font-weight: 600;
         }
 
         code {
@@ -108,71 +108,71 @@
     </div>
     <div class="cui-row">
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
         <div class="cui-col-large-1">
-            lg-1
+            <span class="cui-no-wrap">lg-1</span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-medium-2">
-            md-2
+            <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-medium-2">
-            md-2
+            <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-medium-2">
-            md-2
+            <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-medium-2">
-            md-2
+            <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-medium-2">
-            md-2
+            <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-medium-2">
-            md-2
+            <span class="cui-no-wrap">md-2</span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-4">
-            sm-4
+            <span class="cui-no-wrap">sm-4</span>
         </div>
         <div class="cui-col-small-4">
-            sm-4
+            <span class="cui-no-wrap">sm-4</span>
         </div>
         <div class="cui-col-small-4">
-            sm-4
+            <span class="cui-no-wrap">sm-4</span>
         </div>
     </div>
     <div class="cui-row">
@@ -183,16 +183,16 @@
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 cui-col-medium-6 cui-col-large-3">
-            sm-12, md-6, lg-3
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>, <span class="cui-no-wrap">lg-3</span>
         </div>
         <div class="cui-col-small-12 cui-col-medium-6 cui-col-large-3">
-            sm-12, md-6, lg-3
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>, <span class="cui-no-wrap">lg-3</span>
         </div>
         <div class="cui-col-small-12 cui-col-medium-6 cui-col-large-3">
-            sm-12, md-6, lg-3
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>, <span class="cui-no-wrap">lg-3</span>
         </div>
         <div class="cui-col-small-12 cui-col-medium-6 cui-col-large-3">
-            sm-12, md-6, lg-3
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>, <span class="cui-no-wrap">lg-3</span>
         </div>
     </div>
     <div class="cui-row">
@@ -202,178 +202,187 @@
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 cui-col-medium-6">
-            sm-12, md-6
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>
         </div>
         <div class="cui-col-small-12 cui-col-medium-6">
-            sm-12, md-6
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>
         </div>
         <div class="cui-col-small-12 cui-col-medium-6">
-            sm-12, md-6
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>
         </div>
         <div class="cui-col-small-12 cui-col-medium-6">
-            sm-12, md-6
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Wrapping</h2>
-            <p>Expected wrapping.</p>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-9">
-            sm-9
+            <span class="cui-no-wrap">sm-9</span>
         </div>
         <div class="cui-col-small-4">
-            sm-4. Since sm-9 + sm-4 = 13 > 12, this column gets wrapped onto a new line as a contiguous unit.
+            <span class="cui-no-wrap">sm-4</span>. Since <span class="cui-no-wrap">sm-9 + sm-4 = 13 > 12</span>, this column gets wrapped onto a new line as a contiguous unit.
         </div>
         <div class="cui-col-small-6">
-            sm-6. Subsequent columns continue along the new row.
+            <span class="cui-no-wrap">sm-6</span>. Subsequent columns continue along the new row.
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Fixed + flexible</h2>
-            <p>Fixed column(s) with a flexible column using the remaining space.</p>
+            <p>Fixed column(s) next to a flexible column that uses the remaining space</p>
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-fixed-col-small-200px cui-col-medium-6">
-            sm-<span class="fix">fix</span>-200px, md-6
+            <span class="cui-no-wrap">sm-<span class="fix">fix</span>-200px</span>, <span class="cui-no-wrap">md-6</span>
         </div>
-        <div class="cui-flex-col-small cui-col-medium-6">
-            sm-<span class="flex">flex</span>, md-6
+        <div class="cui-col-small cui-col-medium-6">
+            <span class="cui-no-wrap">sm-col</span>, <span class="cui-no-wrap">md-6</span>
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-col-small-6 cui-fixed-col-medium-200px">
-            sm-6, md-<span class="fix">fix</span>-200px
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">md-<span class="fix">fix</span>-200px</span>
         </div>
-        <div class="cui-col-small-6 cui-flex-col-medium">
-            sm-6, md-<span class="flex">flex</span>
-        </div>
-    </div>
-    <div class="cui-flex-row">
-        <div class="cui-col-small-6 cui-fixed-col-large-200px">
-            sm-6, lg-<span class="fix">fix</span>-200px
-        </div>
-        <div class="cui-col-small-6 cui-flex-col-large">
-            sm-6, lg-<span class="flex">flex</span>
+        <div class="cui-col-small-6 cui-col-medium">
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">md-col</span>
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
-            sm-6, lg-<span class="fix">fix</span>-200px
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-200px</span>
+        </div>
+        <div class="cui-col-small-6 cui-col-large">
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-col</span>
+        </div>
+    </div>
+    <div class="cui-row">
+        <div class="cui-col-small-6 cui-fixed-col-large-200px">
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-200px</span>
         </div>
         <div class="cui-col-small-6 cui-fixed-col-large-100px">
-            sm-6, lg-<span class="fix">fix</span>-100px
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-100px</span>
         </div>
-        <div class="cui-col-small-6 cui-flex-col-large">
-            sm-6, lg-<span class="flex">flex</span>
+        <div class="cui-col-small-6 cui-col-large">
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-col</span>
         </div>
     </div>
-    <div class="cui-flex-row">
-        <div class="cui-col-small-6 cui-flex-col-large">
-            sm-6, lg-<span class="flex">flex</span>
+    <div class="cui-row">
+        <div class="cui-col-small-6 cui-col-large">
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-col</span>
         </div>
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
-            sm-6, lg-<span class="fix">fix</span>-200px
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-200px</span>
         </div>
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
-            sm-6, lg-<span class="fix">fix</span>-200px
+            <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-200px</span>
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-fixed-col-small-33pc">
-            sm-<span class="fix">fix</span>-33pc
+            <span class="cui-no-wrap">sm-<span class="fix">fix</span>-33pc</span>
         </div>
         <div class="cui-fixed-col-small-33pc">
-            sm-<span class="fix">fix</span>-33pc
+            <span class="cui-no-wrap">sm-<span class="fix">fix</span>-33pc</span>
         </div>
         <div class="cui-fixed-col-small-33pc">
-            sm-<span class="fix">fix</span>-33pc
+            <span class="cui-no-wrap">sm-<span class="fix">fix</span>-33pc</span>
         </div>
     </div>
-    <div class="cui-flex-row">
-        <div class="cui-flex-col-small">
-            sm-<span class="flex">flex</span>
+    <div class="cui-row">
+        <div class="cui-col-small">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
-        <div class="cui-flex-col-small">
-            sm-<span class="flex">flex</span>
+        <div class="cui-col-small">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
-        <div class="cui-flex-col-small">
-            sm-<span class="flex">flex</span>
+        <div class="cui-col-small">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-col-small-12 cui-fixed-col-medium-33pc">
-            sm-12, md-33%
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-33%</span>
         </div>
         <div class="cui-col-small-12 cui-fixed-col-medium-67pc">
-            sm-12, md-67%
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-67%</span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Push</h2>
-            <p>Pushes first column to the right.</p>
+            <p>Push columns to the right or left of the row regardless of the HTML source order</p>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row centered">
         <div class="cui-col-small-5 cui-push-right">
-            sm-5 <span class="push">push right</span>
+            First column<br><span class="cui-no-wrap">sm-5</span>, <span class="push">push-right</span>
         </div>
         <div class="cui-col-small-7">
-            sm-7
+            Second column<br><span class="cui-no-wrap">sm-7</span>
+        </div>
+    </div>
+    <div class="cui-row centered">
+        <div class="cui-col-small-7">
+            First column<br><span class="cui-no-wrap">sm-7</span>
+        </div>
+        <div class="cui-col-small-5 cui-push-left">
+            Second column<br><span class="cui-no-wrap">sm-5</span>, <span class="push">push-left</span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Hidden</h2>
-            <p>Hide columns.</p>
+            <p>Columns can hide at different breakpoints. You should always see three columns below, regardless of screen size.</p>
         </div>
-        <div class="cui-col-small-4 cui-col-medium-4 cui-push-right">
-            sm-4 md-4 <span class="push">push right</span>
-        </div>
-        <div class="cui-col-small-8 cui-col-medium-4">
-            sm-8 md-4
+        <div class="cui-col-small-4 cui-col-medium-4">
+            <span class="cui-no-wrap">sm-4</span>, <span class="cui-no-wrap">md-4</span>
         </div>
         <div class="cui-hide-col-small cui-col-medium-4">
-            sm-<span class="hide">hidden</span> md-4
+            <span class="cui-no-wrap">sm-<span class="hide">hidden</span></span>, <span class="cui-no-wrap">md-4</span>
+        </div>
+        <div class="cui-col-small-4 cui-hide-col-medium">
+            <span class="cui-no-wrap">sm-4</span>, <span class="cui-no-wrap">md-<span class="hide">hidden</span></span>
+        </div>
+        <div class="cui-col-small-4 cui-hide-col-large">
+            <span class="cui-no-wrap">md-4</span>, <span class="cui-no-wrap">lg-<span class="hide">hidden</span></span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Nested</h2>
-            <p>Easy nesting.</p>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-medium-12">
-            md-12 <span class="level">L1</span>
+            <span class="cui-no-wrap">md-12</span>, <span class="level">Level 1</span>
             <div class="cui-row">
                 <div class="cui-col-small-12 cui-col-medium-6">
-                    sm-12 md-3 <span class="level">L2</span>
+                    <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-3</span>, <span class="level">Level 2</span>
                 </div>
                 <div class="cui-col-small-12 cui-col-medium-6">
-                    sm-12 md-6 <span class="level">L2</span>
+                    <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>, <span class="level">Level 2</span>
                     <div class="cui-row">
                         <div class="cui-col-small-12 cui-col-medium-4">
-                            sm-12 md-4 <span class="level">L3</span>
+                            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-4</span>, <span class="level">Level 3</span>
                         </div>
                         <div class="cui-col-small-12 cui-col-medium-4">
-                            sm-12 md-4 <span class="level">L3</span>
+                            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-4</span>, <span class="level">Level 3</span>
                         </div>
                         <div class="cui-col-small-12 cui-col-medium-4">
-                            sm-12 md-4 <span class="level">L3</span>
+                            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-4</span>, <span class="level">Level 3</span>
                         </div>
                     </div>
                 </div>
                 <div class="cui-col-small-12 cui-col-medium-2">
-                    sm-12 md-2 <span class="level">L2</span>
+                    <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-2</span>, <span class="level">Level 2</span>
                 </div>
-                <div class="cui-col-small-12 cui-flex-col-medium">
-                    sm-12 md-<span class="flex">flex</span> <span class="level">L2</span>
+                <div class="cui-col-small-12 cui-col-medium">
+                    <span class="cui-no-wrap">sm-12</span>, md-col <span class="level">Level 2</span>
                 </div>
             </div>
         </div>
@@ -381,25 +390,26 @@
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Nesting with a mixture of grid and flex</h2>
-            <p>Flex row inside a standard row:</p>
+            <p>Below is a single <code>.cui-row</code> with three columns. The first column contains a nested <code>.cui-row</code> which is further divided into two columns (one fixed-width and one flexible), for a grand total of four visible columns.</p>
         </div>
     </div>
-    <div class="cui-row">
-        <div class="cui-col-small-12">
-            <div class="cui-flex-row">
+    <div class="cui-row centered">
+        <div class="cui-col-small-12 cui-col-large-4">
+            <p><span class="cui-no-wrap">lg-4</span></p>
+            <div class="cui-row" style="margin: 0.5em;">
                 <div class="cui-fixed-col-small-200px">
-                    sm-<span class="fix">fix</span>-200px
+                    <span class="cui-no-wrap">sm-<span class="fix">fix</span>-200px</span>
                 </div>
-                <div class="cui-flex-col-small">
-                    sm-<span class="flex">flex</span>
+                <div class="cui-col-small">
+                    <span class="cui-no-wrap">sm-col</span>
                 </div>
             </div>
         </div>
-        <div class="cui-col-small-12 cui-col-large-6">
-            sm-12, lg-3
+        <div class="cui-col-small-12 cui-col-large-4">
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">lg-4</span>
         </div>
-        <div class="cui-col-small-12 cui-col-large-6">
-            sm-12, lg-3
+        <div class="cui-col-small-12 cui-col-large-4">
+            <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">lg-4</span>
         </div>
     </div>
     <div class="cui-row">
@@ -407,17 +417,17 @@
             <p>Standard row inside a flex row:</p>
         </div>
     </div>
-    <div class="cui-flex-row">
+    <div class="cui-row">
         <div class="cui-fixed-col-small-200px">
             sm-<span class="fix">fix</span>-200px
         </div>
-        <div class="cui-flex-col-small">
+        <div class="cui-col-small">
             <div class="cui-row">
                 <div class="cui-col-small-6">
-                    sm-6
+                    <span class="cui-no-wrap">sm-6</span>
                 </div>
                 <div class="cui-col-small-6">
-                    sm-6
+                    <span class="cui-no-wrap">sm-6</span>
                 </div>
             </div>
         </div>
@@ -430,32 +440,32 @@
     </div>
     <div class="cui-row">
         <div class="cui-col-small-6 cui-col-medium-4">
-            sm-6 md-4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <span class="cui-no-wrap">sm-6</span> <span class="cui-no-wrap">md-4</span>. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </div>
         <div class="cui-col-small-6 cui-col-medium-2">
-            sm-6 md-2
+            <span class="cui-no-wrap">sm-6</span> <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-small-4 cui-col-medium-2">
-            sm-4 md-2
+            <span class="cui-no-wrap">sm-4</span> <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-small-4 cui-col-medium-2">
-            sm-4 md-2
+            <span class="cui-no-wrap">sm-4</span> <span class="cui-no-wrap">md-2</span>
         </div>
         <div class="cui-col-small-4 cui-col-medium-2">
-            sm-4 md-2
+            <span class="cui-no-wrap">sm-4</span> <span class="cui-no-wrap">md-2</span>
         </div>
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Inline content</h2>
-            <p>Do this when you need to avoid using small, medium or large column because you need blocks of content that just stack next to each other. In the example below, I want the three inline blocks contiguous and right aligned to its parent container on large.</p>
+            <p>Do this when you need to avoid using small, medium or large column because you need blocks of content that just stack next to each other. In the example below, I want the three inline blocks contiguous and right-aligned to their parent container on large screens.</p>
         </div>
     </div>
     <div class="cui-row cui-align-right">
         <div class="cui-col-small-12">
             <div class="cui-col-small-12 cui-col-medium-7 cui-inline-col-large cui-required">
                 <div class="cui-label">
-                    <label for="age">sm-12 md-6 lg-auto:</label>
+                    <label for="age"><span class="cui-no-wrap">sm-12</span> <span class="cui-no-wrap">md-6</span> lg-auto:</label>
                 </div>
                 <div class="cui-data">
                     <select name="age" id="age" tabindex="1" aria-required="true">
@@ -468,7 +478,7 @@
             </div>
             <div class="cui-col-small-12 cui-col-medium-5 cui-inline-col-large">
                 <div class="cui-label">
-                    sm-12 md-6 lg-auto:
+                    <span class="cui-no-wrap">sm-12</span> <span class="cui-no-wrap">md-6</span> lg-auto:
                 </div>
                 <div class="cui-data">
                     <span>B</span>
@@ -476,7 +486,7 @@
             </div>
             <div class="cui-col-small-12 cui-col-medium-12 cui-inline-col-large">
                 <div class="cui-label">
-                   sm-12 md-12 lg-inline:
+                   <span class="cui-no-wrap">sm-12</span> <span class="cui-no-wrap">md-12</span> lg-inline:
                 </div>
                 <div class="cui-data">
                     <span>C</span>
@@ -487,45 +497,45 @@
 
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
-            <h2>Simple Flex Classes</h2>
-            <p>These columns use only <code>.cui-col</code> with no breakpoint or width specified. They each use up an equal portion of the row, regardless of the size of their contents.</p>
-            <p><em>Only supported by flex box on modern browsers</em></p>
+            <h2>Evenly-Distributed Columns</h2>
+            <p>These columns use only <code>.cui-col</code> with no breakpoint or width specified. They each use up an equal portion of the row regardless of the size of their contents.</p>
+            <p><em>Not supported by the <a href="grid_legacy.html">legacy grid</a></em></p>
         </div>
     </div>
     <!-- 2 across -->
     <div class="cui-row centered">
-        <div class="cui-col cui-col-large-8">
-            sm-[auto], lg-8
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
-        <div class="cui-col cui-col-large-4">
-            sm-[auto], lg-4
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col with more content</span>
         </div>
     </div>
     <!-- 3 across -->
     <div class="cui-row centered">
-        <div class="cui-col cui-col-large-3">
-            sm-[auto], lg-3
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
-        <div class="cui-col cui-col-large-6">
-            sm-[auto], lg-6
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col with more content</span>
         </div>
-        <div class="cui-col cui-col-large-3">
-            sm-[auto], lg-3
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
     </div>
     <!-- 4 across -->
     <div class="cui-row centered">
-        <div class="cui-col cui-col-large-2">
-            sm-[auto], lg-2
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
-        <div class="cui-col cui-col-large-4">
-            sm-[auto], lg-4
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col with more content</span>
         </div>
-        <div class="cui-col cui-col-large-4">
-            sm-[auto], lg-4
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col with even more content</span>
         </div>
-        <div class="cui-col cui-col-large-2">
-            sm-[auto], lg-2
+        <div class="cui-col">
+            <span class="cui-no-wrap">sm-col</span>
         </div>
     </div>
 
@@ -538,19 +548,19 @@
     </div>
     <div class="cui-row centered">
         <div class="cui-col-small-12">
-            sm-12
+            <span class="cui-no-wrap">sm-12</span>
         </div>
         <div class="cui-col-small-3">
-            sm-3<br>Line B
+            <span class="cui-no-wrap">sm-3</span><br>Line B
         </div>
         <div class="cui-col-small-6">
-            sm-6<br>Line B<br>Line C
+            <span class="cui-no-wrap">sm-6</span><br>Line B<br>Line C
         </div>
         <div class="cui-col-small-3">
-            sm-3
+            <span class="cui-no-wrap">sm-3</span>
         </div>
         <div class="cui-col-small-12">
-            sm-12<br>Line B
+            <span class="cui-no-wrap">sm-12</span><br>Line B
         </div>
     </div>
 

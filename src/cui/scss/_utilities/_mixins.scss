@@ -180,7 +180,8 @@
 // * @section    Triangle ◄ ▲ ► ▼
 // * @see        http://css-tricks.com/snippets/css/css-triangle/
 // * --------------------------------------------------------
-// To make equilateral:
+
+// To make it equilateral:
 // border-bottom-width = 0.866% * (border-left-width + border-right-width)
 @mixin triangle($dir: "down", $size: 10px, $color: black) {
     width: 0;
@@ -211,6 +212,10 @@
         border-bottom:  none;
     }
 }
+
+
+// * @section    Buttons
+// * --------------------------------------------------------
 
 // Standard button style
 @mixin button {

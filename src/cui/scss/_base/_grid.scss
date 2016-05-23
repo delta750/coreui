@@ -73,7 +73,7 @@ nav > header {
 // * --------------------------------------------------------
 
 // Medium (tablet) column widths
-@include pointbreak($cui-bp-medium) {
+@media (min-width: $cui-bp-medium) and (max-width: $cui-bp-large-minus) {
     .cui-hide-col-small,
     .cui-hide-col-large {
         display: block;
@@ -91,6 +91,23 @@ nav > header {
 
 // * @section    Push columns
 // * --------------------------------------------------------
+
+// Move the column element to the far right of the row
 .cui-push-right {
-    float: right;
+    @if $cui-grid-use-legacy-styles == true {
+        float: right;
+    }
+    @else {
+        order: 1;
+    }
+}
+
+// Move the column element to the far left of the row
+.cui-push-left {
+    @if $cui-grid-use-legacy-styles == true {
+        float: left;
+    }
+    @else {
+        order: -1;
+    }
 }
