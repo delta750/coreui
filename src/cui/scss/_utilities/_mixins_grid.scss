@@ -9,7 +9,7 @@
 // * @see        https://css-tricks.com/using-flexbox/
 // * --------------------------------------------------------
 
-// Parent container that will make all DIRECT children become flex items
+// Standard row styles
 @mixin row($wrap: $cui-grid-flex-row-wrap, $direction: false, $margin: $cui-grid-row-margin, $width: false) {
     display: flex;
     margin: $margin;
@@ -26,24 +26,15 @@
     @if $wrap != false {
         flex-wrap: $wrap;
     }
-
-    .no-flexbox & {
-        @include legacy-row(null, null);
-    }
 }
 
-// Child element (column) within a flex container
-@mixin col($val: 0 0 auto, $width: false) {
-    flex: $val;
+// Standard column styles
+@mixin col($flexShorthandValue: 0 0 auto, $width: false) {
+    flex: $flexShorthandValue;
     position: relative;
     @include clearfix;
     padding: $cui-grid-column-padding;
     min-height: $cui-grid-column-min-height;
-}
-
-// Optionally override the source order of a child element
-@mixin col-order($order: 1) {
-    order: $order;
 }
 
 // Standard fixed column
@@ -96,32 +87,6 @@
     }
 }
 
-@mixin grid-col-flex-helper($breakpointName: "small", $width: false) {
-    @if $width != false {
-        @include col(0 1 $width);
-
-        // Legacy support for non-flexbox and non-calc browsers
-        // Note that this is separate than `$cui-grid-use-legacy-styles`. Even with that flag turned on you can still use flex box in supporting browsers and fall back to more basic CSS using the `.no-flexbox` class added by Modernizr.
-        .no-flexbox & {
-            width: calc(100% - $width);
-        }
-
-        // Flex col is to the left of the fixed col
-        .no-csscalc {
-            margin-right: $width;
-        }
-
-        // Flex col is to the right of the fixed col
-        .no-csscalc [class*="cui-fixed-col-#{$breakpointName}"] + & {
-            margin-right: auto;
-            margin-left: $width;
-        }
-    }
-    @else {
-        @include col(0 1 100%);
-    }
-}
-
 @mixin grid-col-flex($breakpointName: "small", $width: false) {
     @if $width != false {
         max-width: $width;
@@ -131,16 +96,16 @@
     }
 
     @if $breakpointName == "small" {
-        @include grid-col-flex-helper($breakpointName, $width);
+        @include col(0 1 $width);
     }
     @elseif $breakpointName == "medium" {
         @include pointbreak($cui-bp-medium) {
-            @include grid-col-flex-helper($breakpointName, $width);
+            @include col(0 1 $width);
         }
     }
     @else {
         @include pointbreak($cui-bp-large) {
-            @include grid-col-flex-helper($breakpointName, $width);
+            @include col(0 1 $width);
         }
     }
 }
@@ -179,7 +144,7 @@
     // Give fixed columns `width: Npx` and let them inherit `float: left`. Give flex columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the flex columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
     // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Flex columns use `width: calc(100% - Npx)` and no `margin-left`.
 
-    // Fixed
+    // Fixed:
 
     @each $size in $cui-grid-fixed-sizes {
         $x: getNumberAndUnit($size);
@@ -192,16 +157,11 @@
         }
     }
 
-    // Flexible
-
-    .no-csscalc [class*="cui-col-#{$breakpointName}"] {
-        float: none;
-        width: 100%;
-    }
+    // Flexible:
 
     // Automatic sizing
     .cui-col-#{$breakpointName} {
-        @include col(1);
+        @include col(1 0 auto);
 
         // Need to override any specific values from other breakpoints
         // For example, `<div class="cui-col-small-6 cui-col-large">` would inherit 50% width from the `small` class even when the screen size is large
@@ -217,23 +177,6 @@
 
         .cui-col-#{$breakpointName}-#{$size} {
             @include col(1 0 #{$value}#{$unit});
-
-            .no-flexbox & {
-                width: calc(100% - #{$value}#{$unit});
-            }
-        }
-
-        .no-csscalc {
-            // Flex col is to the left of the fixed col
-            .cui-col-#{$breakpointName}-#{$size} {
-                margin-right: #{$value}#{$unit};
-            }
-
-            // Flex col is to the right of the fixed col
-            [class*="cui-fixed-col-#{$breakpointName}"] + .cui-col-#{$breakpointName}-#{$size} {
-                margin-right: auto;
-                margin-left: #{$value}#{$unit};
-            }
         }
     }
 }
