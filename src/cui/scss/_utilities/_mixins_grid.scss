@@ -93,6 +93,7 @@
     }
     @else {
         max-width: 100%;
+        $width: 100%; // So we don't pass `false` when we call `@include col()` below
     }
 
     @if $breakpointName == "small" {
