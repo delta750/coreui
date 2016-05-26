@@ -10,9 +10,11 @@
 // * --------------------------------------------------------
 
 // Standard row styles
-@mixin row($wrap: $cui-grid-flex-row-wrap, $direction: false, $margin: $cui-grid-row-margin, $width: false) {
+@mixin row($wrap: $cui-grid-flex-row-wrap, $direction: row, $margin: $cui-grid-row-margin, $width: false) {
     display: flex;
     margin: $margin;
+    flex: 0 1 auto;
+
     @include clearfix;
 
     @if $width != false {
@@ -20,10 +22,17 @@
     }
 
     @if $direction != false {
+        @if $direction == row {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+        }
+
+        -ms-flex-direction: $direction;
         flex-direction: $direction;
     }
 
     @if $wrap != false {
+        -ms-flex-wrap: $wrap;
         flex-wrap: $wrap;
     }
 }
@@ -154,15 +163,15 @@
 
     // Flexible:
 
-    // Automatic sizing
-    .cui-col-#{$breakpointName} {
-        @include col(1 0 auto);
+    // // Automatic sizing
+    // .cui-col-#{$breakpointName} {
+    //     @include col(1 0 auto);
 
-        // Need to override any specific values from other breakpoints
-        // For example, `<div class="cui-col-small-6 cui-col-large">` would inherit 50% width from the `small` class even when the screen size is large
-        flex-basis: auto;
-        max-width: none;
-    }
+    //     // Need to override any specific values from other breakpoints
+    //     // For example, `<div class="cui-col-small-6 cui-col-large">` would inherit 50% width from the `small` class even when the screen size is large
+    //     flex-basis: auto;
+    //     max-width: none;
+    // }
 
     // Specific flex sizes
     @each $size in $cui-grid-flex-sizes {

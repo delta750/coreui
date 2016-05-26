@@ -235,6 +235,7 @@
         <div class="cui-col-small-12 no-debug">
             <h2>Fixed + flexible</h2>
             <p>Fixed column(s) next to a flexible column that uses the remaining space</p>
+            <p>Tip: add the class <code>.cui-row-nowrap</code> to the row if you don't want the columns to wrap.</p>
             <p>The table below uses abbreviated class names for brevity. Actual class names follow these patterns:</p>
             <ul>
                 <li><code>cui-col</code> &mdash; Fluid column at all screen sizes</li>
@@ -243,7 +244,7 @@
             </ul>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-fixed-col-small-200px cui-col-medium-6">
             <span class="cui-no-wrap">sm-<span class="fix">fix</span>-200px</span>, <span class="cui-no-wrap">md-6</span>
         </div>
@@ -251,7 +252,7 @@
             <span class="cui-no-wrap">sm-col</span>, <span class="cui-no-wrap">md-6</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-col-small-6 cui-fixed-col-medium-200px">
             <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">md-<span class="fix">fix</span>-200px</span>
         </div>
@@ -259,7 +260,7 @@
             <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">md-col</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
             <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-200px</span>
         </div>
@@ -267,7 +268,7 @@
             <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-col</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-col-small-6 cui-fixed-col-large-200px">
             <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-<span class="fix">fix</span>-200px</span>
         </div>
@@ -278,7 +279,7 @@
             <span class="cui-no-wrap">sm-6</span>, <span class="cui-no-wrap">lg-col</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-fixed-col-small-33pc">
             <span class="cui-no-wrap">sm-<span class="fix">fix</span>-33pc</span>
         </div>
@@ -289,7 +290,7 @@
             <span class="cui-no-wrap">sm-<span class="fix">fix</span>-33pc</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-col-small">
             <span class="cui-no-wrap">sm-col</span>
         </div>
@@ -300,7 +301,7 @@
             <span class="cui-no-wrap">sm-col</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-col-small-12 cui-fixed-col-medium-33pc">
             <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-33%</span>
         </div>
@@ -313,7 +314,7 @@
             <p>Rows with two fixed columns and one fluid column. The fluid column can be positioned anywhere.</p>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-fixed-col-small-200px">
             <span class="cui-no-wrap"><span class="fix">fix</span>-200px</span>
         </div>
@@ -324,7 +325,7 @@
             <span class="cui-no-wrap"><span class="fix">fix</span>-100px</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-col-small">
             <span class="cui-no-wrap">fluid</span>
         </div>
@@ -335,7 +336,7 @@
             <span class="cui-no-wrap"><span class="fix">fix</span>-100px</span>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-fixed-col-small-200px">
             <span class="cui-no-wrap"><span class="fix">fix</span>-200px</span>
         </div>
@@ -348,12 +349,18 @@
     </div>
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
-            <p>Rows with two fixed columns and multiple fluid columns.</p>
+            <p>Rows with mulitple fixed columns and multiple fluid columns.</p>
         </div>
     </div>
-    <div class="cui-row">
+    <div class="cui-row cui-row-nowrap">
         <div class="cui-fixed-col-small-200px">
             <span class="cui-no-wrap"><span class="fix">fix</span>-200px</span>
+        </div>
+        <div class="cui-col-small">
+            <span class="cui-no-wrap">fluid</span>
+        </div>
+        <div class="cui-col-small">
+            <span class="cui-no-wrap">fluid</span>
         </div>
         <div class="cui-col-small">
             <span class="cui-no-wrap">fluid</span>
@@ -361,11 +368,29 @@
         <div class="cui-fixed-col-small-100px">
             <span class="cui-no-wrap"><span class="fix">fix</span>-100px</span>
         </div>
+    </div>
+    <div class="cui-row cui-row-nowrap">
+        <div class="cui-fixed-col-small-100px">
+            <span class="cui-no-wrap"><span class="fix">fix</span>-100px</span>
+        </div>
+        <div class="cui-fixed-col-small-200px">
+            <span class="cui-no-wrap"><span class="fix">fix</span>-200px</span>
+        </div>
+        <div class="cui-col-small">
+            <span class="cui-no-wrap">fluid</span>
+            <br>This column has more content than
+            <br>the others so it takes up more width.
+            <br>But the other two fluid columns
+            <br>are the same width as each other.
+        </div>
         <div class="cui-col-small">
             <span class="cui-no-wrap">fluid</span>
         </div>
         <div class="cui-col-small">
             <span class="cui-no-wrap">fluid</span>
+        </div>
+        <div class="cui-fixed-col-small-200px">
+            <span class="cui-no-wrap"><span class="fix">fix</span>-200px</span>
         </div>
     </div>
     <div class="cui-row">
@@ -569,7 +594,7 @@
             <span class="cui-no-wrap">sm-col</span>
         </div>
         <div class="cui-col">
-            <span class="cui-no-wrap">sm-col with more content</span>
+            <span class="cui-no-wrap">sm-col with more content than the other column</span>
         </div>
     </div>
     <!-- 3 across -->
@@ -583,10 +608,10 @@
             <span class="cui-no-wrap">sm-col</span>
         </div>
         <div class="cui-col">
-            <span class="cui-no-wrap">sm-col with more content</span>
+            <span class="cui-no-wrap">sm-col with a lot more content than the other columns</span>
         </div>
         <div class="cui-col">
-            <span class="cui-no-wrap">sm-col</span>
+            <span class="cui-no-wrap">sm-col with a little more content</span>
         </div>
     </div>
     <!-- 4 across -->
