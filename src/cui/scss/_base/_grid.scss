@@ -1,8 +1,7 @@
 //   ========================================================
 // * @name       _grid.scss
 // * @desc       Responsive grid styles
-// * @author     Manolo Farfan, Craig Patik
-// * @version    1.0.0.20141231
+// * @version    1.0.0.20150526
 // * @see        https://github.com/ny/coreui
 //   ========================================================
 
@@ -12,24 +11,24 @@
 // *             - Fluid & fixed + fluid layouts with flexes
 // *             - Clearfix to force new row
 // * --------------------------------------------------------
-.cui-legacy-row {
-    @include legacy-row;
-}
-
 .cui-row {
     @include row;
+}
+
+.cui-legacy-row {
+    @include legacy-row;
 }
 
 [class*="cui-col-"] {
     @include col;
 }
 
-[class*="cui-legacy-col-"] {
-    @include legacy-col;
-}
-
 [class*="cui-fixed-col-"] {
     @include fixed-col;
+}
+
+[class*="cui-legacy-col-"] {
+    @include legacy-col;
 }
 
 section > header,
@@ -41,25 +40,28 @@ nav > header {
     @include clearfix;
 }
 
-// Flex box shorthand classes
-// These give all columns equal width with their siblings without having to specify a breakpoint or number.
-// Only supported in modern (flex-box-supportive) browsers. Has no effect in older browsers.
-.cui-col,
+// Flexible columns
+// These give all columns equal width with their siblings without having to specify a breakpoint or number. If used in conjunction with fixed columns, these columns will fill the remaining space.
+
+.cui-col {
+    @include col;
+}
+
 .cui-col-small {
-    @include col(1);
+    @include col; // (1);
 }
 
 // Use these breakpoint-specific classes to restrict the behavior
 // For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens and equal-width on medium screens
 @include pointbreak($cui-bp-medium) {
     .cui-col-medium {
-        @include col(1);
+        @include col; // (1);
     }
 }
 
 @include pointbreak($cui-bp-large) {
     .cui-col-large {
-        @include col(1);
+        @include col; // (1);
     }
 }
 
