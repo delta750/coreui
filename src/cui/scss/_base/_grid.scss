@@ -1,8 +1,7 @@
 //   ========================================================
 // * @name       _grid.scss
 // * @desc       Responsive grid styles
-// * @author     Manolo Farfan, Craig Patik
-// * @version    1.0.0.20141231
+// * @version    1.0.0.20150526
 // * @see        https://github.com/ny/coreui
 //   ========================================================
 
@@ -16,8 +15,8 @@
     @include row;
 }
 
-.cui-flex-row {
-    @include flex-row;
+.cui-legacy-row {
+    @include legacy-row;
 }
 
 [class*="cui-col-"] {
@@ -26,6 +25,10 @@
 
 [class*="cui-fixed-col-"] {
     @include fixed-col;
+}
+
+[class*="cui-legacy-col-"] {
+    @include legacy-col;
 }
 
 section > header,
@@ -37,205 +40,28 @@ nav > header {
     @include clearfix;
 }
 
-// Flex box shorthand classes
-// These give all columns equal width with their siblings without having to specify a breakpoint or number.
-// Only supported in modern (flex-box-supportive) browsers. Has no effect in older browsers.
-.cui-col,
+// Flexible columns
+// These give all columns equal width with their siblings without having to specify a breakpoint or number. If used in conjunction with fixed columns, these columns will fill the remaining space.
+
+.cui-col {
+    @include col;
+}
+
 .cui-col-small {
-    @include flex-col(1);
+    @include col; // (1);
 }
 
 // Use these breakpoint-specific classes to restrict the behavior
 // For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens and equal-width on medium screens
 @include pointbreak($cui-bp-medium) {
     .cui-col-medium {
-        @include flex-col(1);
+        @include col; // (1);
     }
 }
 
 @include pointbreak($cui-bp-large) {
     .cui-col-large {
-        @include flex-col(1);
-    }
-}
-
-// * @section    Column generation
-// * --------------------------------------------------------
-
-// Generates fixed and flex classes for a given breakpoint
-@mixin generate-fixed-flex-columns($breakpointName: "") {
-    // Fixed & flex column layout approach:
-    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give flex columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the flex columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
-    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Flex columns use `width: calc(100% - Npx)` and no `margin-left`.
-
-    // Fixed
-
-    @each $size in $cui-grid-fixed-sizes {
-        $x: getNumberAndUnit($size);
-        $value: nth($x, 1);
-        $unit: nth($x, 2);
-
-        .cui-flex-row .cui-fixed-col-#{$breakpointName}-#{$size} {
-            // Flex box styles
-            @if $cui-grid-use-legacy-styles == false {
-                flex-basis: #{$value}#{$unit};
-                max-width: #{$value}#{$unit};
-            }
-            // Legacy styles
-            @else {
-                width: #{$value}#{$unit};
-            }
-        }
-    }
-
-    // Flexible
-
-    .no-csscalc [class*="cui-flex-col-#{$breakpointName}"] {
-        float: none;
-        width: 100%;
-    }
-
-    // Automatic sizing
-    .cui-flex-col-#{$breakpointName} {
-        @include flex-col(1);
-
-        // Need to override any specific values from other breakpoints
-        // For example, `<div class="cui-col-small-6 cui-flex-col-large">` would inherit 50% width from the `small` class even when the screen size is large
-        flex-basis: auto;
-        max-width: none;
-    }
-
-    // Specific flex sizes
-    @each $size in $cui-grid-flex-sizes {
-        $x: getNumberAndUnit($size);
-        $value: nth($x, 1);
-        $unit: nth($x, 2);
-
-        .cui-flex-col-#{$breakpointName}-#{$size} {
-            @include flex-col(1 0 #{$value}#{$unit});
-
-            .no-flexbox & {
-                width: calc(100% - #{$value}#{$unit});
-            }
-        }
-
-        .no-csscalc {
-            // Flex col is to the left of the fixed col
-            .cui-flex-col-#{$breakpointName}-#{$size} {
-                margin-right: #{$value}#{$unit};
-            }
-
-            // Flex col is to the right of the fixed col
-            [class*="cui-fixed-col-#{$breakpointName}"] + .cui-flex-col-#{$breakpointName}-#{$size} {
-                margin-right: auto;
-                margin-left: #{$value}#{$unit};
-            }
-        }
-    }
-}
-
-// Breakpoint-specific utility columns that are not part of the standard N-column row/grid pattern
-@mixin utility-classes($breakpointName) {
-    .cui-hide-col-#{$breakpointName} {
-        @include hide-voluntary;
-    }
-
-    .cui-inline-col-#{$breakpointName} {
-        @include inline-col;
-    }
-}
-
-// Helper method that calls the actual class-creating mixins above
-// We need this because we loop through all of the breakpoints except "small" but we want to be sure we're outputting the same code for all sizes
-@mixin generate-classes($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
-    @include generate-column($breakpointName, $numColumns, $breakpointMaxWidth);
-    @include utility-classes($breakpointName);
-    @include generate-fixed-flex-columns($breakpointName);
-}
-
-// Return width for a single division (column) as a percentage of the total container (row)
-@function column-width-calc($colNumber, $colTotal) {
-    @return percentage($colNumber / $colTotal);
-}
-
-// Generates column classes for all breakpoint sizes
-@mixin generate-grid($numColumns: $cui-grid-column-count) {
-
-    // Finally, generate the classes for each size:
-
-    // Base (small) size -- these styles are not wrapped in a media query
-    @include generate-classes("small", $numColumns, $cui-bp-medium);
-
-    // All other sizes
-    @each $b in $cui-grid-breakpoints {
-        $breakpointName: nth($b, 1);
-        $breakpointMinWidth: nth($b, 2);
-
-        // Create a new media query for the breakpoint
-        @include pointbreak($breakpointMinWidth) {
-            // Generate classes within the media query
-            @include generate-classes($breakpointName, $numColumns, $cui-bp-medium);
-        }
-    }
-}
-
-// Generates all of the column classes for all breakpoints
-// e.g. `cui-col-small-6`, `cui-col-medium-4`, etc
-@mixin generate-column($breakpointName: "", $numColumns: $cui-grid-column-count, $breakpointMaxWidth: "") {
-    // Loop through each column creating the grid
-    @for $i from 1 to $numColumns + 1 {
-        // Percentage-based width of the column
-        $width: column-width-calc($i, $numColumns);
-
-        // Create this column number and assign it the correct width.
-        .cui-col-#{$breakpointName}-#{$i} {
-            // Flex box styles
-            @if $cui-grid-use-legacy-styles == false {
-                flex-basis: $width;
-                max-width: $width;
-            }
-            // Legacy styles
-            @else {
-                width: $width;
-            }
-        }
-
-        @if $cui-grid-use-legacy-styles {
-            @if $breakpointMaxWidth != "" {
-                @if $i == 6 {
-                    // Make sure every column that begins a new "row" clears the elements before it.
-                    // E.g. if there are four cols inside a row, and the first col is tall, the third col would not wrap down to a new line as intended
-                    // We're using `max-width` media query so it doesn't affect a `.cui-col-small-6.cui-col-medium-*` element in a larger viewport
-                    //TODO: Copy this practice for other classes (e.g. every 4th col-small-4 should wrap to a new line)
-                    //FIXME: This currently only generates for the small (no-MQ) breakpoint
-                    @include pointbreak($breakpointMaxWidth, true) {
-                        .cui-col-#{$breakpointName}-#{$i}:nth-child(2n+3) {
-                            clear: both;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // Loop through again, this time creating the `push` classes
-    @for $i from 1 to $numColumns {
-        // Percentage-based width of the column
-        $width: column-width-calc($i, $numColumns);
-
-        .cui-push-#{$breakpointName}-#{$i} {
-            margin-left: $width;
-        }
-    }
-
-    // Loop through again, this time creating the `pull` classes
-    @for $i from 1 to $numColumns {
-        // Percentage-based width of the column
-        $width: column-width-calc($i, $numColumns);
-
-        .cui-pull-#{$breakpointName}-#{$i} {
-            margin-right: $width;
-        }
+        @include col; // (1);
     }
 }
 
@@ -249,7 +75,7 @@ nav > header {
 // * --------------------------------------------------------
 
 // Medium (tablet) column widths
-@include pointbreak($cui-bp-medium) {
+@media (min-width: $cui-bp-medium) and (max-width: $cui-bp-large-minus) {
     .cui-hide-col-small,
     .cui-hide-col-large {
         display: block;
@@ -267,6 +93,23 @@ nav > header {
 
 // * @section    Push columns
 // * --------------------------------------------------------
+
+// Move the column element to the far right of the row
 .cui-push-right {
-    float: right;
+    @if $cui-grid-use-legacy-styles == true {
+        float: right;
+    }
+    @else {
+        order: 1;
+    }
+}
+
+// Move the column element to the far left of the row
+.cui-push-left {
+    @if $cui-grid-use-legacy-styles == true {
+        float: left;
+    }
+    @else {
+        order: -1;
+    }
 }

@@ -361,6 +361,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 // Apply custom size
                 modal.$self.css(css);
             }
+
+            // Check to see if there is custom inline CSS
+            if (modal.config.display.css) {
+                modal.$self.css(modal.config.display.css);
+            }
         }
 
         // =====================
@@ -374,9 +379,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         // Build the modal
         _priv.buildModal(modal);
 
-        modal.$button.on('click.modal.' + modal.config.id, function (evt) {
-            _priv.showModal(modal);
-        }.bind(modal));
+        if (modal.$button) {
+            modal.$button.on('click.modal.' + modal.config.id, function (evt) {
+                _priv.showModal(modal);
+            }.bind(modal));
+        }
 
         return modal;
     };
