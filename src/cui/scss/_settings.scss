@@ -158,7 +158,7 @@ $cui-grid-use-legacy-styles: false !default;
 $cui-grid-column-count:      12 !default;
 
 // Sizes for fixed column classes
-$cui-grid-fixed-sizes: (100px, 200px, 33pc, 67pc) !default;
+$cui-grid-fixed-sizes: (100px, 200px, 400px, 33pc, 67pc) !default;
 // Sizes for flexible column classes -- these should generally mirror and/or complement the fixed column sizes defined above
 $cui-grid-flex-sizes:  (100px, 200px, 300px, 400px, 33pc, 67pc) !default;
 

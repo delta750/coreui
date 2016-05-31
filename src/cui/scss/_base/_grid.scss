@@ -28,7 +28,7 @@
 }
 
 [class*="cui-fixed-col-"] {
-    @include fixed-col;
+    @include col-fixed;
 }
 
 [class*="cui-legacy-col-"] {
@@ -61,25 +61,25 @@ nav > header {
 
 // Equal width for any screen size
 .cui-col {
-    @include fluid-col;
+    @include col-fluid;
 }
 
 // Use these breakpoint-specific classes to restrict the behavior
 // For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens but equal-width on medium screens
 
 .cui-col-small {
-    @include fluid-col;
+    @include col-fluid;
 }
 
 @include pointbreak($cui-bp-medium) {
     .cui-col-medium {
-        @include fluid-col;
+        @include col-fluid;
     }
 }
 
 @include pointbreak($cui-bp-large) {
     .cui-col-large {
-        @include fluid-col;
+        @include col-fluid;
     }
 }
 
