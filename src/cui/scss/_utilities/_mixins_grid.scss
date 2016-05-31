@@ -48,7 +48,6 @@
 
 // Standard fixed column
 @mixin fixed-col() {
-    // float: left;
     position: relative;
     padding: $cui-grid-column-padding;
     @include clearfix;
