@@ -215,22 +215,7 @@
             <span class="cui-no-wrap">sm-12</span>, <span class="cui-no-wrap">md-6</span>
         </div>
     </div>
-    <div class="cui-row">
-        <div class="cui-col-small-12 no-debug">
-            <h2>Wrapping</h2>
-        </div>
-    </div>
-    <div class="cui-row">
-        <div class="cui-col-small-9">
-            <span class="cui-no-wrap">sm-9</span>
-        </div>
-        <div class="cui-col-small-4">
-            <span class="cui-no-wrap">sm-4</span>. Since <span class="cui-no-wrap">sm-9 + sm-4 = 13 > 12</span>, this column gets wrapped onto a new line as a contiguous unit.
-        </div>
-        <div class="cui-col-small-6">
-            <span class="cui-no-wrap">sm-6</span>. Subsequent columns continue along the new row.
-        </div>
-    </div>
+
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Fixed + flexible</h2>
@@ -516,7 +501,8 @@
     <div class="cui-row">
         <div class="cui-col-small-12 no-debug">
             <h2>Taller column example</h2>
-            <p>Taller containers don't always clear quite right next to shorter containers.</p>
+            <p>All columns expand to the height of the tallest column in the row.</p>
+            <p><em>Not supported by the <a href="grid_legacy.html">legacy grid</a>.</em></p>
         </div>
     </div>
     <div class="cui-row">
@@ -643,7 +629,7 @@
         <div class="cui-col-small-12 no-debug">
             <h2>Evenly-Distributed Columns</h2>
             <p>These columns use only <code>.cui-col</code> with no breakpoint or width specified. They each use up an equal portion of the row regardless of the size of their contents.</p>
-            <p><em>Not supported by the <a href="grid_legacy.html">legacy grid</a></em></p>
+            <p><em>Not supported by the <a href="grid_legacy.html">legacy grid</a>.</em></p>
         </div>
     </div>
     <!-- 2 across -->
@@ -702,7 +688,7 @@
         <div class="cui-col-small-12 no-debug">
             <h2>Equal Column Heights</h2>
             <p>All of the following columns are in the same <code>.cui-row</code> element, but they fall into three "virtual" rows. However they maintain an equal height with other columns in the same virtual row.</p>
-            <p><em>Not supported by the <a href="grid_legacy.html">legacy grid</a></em></p>
+            <p><em>Not supported by the <a href="grid_legacy.html">legacy grid</a>.</em></p>
         </div>
     </div>
     <div class="cui-row centered">
@@ -720,6 +706,24 @@
         </div>
         <div class="cui-col-small-12">
             <span class="cui-no-wrap">sm-12</span><br>Line B
+        </div>
+    </div>
+
+    <div class="cui-row">
+        <div class="cui-col-small-12 no-debug">
+            <h2>Wrapping</h2>
+            <p>If the column widths add up to a value greater than the row will allow, the columns will wrap as expected.</p>
+        </div>
+    </div>
+    <div class="cui-row">
+        <div class="cui-col-small-9">
+            <span class="cui-no-wrap">sm-9</span>
+        </div>
+        <div class="cui-col-small-4">
+            <span class="cui-no-wrap">sm-4</span>. Since <span class="cui-no-wrap">sm-9 + sm-4 = 13 > 12</span>, this column gets wrapped onto a new line as a contiguous unit.
+        </div>
+        <div class="cui-col-small-6">
+            <span class="cui-no-wrap">sm-6</span>. Subsequent columns continue along the new row.
         </div>
     </div>
 

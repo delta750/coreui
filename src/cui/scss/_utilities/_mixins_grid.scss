@@ -38,22 +38,34 @@
 }
 
 // Standard column styles
-@mixin col($flexShorthandValue: 0 1 auto) {
+@mixin col($flexShorthandValue: 0 1 auto, $width: false) {
     flex: $flexShorthandValue;
     position: relative;
     @include clearfix;
     padding: $cui-grid-column-padding;
     min-height: $cui-grid-column-min-height;
+
+    // Only apply these if a width was defined
+    @if $width != false {
+        flex-basis: $width;
+        max-width: $width;
+    }
 }
 
-// Standard fixed column
+// Fixed column
 @mixin fixed-col() {
     position: relative;
     padding: $cui-grid-column-padding;
     @include clearfix;
 }
 
-// Standard inline column
+// Fluid (equal-width) column
+@mixin fluid-col() {
+    @include col(1 1 0); // The key is `flex-basis: 0` (third parameter) which prevents the column from adapting its width to the size of its content
+    max-width: 100%;
+}
+
+// Inline column
 @mixin inline-col() {
     display: inline-block;
     float: none;
