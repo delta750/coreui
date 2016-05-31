@@ -38,7 +38,7 @@
 }
 
 // Standard column styles
-@mixin col($flexShorthandValue: 0 0 auto) {
+@mixin col($flexShorthandValue: 0 1 auto) {
     flex: $flexShorthandValue;
     position: relative;
     @include clearfix;

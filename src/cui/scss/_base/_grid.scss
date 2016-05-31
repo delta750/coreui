@@ -44,16 +44,29 @@ nav > header {
     @include clearfix;
 }
 
+
+// * @section    Generate column classes
+// * @note       These must be generated before the special classes such as `.col-col` so that the `flex-basis` and `max-width` properties will cascade properly
+// * --------------------------------------------------------
+@include generate-grid($cui-grid-column-count);
+
+
+// * @section    Special column classes
+// * --------------------------------------------------------
+
 // Flexible columns
 // These give all columns equal width with their siblings without having to specify a breakpoint or number. If used in conjunction with fixed columns, these columns will fill the remaining space.
+// The key to these classes is the flex-basis (third parameter) which prevents the column from adapt its width to the size of its content.
+// Note that an element with `class="cui-col-small-12 cui-col-medium"` would use the and `max-width` applied to the small class even at medium screen size which is why we're repeating the property here.
 
+// Equal width for any screen size
 .cui-col {
     @include col(1 1 0);
     max-width: 100%;
 }
 
 // Use these breakpoint-specific classes to restrict the behavior
-// For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens and equal-width on medium screens
+// For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens but equal-width on medium screens
 
 .cui-col-small {
     @include col(1 1 0);
@@ -73,11 +86,6 @@ nav > header {
         max-width: 100%;
     }
 }
-
-
-// * @section    Generate column classes
-// * --------------------------------------------------------
-@include generate-grid($cui-grid-column-count);
 
 
 // * @section    Visibility classes
