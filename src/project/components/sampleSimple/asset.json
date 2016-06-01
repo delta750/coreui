@@ -1,5 +1,0 @@
-{
-    "name": "sampleSimple",
-    "lazy": true,
-    "sources": ["script", "style"]
-}
