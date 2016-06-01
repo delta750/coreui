@@ -4,7 +4,9 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         clean: {
-            dist: ['dist/**/*.*'],
+            dist: [
+                'dist/**/*.*',
+            ],
         },
 
         copy: {
@@ -74,6 +76,13 @@ module.exports = function (grunt) {
         },
 
         md2html: {
+            options: {
+                highlightjs: {
+                    enabled: true,
+                    style: 'github',
+                    compressStyle: true,
+                },
+            },
             docs: {
                 options: {
                     layout: 'src/cui/docs/src/assets/templates/default.html',
@@ -126,7 +135,6 @@ module.exports = function (grunt) {
                 ],
             },
         },
-
     });
 
     // Load all grunt tasks
