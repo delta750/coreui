@@ -1,28 +1,6 @@
 # Folders to ignore
 node_modules/
 dist/
-/docs/
-/tests/
-js-compiled/
-
-!/src/cui/docs/
-!/src/project/components/*/docs
-!/src/project/components/*/src/docs
-
-# Component and Library ignores
-src/cui/components/*/tasks
-src/cui/libs/*/tasks
-src/project/components/*/tasks
-src/project/libs/*/tasks
-src/cui/scss/_utilities/_assets.scss
-
-# Temp
-local_docs/
-tasks/libs/componentFinder/logs
-tasks/libs/componentFinder/temp
-tasks/libs/configDebug/logs
-tasks/libs/requireManager/logs
-tasks/libs/requireManager/temp
 
 # Editor and system files
 *.sublime-*
@@ -30,6 +8,4 @@ tasks/libs/requireManager/temp
 */.gitignore
 .DS_Store
 Thumbs.db
-
-# For GitEYE GUI
 /.project

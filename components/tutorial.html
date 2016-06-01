@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/coreui">
+    <link href="/assets/css/markdown.css" rel="stylesheet">
+    <style>
+        .hljs{display:block;overflow-x:auto;padding:.5em;color:#333;background:#f8f8f8;-webkit-text-size-adjust:none}.diff .hljs-header,.hljs-comment{color:#998;font-style:italic}.css .rule .hljs-keyword,.hljs-keyword,.hljs-request,.hljs-status,.hljs-subst,.hljs-winutils,.nginx .hljs-title{color:#333;font-weight:700}.hljs-hexcolor,.hljs-number,.ruby .hljs-constant{color:teal}.hljs-doctag,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#d14}.hljs-id,.hljs-title,.scss .hljs-preprocessor{color:#900;font-weight:700}.hljs-list .hljs-keyword,.hljs-subst{font-weight:400}.hljs-class .hljs-title,.hljs-type,.tex .hljs-command,.vhdl .hljs-literal{color:#458;font-weight:700}.django .hljs-tag .hljs-keyword,.hljs-rule .hljs-property,.hljs-tag,.hljs-tag .hljs-title{color:navy;font-weight:400}.hljs-attribute,.hljs-name,.hljs-variable,.lisp .hljs-body{color:teal}.hljs-regexp{color:#009926}.clojure .hljs-keyword,.hljs-prompt,.hljs-symbol,.lisp .hljs-keyword,.ruby .hljs-symbol .hljs-string,.scheme .hljs-keyword,.tex .hljs-special{color:#990073}.hljs-built_in{color:#0086b3}.hljs-cdata,.hljs-doctype,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang{color:#999;font-weight:700}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.diff .hljs-change{background:#0086b3}.hljs-chunk{color:#aaa}
+    </style>
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="creating-a-component-in-core-ui">Creating a component in Core UI</h1>
+<p>Components in Core UI are structured in a standardized way. This helps to your project maintain separation between each moving part and ensures that testing is simplified and consistent.</p>
+<p>Here we will create a Hello World component which will append a simple text message to an element. It will also want to provide developers the option of overriding the default settings, either at the time of execution or by embedding the settings in a <code>data-</code> attribute.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Be sure to have the following:</p>
+<ul>
+<li>An up-to-date copy of <a href="https://github.com/ny/coreui">Core UI</a></li>
+<li><a href="https://nodejs.org/">Node JS</a> (version 4.x is recommended; newer versions are not yet supported)</li>
+</ul>
+<h2 id="adding-javascript">Adding JavaScript</h2>
+<p>Create a folder called <code>hello-world</code> to the <code>src/project/components</code> folder. If you dont have a <code>components</code> folder go ahead and create one.</p>
+<p>Next, inside of the <code>helloWorld</code> folder, create two more folders, <code>js</code> and <code>tests</code>. The former will contain the actual script while the latter will be used for automated testing of the component.</p>
+<p>You should have the following structure:</p>
+<pre><code>helloWorld/
+    ├─ <span class="hljs-keyword">js</span>/
+    ├─ tests/
+</code></pre><p>Let&#39;s flesh out the actual component code. Create a file called <code>helloWorld.js</code> in the <code>js</code> folder and add the following boilerplate.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// File: src/project/components/js/helloWorld/helloWorld.js</span>
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(factory)</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
+        <span class="hljs-comment">// Register as an anonymous module (AMD)</span>
+        define([<span class="hljs-string">'jquery'</span>], factory);
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// Browser globals</span>
+        factory(jQuery);
+    }
+}(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($)</span> </span>{
+
+    <span class="hljs-comment">// Component code</span>
+
+}));
+</code></pre>
+<p>This allows the component to be defined as an <a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition">asynchronous module</a>. All Core UI components are defined this way as it make the components modular in nature. Core UI use the AMD specification because it was written with the web in mind and is the preferred structure for <a href="http://requirejs.org">RequireJS</a> modules.</p>
+<p>Now we can write the actual code for our component. There are many ways to <a href="https://github.com/jquery-boilerplate/jquery-patterns">structure jQuery plugins</a>. Here we will use a <a href="https://github.com/jquery-boilerplate/jquery-patterns/blob/master/patterns/jquery.highly-configurable.plugin.boilerplate.js">highly configurable, mutable</a> plugin pattern, but of course when authoring your own components you may choose a more suitable pattern.</p>
+<p>Start by defining the plugin&#39;s name under the <code>Component code</code> comment:</p>
+<pre><code class="lang-js">    // Plugin name, abstracted <span class="hljs-keyword">for</span> single point <span class="hljs-keyword">of</span> control
+    <span class="hljs-keyword">var</span> pluginName = <span class="hljs-string">'helloWorld'</span>;
+</code></pre>
+<p>This lets us abstract the name from the rest of our code to keep it portable. Note that we are not creating a global variable because we&#39;re inside a an anonymous function wrapper.</p>
+<p>Next, below the name, add the constructor:</p>
+<pre><code class="lang-js">    <span class="hljs-comment">// Plugin constructor</span>
+    <span class="hljs-keyword">var</span> HelloWorld = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elem, options</span>) </span>{
+        <span class="hljs-keyword">this</span>.elem = elem;
+        <span class="hljs-keyword">this</span>.$elem = $(elem);
+        <span class="hljs-keyword">this</span>.options = options;
+
+        <span class="hljs-comment">// Look for additional options in the element's data attribute</span>
+        <span class="hljs-keyword">this</span>.metadata = <span class="hljs-keyword">this</span>.$elem.data(<span class="hljs-string">'helloworld-options'</span>);
+    };
+</code></pre>
+<p>The contructor is pretty barebones &mdash; essentially it gathers and stores the element and any options that were passed.</p>
+<p>Next we build the constructor&#39;s prototype object which will contain its public properties and methods. Add the following below the constructor:</p>
+<pre><code class="lang-js">    <span class="hljs-comment">// Plugin options and methods</span>
+    HelloWorld.prototype = {
+        <span class="hljs-comment">// Default options</span>
+        defaults: {
+            message: <span class="hljs-string">'Hello World'</span>
+        },
+
+        <span class="hljs-comment">// Initialization code</span>
+        init: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.config = $.extend({}, <span class="hljs-keyword">this</span>.defaults, <span class="hljs-keyword">this</span>.options, <span class="hljs-keyword">this</span>.metadata);
+
+            <span class="hljs-comment">// Call the default function that should be executed</span>
+            <span class="hljs-keyword">this</span>.appendText();
+
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        },
+
+        <span class="hljs-comment">// Example method</span>
+        appendText: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.$elem.append(<span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-keyword">this</span>.config.message));
+        }
+    };
+</code></pre>
+<p>Now we have some default options (<code>message</code>), an <code>init</code> function which we&#39;ll come back to later, and the &quot;main&quot; function of this example, <code>appendText</code>.</p>
+<p>Since the <code>prototype</code> properties are public and may be overwritten, we&#39;ll store a copy of our default settings in a &quot;private&quot; property:</p>
+<pre><code class="lang-js">    <span class="hljs-comment">// Copy the default plugin definitions</span>
+<span class="hljs-constant">    HelloWorld.defaults</span> = HelloWorld.prototype.defaults;
+</code></pre>
+<p>Finally, we need to register the plugin with jQuery. By leveraging its <code>$.fn</code> method we can make our plugin chainable so it behaves like any other jQuery function.</p>
+<pre><code class="lang-js">    <span class="hljs-comment">// Create the plugin in the jQuery namespace</span>
+    $.fn[pluginName] = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>{
+        <span class="hljs-comment">// Iterate of each plugin individually and create a new instance for each occurance</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.<span class="hljs-keyword">each</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-comment">// Create an instance of the plugin for each individual element</span>
+            <span class="hljs-keyword">new</span> HelloWorld(<span class="hljs-keyword">this</span>, options).init();
+        });
+    };
+</code></pre>
+<p>And now the plugin is ready. For reference, here is the <a href="https://gist.github.com/patik/4943ee297b0b75d23409">complete <code>helloWorld.js</code> file</a>.</p>
+<h3 id="try-it">Try it</h3>
+<p>To try out the component we can create a short HTML file. Let&#39;s put it in the <code>tests</code> folder so we can reuse the file for testing later. Create the file <code>src/project/components/helloWorld/tests/helloWorld.html</code> and add the following:</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE HTML&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"utf-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"viewport"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"width=device-width, initial-scale=1, user-scalable=yes"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello World Test<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../../css/main.css"</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"stylesheet"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/css"</span> <span class="hljs-attribute">media</span>=<span class="hljs-value">"all"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h2</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"helloWorld"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"require"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"../../js/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+            <span class="hljs-built_in">require</span>([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'helloWorld'</span>, <span class="hljs-string">'domReady!'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$, helloWorld</span>) </span>{
+                <span class="hljs-comment">// ID test</span>
+                $(<span class="hljs-string">'#helloWorld'</span>).helloWorld();
+            });
+        </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p>Open the page in a browser and you should see &quot;Hello World!&quot; printed in large letters. If you only see a blank page, make sure you&#39;ve <a href="../getting-started.html">built the project</a> at least once. When the page loads, the words &quot;Hello World&quot; should appear at the top of the page.</p>
+<h4 id="javascript-settings">JavaScript settings</h4>
+<p>Inside the test page, just under the <code>h2</code> element add a paragraph tag and use a <code>class</code> as the script hook for the <code>helloWorld</code> component.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"helloWorld"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+</code></pre>
+<p>Next, back in the script tag under the ID test selector, add a new jQuery selector using the newly create <code>.helloWorld</code> class. But this time pass an object that overrides the message text with <code>Hello Class Element!</code>.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// Class Test</span>
+$(<span class="hljs-string">'.helloWorld'</span>).helloWorld({<span class="hljs-string">message:</span> <span class="hljs-string">'Hello Class Element!'</span>});
+</code></pre>
+<p>Rebuild the project and refresh the test page. This time two hello messages appear: one saying &quot;Hello World&quot;, the other saying &quot;Hello Class Element!&quot;</p>
+<h4 id="html-settings">HTML settings</h4>
+<p>For a final test of the component, try passing the options using the <code>data-</code> attribute. Below the other test elements, add an unordered list and a handful of list items. On each of the list items create a <code>data-</code> attribute similar to the example below:</p>
+<pre><code class="lang-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-helloworld-options</span>=<span class="hljs-value">'</span></span></span><span class="hljs-expression">{<span class="hljs-string">"message"</span>:<span class="hljs-string">"Hello Item 1!"</span>}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-helloworld-options</span>=<span class="hljs-value">'</span></span></span><span class="hljs-expression">{<span class="hljs-string">"message"</span>:<span class="hljs-string">"Hello Item 2!"</span>}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-helloworld-options</span>=<span class="hljs-value">'</span></span></span><span class="hljs-expression">{<span class="hljs-string">"message"</span>:<span class="hljs-string">"Hello Item 3!"</span>}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-helloworld-options</span>=<span class="hljs-value">'</span></span></span><span class="hljs-expression">{<span class="hljs-string">"message"</span>:<span class="hljs-string">"Hello Item 4!"</span>}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-helloworld-options</span>=<span class="hljs-value">'</span></span></span><span class="hljs-expression">{<span class="hljs-string">"message"</span>:<span class="hljs-string">"Hello Item 5!"</span>}</span><span class="xml"><span class="hljs-tag"><span class="hljs-value">'</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span></span>
+</code></pre>
+<p>Next, let&#39;s alter the page script one last time. This time using a jQuery selector that selects all of the list items using an element selector.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// HTML test</span>
+$<span class="hljs-comment">('li')</span>.helloWorld<span class="hljs-comment">()</span>;
+</code></pre>
+<p>Rebuild the project and reload the test page again. You should see three different sets of customized messages in the <code>h2</code>, <code>p</code>, and <code>li</code> elements:</p>
+<p><img src="/docs/assets/images/hello-world-basic.png" alt="Finished hello world component page" title="Finished hello world component page"></p>
+<p>For reference, here is the <a href="https://gist.github.com/JeffHerb/9a80f42c2fb81a87d6fb">complete <code>helloWorld.html</code> file</a>.</p>
+<h2 id="adding-sass">Adding Sass</h2>
+<p>Start by creating a <code>scss</code> folder alongside the <code>js</code> and <code>tests</code> folders. Inside, create a <code>helloWorld.scss</code> file and add the following:</p>
+<pre><code class="lang-scss"><span class="hljs-variable">$primary</span><span class="hljs-value">: <span class="hljs-hexcolor">#fe57a1</span>;</span>
+
+<span class="hljs-class">.helloText</span> {
+    <span class="hljs-attribute">color</span><span class="hljs-value">: <span class="hljs-variable">$primary</span>;</span>
+}
+</code></pre>
+<p>Now we need to add a class hook in our HTML so the style will get applied. Add another line to the <code>appendText</code> method in the <code>helloWorld.js</code> file to add a class to each element:</p>
+<pre><code class="lang-js">appendText: <span class="hljs-keyword">function</span>() {
+    this.<span class="hljs-variable">$elem</span>.append(document.createTextNode(this.config.message));
+    this.<span class="hljs-variable">$elem</span>.addClass(<span class="hljs-string">'helloText'</span>);
+}
+</code></pre>
+<p>Rebuild the project again and refresh the test page. The contents of the page should remain the same, but the color of all the appended text should have changed:</p>
+<p><img src="/docs/assets/images/hello-world-with-style.png" alt="Finished hello world component page with styles" title="Finished hello world component page with styles"></p>
+<p>For your reference, here is the <a href="https://gist.github.com/JeffHerb/7772ce8eb1bab095a49b">updated <code>helloWorld.js</code></a> file and the <a href="https://gist.github.com/JeffHerb/5fc2a41859b277136302">complete <code>helloWorld.scss</code> file</a>.</p>
+<h2 id="lazy-loading">Lazy loading</h2>
+<p>Sometimes a component is only needed under certain circumstances. It&#39;s best practices not to include those additional resources in your base assets (<code>main.js</code> and <code>main.css</code>). Instead they should be lazy loaded so they only download when necessary. (This is not to be confused with <a href="conditional loading">#conditional-loading</a> which is covered later.)</p>
+<p>To make a component lazy-loadable it needs a configuration file. In the root of the <code>helloWorld</code> component create a file called <code>asset.json</code> and add the following:</p>
+<pre><code class="lang-json">{
+    "<span class="hljs-attribute">lazy</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+</span>}
+</code></pre>
+<p>Now when you rebuild the project it will recreate the base assets separate from the <code>helloWorld</code> assets. But one more change has to be made if we want to include styles.</p>
+<p>Lazy loaded components and their asset types (script, styles, etc) are not automatically bundled together by default. To give developers the maximum amount of control possible, developers must specify all of the dependencies a component might have when it is lazy loaded.</p>
+<p>To add the styles you&#39;ll need to edit the <code>helloWorld.js</code> file. In the <code>define</code> statement add <code>css!helloWorld-style</code> to the dependency array.</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-preprocessor">[</span><span class="hljs-string">'jquery'</span>, <span class="hljs-string">'css!helloWorld-style'</span><span class="hljs-preprocessor">]</span><span class="hljs-markup">, factory);</span>
+</code></pre>
+<p>Note the special <code>css!</code> prefix &mdash; this tells Core UI that the dependency <code>helloWorld-style</code> is a style sheet and therefore it needs to be loaded in a different manner than other assets.</p>
+<h3 id="conditional-lazy-loading">Conditional lazy loading</h3>
+<p>In the lazy load example you may have noticed that the browser had to make additional <code>http</code> requests for each asset of the <code>helloWorld</code> component on <em>every</em> page load. We can avoid that by loading the assets conditionally.</p>
+<p>The built in method <code>cui.load</code> can load components, for example:</p>
+<pre><code class="lang-js">    <span class="hljs-transposed_variable">cui.</span><span class="hljs-built_in">load</span>(<span class="hljs-string">'helloWorld'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-comment">// Kick off the helloWorldPlugin</span>
+        <span class="hljs-transposed_variable">conditionalElem.</span>helloWorld();
+    });
+</code></pre>
+<p>To run this conditionally we can wrap an <code>if</code> statement around it. Suppose you only want the message to appear when the page contains a paragraph:</p>
+<pre><code class="lang-js">    <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'p'</span>).<span class="hljs-built_in">length</span> &gt; <span class="hljs-number">0</span>) {
+        <span class="hljs-transposed_variable">cui.</span><span class="hljs-built_in">load</span>(<span class="hljs-string">'helloWorld'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-comment">// Kick off the helloWorldPlugin</span>
+            <span class="hljs-transposed_variable">conditionalElem.</span>helloWorld();
+        });
+    }
+</code></pre>
+<p>To try this, create a second test page in the component&#39;s <code>tests</code> folder called <code>helloWorld-lazy.html</code> and add the following:</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE HTML&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"utf-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"viewport"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"width=device-width, initial-scale=1, user-scalable=yes"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Hello World Conditional Test<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../../css/main.css"</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"stylesheet"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/css"</span> <span class="hljs-attribute">media</span>=<span class="hljs-value">"all"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+
+        <span class="hljs-comment">&lt;!-- &lt;p&gt;&lt;/p&gt; --&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"require"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"../../js/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+            <span class="hljs-comment">// Wait for jQuery to load and for the page to be ready</span>
+            <span class="hljs-built_in">require</span>([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'domReady!'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>{
+                <span class="hljs-comment">// Query the page for specific elements with specific classes</span>
+                <span class="hljs-keyword">var</span> $paragraphs = $(<span class="hljs-string">'p'</span>);
+
+                <span class="hljs-comment">// Check to see if the page has any paragraphs</span>
+                <span class="hljs-keyword">if</span> ($paragraphs.length &gt; <span class="hljs-number">0</span>) {
+                    <span class="hljs-comment">// We have elements, so using the `cui` namespace load the helloWorld Component</span>
+                    cui.load(<span class="hljs-string">'helloWorld'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-comment">// Call the helloWorldPlugin</span>
+                        $paragraphs.helloWorld();
+                    });
+                }
+            });
+        </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p>Launch the page and notice that no &quot;Hello world!&quot; message appears. If you open your browser&#39;s developer tools and watch the network tab you&#39;ll notice that the helloWorld assets are never loaded.</p>
+<p>Now edit the file to uncomment the <code>&lt;p&gt;</code> element and refresh the page. This time, the script tag finds a conditional element that meets our requirement and the <code>cui.load</code> process requests the helloWorld assets.</p>
+<p>For reference, here is a complete of the <a href="https://gist.github.com/JeffHerb/aa9d25c9b615093fb324">helloWorld-lazy.html test page</a>.</p>
+<p>You may also wish to view the repository of <a href="https://github.com/nyfrg/coreui-sample-components">example components</a> as a reference. In particular, the <a href="https://github.com/nyfrg/coreui-sample-components/tree/master/examples/jqueryPlugin">jQuery plugin example</a> resembles what you created with this tutorial.</p>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>

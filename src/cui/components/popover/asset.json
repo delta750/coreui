@@ -1,5 +1,0 @@
-{
-    "name": "popover",
-    "lazy": true,
-    "sources": ["script", "style"]
-}

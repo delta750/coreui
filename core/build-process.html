@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/coreui">
+    <link href="/assets/css/markdown.css" rel="stylesheet">
+    <style>
+        .hljs{display:block;overflow-x:auto;padding:.5em;color:#333;background:#f8f8f8;-webkit-text-size-adjust:none}.diff .hljs-header,.hljs-comment{color:#998;font-style:italic}.css .rule .hljs-keyword,.hljs-keyword,.hljs-request,.hljs-status,.hljs-subst,.hljs-winutils,.nginx .hljs-title{color:#333;font-weight:700}.hljs-hexcolor,.hljs-number,.ruby .hljs-constant{color:teal}.hljs-doctag,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#d14}.hljs-id,.hljs-title,.scss .hljs-preprocessor{color:#900;font-weight:700}.hljs-list .hljs-keyword,.hljs-subst{font-weight:400}.hljs-class .hljs-title,.hljs-type,.tex .hljs-command,.vhdl .hljs-literal{color:#458;font-weight:700}.django .hljs-tag .hljs-keyword,.hljs-rule .hljs-property,.hljs-tag,.hljs-tag .hljs-title{color:navy;font-weight:400}.hljs-attribute,.hljs-name,.hljs-variable,.lisp .hljs-body{color:teal}.hljs-regexp{color:#009926}.clojure .hljs-keyword,.hljs-prompt,.hljs-symbol,.lisp .hljs-keyword,.ruby .hljs-symbol .hljs-string,.scheme .hljs-keyword,.tex .hljs-special{color:#990073}.hljs-built_in{color:#0086b3}.hljs-cdata,.hljs-doctype,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang{color:#999;font-weight:700}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.diff .hljs-change{background:#0086b3}.hljs-chunk{color:#aaa}
+    </style>
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="build-process">Build Process</h1>
+<p>Core UI uses GruntJS to build all of the files needed to create robust sites and applications. Below are explanations to all of the different tasks found inside of the <code>Gruntfile.js</code></p>
+<h2 id="jshint">JSHint</h2>
+<p>JSHint is a JavaScript linting tool. By default all JavaScript files are linted with the exceptions for the js files stored in the <code>src/cui/js/vendor</code> folder. JSHint is run on both the production and development builds and will prevent the build process from continuing if any errors are found.</p>
+<h3 id="dev-cui">Dev CUI</h3>
+<p>This task handles the cui core vendor files. By default, the jQuery and RequireJS libraries, and the RequireJS plugins <code>domReady</code>, <code>text</code>, <code>json</code>, and <code>css</code>, are ignored since they are included in the default RequireJS build. The contents of the include and utility folder are also ignored because they are standard parts of the RequireJS core build.</p>
+<h3 id="dev-components">Dev Components</h3>
+<p>This task handles all the development components minification. By default all components are minified and saved in the <code>dist/js/components</code> directory. The flatten tag is used as all component files should be served from a single directory.</p>
+<h3 id="prod-cui">Prod CUI</h3>
+<p>This task handles all the production copy of all cui core vendor files. The same files are ignored as in the development build. The only difference is the production build removed all occurrences of the console.log if it exists in any script files. Sourcemaps are not generated.</p>
+<h3 id="prod-components">Prod Components</h3>
+<p>Matches the development components task. Only exception is the removal of any console.log commands found in script files and the exclusion of sourcemap file creation.</p>
+<h2 id="sass">Sass</h2>
+<p>The sass task simply handles the conversion of all <code>scss</code> files to <code>css</code> files. Depending on the file specifically the location of the file is different.</p>
+<h3 id="dev">Dev</h3>
+<p>This sass task handles the development build of the cui and project <code>scss</code> files. These files will be generated and stored in <code>dist/css/cui/cui.css</code> and <code>dist/css/project/project.css</code> respectfully. The difference between the two is the project.css file includes all the contents of the cui.css file. This means developers should only include one or the other.</p>
+<h3 id="dev-component">Dev Component</h3>
+<p>This sass task handles the component development style builds. Per core-ui standards, all component files should be stored in a <code>src/project/scss</code> folder and be named accordingly. These files are only needed for components that are going to be lazy loaded. If you component is not lazy loaded, simply remove this scss file and the build tool will not generate any special component styles. If a project wishes to include component styles as part of its core stylesheet, be sure it import the component stylesheet at the bottom of the <code>project.scss</code> file.</p>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>

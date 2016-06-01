@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/coreui">
+    <link href="/assets/css/markdown.css" rel="stylesheet">
+    <style>
+        .hljs{display:block;overflow-x:auto;padding:.5em;color:#333;background:#f8f8f8;-webkit-text-size-adjust:none}.diff .hljs-header,.hljs-comment{color:#998;font-style:italic}.css .rule .hljs-keyword,.hljs-keyword,.hljs-request,.hljs-status,.hljs-subst,.hljs-winutils,.nginx .hljs-title{color:#333;font-weight:700}.hljs-hexcolor,.hljs-number,.ruby .hljs-constant{color:teal}.hljs-doctag,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#d14}.hljs-id,.hljs-title,.scss .hljs-preprocessor{color:#900;font-weight:700}.hljs-list .hljs-keyword,.hljs-subst{font-weight:400}.hljs-class .hljs-title,.hljs-type,.tex .hljs-command,.vhdl .hljs-literal{color:#458;font-weight:700}.django .hljs-tag .hljs-keyword,.hljs-rule .hljs-property,.hljs-tag,.hljs-tag .hljs-title{color:navy;font-weight:400}.hljs-attribute,.hljs-name,.hljs-variable,.lisp .hljs-body{color:teal}.hljs-regexp{color:#009926}.clojure .hljs-keyword,.hljs-prompt,.hljs-symbol,.lisp .hljs-keyword,.ruby .hljs-symbol .hljs-string,.scheme .hljs-keyword,.tex .hljs-special{color:#990073}.hljs-built_in{color:#0086b3}.hljs-cdata,.hljs-doctype,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang{color:#999;font-weight:700}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.diff .hljs-change{background:#0086b3}.hljs-chunk{color:#aaa}
+    </style>
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="upgrading-core-ui">Upgrading Core UI</h1>
+<h2 id="automatic-updates">Automatic updates</h2>
+<p><em>These instructions apply if you started your project by forking or cloning the Core UI repository.</em></p>
+<h3 id="setup">Setup</h3>
+<p>If you add a connection back to the Core UI repository with git you can pull in updates automatically.</p>
+<p>Open a command prompt and <code>cd</code> to your project directory. Create a new remote connect by entering the following:</p>
+<pre><code>git remote <span class="hljs-built_in">add</span> upstream http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/ny/coreui.git
+</code></pre><p>This step only needs to be followed once per project and per developer.</p>
+<h3 id="applying-an-update">Applying an update</h3>
+<p>When a new release of Core UI is available you can get the update by fetching the master branch. To do this, enter:</p>
+<pre><code><span class="hljs-title">git</span> fetch upstream
+</code></pre><p>Note that we are merely fetching the repository&#39;s information so it will not cause any code to change in your project yet.</p>
+<p>It is recommended that you pull the changes into a separate branch so you can test the update before applying it to your project. Enter the following (you may change the branch name):</p>
+<pre><code>git checkout -<span class="hljs-tag">b</span> coreui-update
+</code></pre><p>Now merge in the upstream branch from Core UI to your test branch:</p>
+<pre><code>git merge upstream/<span class="hljs-keyword">master</span> <span class="hljs-title">coreui-update</span>
+</code></pre><p>At this point the newest version of Core UI is in your test branch. This might cause some merge conflicts that you will need to handle.</p>
+<p>Once the upstream has been merged, you will need to test your project. Then you can follow your project&#39;s usual pull request procedure to merge the test branch into your master branch.</p>
+<h2 id="manual-updates">Manual updates</h2>
+<p>If you started your project by download a zip file of Core UI, or you added Core UI to an existing project, you will need to apply the update manually. However since all of your files are in the <code>/src/project/</code> folder upgrading is usually easy.</p>
+<ol>
+<li>Download and unzip the <a href="https://github.com/ny/coreui/archive/master.zip">latest release</a><ul>
+<li>You can also download <a href="https://github.com/ny/coreui/releases">specific releases</a></li>
+</ul>
+</li>
+<li>Navigate to the <code>/src/</code> folder and delete the <code>cui</code> folder.</li>
+<li>Put the newly-downloaded copy of the <code>cui</code> folder into <code>/src/</code>. (You don&#39;t need to touch your <code>project</code> folder.)</li>
+<li>On the command line, run <code>npm install</code> to make sure you have the latest Node modules for the release.</li>
+</ol>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>

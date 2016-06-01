@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/coreui">
+    <link href="/assets/css/markdown.css" rel="stylesheet">
+    <style>
+        .hljs{display:block;overflow-x:auto;padding:.5em;color:#333;background:#f8f8f8;-webkit-text-size-adjust:none}.diff .hljs-header,.hljs-comment{color:#998;font-style:italic}.css .rule .hljs-keyword,.hljs-keyword,.hljs-request,.hljs-status,.hljs-subst,.hljs-winutils,.nginx .hljs-title{color:#333;font-weight:700}.hljs-hexcolor,.hljs-number,.ruby .hljs-constant{color:teal}.hljs-doctag,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#d14}.hljs-id,.hljs-title,.scss .hljs-preprocessor{color:#900;font-weight:700}.hljs-list .hljs-keyword,.hljs-subst{font-weight:400}.hljs-class .hljs-title,.hljs-type,.tex .hljs-command,.vhdl .hljs-literal{color:#458;font-weight:700}.django .hljs-tag .hljs-keyword,.hljs-rule .hljs-property,.hljs-tag,.hljs-tag .hljs-title{color:navy;font-weight:400}.hljs-attribute,.hljs-name,.hljs-variable,.lisp .hljs-body{color:teal}.hljs-regexp{color:#009926}.clojure .hljs-keyword,.hljs-prompt,.hljs-symbol,.lisp .hljs-keyword,.ruby .hljs-symbol .hljs-string,.scheme .hljs-keyword,.tex .hljs-special{color:#990073}.hljs-built_in{color:#0086b3}.hljs-cdata,.hljs-doctype,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang{color:#999;font-weight:700}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.diff .hljs-change{background:#0086b3}.hljs-chunk{color:#aaa}
+    </style>
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="using-components">Using Components</h1>
+<p>Components are standalone modules consisting of JavaScript and/or CSS. Each component is completely independent and may be bundled with the project&#39;s JS/CSS or loaded separately (e.g. based on some condition).</p>
+<p><em>This guide is for <strong>implementing</strong> a pre-made component in your project. For creating your own component, see the <a href="tutorial.html">simple tutorial documentation</a>. You may also wish to view the repository of <a href="https://github.com/nyfrg/coreui-sample-components">example components</a> as a reference.</em></p>
+<h2 id="usage">Usage</h2>
+<p>Download the component you want to add to your project and place it in its either the <code>/src/cui/components/</code> or <code>src/project/components</code>. If the component is an official <code>cui</code> or Core UI component, place it in the <code>src/cui/components</code>. If the component is not officially supported or being developer internally to your project, place it in the <code>src/projects/components</code> directory instead. It will be compiled automatically when you use <a href="../core/build-process.html">Grunt</a>.</p>
+<p>A component&#39;s code may be included in two ways: bundled with <code>main.js</code> and/or <code>main.css</code>; or as separate <code>myComponent.js</code> and <code>myComponent.css</code> files which must be conditionally loaded. Components that you will use regularly on most pages should be bundled, while less frequently used components should be loaded conditionally.</p>
+<h2 id="conditional-loading">Conditional loading</h2>
+<p>There are a few different way to load components conditional. If a page is going to include and need a lazy loadable component right from the start, try including it as part of a in page <code>require</code> script.</p>
+<pre><code class="lang-js"><span class="hljs-built_in">require</span>([<span class="hljs-string">'component'</span>, <span class="hljs-string">'domReady!'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">c</span>) </span>{
+
+    <span class="hljs-comment">// Page code</span>
+
+});
+</code></pre>
+<p>Or, components can be lazy loaded based on dynamic in page checks like by using <code>cui.load()</code> to load components:</p>
+<pre><code class="lang-js"><span class="hljs-comment">// Check for specific elements</span>
+<span class="hljs-built_in">require</span>([<span class="hljs-string">'domReady!'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">c</span>) </span>{
+
+    <span class="hljs-comment">// Check to see if a tool tip exists before loading it!</span>
+    <span class="hljs-keyword">if</span> ($(<span class="hljs-string">'.tooltip'</span>).length) {
+
+        <span class="hljs-comment">// Load it!</span>
+        cui.load([<span class="hljs-string">'tooltip'</span>],<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+            <span class="hljs-comment">// Initialize tooltips</span>
+            $(<span class="hljs-string">'.tooltip'</span>).tooltip();
+        });
+    }
+}
+</code></pre>
+<p>In the above example a instance of the tooltip plugin was found so it was load. The developer then simply inited the tooltips functionality based on tooltips component specification.</p>
+<p><code>cui.load</code> can also be used to load many files all at once.</p>
+<pre><code class="lang-js">cui.<span class="hljs-built_in">load</span>([<span class="hljs-string">'tooltip'</span>, <span class="hljs-string">'validator'</span>]);
+</code></pre>
+<p>If you need to interact with a component (for example, a component that doesn&#39;t do anything automatically), pass a callback function to <code>cui.load()</code>:</p>
+<pre><code class="lang-js">cui.load([<span class="hljs-string">'validator'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'Validator has loaded!'</span>);
+    <span class="hljs-comment">// Your code here</span>
+});
+</code></pre>
+<p>Because assets are managed by <a href="http://requirejs.org">RequireJS</a> a given component will only load once even if you call multiple times via a <code>requirq</code>, <code>define</code>, or <code>cui.load()</code> request. Also, if a component has additional dependencies they will be loaded before your callback function is executed.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Inside a component&#39;s folder you will find two files that you may edit: <code>asset.json</code> and <code>_settings.scss</code>.</p>
+<pre><code>src/
+    ├─ components/
+        ├─  validator/
+            ├─ images/
+            ├─ js/
+            ├─ scss/
+            ├─ asset<span class="hljs-class">.json</span>
+            ├─ _settings.scss
+</code></pre><h3 id="-asset-json-"><code>asset.json</code></h3>
+<p>This file defines how your component will be built. For more information on the different options, take a look at <a href="authoring.html">authoring components</a> documentation.</p>
+<h3 id="_settings-scss">_settings.scss</h3>
+<p>This file contains Sass variables that you may change to alter the component&#39;s styles. For more information on Sass variables see <a href="http://sass-lang.com/guide">their documenation</a> page.</p>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>

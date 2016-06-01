@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Core UI Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="New York State OITS">
+    <meta name="keywords" content="Core UI, HTML, CSS, user interface, framework, documentation, New York State, Office of Information Technology Services">
+    <link rel="canonical" href="https://github.com/ny/coreui">
+    <link href="/assets/css/markdown.css" rel="stylesheet">
+    <style>
+        .hljs{display:block;overflow-x:auto;padding:.5em;color:#333;background:#f8f8f8;-webkit-text-size-adjust:none}.diff .hljs-header,.hljs-comment{color:#998;font-style:italic}.css .rule .hljs-keyword,.hljs-keyword,.hljs-request,.hljs-status,.hljs-subst,.hljs-winutils,.nginx .hljs-title{color:#333;font-weight:700}.hljs-hexcolor,.hljs-number,.ruby .hljs-constant{color:teal}.hljs-doctag,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#d14}.hljs-id,.hljs-title,.scss .hljs-preprocessor{color:#900;font-weight:700}.hljs-list .hljs-keyword,.hljs-subst{font-weight:400}.hljs-class .hljs-title,.hljs-type,.tex .hljs-command,.vhdl .hljs-literal{color:#458;font-weight:700}.django .hljs-tag .hljs-keyword,.hljs-rule .hljs-property,.hljs-tag,.hljs-tag .hljs-title{color:navy;font-weight:400}.hljs-attribute,.hljs-name,.hljs-variable,.lisp .hljs-body{color:teal}.hljs-regexp{color:#009926}.clojure .hljs-keyword,.hljs-prompt,.hljs-symbol,.lisp .hljs-keyword,.ruby .hljs-symbol .hljs-string,.scheme .hljs-keyword,.tex .hljs-special{color:#990073}.hljs-built_in{color:#0086b3}.hljs-cdata,.hljs-doctype,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang{color:#999;font-weight:700}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.diff .hljs-change{background:#0086b3}.hljs-chunk{color:#aaa}
+    </style>
+</head>
+<body>
+    <div class="markdown-body">
+        <h1 id="project-structure">Project Structure</h1>
+<h2 id="intro">Intro</h2>
+<ul>
+<li>Everything goes in <code>/src/project/</code></li>
+<li>Your project can be thought of as a layer on top of Core</li>
+</ul>
+<h3 id="overview">Overview</h3>
+<p>Your working directory is <code>/src/project/</code>. Keeping your files contained in this folder ensures that you will be able to update to future versions of Core UI quickly and easily.</p>
+<pre><code>repository/
+    ├─ src/
+        ├─ components/
+        ├─ cui/
+        ├─ <span class="hljs-keyword">project</span>/
+</code></pre><p>While it&#39;s up you how you structure files inside the <code>project</code> folder, it&#39;s recommended that you use this general approach:</p>
+<pre><code>repository/
+    ├─ src/
+        ├─ <span class="hljs-keyword">project</span>/
+            ├─ fonts/
+            ├─ images/
+            ├─ js/
+            ├─ scss/
+</code></pre><p>You may leave out any folders that you do not need.</p>
+<h2 id="styles">Styles</h2>
+<ul>
+<li>Where to put them<ul>
+<li>Folder structure and naming patterns</li>
+</ul>
+</li>
+</ul>
+<pre><code>repository/
+    ├─ src/
+        ├─ <span class="hljs-keyword">project</span>/
+            ├─ scss/
+                ├─ _base/
+                ├─ _settings.scss
+                ├─ <span class="hljs-keyword">project</span>.scss
+</code></pre><h2 id="scripts">Scripts</h2>
+<ul>
+<li>Where to put them<ul>
+<li>Folder structure and naming patterns</li>
+</ul>
+</li>
+<li>Incorporating them<ul>
+<li>Grunt</li>
+<li>Require</li>
+</ul>
+</li>
+</ul>
+<pre><code>repository/
+    ├─ src/
+        ├─ <span class="hljs-keyword">project</span>/
+            ├─ js/
+                ├─ <span class="hljs-keyword">project</span>.js
+</code></pre><h2 id="components">Components</h2>
+<ul>
+<li>When to create a project-level component versus when to augment a Core component<ul>
+<li>When to consider proposing your component &quot;graduate&quot; into a Core component</li>
+<li>See our <a href="../contributing.html">contribution guidelines</a></li>
+</ul>
+</li>
+<li>Where to put them<ul>
+<li>Folder structure and naming patterns</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    <script> try { document.title = document.getElementsByTagName('h1')[0].innerHTML + ' - ' + document.title; } catch(e) { }</script>
+</body>
+</html>
