@@ -1,7 +1,6 @@
 //   ========================================================
 // * @name       _utilities/_mixins_grid.scss
 // * @desc       Sass mixins
-// * @see        https://github.com/ny/coreui
 //   ========================================================
 
 
@@ -10,9 +9,11 @@
 // * --------------------------------------------------------
 
 // Standard row styles
-@mixin row($wrap: $cui-grid-flex-row-wrap, $direction: false, $margin: $cui-grid-row-margin, $width: false) {
+@mixin row($wrap: $cui-grid-flex-row-wrap, $direction: row, $margin: $cui-grid-row-margin, $width: false) {
     display: flex;
     margin: $margin;
+    flex: 0 1 auto;
+
     @include clearfix;
 
     @if $width != false {
@@ -20,32 +21,94 @@
     }
 
     @if $direction != false {
+        @if $direction == row {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+        }
+
+        -ms-flex-direction: $direction;
         flex-direction: $direction;
     }
 
     @if $wrap != false {
+        -ms-flex-wrap: $wrap;
         flex-wrap: $wrap;
     }
 }
 
-// Standard column styles
-@mixin col($flexShorthandValue: 0 0 auto) {
+// Standard column
+@mixin col($flexShorthandValue: 0 1 auto, $width: false) {
     flex: $flexShorthandValue;
     position: relative;
     @include clearfix;
     padding: $cui-grid-column-padding;
     min-height: $cui-grid-column-min-height;
+
+    // Only apply these properties if a width was defined
+    @if $width != false {
+        flex-basis: $width;
+        max-width: $width;
+    }
 }
 
-// Standard fixed column
-@mixin fixed-col() {
-    // float: left;
-    position: relative;
-    padding: $cui-grid-column-padding;
-    @include clearfix;
+// Fixed-width column
+@mixin col-fixed($width: 100%, $breakpointName: "small") {
+    @if $breakpointName == "small" {
+        @include col(0 1 $width);
+        max-width: $width;
+    }
+    @elseif $breakpointName == "medium" {
+        @include pointbreak($cui-bp-medium) {
+            @include col(0 1 $width);
+            max-width: $width;
+        }
+    }
+    @else {
+        @include pointbreak($cui-bp-large) {
+            @include col(0 1 $width);
+            max-width: $width;
+        }
+    }
 }
 
-// Standard inline column
+@mixin grid-col-fixed() {
+    @warn "The `grid-col-fixed` mixin is deprecated. Use `col-fixed` instead.";
+}
+
+// Fluid-width column
+// If `$width` is not defined, all sibling columns will get equal widths
+// Otherwise, this will create a column based around that width (usually a percentage so it retains some fluidity)
+@mixin col-fluid($width: false, $breakpointName: "small") {
+    // Fluid-column (most common; used for classes like `.cui-col`)
+    @if $width == false {
+        @include col(1 1 0); // The key is `flex-basis: 0` (third parameter) which prevents the column from adapting its width to the size of its content
+        max-width: 100%;
+    }
+    @else {
+        @if $breakpointName == "small" {
+            @include col(0 1 $width);
+            max-width: $width;
+        }
+        @elseif $breakpointName == "medium" {
+            @include pointbreak($cui-bp-medium) {
+                @include col(0 1 $width);
+                max-width: $width;
+            }
+        }
+        @else {
+            @include pointbreak($cui-bp-large) {
+                @include col(0 1 $width);
+                max-width: $width;
+            }
+        }
+    }
+}
+
+@mixin grid-col-flex() {
+    @warn "The `grid-col-flex` mixin is deprecated. Use `col-fluid` instead.";
+}
+
+// Inline column
 @mixin inline-col() {
     display: inline-block;
     float: none;
@@ -66,41 +129,6 @@
     @else {
         @include pointbreak($cui-bp-large) {
             @include row;
-        }
-    }
-}
-
-// Fixed column styles for a given width and breakpoint
-@mixin grid-col-fixed($width: 0, $breakpointName: "small") {
-    @if $breakpointName == "small" {
-        width: $width;
-    }
-    @elseif $breakpointName == "medium" {
-        @include pointbreak($cui-bp-medium) {
-            width: $width;
-        }
-    }
-    @else {
-        @include pointbreak($cui-bp-large) {
-            width: $width;
-        }
-    }
-}
-
-@mixin grid-col-flex($breakpointName: "small", $width: 100%) {
-    max-width: $width;
-
-    @if $breakpointName == "small" {
-        @include col(0 1 $width);
-    }
-    @elseif $breakpointName == "medium" {
-        @include pointbreak($cui-bp-medium) {
-            @include col(0 1 $width);
-        }
-    }
-    @else {
-        @include pointbreak($cui-bp-large) {
-            @include col(0 1 $width);
         }
     }
 }
@@ -135,37 +163,21 @@
 
 // Generates fixed and flex classes for a given breakpoint
 @mixin generate-fixed-flex-columns($breakpointName) {
-    // Fixed & flex column layout approach:
-    // Give fixed columns `width: Npx` and let them inherit `float: left`. Give flex columns `margin-left: Npx` and apply `float: none` and `width: 100%`. This works except that the flex columns are always 1 pixel taller than the fixed columns due to floats being handled differently.
-    // We avoid floats using `calc()` which has good browser support but not quite 100% yet. Fixed columns are the same as above (`width: Npx`, inherit `float:left`). Flex columns use `width: calc(100% - Npx)` and no `margin-left`.
-
-    // Fixed:
-
+    // Fixed
     @each $size in $cui-grid-fixed-sizes {
+        // Convert `33pc` and split it up into `33` and `%`
         $x: getNumberAndUnit($size);
         $value: nth($x, 1);
         $unit: nth($x, 2);
 
         .cui-fixed-col-#{$breakpointName}-#{$size} {
-            @include col(0 1 #{$value}#{$unit});
-            max-width: #{$value}#{$unit};
+            @include col-fixed($width: #{$value}#{$unit});
         }
     }
 
-    // Flexible:
-
-    // Automatic sizing
-    .cui-col-#{$breakpointName} {
-        @include col(1 0 auto);
-
-        // Need to override any specific values from other breakpoints
-        // For example, `<div class="cui-col-small-6 cui-col-large">` would inherit 50% width from the `small` class even when the screen size is large
-        flex-basis: auto;
-        max-width: none;
-    }
-
-    // Specific flex sizes
+    // Flex
     @each $size in $cui-grid-flex-sizes {
+        // Convert `33pc` and split it up into `33` and `%`
         $x: getNumberAndUnit($size);
         $value: nth($x, 1);
         $unit: nth($x, 2);

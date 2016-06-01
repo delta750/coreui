@@ -1,8 +1,5 @@
 //   ========================================================
-// * @name       _utilities/_variables.scss
-// * @desc       sass variables
-// * @author     Manolo Farfan, Craig Patik
-// * @version    1.0.0.20150204
+// * @desc       Global Sass variables
 // * @see        https://github.com/ny/coreui
 //   ========================================================
 
@@ -54,6 +51,7 @@ $cui-color-light-blue:           #19a6e2 !default;
 
 // Partials
 $cui-text-color:    $cui-color-dark-gray !default;
+$cui-bg-color:      $cui-color-white !default;
 $cui-heading-color: $cui-text-color !default;
 $cui-input-color:   $cui-text-color !default;
 $cui-code-color:    $cui-color-success-text !default;
@@ -91,6 +89,12 @@ $cui-input-font-weight:     $cui-font-weight-light !default;
 $cui-input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6) !default;
 
 $cui-input-difference-in-padding-value: 1px !default;
+
+$cui-inputgroup-padding-top:     (1.5 * $cui-input-padding-top) !default;
+$cui-inputgroup-padding-right:   (2 * $cui-input-padding-right) !default;
+$cui-inputgroup-padding-bottom:  (1.5 * $cui-input-padding-bottom) !default;
+$cui-inputgroup-padding-left:    (2 * $cui-input-padding-left) !default;
+$cui-inputgroup-padding:         $cui-inputgroup-padding-top $cui-inputgroup-padding-right $cui-inputgroup-padding-bottom $cui-inputgroup-padding-left !default;
 
 
 // * @section    Buttons
@@ -158,7 +162,7 @@ $cui-grid-use-legacy-styles: false !default;
 $cui-grid-column-count:      12 !default;
 
 // Sizes for fixed column classes
-$cui-grid-fixed-sizes: (100px, 200px, 33pc, 67pc) !default;
+$cui-grid-fixed-sizes: (100px, 200px, 400px, 33pc, 67pc) !default;
 // Sizes for flexible column classes -- these should generally mirror and/or complement the fixed column sizes defined above
 $cui-grid-flex-sizes:  (100px, 200px, 300px, 400px, 33pc, 67pc) !default;
 

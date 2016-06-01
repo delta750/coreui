@@ -1,7 +1,5 @@
 //   ========================================================
-// * @name       _grid.scss
 // * @desc       Responsive grid styles
-// * @version    1.0.0.20150526
 // * @see        https://github.com/ny/coreui
 //   ========================================================
 
@@ -15,6 +13,10 @@
     @include row;
 }
 
+.cui-row-nowrap {
+    @include row(false);
+}
+
 .cui-legacy-row {
     @include legacy-row;
 }
@@ -24,7 +26,7 @@
 }
 
 [class*="cui-fixed-col-"] {
-    @include fixed-col;
+    @include col-fixed;
 }
 
 [class*="cui-legacy-col-"] {
@@ -40,35 +42,44 @@ nav > header {
     @include clearfix;
 }
 
-// Flexible columns
-// These give all columns equal width with their siblings without having to specify a breakpoint or number. If used in conjunction with fixed columns, these columns will fill the remaining space.
 
+// * @section    Generate column classes
+// * @note       These must be generated before the special classes such as `.col-col` so that the `flex-basis` and `max-width` properties will cascade properly
+// * --------------------------------------------------------
+@include generate-grid($cui-grid-column-count);
+
+
+// * @section    Special column classes
+// * --------------------------------------------------------
+
+// Fluid columns
+
+// These give all sibling columns equal width without having to specify a breakpoint or number. If used in conjunction with fixed columns, these columns will fill the remaining space.
+// Note that an element with `class="cui-col-small-12 cui-col-medium"` would use the and `max-width` applied to the small class even at medium screen size which is why we're repeating the property here.
+
+// Equal width for any screen size
 .cui-col {
-    @include col;
-}
-
-.cui-col-small {
-    @include col; // (1);
+    @include col-fluid;
 }
 
 // Use these breakpoint-specific classes to restrict the behavior
-// For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens and equal-width on medium screens
+// For example, `<div class="cui-col-small-12 cui-col-medium">` will be full-width (stacked) on small screens but equal-width on medium screens
+
+.cui-col-small {
+    @include col-fluid;
+}
+
 @include pointbreak($cui-bp-medium) {
     .cui-col-medium {
-        @include col; // (1);
+        @include col-fluid;
     }
 }
 
 @include pointbreak($cui-bp-large) {
     .cui-col-large {
-        @include col; // (1);
+        @include col-fluid;
     }
 }
-
-
-// * @section    Generate column classes
-// * --------------------------------------------------------
-@include generate-grid($cui-grid-column-count);
 
 
 // * @section    Visibility classes
