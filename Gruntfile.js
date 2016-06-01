@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                 'core/**/*.html',
                 'components/**/*.html',
                 'project/**/*.html',
-                '!src/**/*.html',
+                '!_src/**/*.html',
             ],
         },
 
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/assets/css',
+                        cwd: '_src/assets/css',
                         src: ['**/*.css'],
                         dest: 'assets/css',
                         filter: 'isFile',
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
                     },
                     {
                         expand: true,
-                        cwd: 'src/assets/images',
+                        cwd: '_src/assets/images',
                         src: ['**/*.*'],
                         dest: 'assets/images',
                         filter: 'isFile',
@@ -59,13 +59,25 @@ module.exports = function (grunt) {
                     compressStyle: true,
                 },
             },
-            docs: {
+            dev: {
                 options: {
-                    layout: 'src/assets/templates/default.html',
+                    layout: '_src/assets/templates/development.html',
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src',
+                    cwd: '_src',
+                    src: ['**/*.md'],
+                    dest: '',
+                    ext: '.html',
+                }],
+            },
+            dist: {
+                options: {
+                    layout: '_src/assets/templates/default.html',
+                },
+                files: [{
+                    expand: true,
+                    cwd: '_src',
                     src: ['**/*.md'],
                     dest: '',
                     ext: '.html',
@@ -83,7 +95,7 @@ module.exports = function (grunt) {
             // Docs
             docs: {
                 files: [
-                    'src/**/*.*',
+                    '_src/**/*.*',
                 ],
                 tasks: [
                     'md2html',
@@ -111,7 +123,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dev', 'Development', function (args) {
         grunt.task.run([
             'clean',
-            'md2html',
+            'md2html:dev',
             'copy',
             'connect',
             'watch',
@@ -122,7 +134,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dist', 'Build documentation', function (args) {
         grunt.task.run([
             'clean',
-            'md2html',
+            'md2html:dist',
             'copy',
         ]);
     });
