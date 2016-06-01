@@ -1,8 +1,5 @@
 //   ========================================================
-// * @name       _form.scss
-// * @desc       Form and form tag styles
-// * @author     Manolo Farfan, Craig Patik
-// * @version    1.0.0.20141231
+// * @desc       Form field styles
 // * @see        https://github.com/ny/coreui
 //   ========================================================
 
@@ -14,84 +11,14 @@ form {
 }
 
 
-// * @section    Form tags like input, select, textarea, etc.
-// * --------------------------------------------------------
-
-
-// * @section    Selection groups
-// * --------------------------------------------------------
-// Add media queries to ignore IE8
-@media (min-width: 0px) {
-    .cui-selection-group {
-        label {
-            display: block;
-            float: left;
-            @include user-select;
-            // Colors and paddings matches buttons styles
-            background-color: $cui-color-white;
-            padding: $cui-button-padding;
-            border: $cui-input-border;
-            text-shadow: $cui-color-white 0px 1px 0px;
-            line-height: $cui-line-height;
-
-            // Keep this line (must come after default `border` definition)
-            border-right: none;
-
-            // First label in the group
-            &:first-of-type {
-                border-top-left-radius: $cui-input-border-radius;
-                border-bottom-left-radius: $cui-input-border-radius;
-            }
-
-            // Last label in the group
-            &:last-of-type {
-                border-top-right-radius: $cui-input-border-radius;
-                border-bottom-right-radius: $cui-input-border-radius;
-
-                // Color matches buttons styles
-                border-right: $cui-input-border;
-            }
-
-            &:hover {
-                // Color matches buttons
-                background-color: $cui-button-bg-color;
-            }
-
-            &:active {
-                @include button-primary-active;
-            }
-        }
-
-        // Hide inputs off screen
-        input {
-            @include hide;
-        }
-
-        // Highlighted label
-        input:checked + label {
-            // Color matches buttons styles
-            background-color: $cui-input-bg-hover-color;
-
-            &:hover {
-                // Color matches buttons
-                background-color: $cui-button-bg-color;
-            }
-
-            &:active {
-                @include button-primary-active;
-            }
-        }
-    }
-}
-
-
-// * @section    Form tags like input, select, textarea, etc.
-// * @todo       Add Proxima Nova + other default NYGOV fonts
+// * @section    Form input elements
 // * --------------------------------------------------------
 input,
 textarea,
 select {
-    font: 100% $cui-font-family;
+    font-family: $cui-font-family;
+    font-size: 100%;
+    font-weight: $cui-input-font-weight;
     border-radius: $cui-input-border-radius;
     border: $cui-input-border;
     padding: $cui-input-padding;
@@ -123,11 +50,6 @@ input[type="image"] {
     border: none;
 }
 
-fieldset {
-    @include no-padding-margin;
-    border: none;
-}
-
 .cui-currency input {
     text-align: right;
 }
@@ -136,18 +58,199 @@ textarea {
     resize: vertical;
 }
 
+fieldset {
+    @include no-padding-margin;
+    border: none;
+}
 
-// * @section    Input field appends/prepends
+.cui-data {
+}
+
+// * @section    Labels
+// * --------------------------------------------------------
+label,
+legend {
+    color: $cui-color-dark-gray;
+    width: auto;
+}
+
+legend {
+    white-space: normal;
+    display: inline-block;
+}
+
+.cui-label {
+    cursor: default; // Ensures all "labels" get the same arrowhead cursor whether or not they contain a `<label>` element
+}
+
+.cui-required {
+    .cui-label {
+        label,
+        legend,
+        span {
+            position: relative;
+
+            &:after {
+                @include required-asterisk;
+
+                .cui-inline-field & {
+                    @include required-asterisk($isInlineField: true);
+                }
+            }
+        }
+    }
+}
+
+
+// * @section    Fields, i.e. a collection of label + data
+// * --------------------------------------------------------
+.cui-field {
+    margin-bottom: $cui-input-font-size;
+
+    .cui-label,
+    .cui-data {
+        display: block;
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
+
+        // Apply the same styles that `<legend>` gets in any context (further up in this file)
+        label {
+            white-space: normal;
+            display: inline-block;
+        }
+    }
+
+    .cui-label {
+        min-height: $cui-font-size * 2;
+    }
+}
+
+
+// * @section    Fields with inline label and data on the same line
+// * @desc       The label and data text wrap independently
+// *             such that they are top-aligned.
+// *
+// *             Example:
+// *
+// *             My Label is    So is the data... When the
+// *             too long:      data inside this container
+// *                            gets longer than the label,
+// *                            the data here should remain
+// *                            in place and not move or wrap
+// *                            below the label.
+// * --------------------------------------------------------
+.cui-inline-field {
+    .cui-field {
+        display: flex;
+        margin-bottom: 0;
+
+        .cui-label,
+        .cui-data {
+            @include col;
+
+            @if $cui-line-height == normal {
+                line-height: (2 * 1.4); // Assume that `normal` corresponds to 1.4, which is the case for many browsers
+            }
+            @else {
+                line-height: (2 * $cui-line-height);
+            }
+        }
+
+        .cui-label {}
+
+        .cui-data {
+            margin-left: $cui-input-font-size; // Space between the label and data
+        }
+
+        .cui-input-wrapper {
+            display: flex;
+
+            input {
+            }
+
+            .cui-input-append {
+            }
+        }
+    }
+}
+
+
+// * @section    Selection groups
+// * --------------------------------------------------------
+.cui-selection-group {
+    display: flex;
+
+    .cui-inline-field & {
+        position: relative;
+        top: (0.25 * $cui-font-size);
+    }
+
+    label {
+        flex: 0 1 auto;
+        @include user-select;
+        line-height: $cui-line-height;
+
+        // Colors and paddings matches buttons styles
+        background-color: $cui-color-white;
+        text-shadow: $cui-color-white 0px 1px 0px;
+        padding: $cui-inputgroup-padding;
+        border: $cui-input-border;
+        border-right: none; // This line must come after default `border` definition
+
+        // First label in the group
+        &:first-of-type {
+            border-top-left-radius: $cui-input-border-radius;
+            border-bottom-left-radius: $cui-input-border-radius;
+        }
+
+        // Last label in the group
+        &:last-of-type {
+            border-top-right-radius: $cui-input-border-radius;
+            border-bottom-right-radius: $cui-input-border-radius;
+            border-right: $cui-input-border; // Color matches buttons styles
+        }
+
+        &:hover {
+            background-color: $cui-button-bg-color; // Color matches buttons
+        }
+
+        &:active {
+            @include button-primary-active;
+        }
+    }
+
+    // Hide inputs off screen
+    input {
+        @include hide;
+    }
+
+    // Highlighted label
+    input:checked + label {
+        background-color: $cui-input-bg-hover-color; // Color matches buttons styles
+
+        &:hover {
+            background-color: $cui-button-bg-color; // Color matches buttons
+        }
+
+        &:active {
+            @include button-primary-active;
+        }
+    }
+}
+
+
+// * @section    Input groups and field appends/prepends
 // * --------------------------------------------------------
 .cui-input-wrapper {
-    display: table;
+    display: flex;
+    @include col;
     border-collapse: separate; // Prevent input groups from inheriting border styles from table cells when placed within a table
 
     input,
     select,
-    .input-prepend,
-    .input-append {
-        display: table-cell;
+    .cui-input-prepend,
+    .cui-input-append {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-bottom-left-radius: 0;
@@ -156,69 +259,65 @@ textarea {
     }
 
     // Keep borders rounded if no prepend
-    :first-child:not(.input-prepend) {
+    *:first-child:not(.cui-input-prepend) {
         border-top-left-radius: $cui-input-border-radius;
         border-bottom-left-radius: $cui-input-border-radius;
     }
 
     // Keep borders rounded if no append
-    :last-child:not(.input-append) {
+    *:last-child:not(.cui-input-append) {
         border-top-right-radius: $cui-input-border-radius;
         border-bottom-right-radius: $cui-input-border-radius;
     }
 
-    input,
-    select {
-        float: left; // For IE9, see https://github.com/twbs/bootstrap/issues/11561#issuecomment-28936855
-    }
-
-    .input-prepend,
-    .input-append {
+    .cui-input-prepend,
+    .cui-input-append {
+        @include col(0 0 auto);
         line-height: $cui-line-height;
         border: $cui-input-border;
         @include box-sizing(content-box);
         background: $cui-input-bg-hover-color;
         vertical-align: middle;
-        width: 1%;
         white-space: nowrap;
         text-align: center;
+        padding: $cui-input-padding;
     }
 
-    // When the input group is inside some other element besides `.cui-data`
-    // For example `.cui-col-small-12` or some other basic container
-    // This is because `.cui-data` uses `display: table` which prevents the container from filling the entire width of its parent
-    *:not(.cui-data) > & {
-        .input-prepend,
-        .input-append {
-            width: auto;
-        }
-    }
-
-    .input-prepend {
+    .cui-input-prepend {
         border-right: none;
         border-top-left-radius: $cui-input-border-radius;
         border-bottom-left-radius: $cui-input-border-radius;
     }
 
-    .input-append {
+    .cui-input-append {
         border-left: none;
         border-top-right-radius: $cui-input-border-radius;
         border-bottom-right-radius: $cui-input-border-radius;
     }
 
-    // When currency keep number inside input closer to append
-    &.cui-currency input {
-        padding-right: 4px;
-    }
+    &.cui-currency {
+        input {
+            flex: 0 1 auto;
+            padding-right: 4px; // Keep number inside input closer to append
+        }
 
-    // When currency keep number inside append closer to input
-    &.cui-currency .input-append {
-        padding-left: 4px;
+        .cui-input-prepend {
+            flex: 0 0 (1 * $cui-input-font-size);
+            max-width: (1 * $cui-input-font-size);
+            line-height: (1.5 * $cui-input-font-size); // Use 50% more than the input's font size so the text vertically aligns
+        }
+
+        .cui-input-append {
+            padding-left: 4px; // Keep number inside append closer to input
+            flex: 0 0 (1.5 * $cui-input-font-size);
+            max-width: (1.5 * $cui-input-font-size);
+            line-height: (1.5 * $cui-input-font-size); // Use 50% more than the input's font size so the text vertically aligns
+        }
     }
 }
 
 
-// * @section    Suppress spinners on number inputs
+// * @section    Suppress spinners on numeric inputs
 // * --------------------------------------------------------
 input[type=number].cui-hide-spinner::-webkit-inner-spin-button,
 input[type=number].cui-hide-spinner::-webkit-outer-spin-button {

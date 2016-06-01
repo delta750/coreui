@@ -1,5 +1,4 @@
 //   ========================================================
-// * @name       _utilities/_mixins.scss
 // * @desc       Sass mixins
 // * @see        https://github.com/ny/coreui
 //   ========================================================
@@ -417,12 +416,19 @@
     @return ($value, $unit);
 }
 
-@mixin required-asterisk() {
+@mixin required-asterisk($isInlineField: false) {
     content: "*";
     color: $cui-color-required-red;
     font: $cui-font-required;
     font-weight: $cui-font-weight-semibold;
     position: absolute;
-    right: -3px;
-    top: 2px;
+
+    @if $isInlineField == false {
+        top: (0 * $cui-input-font-size);
+        right: (-0.5 * $cui-input-font-size);
+    }
+    @else {
+        top: (0.5 * $cui-input-font-size);
+        right: (-0.5 * $cui-input-font-size);
+    }
 }
