@@ -37,6 +37,8 @@ Components are the foundation of Core UI.
 
 [Tutorial: Creating a component](components/tutorial.html)
 
+[Example components and boilerplates](https://github.com/nyfrg/coreui-sample-components)
+
 ## Contributing
 
 [How to contribute](contributing.html)

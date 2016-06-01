@@ -9,7 +9,7 @@ Here we will create a Hello World component which will append a simple text mess
 Be sure to have the following:
 
 - An up-to-date copy of [Core UI](https://github.com/ny/coreui)
-- [Node JS](https://nodejs.org/) (version 0.10 is recommended; newer versions are not yet supported)
+- [Node JS](https://nodejs.org/) (version 4.x is recommended; newer versions are not yet supported)
 
 ## Adding JavaScript
 
@@ -131,7 +131,7 @@ And now the plugin is ready. For reference, here is the [complete `helloWorld.js
 To try out the component we can create a short HTML file. Let's put it in the `tests` folder so we can reuse the file for testing later. Create the file `src/project/components/helloWorld/tests/helloWorld.html` and add the following:
 
 ```html
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -144,7 +144,7 @@ To try out the component we can create a short HTML file. Let's put it in the `t
 
         <script id="require" src="../../js/main.js"></script>
         <script>
-            require(['helloWorld', 'domReady!'], function() {
+            require(['jquery', 'helloWorld', 'domReady!'], function ($, helloWorld) {
                 // ID test
                 $('#helloWorld').helloWorld();
             });
@@ -258,7 +258,7 @@ The built in method `cui.load` can load components, for example:
 
 ```js
     cui.load('helloWorld', function() {
-        // Kick of the helloWorldPlugin
+        // Kick off the helloWorldPlugin
         conditionalElem.helloWorld();
     });
 ```
@@ -268,7 +268,7 @@ To run this conditionally we can wrap an `if` statement around it. Suppose you o
 ```js
     if ($('p').length > 0) {
         cui.load('helloWorld', function() {
-            // Kick of the helloWorldPlugin
+            // Kick off the helloWorldPlugin
             conditionalElem.helloWorld();
         });
     }
@@ -277,7 +277,7 @@ To run this conditionally we can wrap an `if` statement around it. Suppose you o
 To try this, create a second test page in the component's `tests` folder called `helloWorld-lazy.html` and add the following:
 
 ```html
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -291,26 +291,20 @@ To try this, create a second test page in the component's `tests` folder called 
 
         <script id="require" src="../../js/main.js"></script>
         <script>
-
-            // Wait for the page to be ready
-            require(['domReady!'], function() {
-
+            // Wait for jQuery to load and for the page to be ready
+            require(['jquery', 'domReady!'], function ($) {
                 // Query the page for specific elements with specific classes
                 var $paragraphs = $('p');
 
                 // Check to see if the page has any paragraphs
                 if ($paragraphs.length > 0) {
-
                     // We have elements, so using the `cui` namespace load the helloWorld Component
-                    cui.load('helloWorld', function() {
-
+                    cui.load('helloWorld', function () {
                         // Call the helloWorldPlugin
                         $paragraphs.helloWorld();
                     });
                 }
-
             });
-
         </script>
     </body>
 </html>
@@ -322,3 +316,4 @@ Now edit the file to uncomment the `<p>` element and refresh the page. This time
 
 For reference, here is a complete of the [helloWorld-lazy.html test page](https://gist.github.com/JeffHerb/aa9d25c9b615093fb324).
 
+You may also wish to view the repository of [example components](https://github.com/nyfrg/coreui-sample-components) as a reference. In particular, the [jQuery plugin example](https://github.com/nyfrg/coreui-sample-components/tree/master/examples/jqueryPlugin) resembles what you created with this tutorial.

@@ -185,13 +185,13 @@
                 ],
             },
 
-            sampleAdvancedDocs: {
+            shortcutDocs: {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/project/components/sampleAdvanced/dist/docs',
+                        cwd: 'src/project/components/shortcut/dist/docs',
                         src: ['**/*.*'],
-                        dest: 'docs/components/sampleAdvanced',
+                        dest: 'docs/components/shortcut',
                     },
                 ],
             },
@@ -239,9 +239,28 @@
         },
 
         md2html: {
+            options: {
+                highlightjs: {
+                    enabled: true,
+                    style: 'github',
+                    compressStyle: true,
+                },
+            },
             docs: {
                 options: {
                     layout: 'src/cui/docs/src/assets/templates/default.html',
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/cui/docs/src',
+                    src: ['**/*.md'],
+                    dest: 'docs',
+                    ext: '.html',
+                }],
+            },
+            external: {
+                options: {
+                    layout: 'src/cui/docs/src/assets/templates/external.html',
                 },
                 files: [{
                     expand: true,
@@ -428,13 +447,15 @@
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         grunt.task.run([
-            'componentFinder',
             'clean',
+            'md2html:docs', // Comment this out when you dont need the Getting Started docs any longer
+            'componentFinder',
             'copy',
             'svgmin',
             'sass',
             'requirejs',
             'concat',
+            'copy',
             'usebanner',
         ]);
     });
@@ -459,16 +480,33 @@
         // Run the development build process
         grunt.task.run([
             'clean',
-            'md2html', // Comment this out when you dont need the Getting Started docs any longer
+            'md2html:docs', // Comment this out when you dont need the Getting Started docs any longer
             'componentFinder',
             'copy',
             'svgmin',
             'sass',
             'requirejs',
             'concat',
+            'copy',
             'usebanner',
             'watch',
             'connect',
+        ]);
+    });
+
+    // Documentation for an external site
+    grunt.registerTask('docs', 'Documentation', function (args) {
+        grunt.task.run([
+            'clean',
+            'md2html',
+            'componentFinder',
+            // 'svgmin',
+            'sass',
+            'requirejs',
+            'copy',
+            'clean', // Remove `dist` folder which is no longer needed
+            // 'concat',
+            // 'usebanner',
         ]);
     });
 

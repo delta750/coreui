@@ -2,7 +2,7 @@
 
 A component should be used whenever a particular feature or function can be abstracted enough to live and work on its own. By default components are self-contained and should not need to many external dependencies. jQuery and the `cui.` namespace will likely cover most external dependencies.
 
-*This documentation is meant for advanced developers who are already familiar with [using components](index.html) in Core UI.*
+*This documentation is meant for advanced developers who are already familiar with [using components](index.html) in Core UI. You may also wish to view the repository of [example components](https://github.com/nyfrg/coreui-sample-components) as a reference.*
 
 ## Structure
 

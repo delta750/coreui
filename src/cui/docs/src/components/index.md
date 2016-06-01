@@ -2,7 +2,7 @@
 
 Components are standalone modules consisting of JavaScript and/or CSS. Each component is completely independent and may be bundled with the project's JS/CSS or loaded separately (e.g. based on some condition).
 
-*This guide is for **implementing** a pre-made component in your project. For creating your own component, see the [simple tutorial documentation](tutorial.html)*
+*This guide is for **implementing** a pre-made component in your project. For creating your own component, see the [simple tutorial documentation](tutorial.html). You may also wish to view the repository of [example components](https://github.com/nyfrg/coreui-sample-components) as a reference.*
 
 ## Usage
 
@@ -16,7 +16,7 @@ There are a few different way to load components conditional. If a page is going
 
 ```js
 require(['component', 'domReady!'], function(c) {
-   
+
     // Page code
 
 });
@@ -29,20 +29,20 @@ require(['domReady!'], function(c) {
 
     // Check to see if a tool tip exists before loading it!
     if ($('.tooltip').length) {
-        
+
         // Load it!
         cui.load(['tooltip'],function() {
-            
+
             // Initialize tooltips
             $('.tooltip').tooltip();
-        }); 
+        });
     }
 }
 ```
 
 In the above example a instance of the tooltip plugin was found so it was load. The developer then simply inited the tooltips functionality based on tooltips component specification.
 
-`cui.load` can also be used to load many files all at once. 
+`cui.load` can also be used to load many files all at once.
 
 ```js
 cui.load(['tooltip', 'validator']);
