@@ -1,4 +1,4 @@
-    module.exports = function(grunt) {
+module.exports = function (grunt) {
     // Banner for JavaScript files
     // The info comes from package.json -- see http://gruntjs.com/configuring-tasks#templates for more about pulling in data from files
     // Insert the Live Reload script
@@ -38,7 +38,8 @@
                 force:true
             },
             dist: [
-                'dist'
+                'dist',
+                'docs',
             ],
         },
 
@@ -100,6 +101,13 @@
                     },
                     {
                         expand: true,
+                        cwd: 'src/project/html/',
+                        src: ['**/*.html'],
+                        dest: 'dist',
+                        filter: 'isFile',
+                    },
+                    {
+                        expand: true,
                         cwd: 'src/cui/docs/',
                         src: [
                                 '**/*.html',
@@ -110,8 +118,11 @@
                     },
                     {
                         expand: true,
-                        cwd: 'src/project/html/',
-                        src: ['**/*.html'],
+                        cwd: 'src/project/docs/',
+                        src: [
+                                '**/*.html',
+                                '!src/**/*.html',
+                            ],
                         dest: 'dist',
                         filter: 'isFile',
                     },
@@ -167,7 +178,7 @@
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/project/components/modal/dist/docs',
+                        cwd: 'src/cui/components/modal/dist/docs',
                         src: ['**/*.*'],
                         dest: 'docs/components/modal',
                     },
@@ -178,7 +189,7 @@
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/project/components/popover/dist/docs',
+                        cwd: 'src/cui/components/popover/dist/docs',
                         src: ['**/*.*'],
                         dest: 'docs/components/popover',
                     },
@@ -189,7 +200,7 @@
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/project/components/shortcut/dist/docs',
+                        cwd: 'src/cui/components/shortcut/dist/docs',
                         src: ['**/*.*'],
                         dest: 'docs/components/shortcut',
                     },
@@ -228,8 +239,7 @@
                         jQuery: false,
                         define: false,
                         require: false,
-                        emp: false,
-                        fwData: false,
+                        cui: false,
                     },
                 },
                 src: [
@@ -252,19 +262,7 @@
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src/cui/docs/src',
-                    src: ['**/*.md'],
-                    dest: 'docs',
-                    ext: '.html',
-                }],
-            },
-            external: {
-                options: {
-                    layout: 'src/cui/docs/src/assets/templates/external.html',
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'src/cui/docs/src',
+                    cwd: 'src/project/docs',
                     src: ['**/*.md'],
                     dest: 'docs',
                     ext: '.html',
@@ -280,14 +278,14 @@
                     name: '../tasks/libs/requireManager/temp/settings', // Where the generated temp file will be
                     paths: {}, // Generate build file
                     include: [
-                        "requirejs",
-                        "css",
-                        "text",
-                        "json",
-                        "domReady",
-                        "lazyLoader",
-                        "jquery",
-                        "cui"
+                        'requirejs',
+                        'css',
+                        'text',
+                        'json',
+                        'domReady',
+                        'lazyLoader',
+                        'jquery',
+                        'cui',
                     ],
                     optimize: 'none', // 'uglify2',
                     generateSourceMaps: true,
@@ -302,7 +300,7 @@
             main: {
                 options: {
                     sourceMap: true,
-                    outputStyle: 'nested', // Options: "nested", "compressed" (i.e. minified)
+                    outputStyle: 'nested', // Options: 'nested', 'compressed' (i.e. minified)
                 },
                 files: {
                     'dist/css/main.css': 'src/project/scss/project.scss',
@@ -317,7 +315,9 @@
                 plugins: [
                     // Full list of plugins that can be disabled: https://github.com/svg/svgo/tree/master/plugins
                     // To disable one, add a new object to this array, e.g. `{pluginName: false}`
-                    { removeUselessStrokeAndFill: false },  // don't remove Useless Strokes and Fills
+                    {
+                        removeUselessStrokeAndFill: false, // don't remove Useless Strokes and Fills
+                    },
                 ],
             },
             dist: {
@@ -326,9 +326,9 @@
                         expand: true,
                         cwd: 'src/',
                         src: [
-                                'cui/images/**.svg',
-                                'project/images/**.svg'
-                            ],
+                            'cui/images/**.svg',
+                            'project/images/**.svg'
+                        ],
                         dest: 'dist/images',
                         filter: 'isFile',
                         flatten: true,
@@ -346,7 +346,9 @@
                     linebreak: true
                 },
                 files: {
-                    src: [ 'dist/css/components/**/*.css' ],
+                    src: [
+                        'dist/css/components/**/*.css',
+                    ],
                 },
             },
             jsBanner: {
@@ -356,7 +358,9 @@
                     linebreak: true
                 },
                 files: {
-                    src: [ 'dist/js/components/**/*.js' ],
+                    src: [
+                        'dist/js/components/**/*.js',
+                    ],
                 },
             },
         },
@@ -378,40 +382,46 @@
             // Project styles
             styles: {
                 files: [
-                        'src/cui/scss/**/*.scss',
-                        'src/project/scss/**/*.scss',
-                       ],
+                    'src/cui/scss/**/*.scss',
+                    'src/project/scss/**/*.scss',
+                ],
                 tasks: ['sass:main'],
             },
 
             // Project HTML
             html: {
-                files: ['src/project/html/**/*.html'],
+                files: [
+                    'src/cui/html/**/*.html',
+                    'src/project/html/**/*.html',
+                ],
                 tasks: ['copy:html'],
             },
 
-            // CUI docs
-            cuiDocs: {
+            // Documentation
+            docs: {
                 files: [
                     'src/cui/docs/**/*.*',
                     'src/project/docs/**/*.*',
                 ],
-                tasks: ['copy:docs'],
+                tasks: [
+                    'md2html',
+                    'copy:docs',
+                ],
             },
         },
-
     });
 
     ////////////////
     // Main tasks //
     ////////////////
 
-    // Load npm based tasks
+    // Load NPM-based tasks
     require('load-grunt-tasks')(grunt);
 
-    // Load local tasks in the task folder.
+    // Load local tasks
     grunt.loadTasks('tasks');
 
+    // Production build
     grunt.registerTask('prod', 'Production', function (args) {
 
         // Change some setting to optimize the build
@@ -448,7 +458,7 @@
 
         grunt.task.run([
             'clean',
-            'md2html:docs', // Comment this out when you dont need the Getting Started docs any longer
+            'md2html',
             'componentFinder',
             'copy',
             'svgmin',
@@ -463,7 +473,7 @@
     // Alias for production build
     grunt.registerTask('dist', 'prod');
 
-    // Development: compile script and styles, start a local server, and watch for file changes
+    // Development build: compile script and styles, start a local server, and watch for file changes
     // Only use this for local development
     grunt.registerTask('dev', 'Development', function (args) {
         // Dynamically alter tasks when dev is called specifically
@@ -471,7 +481,7 @@
         // Get Concat settings
         var concatObj = grunt.config.get('concat');
 
-        // Add liveload to the footer
+        // Add livereload to the footer of the JS file
         concatObj.js.options['footer'] = liveReloadInjection;
 
         // Update concat
@@ -480,7 +490,7 @@
         // Run the development build process
         grunt.task.run([
             'clean',
-            'md2html:docs', // Comment this out when you dont need the Getting Started docs any longer
+            'md2html',
             'componentFinder',
             'copy',
             'svgmin',
@@ -491,22 +501,6 @@
             'usebanner',
             'watch',
             'connect',
-        ]);
-    });
-
-    // Documentation for an external site
-    grunt.registerTask('docs', 'Documentation', function (args) {
-        grunt.task.run([
-            'clean',
-            'md2html',
-            'componentFinder',
-            // 'svgmin',
-            'sass',
-            'requirejs',
-            'copy',
-            'clean', // Remove `dist` folder which is no longer needed
-            // 'concat',
-            // 'usebanner',
         ]);
     });
 

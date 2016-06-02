@@ -17,7 +17,6 @@ src/project/libs/*/tasks
 src/cui/scss/_utilities/_assets.scss
 
 # Temp
-local_docs/
 tasks/libs/componentFinder/logs
 tasks/libs/componentFinder/temp
 tasks/libs/configDebug/logs
@@ -30,6 +29,4 @@ tasks/libs/requireManager/temp
 */.gitignore
 .DS_Store
 Thumbs.db
-
-# For GitEYE GUI
 /.project
