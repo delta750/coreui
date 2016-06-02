@@ -3,7 +3,7 @@ node_modules/
 dist/
 /docs/
 /tests/
-js-compiled/
+temp/
 
 !/src/cui/docs/
 !/src/project/components/*/docs
