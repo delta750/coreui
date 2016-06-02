@@ -29,3 +29,12 @@ li {
         padding-right: $cui-list-inline-spacing;
     }
 }
+
+// Displays list items horizontally
+.cui-inline-list {
+    list-style: none outside none;
+
+    li {
+        display: inline-block;
+    }
+}

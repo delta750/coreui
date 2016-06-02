@@ -16,11 +16,11 @@ a:visited,
 a:focus {
     color: $cui-link-color;
     font-weight: $cui-font-weight-semibold;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
     color: $cui-link-color-hover;
 }
 
