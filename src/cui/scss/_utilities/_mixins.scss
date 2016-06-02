@@ -320,16 +320,29 @@
 }
 
 
-// * @section    Pixel to em conversion utility
+// * @section    Pixel-em conversion
 // * --------------------------------------------------------
-@function pxToem($px, $base: $cui-font-size) {
+
+// Pixels to ems
+@function pixelToEm($px: 16, $base: $cui-font-size) {
     @return ($px / $base) * 1em;
+}
+
+// Ems to pixels
+@function emToPixel($em: 1em, $base: $cui-font-size) {
+    // Get unit-less value for ems
+    $em: toNumber($em);
+
+    // Get unitless value for pixels
+    $base: toNumber($base);
+
+    @return (($em * $base) * 1px); // Multiply by 1px because that will safely append 'px' to the result. See https://gist.github.com/awestmoreland/5554996
 }
 
 // Returns the unit from a value ("22px" -> "px")
 // Same as the native `unit()` method but it converts "pc" to "%"
 @function getUnit($val: "") {
-
+    // Default value
     $unit: "";
 
     // Make sure we're working with a string before checking the units
@@ -377,7 +390,7 @@
             @if not $index {
                 $result: if($minus, $result * -1, $result);
 
-                @return $result; // getLength($result, str-slice($string, $i));
+                @return $result;
             }
 
             $number: nth($numbers, $index);
