@@ -70,6 +70,12 @@ $cui-images-path:          "/dist/images/" !default;
 $cui-touch-min-height:     44px !default;
 
 
+// * @section    Fields
+// * --------------------------------------------------------
+$cui-field-line-height:        1.4 !default; // This corresponds to `normal` for many browsers
+$cui-inline-field-line-height: (2 * $cui-field-line-height) !default;
+
+
 // * @section    Inputs
 // * --------------------------------------------------------
 $cui-input-border-color:    $cui-color-light-gray-alt-2 !default;

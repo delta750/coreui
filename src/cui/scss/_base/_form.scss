@@ -41,7 +41,7 @@ input[type="checkbox"],
 input[type="radio"] {
     position: relative;
     top: 1px;
-    line-height: normal;
+    line-height: $cui-field-line-height;
 }
 
 input[type="checkbox"],
@@ -148,13 +148,7 @@ legend {
         .cui-label,
         .cui-data {
             @include col;
-
-            @if $cui-line-height == normal {
-                line-height: (2 * 1.4); // Assume that `normal` corresponds to 1.4, which is the case for many browsers
-            }
-            @else {
-                line-height: (2 * $cui-line-height);
-            }
+            line-height: $cui-inline-field-line-height;
         }
 
         .cui-label {}
@@ -189,7 +183,7 @@ legend {
     label {
         flex: 0 1 auto;
         @include user-select;
-        line-height: $cui-line-height;
+        line-height: $cui-field-line-height;
 
         // Colors and paddings matches buttons styles
         background-color: $cui-color-white;
@@ -273,7 +267,7 @@ legend {
     .cui-input-prepend,
     .cui-input-append {
         @include col(0 0 auto);
-        line-height: $cui-line-height;
+        line-height: $cui-field-line-height;
         border: $cui-input-border;
         @include box-sizing(content-box);
         background: $cui-input-bg-hover-color;
@@ -296,6 +290,10 @@ legend {
     }
 
     &.cui-currency {
+        position: relative;
+        // Vertically align with the label by offsetting it one-quarter of the different between the input's height and the data div's height
+        top: (($cui-inline-field-line-height - $cui-grid-column-min-height) / 4);
+
         input {
             flex: 0 1 auto;
             padding-right: 4px; // Keep number inside input closer to append
