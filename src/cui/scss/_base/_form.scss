@@ -239,7 +239,6 @@ legend {
 .cui-input-wrapper {
     display: flex;
     @include col;
-    padding: 0; // Override `@include col()` padding
     border-collapse: separate; // Prevent input groups from inheriting border styles from table cells when placed within a table
 
     input,
