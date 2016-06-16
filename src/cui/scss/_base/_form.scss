@@ -64,7 +64,7 @@ textarea {
     .cui-field & {
         line-height: $cui-line-height; // We don't want this to use `inherit` as defined in `_normalize.scss` because the parent has a much larger value
 
-        // Prevent textareas with large `cols` values from expanding off the side of small screens
+        // Prevent textareas with large `cols` values from expanding off the right edge of small screens
         //     Note that this style alone likely isn't enough. Depending on your project, you will need to remove any padding/margin on parent elements like this:
         //     max-width: calc(100% - $parent-margin - $parent-padding);
         max-width: 100%;
@@ -215,7 +215,7 @@ legend {
 // * @desc       The label and data text wrap independently
 // *             such that they are top-aligned.
 // * --------------------------------------------------------
-@include pointbreak($cui-bp-medium) {
+@include pointbreak($cui-bp-inline-labels) {
     .cui-inline-field {
         .cui-field {
             margin-bottom: 0;
@@ -228,7 +228,7 @@ legend {
             }
 
             .cui-label {
-                align-items: baseline; // Vertically align controls with label text
+                align-items: baseline; // Vertically align controls with the label text
                 width: auto;
 
                 .cui-desc,
@@ -249,6 +249,10 @@ legend {
 
             .cui-input-wrapper {
                 display: flex;
+            }
+
+            .cui-label + .cui-controls {
+                padding-left: 0; // Removes the space between label & controls when there is no data. Without this, the controls won't vertically align with the data in other fields that have labels of the same length.
             }
         }
 
