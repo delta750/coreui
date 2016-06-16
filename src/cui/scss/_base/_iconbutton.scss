@@ -11,4 +11,5 @@
 // * --------------------------------------------------------
 .cui-icon {
     @include button-icon;
+    background-color: pink;
 }

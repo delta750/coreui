@@ -4,7 +4,7 @@
 //   ========================================================
 
 
-// * @section    Fonts
+// * @section    Typography
 // * --------------------------------------------------------
 $cui-font-basic:           Arial, sans-serif !default;
 $cui-font-family:          "Open Sans", $cui-font-basic !default;
@@ -20,7 +20,9 @@ $cui-line-height:          normal !default;
 $cui-font-heading:         $cui-font-family !default;
 
 // Required asterisk
-$cui-font-required:        0.8em $cui-font-basic !default;
+$cui-required-font-size:   ($cui-font-size - 2px) !default;
+$cui-required-font-family: $cui-font-family !default;
+$cui-required-font-weight: $cui-font-weight-semibold !default;
 
 
 // * @section    Colors
@@ -70,12 +72,6 @@ $cui-images-path:          "/dist/images/" !default;
 $cui-touch-min-height:     44px !default;
 
 
-// * @section    Fields
-// * --------------------------------------------------------
-$cui-field-line-height:        1.4 !default; // This corresponds to `normal` for many browsers
-$cui-inline-field-line-height: (2 * $cui-field-line-height) !default;
-
-
 // * @section    Inputs
 // * --------------------------------------------------------
 $cui-input-border-color:    $cui-color-light-gray-alt-2 !default;
@@ -96,12 +92,22 @@ $cui-input-boxshadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(1
 
 $cui-input-difference-in-padding-value: 1px !default;
 
-$cui-inputgroup-padding-top:     (1.5 * $cui-input-padding-top) !default;
-$cui-inputgroup-padding-right:   (2 * $cui-input-padding-right) !default;
-$cui-inputgroup-padding-bottom:  (1.5 * $cui-input-padding-bottom) !default;
-$cui-inputgroup-padding-left:    (2 * $cui-input-padding-left) !default;
-$cui-inputgroup-padding:         $cui-inputgroup-padding-top $cui-inputgroup-padding-right $cui-inputgroup-padding-bottom $cui-inputgroup-padding-left !default;
+$cui-inputgroup-padding-top:    (1.5 * $cui-input-padding-top) !default;
+$cui-inputgroup-padding-right:  (2 * $cui-input-padding-right) !default;
+$cui-inputgroup-padding-bottom: (1.5 * $cui-input-padding-bottom) !default;
+$cui-inputgroup-padding-left:   (2 * $cui-input-padding-left) !default;
+$cui-inputgroup-padding:        $cui-inputgroup-padding-top $cui-inputgroup-padding-right $cui-inputgroup-padding-bottom $cui-inputgroup-padding-left !default;
 
+$cui-textarea-resize: vertical !default;
+
+
+// * @section    Fields
+// * --------------------------------------------------------
+$cui-field-line-height:        1.4 !default; // This corresponds to `normal` for many browsers
+$cui-inline-field-line-height: (2 * $cui-field-line-height) !default;
+$cui-field-flex-order: 99999 !default;
+$cui-field-space-between-label-and-data: $cui-input-font-size !default;
+$cui-field-use-asterisk-for-required-fields: true !default;
 
 // * @section    Buttons
 // * --------------------------------------------------------

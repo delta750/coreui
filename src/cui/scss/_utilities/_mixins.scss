@@ -37,16 +37,6 @@
     }
 }
 
-// Hide item but let it be overriden if needed
-@mixin hide-voluntary {
-    display: none;
-}
-
-// Force an item to be completely hidden
-@mixin hide-forced {
-    display: none !important;
-}
-
 // Hide an element in place. Try to use this as much as possible
 // (rather than `hide-off-screen`) because it won't cause side
 // effects with the viewport and doesn't resort to hacks
@@ -55,6 +45,16 @@
     position: absolute !important;
     clip: rect(0, 0, 0, 0) !important;
     clip: rect(0 0 0 0) !important;
+}
+
+// Hide item but let it be overridden if needed (i.e. by `!important`)
+@mixin hide-voluntary {
+    display: none;
+}
+
+// Force an item to be completely hidden
+@mixin hide-forced {
+    display: none !important;
 }
 
 // Hide an element by pushing it out of the viewport, to the left
@@ -79,36 +79,6 @@
     white-space: nowrap;
     overflow: hidden;
 }
-
-// // Force an element to be displayed
-// @mixin show-forced($class) {
-//     // Only render if a class was provided
-//     @if $dir != "" {
-//         // Default display type (inherit from parent)
-//         .#{$class} {
-//             display: inherit !important;
-//         }
-
-//         // Inline elements
-//         span.#{$class},
-//         a.#{$class} {
-//             display: inline !important;
-//         }
-
-//         // List elements
-//         li.#{$class} {
-//             display: list-item !important;
-//         }
-
-//         // Inline blocks
-//         input.#{$class},
-//         button.#{$class},
-//         select.#{$class},
-//         textarea.#{$class} {
-//             display: inline-block !important;
-//         }
-//     }
-// }
 
 @mixin box-sizing($val: border-box) {
     -moz-box-sizing: $val;
@@ -169,7 +139,7 @@
 
 // * @section    Sticky positioning
 // * --------------------------------------------------------
-// Must specify a `top` value and no parent may have `overflow: hidden`
+// You must specify a `top` value, and no parent element may have `overflow: hidden`
 @mixin position-sticky {
     position: -webkit-sticky;
     position:         sticky;
@@ -430,18 +400,23 @@
 }
 
 @mixin required-asterisk($isInlineField: false) {
-    content: "*";
-    color: $cui-color-required-red;
-    font: $cui-font-required;
-    font-weight: $cui-font-weight-semibold;
-    position: absolute;
+    @if $cui-field-use-asterisk-for-required-fields == true {
+        content: "*";
+        position: absolute;
+        color: $cui-color-required-red;
+        font-family: $cui-required-font-family;
+        font-size: $cui-required-font-size;
+        line-height: normal;
 
-    @if $isInlineField == false {
-        top: (0 * $cui-input-font-size);
-        right: (-0.5 * $cui-input-font-size);
-    }
-    @else {
-        top: (0.5 * $cui-input-font-size);
-        right: (-0.5 * $cui-input-font-size);
+        // Label is above the data
+        @if $isInlineField == false {
+            top: -2px;
+            right: (-0.6 * $cui-input-font-size);
+        }
+        // Label is next to the data
+        @else {
+            top: -1px;
+            right: (-0.6 * $cui-input-font-size);
+        }
     }
 }

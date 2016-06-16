@@ -8,7 +8,7 @@
     <meta name="title" content="Core UI grid | CoreUI's grid system for fixed, fluid layouts">
     <meta name="description" content="Core UI grid is a mobile first and responsive grid system for fixed, fluid and mixed layouts.">
     <meta name="keywords" content="Core UI, ITS, NY, CSS, grid, grid system, fixed, fluid, layout, mobile first, responsive">
-    <link href="/dist/css/main.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../../dist/css/main.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body class="debug">
     <style>
@@ -595,10 +595,10 @@
     <div class="cui-row cui-align-right">
         <div class="cui-col-small-12">
             <div class="cui-col-small-12 cui-col-medium-7 cui-inline-col-large cui-required">
-                <div class="cui-label">
+                <div class="cui-field-header">
                     <label for="age"><span class="cui-no-wrap">sm-12</span> <span class="cui-no-wrap">md-6</span> lg-auto:</label>
                 </div>
-                <div class="cui-data">
+                <div class="cui-field-body">
                     <select name="age" id="age" tabindex="1" aria-required="true">
                         <option></option>
                         <option selected="selected">A</option>
@@ -608,18 +608,18 @@
                 </div>
             </div>
             <div class="cui-col-small-12 cui-col-medium-5 cui-inline-col-large">
-                <div class="cui-label">
+                <div class="cui-field-header">
                     <span class="cui-no-wrap">sm-12</span> <span class="cui-no-wrap">md-6</span> lg-auto:
                 </div>
-                <div class="cui-data">
+                <div class="cui-field-body">
                     <span>B</span>
                 </div>
             </div>
             <div class="cui-col-small-12 cui-col-medium-12 cui-inline-col-large">
-                <div class="cui-label">
+                <div class="cui-field-header">
                    <span class="cui-no-wrap">sm-12</span> <span class="cui-no-wrap">md-12</span> lg-inline:
                 </div>
-                <div class="cui-data">
+                <div class="cui-field-body">
                     <span>C</span>
                 </div>
             </div>
@@ -728,7 +728,7 @@
         </div>
     </div>
 
-    <script id="require" src="/dist/js/main.js"></script>
+    <script id="require" src="../../../dist/js/main.js"></script>
     <script>
         require(['jquery', 'cui', 'domReady!'], function ($, cui) {
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <title>Template - Core UI</title>
-    <link href="/dist/css/main.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../../dist/css/main.css" rel="stylesheet" type="text/css" media="all">
     <style>
         .demo-margin {
             margin: 1em;
@@ -13,6 +13,19 @@
 
         .demo-margin-right {
             margin-right: 1em;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section > .cui-row {
+            margin: 10px;
+        }
+
+        section > header {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -71,360 +84,111 @@
 
             <section>
                 <header>
-                    <h3>Section 1</h3>
-                    <h4>Form fields</h4>
-                    <!-- Other "header" items would go here that don't belong in the H3, like icons or section-level controls -->
-                    <p>These fields are displayed with the labels above the inputs.</p>
+                    <h3>Form fields</h3>
+                    <!-- Other "header" items could go here that don't belong in the H3, like icons or section-level controls -->
                 </header>
 
                 <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <span>First name:</span>
-                        </div>
-                        <div class="cui-data">
-                            <span>John</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field cui-required">
-                        <div class="cui-label">
-                            <label for="lastName">Last name:</label>
-                        </div>
-                        <div class="cui-data">
-                            <input type="text" id="lastName" aria-required="true" size="20" maxlength="30" value="Smith" tabindex="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="date">Date:</label>
-                        </div>
-                        <div class="cui-data">
-                            <input type="text" class="date" id="date" data-date="{mask: 'mm/dd/yyyy'}" tabindex="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <fieldset>
-                        <div class="cui-field cui-required">
-                            <div class="cui-label">
-                                <legend>Name:</legend>
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-required">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Name:</legend>
+                                    </div>
+                                    <div class="cui-data">
+                                        <label for="name_first" class="cui-hide-from-screen">First</label>
+                                        <input type="text" class="cui-value" id="name_first" size="15" maxlength="20" value="John" tabindex="1">
+                                        <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
+                                        <input type="text" class="cui-value" id="name_middle" size="1" maxlength="1" value="Q" tabindex="1">
+                                        <label for="name_last" class="cui-hide-from-screen">Last</label>
+                                        <input type="text" class="cui-value" id="name_last" size="20" maxlength="30" value="Public" tabindex="1">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="cui-data">
-                                <label for="name_first" class="cui-hide-from-screen">First</label>
-                                <input type="text" id="name_first" size="15" maxlength="20" value="John" tabindex="1">
-                                <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
-                                <input type="text" id="name_middle" size="1" maxlength="1" value="Q" tabindex="1">
-                                <label for="name_last" class="cui-hide-from-screen">Last</label>
-                                <input type="text" id="name_last" size="20" maxlength="30" value="Public" tabindex="1">
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="taxType">Tax type:</label>
-                        </div>
-                        <div class="cui-data">
-                            <select id="taxType" tabindex="1">
-                                <option selected="selected" value="1">Personal income</option>
-                                <option value="2">Sales</option>
-                                <option value="3">Corporation</option>
-                            </select>
-                        </div>
+                        </fieldset>
                     </div>
                 </div>
 
                 <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <span>Button:</span>
-                        </div>
-                        <div class="cui-data">
-                            <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
-                            <button type="button" value="xyz" tabindex="1">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="targetAmount">Target Amount ($):</label>
-                        </div>
-                        <div class="cui-data">
-                            <div class="cui-input-wrapper cui-currency">
-                                <input type="text" id="targetAmount" value="1,908" tabindex="1">
-                                <span class="cui-input-append">.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <fieldset>
+                    <div class="cui-col">
                         <div class="cui-field">
-                            <div class="cui-label">
-                                <legend>Are you filing in this quarter?</legend>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-selection-group">
-                                    <input type="radio" name="radioGroupExample" id="radioGroupExample_Y" value="1" tabindex="1">
-                                    <label for="radioGroupExample_Y">Yes</label>
-                                    <input type="radio" name="radioGroupExample" id="radioGroupExample_N" checked="checked" value="2" tabindex="1">
-                                    <label for="radioGroupExample_N">No</label>
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="taxType" class="cui-desc">Tax type:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <select class="cui-value" id="taxType" tabindex="1">
+                                        <option selected="selected" value="1">Personal income</option>
+                                        <option value="2">Sales</option>
+                                        <option value="3">Corporation</option>
+                                    </select>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button">Verify</button>
                                 </div>
                             </div>
                         </div>
-                    </fieldset>
-                </div>
-
-                <div class="cui-row">
-                    <fieldset>
-                        <div class="cui-field">
-                            <div class="cui-label">
-                                <legend>Which quarters are you filing?</legend>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-selection-group">
-                                    <input type="checkbox" id="checkGroupExample_1" value="1" tabindex="1">
-                                    <label for="checkGroupExample_1">First</label>
-                                    <input type="checkbox" id="checkGroupExample_2" checked="checked" value="2" tabindex="1">
-                                    <label for="checkGroupExample_2">Second</label>
-                                    <input type="checkbox" id="checkGroupExample_3" value="3" tabindex="1">
-                                    <label for="checkGroupExample_3">Third</label>
-                                    <input type="checkbox" id="checkGroupExample_4" value="4" tabindex="1">
-                                    <label for="checkGroupExample_4">Fourth</label>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
+                    </div>
                 </div>
             </section>
 
+            <!-- ************************************************************************************************************************ -->
+            <!-- ************************************************************************************************************************ -->
+            <!-- ************************************************************************************************************************ -->
             <!-- Inline labels -->
+            <!-- ************************************************************************************************************************ -->
+            <!-- ************************************************************************************************************************ -->
+            <!-- ************************************************************************************************************************ -->
+
             <section class="cui-inline-field">
                 <header>
-                    <h3>Section 2</h3>
-                    <h4>Inline labels</h4>
+                    <h3>Inline labels</h3>
                     <p>These fields are displayed with the labels next to the inputs.</p>
                 </header>
 
                 <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <span>First name:</span>
-                        </div>
-                        <div class="cui-data">
-                            <span>John</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field cui-required">
-                        <div class="cui-label">
-                            <label for="lastName2">Last name:</label>
-                        </div>
-                        <div class="cui-data">
-                            <input type="text" id="lastName2" aria-required="true" size="20" maxlength="30" value="Smith" tabindex="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="date2">Date:</label>
-                        </div>
-                        <div class="cui-data">
-                            <input type="text" class="date" id="date2" data-date="{mask:'mm/dd/yyyy'}" tabindex="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="num1">Number:</label>
-                        </div>
-                        <div class="cui-data">
-                            <input type="number" id="num1" step="1" min="0" max="10" tabindex="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="num2">Number without controls:</label>
-                        </div>
-                        <div class="cui-data">
-                            <input type="number" id="num2" step="1" min="0" max="10" class="cui-hide-spinner" tabindex="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <fieldset>
-                        <div class="cui-field cui-required">
-                            <div class="cui-label">
-                                <legend>Name:</legend>
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-required">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Name:</legend>
+                                    </div>
+                                    <div class="cui-data">
+                                        <label for="name_first_inline" class="cui-hide-from-screen">First</label>
+                                        <input type="text" class="cui-value" id="name_first_inline" size="15" maxlength="20" value="John" tabindex="1">
+                                        <label for="name_middle_inline" class="cui-hide-from-screen">Middle initial</label>
+                                        <input type="text" class="cui-value" id="name_middle_inline" size="1" maxlength="1" value="Q" tabindex="1">
+                                        <label for="name_last_inline" class="cui-hide-from-screen">Last</label>
+                                        <input type="text" class="cui-value" id="name_last_inline" size="20" maxlength="30" value="Public" tabindex="1">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="cui-data">
-                                <label for="name_first" class="cui-hide-from-screen">First</label>
-                                <input type="text" id="name_first" size="15" maxlength="20" value="John" tabindex="1">
-                                <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
-                                <input type="text" id="name_middle" size="1" maxlength="1" value="Q" tabindex="1">
-                                <label for="name_last" class="cui-hide-from-screen">Last</label>
-                                <input type="text" id="name_last" size="20" maxlength="30" value="Public" tabindex="1">
-                                <label for="name_suffix" class="cui-hide-from-screen">Suffix</label>
-                                <select id="name_suffix" tabindex="1">
-                                    <option></option>
-                                    <option>Sr</option>
-                                    <option>Jr</option>
-                                    <option selected>Ph.D.</option>
-                                </select>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="taxType2">Tax type:</label>
-                        </div>
-                        <div class="cui-data">
-                            <select id="taxType2" tabindex="1">
-                                <option selected="selected" value="1">Personal income</option>
-                                <option value="2">Sales</option>
-                                <option value="3">Corporation</option>
-                            </select>
-                        </div>
+                        </fieldset>
                     </div>
                 </div>
 
                 <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <span>Button:</span>
-                        </div>
-                        <div class="cui-data">
-                            <button class="cui-button-primary" value="abc" tabindex="1">Go</button>
-                            <button type="button" value="xyz" tabindex="1">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="targetAmount2">Target Amount:</label>
-                        </div>
-                        <div class="cui-data">
-                            <div class="cui-input-wrapper cui-currency">
-                                <span class="cui-input-prepend">$</span>
-                                <input type="text" id="targetAmount2" value="1,908" tabindex="1">
-                                <span class="cui-input-append">.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="targetAmount3">Target Amount ($):</label>
-                        </div>
-                        <div class="cui-data">
-                            <div class="cui-input-wrapper cui-currency">
-                                <input type="text" id="targetAmount3" value="1,908" tabindex="1">
-                                <span class="cui-input-append">.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="targetAmount4">Target Amount:</label>
-                        </div>
-                        <div class="cui-data">
-                            <div class="cui-input-wrapper cui-currency">
-                                <span class="cui-input-prepend">$</span>
-                                <input type="text" id="targetAmount4" value="1,908" tabindex="1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <div class="cui-field">
-                        <div class="cui-label">
-                            <label for="targetAmount5">Target Amount:</label>
-                        </div>
-                        <div class="cui-data">
-                            <div class="cui-input-wrapper cui-currency">
-                                <span class="cui-input-prepend">$</span>
-                                <select id="targetAmount5" tabindex="1">
-                                    <option>1.00</option>
-                                    <option>2.00</option>
-                                    <option>3.00</option>
-                                    <option>4.00</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cui-row">
-                    <fieldset>
+                    <div class="cui-col">
                         <div class="cui-field">
-                            <div class="cui-label">
-                                <legend>Are you filing in this quarter?</legend>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-selection-group">
-                                    <input type="radio" name="radioGroupExample_2" id="radioGroupExample_2_Y" value="1" tabindex="1">
-                                    <label for="radioGroupExample_2_Y">Yes</label>
-                                    <input type="radio" name="radioGroupExample_2" id="radioGroupExample_2_N" checked="checked" value="2" tabindex="1">
-                                    <label for="radioGroupExample_2_N">No</label>
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="taxType_inline" class="cui-desc">Tax type:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <select id="taxType_inline" class="cui-value" tabindex="1">
+                                        <option selected="selected" value="1">Personal income</option>
+                                        <option value="2">Sales</option>
+                                        <option value="3">Corporation</option>
+                                    </select>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button">Verify</button>
                                 </div>
                             </div>
                         </div>
-                    </fieldset>
-                </div>
-
-                <div class="cui-row">
-                    <fieldset>
-                        <div class="cui-field">
-                            <div class="cui-label">
-                                <legend>Which quarters are you filing?</legend>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-selection-group">
-                                    <input type="checkbox" id="checkGroupExample_5" value="1" tabindex="1">
-                                    <label for="checkGroupExample_5">First</label>
-                                    <input type="checkbox" id="checkGroupExample_6" checked="checked" value="2" tabindex="1">
-                                    <label for="checkGroupExample_6">Second</label>
-                                    <input type="checkbox" id="checkGroupExample_7" value="3" tabindex="1">
-                                    <label for="checkGroupExample_7">Third</label>
-                                    <input type="checkbox" id="checkGroupExample_8" value="4" tabindex="1">
-                                    <label for="checkGroupExample_8">Fourth</label>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
+                    </div>
                 </div>
             </section>
 
@@ -464,28 +228,28 @@
                                         <td>Müller</td>
                                         <td>03/04/1986</td>
                                         <td>120</td>
-                                        <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                        <td class="cui-width-icon"><button type="button" tabindex="1">Remove person</button></td>
                                     </tr>
                                     <tr>
                                         <td>Cesc</td>
                                         <td>Fàbregas</td>
                                         <td>01/01/1990</td>
                                         <td>80</td>
-                                        <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                        <td class="cui-width-icon"><button type="button" tabindex="1">Remove person</button></td>
                                     </tr>
                                     <tr>
                                         <td>Olivier</td>
                                         <td>Giroud</td>
                                         <td>12/31/1990</td>
                                         <td>75</td>
-                                        <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                        <td class="cui-width-icon"><button type="button" tabindex="1">Remove person</button></td>
                                     </tr>
                                     <tr>
                                         <td>Lionel</td>
                                         <td>Messi</td>
                                         <td>12/31/1988</td>
                                         <td>205</td>
-                                        <td class="cui-width-icon"><button class="cui-icon-remove" tabindex="1">Remove person</button></td>
+                                        <td class="cui-width-icon"><button type="button" tabindex="1">Remove person</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -536,13 +300,13 @@
         </div>
     </footer>
 
-    <script id="require" src="/dist/js/main.js"></script>
+    <script id="require" src="../../../dist/js/main.js"></script>
     <script>
         require(['jquery', 'cui', 'domReady!'], function ($, cui) {
 
             // console.log('Page is ready...');
 
-            // // Example: Ask cui to load a test component
+            // Example: Ask cui to load a test component
             // cui.load('shortcut', function() {
             //     console.log('Loaded shortcut: ', cui.shortcut);
             // });

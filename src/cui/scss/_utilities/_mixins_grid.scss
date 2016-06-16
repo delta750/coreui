@@ -37,6 +37,7 @@
 }
 
 // Standard column
+// Note that the width must have units for IE11 support! Instead of `0`, use `0px` or `0%`, etc. You may also use `auto`.
 @mixin col($flexShorthandValue: 0 1 auto, $width: false) {
     flex: $flexShorthandValue;
     position: relative;
@@ -78,10 +79,11 @@
 // Fluid-width column
 // If `$width` is not defined, all sibling columns will get equal widths
 // Otherwise, this will create a column based around that width (usually a percentage so it retains some fluidity)
+// Note that the width must have units for IE11 support! Instead of `0`, use `0px` or `0%`, etc. You may also use `auto`.
 @mixin col-fluid($width: false, $breakpointName: "small") {
     // Fluid-column (most common; used for classes like `.cui-col`)
     @if $width == false {
-        @include col(1 1 0); // The key is `flex-basis: 0` (third parameter) which prevents the column from adapting its width to the size of its content
+        @include col(1 1 0px); // The key is `flex-basis: 0` (third parameter) which prevents the column from adapting its width to the size of its content
         max-width: 100%;
     }
     @else {

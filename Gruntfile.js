@@ -163,6 +163,14 @@ module.exports = function (grunt) {
                     },
                     {
                         expand: true,
+                        cwd: 'src/cui/docs/src/assets/js',
+                        src: ['**/*.*'],
+                        dest: 'docs/assets/js',
+                        filter: 'isFile',
+                        flatten: true,
+                    },
+                    {
+                        expand: true,
                         cwd: 'src/cui/docs/demos/',
                         src: ['**/*.*'],
                         dest: 'docs/demos',
