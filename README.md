@@ -4,11 +4,11 @@ Core UI is a HTML, CSS and JavaScript front-end framework for easier development
 
 Core UI is being developed as a NYS cluster-combined effort between [Manuel Farfan](https://github.com/mfarfanr), [Craig Patik](https://github.com/patik) and [Jeff Herb](https://github.com/JeffHerb) to become New York State's standard platform for building web projects that fulfill the State needs yet keeping its platform independency.
 
-## [Documentation](http://ny.github.io/coreui/)
+## [Documentation](https://ny.github.io/coreui/)
 
 ## Demos
 
-Clone the repo, follow the [Getting Started](src/cui/docs/src/getting-started.md) guide, then launch http://localhost:8888/docs/demos/
+Clone the repo, follow the [Getting Started](https://ny.github.io/coreui/getting-started.html) guide, then launch [http://localhost:8888/docs/demos/](http://localhost:8888/dist/coreui/).
 
 ## Reporting bugs and known issues
 
