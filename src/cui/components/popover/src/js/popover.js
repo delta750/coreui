@@ -200,8 +200,6 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
         // Remove the element
         popover.$popover
-            .off(EVENT_NAMES.hide)
-            .off(EVENT_NAMES.hidden)
             .empty()
             .remove();
 
@@ -211,10 +209,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
             $window.off('keyup');
         }
 
-        $window
-            .off('resize')
-            .off(EVENT_NAMES.hide)
-            .off(EVENT_NAMES.hidden);
+        $window.off('resize');
 
         $body.off('click', popover.onBodyClick);
         popover.onBodyClick = null;

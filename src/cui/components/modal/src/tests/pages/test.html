@@ -92,11 +92,12 @@
             });
 
             $('#test4').modal({
-                html: "Modal #4",
+                html: '<p>Modal #4</p><p>This will not close when you press the Escape key</p>',
                 display: {
                     height: '30%',
                     width: '30%',
                 },
+                hideOnEscape: false,
             });
         });
     </script>

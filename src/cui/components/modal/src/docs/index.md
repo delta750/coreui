@@ -24,13 +24,13 @@ To open a modal programmatically, call it on the `window` object:
 var $myModal = $(window).modal(options);
 ```
 
-### Closing
+### Hiding
 
-There are two ways to close a modal depending on whether you stored a reference to it.
+There are two ways to hide a modal depending on whether you stored a reference to it.
 
-With a stored reference, call `$myModal.close()`.
+With a stored reference, call `$myModal.hide()`.
 
-Without a stored reference, call `$('.my-button').modal().close()` where `.my-button` is an element that has a modal associated with it.
+Without a stored reference, call `$('.my-button').modal().hide()` where `.my-button` is an element that has a modal associated with it.
 
 ## Options
 
@@ -55,25 +55,39 @@ Property | Type | Description
 --- | --- | ---
 `html` | String | Contents to be displayed (required)
 `display` | Object | Defines the display properties of the modal (see below)
-`shield` | Object | Defines properties related to the overlay shield
+`hideFunc` | Function | Callback function that will be called just before the modal hides. It will receive the modal object as an argument.
+`eventHandlers` | Object | A collection of custom functions that will be called when certain events occur (see below)
+`overlay` | Mixed | An object or boolean that defines the overlay shield. Default: `true` (displays a tranparent overlay). See [overlay options](#overlay-options).
+`autoOpen` | Boolean | Whether to automatically open the modal as soon as it is initialized. Default: `false`.
+`hideOnEscape` | Boolean | Whether to hide the modal when the Escape key is pressed. Default: `true`.
+`alwaysCenter` | Boolean | Whether to keep the modal centered in the viewport. Default: `true`.
+`focusOnShow` | jQuery | An element that will gain focus when the modal is opened. If none is defined, the modal itself will gain focus. Default: `null`.
+`focusOnHide` | jQuery | The element that will gain focus when the modal is hidden. If none is defined, focus will be handled by the browser. Default: `null`.
 
 ### Display options
 
 Property | Type | Description
 --- | --- | ---
-`width` | String | The width of the modal (must be a CSS-friendly value; default: `90%`)
-`height` | String | The height of the modal (must be a CSS-friendly value; default: `75%`)
+`width` | String | The width of the modal (must be a CSS-friendly value)
+`height` | String | The height of the modal (must be a CSS-friendly value)
 `id` | String | Optional ID to be added to the modal element
 `className` | String | Optional class name(s) to be added to the modal element
 `css` | Object | Optional inline CSS to be added to the modal element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
 
-### Shield options
+### Event handler options
+
+You may provide callbacks for the following events:
+
+Event type | Description
+--- | ---
+`resize` | Occurs when the window is resized
+
+### Overlay options
 
 Property | Type | Description
 --- | --- | ---
-`suppress` | Boolean | Prevents the shield from being rendered (default: `false`)
-`opacity` | Number | Optional opacity for the shield element, between `0` (completely transparent) and `1` (completely opaque)
-`className` | String | Optional class name(s) to add to the shield DOM element
+`opacity` | Number | Optional opacity for the overlay element, between `0` (completely transparent) and `1` (completely opaque)
+`className` | String | Optional class name(s) to add to the overlay DOM element
 
 ## Example with default values
 
@@ -95,11 +109,24 @@ $('.my-button').modal({
 });
 ```
 
+## Events
+
+You may listen for the following events to track the modal's behavior:
+
+Event type | Description
+--- | --- | ---
+`show.cui.modal` | This fires immediately when the popver begins to appear (e.g. when clicking the button or calling `mymodal.show()`)
+`shown.cui.modal` | This fires after the popver is fully displayed (i.e. after CSS animations have completed)
+`hide.cui.modal` | This fires immediately when the popver begins to hide (e.g. when clicking outside the modal or calling `mymodal.hide()`)
+`hidden.cui.modal` | This fires after the popver is fully hidden (i.e. after CSS animations have completed)
+
+All events are fired on both `myModal.$modal` and `window`.
+
 ## Specifications
 
-If a shield is rendered, clicking on the shield (outside of the modal) will close the modal and the shield.
+If a shield is rendered, clicking on the shield (outside of the modal) will hide the modal and the shield.
 
-Only one modal may be open at a time. If a modal is open when a second modal is triggered, the first modal is closed before opening the second modal.
+Only one modal may be open at a time. If a modal is open when a second modal is triggered, the first modal is hidden before opening the second modal.
 
 The modal container has the class `.cui-modal`.
 

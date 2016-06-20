@@ -3,12 +3,21 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     // Globals //
     /////////////
 
+    var NAMESPACE = 'modal';
+
     var CLASSES = {
-        modal: 'cui-modal',
-        modalContents: 'cui-modal-content',
-        modalVisibility: 'cui-modal-inivisible',
-        overlay: 'cui-modal-overlay',
-        modalButton: 'cui-modal-close',
+        modal: 'cui-' + NAMESPACE,
+        modalContents: 'cui-' + NAMESPACE + '-content',
+        modalVisibility: 'cui-' + NAMESPACE + '-inivisible',
+        overlay: 'cui-' + NAMESPACE + '-overlay',
+        modalButton: 'cui-' + NAMESPACE + '-hide',
+    };
+
+    var EVENT_NAMES = {
+        show:   'show.cui.' + NAMESPACE,
+        shown:  'shown.cui.' + NAMESPACE,
+        hide:   'hide.cui.' + NAMESPACE,
+        hidden: 'hidden.cui.' + NAMESPACE,
     };
 
     var modals = {}; // List of existing modals
@@ -93,17 +102,17 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                             .css({'visibility': 'visible'});
 
                         // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
-                        setTimeout(function () {
-
-                            if (modal.config.$focusElm) {
-
-                                modal.config.$focusElm.focus();
+                        setTimeout(function _showModal_setTimeout3 () {
+                            if (modal.config.focusOnShow) {
+                                modal.config.focusOnShow.focus();
                             }
                             else {
                                 modal.$self.focus();
                             }
-
                         }, 100);
+
+                        modal.$self.trigger(EVENT_NAMES.shown);
+                        $window.trigger(EVENT_NAMES.shown);
                     });
                 });
             }
@@ -113,10 +122,9 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                         .css({'visibility': 'visible'});
 
                     // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
-                    setTimeout(function () {
-                        if (modal.config.$focusElm) {
-
-                            modal.config.$focusElm.focus();
+                    setTimeout(function _showModal_setTimeout4 () {
+                        if (modal.config.focusOnShow) {
+                            modal.config.focusOnShow.focus();
                         }
                         else {
                             modal.$self.focus();
@@ -126,49 +134,70 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             }
         });
 
-        // Close on escape key press
-        if (modal.config.closeOnEscape) {
-            $window.on('keyup.modalescape', {modal: modal}, _events.closeOnEscape);
+        modal.$self.trigger(EVENT_NAMES.show);
+        $window.trigger(EVENT_NAMES.show);
+
+        // Hide on escape key press
+        if (modal.config.hideOnEscape) {
+            $window.on('keyup.cui.modal.escape', {modal: modal}, _events.hideOnEscape);
         }
 
         $window.on('resize', {modal: modal}, _events.resize);
     };
 
     // Function will hide the passes modal.
-    _priv.closeModal = function _closeModal (modal) {
-        // Check to see if we were suppose to destroy instead of close.
-        if (modal.config.closeDestroy) {
-            _priv.destroyModal(modal);
+    _priv.hideModal = function _hideModal (modal) {
+        modal.$self.trigger(EVENT_NAMES.hide);
+        $window.trigger(EVENT_NAMES.hide);
+
+        // Check to see if we were suppose to destroy instead of hide.
+        if (modal.config.hideDestroy) {
+            _priv.destroyModal(modal, true);
         }
         else {
-            if (typeof modal.config.closeFunc === 'function') {
-                modal.config.closeFunc(modal);
+            if (typeof modal.config.hideFunc === 'function') {
+                modal.config.hideFunc(modal);
             }
 
-            fastdom.mutate(function _closeModal_fastdom () {
+            fastdom.mutate(function _hideModal_fastdom () {
                 if (modal.$overlay) {
                     modal.$overlay.css({display: 'none'});
                 }
 
                 modal.$self.css({'z-index': -1, 'visibility': 'hidden'});
 
-                $window.off('keyup.modalescape');
+                $window.off('keyup.cui.modal.escape');
                 $window.off('resize', _events.resize);
+
+                modal.$self.trigger(EVENT_NAMES.hidden);
+                $window.trigger(EVENT_NAMES.hidden);
             });
         }
     };
 
     // Function that will completely remove the modal elements from the DOM
-    _priv.destroyModal = function _destroyModal (modal) {
-        if (typeof modal.config.closeFunc === 'function') {
-            modal.config.closeFunc(modal);
+    _priv.destroyModal = function _destroyModal (modal, doNotTriggerEvents) {
+        if (typeof modal.config.hideFunc === 'function') {
+            modal.config.hideFunc(modal);
         }
 
         fastdom.mutate(function _destroyModal_fastdom () {
+            if (!doNotTriggerEvents) {
+                modal.$self
+                    .trigger(EVENT_NAMES.hide)
+                    .trigger(EVENT_NAMES.hidden);
+            }
+
             modal.$self.remove();
 
             if (modal.$overlay) {
                 modal.$overlay.remove();
+            }
+
+            if (!doNotTriggerEvents) {
+                $window
+                    .trigger(EVENT_NAMES.hide)
+                    .trigger(EVENT_NAMES.hidden);
             }
         });
     };
@@ -203,37 +232,41 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
      * @param   {Event}  evt  Window resize event
      */
     _events.resize = function _resize (evt) {
-
         var modal = evt.data.modal;
 
         if (modal.config.eventHandlers.resize) {
-
             modal.config.eventHandlers.resize(evt, modal);
         }
         else {
-
             _priv.center(evt.data.modal);
         }
-
     };
 
     /**
-     * Closes a modal when the Escape key is pressed
+     * Hides a modal when the Escape key is pressed
      *
      * @param   {Event}  evt  Keyup event
      */
-    _events.closeOnEscape = function _closeOnEscape (evt) {
+    _events.hideOnEscape = function _hideOnEscape (evt) {
         var modal;
+        var focusElem;
 
         if (evt.keyCode === 27) {
             modal = evt.data.modal;
 
-            _priv.closeModal(modal);
+            _priv.hideModal(modal);
 
             // Set focus to a specific element
-            if (modal.config.focusOnClose instanceof $) {
-                setTimeout(function () {
-                    modal.config.focusOnClose.get(0).focus();
+            if (modal.config.focusOnHide) {
+                focusElem = modal.config.focusOnHide;
+
+                // Extract the actual DOM element from the jQuery collection
+                if (focusElem instanceof $) {
+                    focusElem = focusElem.get(0);
+                }
+
+                setTimeout(function _hideOnEscape_setTimeout () {
+                    focusElem.focus();
                 }, 100);
             }
         }
@@ -273,16 +306,17 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     Modal.prototype = {};
 
     Modal.prototype.default = {
+        html: '',
+        display: null,
         overlay: true,
         autoOpen: false,
-        closeDestroy: false,
-        closeOnEscape: false,
+        hideOnEscape: true,
         alwaysCenter: true,
-        $focusElm: false,
+        focusOnShow: false,
         eventHandlers: {
             resize: false
         },
-        focusOnClose: null,
+        focusOnHide: null,
     };
 
     // Init function
@@ -326,7 +360,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                         .on('click', function (evt) {
                             evt.preventDefault();
 
-                            _priv.closeModal(modal);
+                            _priv.hideModal(modal);
                         })
                 );
 
@@ -347,9 +381,12 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                                     })
                                     .on('click', function (evt) {
                                         evt.preventDefault();
-
-                                        _priv.closeModal(modal);
+                                        _priv.hideModal(modal);
                                     });
+
+                if (modal.config.overlay.className) {
+                    modal.$overlay.addClass(modal.config.overlay.className);
+                }
             }
             else {
                 modal.$overlay = false;
@@ -417,9 +454,9 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         return modal;
     };
 
-    // Public function to close a modal
-    Modal.prototype.close = function _close () {
-        _priv.closeModal(this);
+    // Public function to hide a modal
+    Modal.prototype.hide = function _hide () {
+        _priv.hideModal(this);
     };
 
     // Public function to show a modal
@@ -436,7 +473,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     };
 
     // Set the version number
-    Modal.version = '2.0.2';
+    Modal.version = '2.0.4';
 
     // Define jQuery plugin with a source element
     $.fn.modal = function (options) {
