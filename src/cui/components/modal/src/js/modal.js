@@ -64,9 +64,9 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     }
 
                     fastdom.measure(function _buildModal_fastdom3 () {
-                        // Hook to execute a script after the modal has been build
-                        if (typeof modal.config.afterBuild === 'function') {
-                            modal.config.afterBuild(modal);
+                        // Hook to execute a script after the modal has been created
+                        if (typeof modal.config.onCreate === 'function') {
+                            modal.config.onCreate(modal);
                         }
 
                         // We are good to display the modal.
@@ -155,8 +155,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             _priv.destroyModal(modal, true);
         }
         else {
-            if (typeof modal.config.hideFunc === 'function') {
-                modal.config.hideFunc(modal);
+            if (typeof modal.config.onHide === 'function') {
+                modal.config.onHide(modal);
             }
 
             fastdom.mutate(function _hideModal_fastdom () {
@@ -164,7 +164,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     modal.$overlay.css({display: 'none'});
                 }
 
-                modal.$self.css({'z-index': -1, 'visibility': 'hidden'});
+                modal.$self
+                    .css({
+                        'z-index': -1,
+                        'visibility': 'hidden',
+                    });
 
                 $window.off('keyup.cui.modal.escape');
                 $window.off('resize', _events.resize);
@@ -177,8 +181,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     // Function that will completely remove the modal elements from the DOM
     _priv.destroyModal = function _destroyModal (modal, doNotTriggerEvents) {
-        if (typeof modal.config.hideFunc === 'function') {
-            modal.config.hideFunc(modal);
+        if (typeof modal.config.onHide === 'function') {
+            modal.config.onHide(modal);
         }
 
         fastdom.mutate(function _destroyModal_fastdom () {
@@ -210,8 +214,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     _priv.center = function _center (modal) {
         fastdom.measure(function () {
             var css = {
-                top: (($window.height()-modal.$self.outerHeight()) / 2),
-                left: (($window.width()-modal.$self.outerWidth()) / 2),
+                top: (($window.height() - modal.$self.outerHeight()) / 2),
+                left: (($window.width() - modal.$self.outerWidth()) / 2),
             };
 
             fastdom.mutate(function _modal_center_fastdom () {
@@ -317,6 +321,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             resize: false
         },
         focusOnHide: null,
+        onCreate: null,
     };
 
     // Init function
@@ -338,7 +343,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             modal.config = $.extend(true, {}, this.default, this.options);
         }
 
-        // Create a unqiuq ID for the modal
+        // Create a unique ID for the modal
         modal.config.id = guid();
 
         // Check to see if a source element was provided
@@ -473,7 +478,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     };
 
     // Set the version number
-    Modal.version = '2.0.4';
+    Modal.version = '2.0.5';
 
     // Define jQuery plugin with a source element
     $.fn.modal = function (options) {

@@ -2,7 +2,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '0.2.2';
+    var VERSION = '0.2.3';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -61,8 +61,8 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         },
         location: 'below-right',
         showPop: true,
-        closeOnResize: false,
-        closeOnEscape: true,
+        hideOnResize: false,
+        hideOnEscape: true,
         gainFocus: false,
         isModal: true,
     };
@@ -118,7 +118,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         }.bind(popover);
 
         // Close the popover when the Escape key is pressed
-        if (popover.config.closeOnEscape) {
+        if (popover.config.hideOnEscape) {
             $window.on('keyup', function _popover_onKeyup (evt) {
                 priv.onWindowKeyup(evt, popover);
             }.bind(popover));
@@ -205,7 +205,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
         // Remove event listeners from other elements
 
-        if (popover.config.closeOnEscape) {
+        if (popover.config.hideOnEscape) {
             $window.off('keyup');
         }
 
@@ -672,7 +672,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     // Handles the window resize event
     priv.onWindowResize = function _onWindowResize (evt, popover) {
         if (popover.isOpen) {
-            if (popover.config.closeOnResize) {
+            if (popover.config.hideOnResize) {
                 priv.closePopover(popover);
             }
             else {
