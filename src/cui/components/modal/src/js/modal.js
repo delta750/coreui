@@ -94,7 +94,15 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
                         // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
                         setTimeout(function () {
-                            modal.$self.focus();
+
+                            if (modal.config.$focusElm) {
+
+                                modal.config.$focusElm.focus();
+                            }
+                            else {
+                                modal.$self.focus();
+                            }
+
                         }, 100);
                     });
                 });
@@ -106,7 +114,13 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
                     // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
                     setTimeout(function () {
-                        modal.$self.focus();
+                        if (modal.config.$focusElm) {
+
+                            modal.config.$focusElm.focus();
+                        }
+                        else {
+                            modal.$self.focus();
+                        }
                     }, 100);
                 });
             }
@@ -189,7 +203,18 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
      * @param   {Event}  evt  Window resize event
      */
     _events.resize = function _resize (evt) {
-        _priv.center(evt.data.modal);
+
+        var modal = evt.data.modal;
+
+        if (modal.config.eventHandlers.resize) {
+
+            modal.config.eventHandlers.resize(evt, modal);
+        }
+        else {
+
+            _priv.center(evt.data.modal);
+        }
+
     };
 
     /**
@@ -253,6 +278,10 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         closeDestroy: false,
         closeOnEscape: false,
         alwaysCenter: true,
+        $focusElm: false,
+        eventHandlers: {
+            resize: false
+        },
         focusOnClose: null,
     };
 
@@ -407,7 +436,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     };
 
     // Set the version number
-    Modal.version = '2.0.1';
+    Modal.version = '2.0.2';
 
     // Define jQuery plugin with a source element
     $.fn.modal = function (options) {
