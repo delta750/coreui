@@ -387,7 +387,6 @@ legend {
         border-top-right-radius: 0;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        padding: 5px 10px 5px 10px;
     }
 
     // Keep borders rounded if no prepend
@@ -405,6 +404,7 @@ legend {
     .cui-input-prepend,
     .cui-input-append {
         @include col(0 0 auto);
+        min-height: 0; // Override value from `@include col`
         line-height: $cui-field-line-height;
         border: $cui-input-border;
         @include box-sizing(content-box);
