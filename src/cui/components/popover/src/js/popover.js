@@ -2,7 +2,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '0.2.3';
+    var VERSION = '1.0.0';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -13,9 +13,9 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     };
 
     var CLASSES = {
-                popover: 'cui-' + NAMESPACE,
-                toggle: 'cui-' + NAMESPACE + '-toggle',
-            };
+        popover: 'cui-' + NAMESPACE,
+        toggle: 'cui-' + NAMESPACE + '-toggle',
+    };
 
     var PADDING = 6;
 
@@ -87,7 +87,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         popover = this;
 
         popover.id = NAMESPACE + '_' + guid();
-        popover.isOpen = false;
+        popover.isShown = false;
 
         if (popover.config.html === '' && popover.$button.attr('title')) {
             popover.config.html = '<span>' + popover.$button.attr('title') + '</span>';
@@ -101,23 +101,23 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
         // Set up event listeners
 
-        // Open/close the popover when its button is clicked
+        // Show/hide the popover when its button is clicked
         popover.$button.on('click', function _popover_onClick (evt) {
-            if (popover.isOpen === false) {
-                priv.openPopover(popover);
+            if (popover.isShown === false) {
+                priv.showPopover(popover);
             }
             else {
-                priv.closePopover(popover);
+                priv.hidePopover(popover);
             }
         }.bind(popover));
 
-        // Open/close the popover when the user clicks outside of it
+        // Show/hide the popover when the user clicks outside of it
         // We need to give this function a name so it can be referenced later since we will turn it on and off. Other event listeners (e.g. window resize) are only ever turned on so we can just use anonymous functions without storing them.
         popover.onBodyClick = function _popover_onBodyClick (evt) {
             priv.onBodyClick(evt, popover);
         }.bind(popover);
 
-        // Close the popover when the Escape key is pressed
+        // Hide the popover when the Escape key is pressed
         if (popover.config.hideOnEscape) {
             $window.on('keyup', function _popover_onKeyup (evt) {
                 priv.onWindowKeyup(evt, popover);
@@ -137,12 +137,12 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     };
 
     /**
-     * Closes the popover
+     * Hides the popover
      *
      * @param   {Function}  callback  Optional function to run after closing the popover. It will receive the Popover instance as an argument.
      */
-    Popover.prototype.close = function _Popover_close (callback) {
-        priv.closePopover(this);
+    Popover.prototype.hide = function _Popover_hide (callback) {
+        priv.hidePopover(this);
 
         // Check to see if the caller included a callback function
         if (typeof callback === 'function') {
@@ -156,7 +156,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
      * @param   {Function}  callback  Optional function to run after closing the popover. It will receive the Popover instance as an argument.
      */
     Popover.prototype.show = function _Popover_show (callback) {
-        priv.openPopover(this);
+        priv.showPopover(this);
 
         // Check to see if the caller included a callback function
         if (typeof callback === 'function') {
@@ -187,10 +187,10 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         var popover = this;
         var index = -1;
 
-        // Close it
-        if (popover.isOpen) {
-            // Pass the "close immediately" flag. A few lines below here we will remove the element so we don't want it to awkwardly disappear during the closing animation
-            priv.closePopover(popover, true);
+        // Hide it
+        if (popover.isShown) {
+            // Pass the "hide immediately" flag. A few lines below here we will remove the element so we don't want it to awkwardly disappear during the closing animation
+            priv.hidePopover(popover, true);
         }
 
         // Undo any changes to the button
@@ -230,10 +230,10 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     /////////////////////
 
     // Opens a new popover window
-    priv.openPopover = function _openPopover (popover) {
-        // Close other popovers
+    priv.showPopover = function _showPopover (popover) {
+        // Hide other popovers
         if (popover.isModal) {
-            priv.closeAllPopovers();
+            priv.hideAllPopovers();
         }
 
         // Position it
@@ -244,7 +244,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
             .animate(
                 {opacity: 1},
                 400,
-                function _openPopover_animate () {
+                function _showPopover_animate () {
                     if (popover.gainFocus) {
                         $(this).focus();
                     }
@@ -254,7 +254,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
                 }
             );
 
-        popover.isOpen = true;
+        popover.isShown = true;
 
         // Add event listeners
         $body.on('click', popover.onBodyClick);
@@ -263,29 +263,29 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         $window.trigger(EVENT_NAMES.show);
     };
 
-    // Closes all popover instances
-    priv.closeAllPopovers = function _closeAllPopovers () {
+    // Hides all popover instances
+    priv.hideAllPopovers = function _hideAllPopovers () {
         Object.keys(popoverList).forEach(function (id) {
-            priv.closePopover(popoverList[id], true);
+            priv.hidePopover(popoverList[id], true);
         });
     };
 
     /**
-     * Closes a popover element
+     * Hides a popover element
      *
      * @param   {Object}   popover           Popover instance
-     * @param   {Boolean}  closeImmediately  Set to `true` to skip animation and event triggering
+     * @param   {Boolean}  hideImmediately  Set to `true` to skip animation and event triggering
      */
-    priv.closePopover = function _closePopover (popover, closeImmediately) {
-        // Close with animation and fire an event
+    priv.hidePopover = function _hidePopover (popover, hideImmediately) {
+        // Hide with animation and fire an event
         // This usually happens when a single popover is dismissed
-        if (!closeImmediately) {
-            // Animate it closed
+        if (!hideImmediately) {
+            // Animate it to hidden
             popover.$popover
                 .animate(
                     {opacity: 0},
                     400,
-                    function _closePopover_animate () {
+                    function _hidePopover_animate () {
                         this.style.opacity = '0';
                         // Reset the position so that it doesn't cover other elements while invisible
                         this.style.top = '0';
@@ -299,7 +299,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
             $window.trigger(EVENT_NAMES.hide);
         }
-        // Close it immediately without animation or events
+        // Hide it immediately without animation or events
         // This usually means we're closing all popovers before opening a new one and we don't want to create a delay
         else {
             popover.$popover
@@ -315,7 +315,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
             $window.trigger(EVENT_NAMES.hidden);
         }
 
-        popover.isOpen = false;
+        popover.isShown = false;
 
         $body.off('click', popover.onBodyClick);
     };
@@ -663,17 +663,17 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
         // Make sure the user didn't click in/on the toggle button, or on the popover itself
         if (evt.target !== popover.$button.get(0) && !$target.closest('.' + CLASSES.popover + ', .' + CLASSES.toggle).length) {
-            if (popover.isOpen) {
-                priv.closePopover(popover);
+            if (popover.isShown) {
+                priv.hidePopover(popover);
             }
         }
     };
 
     // Handles the window resize event
     priv.onWindowResize = function _onWindowResize (evt, popover) {
-        if (popover.isOpen) {
+        if (popover.isShown) {
             if (popover.config.hideOnResize) {
-                priv.closePopover(popover);
+                priv.hidePopover(popover);
             }
             else {
                 priv.positionPopover(popover);
@@ -681,11 +681,11 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         }
     };
 
-    // Watches for the escape key to be pressed and closes any open popover with the relevant setting
+    // Watches for the escape key to be pressed and hides any open popover with the relevant setting
     priv.onWindowKeyup = function _onWindowKeyup (evt, popover) {
         // Escape key was pressed
-        if (popover.isOpen && evt.keyCode === 27) {
-            priv.closePopover(popover);
+        if (popover.isShown && evt.keyCode === 27) {
+            priv.hidePopover(popover);
         }
     };
 

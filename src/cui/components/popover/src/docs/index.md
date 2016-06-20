@@ -45,7 +45,7 @@ You may also refer to additional properties and elements:
 ```js
 myPopover.$popover // The popover container element, as a jQuery collection
 myPopover.$button  // The button element that will toggle the popover when clicked, as a jQuery collection
-myPopover.isOpen   // Whether the popover is currently open, as a Boolean
+myPopover.isShown  // Whether the popover is currently shown, as a Boolean
 myPopover.id       // A unique ID beginning with `popover_`
 ```
 
