@@ -76,22 +76,21 @@ module.exports = function (grunt) {
         },
 
         md2html: {
-            options: {
-                highlightjs: {
-                    enabled: true,
-                    style: 'github',
-                    compressStyle: true,
-                },
-            },
             docs: {
                 options: {
                     layout: 'src/cui/docs/src/assets/templates/default.html',
+                    highlightjs: {
+                        enabled: true,
+                        style: 'github',
+                        compressStyle: true,
+                    },
+                    gfm: true,
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src/cui/docs/src',
+                    cwd: 'src/docs/',
                     src: ['**/*.md'],
-                    dest: 'docs',
+                    dest: 'dist/docs',
                     ext: '.html',
                 }],
             },

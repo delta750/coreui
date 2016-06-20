@@ -2,8 +2,15 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '0.2.1';
+    var VERSION = '0.2.2';
     var NAMESPACE = 'popover';
+
+    var EVENT_NAMES = {
+        show:   'show.cui.' + NAMESPACE,
+        shown:  'shown.cui.' + NAMESPACE,
+        hide:   'hide.cui.' + NAMESPACE,
+        hidden: 'hidden.cui.' + NAMESPACE,
+    };
 
     var CLASSES = {
                 popover: 'cui-' + NAMESPACE,
@@ -95,7 +102,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         // Set up event listeners
 
         // Open/close the popover when its button is clicked
-        popover.$button.on('click.popover', function _popover_onClick (evt) {
+        popover.$button.on('click', function _popover_onClick (evt) {
             if (popover.isOpen === false) {
                 priv.openPopover(popover);
             }
@@ -112,13 +119,13 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
         // Close the popover when the Escape key is pressed
         if (popover.config.closeOnEscape) {
-            $window.on('keyup.popover.' + popover.id, function _popover_onKeyup (evt) {
+            $window.on('keyup', function _popover_onKeyup (evt) {
                 priv.onWindowKeyup(evt, popover);
             }.bind(popover));
         }
 
         // Keep the popover aligned properly when window is resized
-        $window.on('resize.popover.' + popover.id, function _popover_onResize (evt) {
+        $window.on('resize', function _popover_onResize (evt) {
             priv.onWindowResize(evt, popover);
         }.bind(popover));
 
@@ -189,21 +196,25 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         // Undo any changes to the button
         popover.$button
             .removeClass(CLASSES.toggle)
-            .off('click.popover');
+            .off('click');
 
         // Remove the element
         popover.$popover
-            .off('close.popover')
+            .off(EVENT_NAMES.hide)
+            .off(EVENT_NAMES.hidden)
             .empty()
             .remove();
 
         // Remove event listeners from other elements
 
         if (popover.config.closeOnEscape) {
-            $window.off('keyup.popover.' + popover.id);
+            $window.off('keyup');
         }
 
-        $window.off('resize.popover.' + popover.id);
+        $window
+            .off('resize')
+            .off(EVENT_NAMES.hide)
+            .off(EVENT_NAMES.hidden);
 
         $body.off('click', popover.onBodyClick);
         popover.onBodyClick = null;
@@ -242,6 +253,9 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
                     if (popover.gainFocus) {
                         $(this).focus();
                     }
+
+                    popover.$popover.trigger(EVENT_NAMES.shown);
+                    $window.trigger(EVENT_NAMES.shown);
                 }
             );
 
@@ -250,7 +264,8 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         // Add event listeners
         $body.on('click', popover.onBodyClick);
 
-        popover.$popover.trigger('show.popover');
+        popover.$popover.trigger(EVENT_NAMES.show);
+        $window.trigger(EVENT_NAMES.show);
     };
 
     // Closes all popover instances
@@ -272,17 +287,22 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
         if (!closeImmediately) {
             // Animate it closed
             popover.$popover
-                .trigger('close.popover')
                 .animate(
                     {opacity: 0},
                     400,
-                    function _closePopover_anmite () {
+                    function _closePopover_animate () {
                         this.style.opacity = '0';
                         // Reset the position so that it doesn't cover other elements while invisible
                         this.style.top = '0';
                         this.style.left = '-9999em';
+
+                        popover.$popover.trigger(EVENT_NAMES.hidden);
+                        $window.trigger(EVENT_NAMES.hidden);
                     }
-                );
+                )
+                .trigger(EVENT_NAMES.hide);
+
+            $window.trigger(EVENT_NAMES.hide);
         }
         // Close it immediately without animation or events
         // This usually means we're closing all popovers before opening a new one and we don't want to create a delay
@@ -292,7 +312,12 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
                     opacity: 0,
                     top: '0',
                     left: '-9999em',
-                });
+                })
+                .trigger(EVENT_NAMES.hide)
+                .trigger(EVENT_NAMES.hidden);
+
+            $window.trigger(EVENT_NAMES.hide);
+            $window.trigger(EVENT_NAMES.hidden);
         }
 
         popover.isOpen = false;

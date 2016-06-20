@@ -145,6 +145,19 @@ $('.my-button').popover({
 });
 ```
 
+## Events
+
+You may listen for the following events to track the popover's behavior:
+
+Event type | Description
+--- | --- | ---
+`show.cui.popover` | This fires immediately when the popver begins to appear (e.g. when clicking the button or calling `myPopover.show()`)
+`shown.cui.popover` | This fires after the popver is fully displayed (i.e. after CSS animations have completed)
+`hide.cui.popover` | This fires immediately when the popver begins to close (e.g. when clicking outside the popover or calling `myPopover.hide()`)
+`hidden.cui.popover` | This fires after the popver is fully closed (i.e. after CSS animations have completed)
+
+All events are fired on both `myPopover.$popover` and `window`.
+
 ## Specifications
 
 Clicking outside of an open popover will close it.
