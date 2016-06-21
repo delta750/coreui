@@ -109,6 +109,7 @@ $cui-field-flex-order: 99999 !default;
 $cui-field-space-between-label-and-data: $cui-input-font-size !default;
 $cui-field-use-asterisk-for-required-fields: true !default;
 
+
 // * @section    Buttons
 // * --------------------------------------------------------
 $cui-button-hover-color:     $cui-color-light-gray !default;
@@ -181,10 +182,12 @@ $cui-grid-flex-sizes:  (100px, 200px, 300px, 400px, 33pc, 67pc) !default;
 $cui-grid-flex-row-wrap: wrap !default;
 
 // Grid appearance
-$cui-grid-column-min-height: 1.5em !default;
-$cui-grid-gutter-width:      0 !default;
-$cui-grid-row-margin:        0 auto $cui-grid-gutter-width auto !default;
-$cui-grid-column-padding:    0 $cui-grid-gutter-width !default;
+$cui-grid-column-min-height:   1.5em !default;
+$cui-grid-gutter-width:        0 !default;
+$cui-grid-gutter-width-half:   $cui-grid-gutter-width / 2 !default;
+$cui-grid-gutter-width-double: $cui-grid-gutter-width * 2 !default;
+$cui-grid-row-margin:          0 auto $cui-grid-gutter-width auto !default;
+$cui-grid-column-padding:      0 $cui-grid-gutter-width !default;
 
 
 // * @section    Headers

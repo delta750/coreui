@@ -259,12 +259,6 @@ legend {
         .cui-field-main {
             flex-wrap: nowrap;
         }
-
-        .cui-currency {
-            .cui-data {
-                min-width: ((12.25 * $cui-input-font-size) - 4px); // Magic number? This equates to the width of a current input without a prepend or append, minus the right padding of the input
-            }
-        }
     }
 }
 

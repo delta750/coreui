@@ -30,6 +30,11 @@ input[type="submit"] {
     @include box-sizing;
 }
 
+[role="button"] {
+    line-height: $cui-line-height; // Needed to be (almost) vertically aligned with adjacent `<button>`s, at least when using the `.icon-button` class
+    align-items: flex-start; // Chrome does this by default for buttons but not `role=button`
+}
+
 
 // * @section   Specific button styles
 // * @desc      Primary button

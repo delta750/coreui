@@ -29,6 +29,7 @@ code {
 input,
 select,
 button,
+[role="button"],
 textarea {
     // In many (older?) browsers, inputs do not inherit color from the `<body>`
     color: $cui-input-color;
@@ -43,6 +44,7 @@ input,
 select,
 textarea,
 button,
+[role="button"],
 .cui-field-body {
     font-size: $cui-text-size;
     font-family: $cui-text-font;
@@ -63,7 +65,8 @@ body,
 input,
 select,
 textarea,
-button {
+button,
+[role="button"] {
     // Note that Android 2.x can crash or ignore some font styles if this is set
     text-rendering: optimizeLegibility;
 
