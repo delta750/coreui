@@ -151,8 +151,12 @@
         <a href="#main">Go to content</a>
     </div>
 
-    <header class="cui-row">
-        <h1>Form Fields</h1>
+    <header>
+        <div class="cui-row">
+            <div class="cui-col">
+                <h1>Form Fields</h1>
+            </div>
+        </div>
     </header>
 
     <!-- Actual meat of the page goes here, broken up into sections which may or may not have their own headers -->
@@ -169,7 +173,7 @@
 
                 <div class="cui-row">
                     <div class="cui-col">
-                        <p class="demo-source-section-desc-replace">These fields are displayed with the labels above the inputs.</p>
+                        <p class="demo-source-section-desc-replace">These fields are displayed with the labels <strong>above</strong> the inputs.</p>
                     </div>
                 </div>
 
@@ -177,13 +181,15 @@
                     <h3>Basic input</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="fullName" class="cui-desc">Full name:</label>
-                            </div>
-                            <div class="cui-data">
-                                <input type="text" class="cui-value" id="fullName" size="40" maxlength="100" value="John Smith" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="fullName" class="cui-desc">Full name:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="text" class="cui-value" id="fullName" size="40" maxlength="100" value="John Smith" tabindex="1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,13 +199,15 @@
                     <h3>Read-only data</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Full name:</div>
-                            </div>
-                            <div class="cui-data">
-                                <span class="cui-value">John Smith</span>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Full name:</div>
+                                </div>
+                                <div class="cui-data">
+                                    <span class="cui-value">John Smith</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -209,13 +217,15 @@
                     <h3>Required input</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-required">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="nameTitle" class="cui-desc">Title:</label>
-                            </div>
-                            <div class="cui-data">
-                                <input type="text" class="cui-value" id="nameTitle" aria-required="true" size="20" maxlength="30" value="Professor" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field cui-required">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="nameTitle" class="cui-desc">Title:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="text" class="cui-value" id="nameTitle" aria-required="true" size="20" maxlength="30" value="Professor" tabindex="1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,17 +235,19 @@
                     <h3>Dropdown</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="taxType" class="cui-desc">Tax type:</label>
-                            </div>
-                            <div class="cui-data">
-                                <select class="cui-value" id="taxType" tabindex="1">
-                                    <option selected="selected" value="1">Personal income</option>
-                                    <option value="2">Sales</option>
-                                    <option value="3">Corporation</option>
-                                </select>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="taxType" class="cui-desc">Tax type:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <select class="cui-value" id="taxType" tabindex="1">
+                                        <option selected="selected" value="1">Personal income</option>
+                                        <option value="2">Sales</option>
+                                        <option value="3">Corporation</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -245,13 +257,15 @@
                     <h3>Textarea</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="textareaExample" class="cui-desc">Description:</label>
-                            </div>
-                            <div class="cui-data">
-                                <textarea class="cui-value" id="textareaExample" cols="50" tabindex="1">Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis.</textarea>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="textareaExample" class="cui-desc">Description:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <textarea class="cui-value" id="textareaExample" cols="50" tabindex="1">Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis.</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -266,13 +280,15 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label class="cui-desc" for="likeBroccoli">I like broccoli</label>
-                            </div>
-                            <div class="cui-data">
-                                <input type="checkbox" class="cui-value" id="likeBroccoli" value="1" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label class="cui-desc" for="likeBroccoli">I like broccoli</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="checkbox" class="cui-value" id="likeBroccoli" value="1" tabindex="1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,13 +298,15 @@
                     <h3>Single radio button</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label class="cui-desc" for="readThisSentence">I have read this sentence</label>
-                            </div>
-                            <div class="cui-data">
-                                <input type="radio" name="readThisSentenceGroup" class="cui-value" id="readThisSentence" value="1" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label class="cui-desc" for="readThisSentence">I have read this sentence</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="radio" name="readThisSentenceGroup" class="cui-value" id="readThisSentence" value="1" tabindex="1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -304,13 +322,15 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-layout-order-data-label-controls">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label class="cui-desc" for="likeBroccoliLeft">I like brocolli</label>
-                            </div>
-                            <div class="cui-data">
-                                <input type="checkbox" class="cui-value" id="likeBroccoliLeft" value="1" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field cui-layout-order-data-label-controls">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label class="cui-desc" for="likeBroccoliLeft">I like brocolli</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="checkbox" class="cui-value" id="likeBroccoliLeft" value="1" tabindex="1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -320,13 +340,15 @@
                     <h3>Single radio button in front of label</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-layout-order-data-label-controls">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label class="cui-desc" for="readThisSentenceLeft">I have read this sentence</label>
-                            </div>
-                            <div class="cui-data">
-                                <input type="radio" name="readThisSentenceLeftGroup" class="cui-value" id="readThisSentenceLeft" value="1" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field cui-layout-order-data-label-controls">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label class="cui-desc" for="readThisSentenceLeft">I have read this sentence</label>
+                                </div>
+                                <div class="cui-data">
+                                    <input type="radio" name="readThisSentenceLeftGroup" class="cui-value" id="readThisSentenceLeft" value="1" tabindex="1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -341,131 +363,144 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <fieldset>
-                        <div class="cui-field cui-required">
-                            <div class="cui-field-main">
-                                <div class="cui-label">
-                                    <legend class="cui-desc">Name:</legend>
-                                </div>
-                                <div class="cui-data">
-                                    <label for="name_first" class="cui-hide-from-screen">First</label>
-                                    <input type="text" class="cui-value" id="name_first" aria-required="true" size="15" maxlength="20" value="John" tabindex="1">
-                                    <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
-                                    <input type="text" class="cui-value" id="name_middle" aria-required="true" size="1" maxlength="1" value="Q" tabindex="1">
-                                    <label for="name_last" class="cui-hide-from-screen">Last</label>
-                                    <input type="text" class="cui-value" id="name_last" aria-required="true" size="20" maxlength="30" value="Public" tabindex="1">
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-required">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Name:</legend>
+                                    </div>
+                                    <div class="cui-data">
+                                        <label for="name_first" class="cui-hide-from-screen">First</label>
+                                        <input type="text" class="cui-value" id="name_first" aria-required="true" size="15" maxlength="20" value="John" tabindex="1">
+                                        <label for="name_middle" class="cui-hide-from-screen">Middle initial</label>
+                                        <input type="text" class="cui-value" id="name_middle" aria-required="true" size="1" maxlength="1" value="Q" tabindex="1">
+                                        <label for="name_last" class="cui-hide-from-screen">Last</label>
+                                        <input type="text" class="cui-value" id="name_last" aria-required="true" size="20" maxlength="30" value="Public" tabindex="1">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
+                    </div>
                 </div>
 
                 <div class="cui-row demo-example-header">
                     <h3>Check box group</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <fieldset>
-                        <div class="cui-field cui-selection-group">
-                            <div class="cui-field-main">
-                                <div class="cui-label">
-                                    <legend class="cui-desc">Which team(s) have won a World Cup?</legend>
-                                </div>
-                                <div class="cui-data">
-                                    <input type="checkbox" class="cui-value" id="worldCup_1" tabindex="1">
-                                    <label for="worldCup_1">USA</label>
-                                    <input type="checkbox" class="cui-value" id="worldCup_2" checked="checked" tabindex="1">
-                                    <label for="worldCup_2">Germany</label>
-                                    <input type="checkbox" class="cui-value" id="worldCup_3" tabindex="1">
-                                    <label for="worldCup_3">Brazil</label>
-                                    <input type="checkbox" class="cui-value" id="worldCup_4" tabindex="1">
-                                    <label for="worldCup_4">France</label>
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-selection-group">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Which team(s) have won a World Cup?</legend>
+                                    </div>
+                                    <div class="cui-data">
+                                        <input type="checkbox" class="cui-value" id="worldCup_1" tabindex="1">
+                                        <label for="worldCup_1">USA</label>
+                                        <input type="checkbox" class="cui-value" id="worldCup_2" checked="checked" tabindex="1">
+                                        <label for="worldCup_2">Germany</label>
+                                        <input type="checkbox" class="cui-value" id="worldCup_3" tabindex="1">
+                                        <label for="worldCup_3">Brazil</label>
+                                        <input type="checkbox" class="cui-value" id="worldCup_4" tabindex="1">
+                                        <label for="worldCup_4">France</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
+                    </div>
                 </div>
 
                 <div class="cui-row demo-example-header">
                     <h3>Radio button group</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <fieldset>
-                        <div class="cui-field cui-selection-group">
-                            <div class="cui-field-main">
-                                <div class="cui-label">
-                                    <legend class="cui-desc">Are you filing in this quarter?</legend>
-                                </div>
-                                <div class="cui-data">
-                                    <input type="radio" class="cui-value" name="thisQuarter" id="thisQuarter_Y" tabindex="1">
-                                    <label for="thisQuarter_Y">Yes</label>
-                                    <input type="radio" class="cui-value" name="thisQuarter" id="thisQuarter_N" checked="checked" tabindex="1">
-                                    <label for="thisQuarter_N">No</label>
-                                </div>
-                                <div class="cui-controls">
-                                    <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-selection-group">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Are you filing in this quarter?</legend>
+                                    </div>
+                                    <div class="cui-data">
+                                        <input type="radio" class="cui-value" name="thisQuarter" id="thisQuarter_Y" tabindex="1">
+                                        <label for="thisQuarter_Y">Yes</label>
+                                        <input type="radio" class="cui-value" name="thisQuarter" id="thisQuarter_N" checked="checked" tabindex="1">
+                                        <label for="thisQuarter_N">No</label>
+                                    </div>
+                                    <div class="cui-controls">
+                                        <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
+                    </div>
                 </div>
 
                 <div class="cui-row demo-example-header">
                     <h3>Check box list</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <fieldset>
-                        <div class="cui-field cui-selection-list">
-                            <div class="cui-field-main">
-                                <div class="cui-label">
-                                    <legend class="cui-desc">Which team(s) have won a World Cup?</legend>
-                                </div>
-                                <div class="cui-data">
-                                    <div class="cui-selection-list-item">
-                                        <input type="checkbox" class="cui-value" id="worldCupList_1" tabindex="1">
-                                        <label for="worldCupList_1">USA</label>
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-selection-list">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Which team(s) have won a World Cup?</legend>
                                     </div>
-                                    <div class="cui-selection-list-item">
-                                        <input type="checkbox" class="cui-value" id="worldCupList_2" checked="checked" tabindex="1">
-                                        <label for="worldCupList_2">Germany</label>
+                                    <div class="cui-data">
+                                        <div class="cui-selection-list-item">
+                                            <input type="checkbox" class="cui-value" id="worldCupList_1" tabindex="1">
+                                            <label for="worldCupList_1">USA</label>
+                                        </div>
+                                        <div class="cui-selection-list-item">
+                                            <input type="checkbox" class="cui-value" id="worldCupList_2" checked="checked" tabindex="1">
+                                            <label for="worldCupList_2">Germany</label>
+                                        </div>
+                                        <div class="cui-selection-list-item">
+                                            <input type="checkbox" class="cui-value" id="worldCupList_3" tabindex="1">
+                                            <label for="worldCupList_3">Brazil</label>
+                                            <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                        </div>
+                                        <div class="cui-selection-list-item">
+                                            <input type="checkbox" class="cui-value" id="worldCupList_4" tabindex="1">
+                                            <label for="worldCupList_4">France</label>
+                                        </div>
                                     </div>
-                                    <div class="cui-selection-list-item">
-                                        <input type="checkbox" class="cui-value" id="worldCupList_3" tabindex="1">
-                                        <label for="worldCupList_3">Brazil</label>
-                                        <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
-                                    </div>
-                                    <div class="cui-selection-list-item">
-                                        <input type="checkbox" class="cui-value" id="worldCupList_4" tabindex="1">
-                                        <label for="worldCupList_4">France</label>
+                                    <div class="cui-controls">
+                                        <button type="button" class="cui-button-primary" tabindex="1">Save</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
+                    </div>
                 </div>
 
                 <div class="cui-row demo-example-header">
                     <h3>Radio button list</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <fieldset>
-                        <div class="cui-field cui-selection-list">
-                            <div class="cui-field-main">
-                                <div class="cui-label">
-                                    <legend class="cui-desc">Did you file last quarter?</legend>
-                                </div>
-                                <div class="cui-data">
-                                    <div class="cui-selection-list-item">
-                                        <input type="radio" class="cui-value" name="thatQuarter" id="thatQuarter_Y" value="1" tabindex="1">
-                                        <label for="thatQuarter_Y">Yes</label>
+                    <div class="cui-col">
+                        <fieldset>
+                            <div class="cui-field cui-selection-list">
+                                <div class="cui-field-main">
+                                    <div class="cui-label">
+                                        <legend class="cui-desc">Did you file last quarter?</legend>
                                     </div>
-                                    <div class="cui-selection-list-item">
-                                        <input type="radio" class="cui-value" name="thatQuarter" id="thatQuarter_N" checked="checked" value="2" tabindex="1">
-                                        <label for="thatQuarter_N">No</label>
+                                    <div class="cui-data">
+                                        <div class="cui-selection-list-item">
+                                            <input type="radio" class="cui-value" name="thatQuarter" id="thatQuarter_Y" value="1" tabindex="1">
+                                            <label for="thatQuarter_Y">Yes</label>
+                                        </div>
+                                        <div class="cui-selection-list-item">
+                                            <input type="radio" class="cui-value" name="thatQuarter" id="thatQuarter_N" checked="checked" value="2" tabindex="1">
+                                            <label for="thatQuarter_N">No</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
+                    </div>
                 </div>
 
                 <div class="cui-row demo-example-header">
@@ -477,14 +512,17 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Action:</div>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Action:</div>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -499,18 +537,20 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Type:</div>
-                            </div>
-                            <div class="cui-data">
-                                <span class="cui-value">Alpha</span>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                                <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Type:</div>
+                                </div>
+                                <div class="cui-data">
+                                    <span class="cui-value">Alpha</span>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -520,22 +560,25 @@
                     <h3>Data controls and field messages</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Number of people:</div>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Number of people:</div>
+                                </div>
+                                <div class="cui-data">
+                                    <span class="cui-value">Eleventy-feven</span>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
-                            <div class="cui-data">
-                                <span class="cui-value">Eleventy-feven</span>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                            </div>
-                        </div>
-                        <div class="cui-messages">
-                            <div class="cui-error">
-                                <p>Invalid number</p>
+                            <div class="cui-messages">
+                                <div class="cui-error">
+                                    <p>Invalid number</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -545,20 +588,22 @@
                     <h3>Long data</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Description:</div>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-value">
-                                    Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis. Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id. End of the value.
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Description:</div>
                                 </div>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                                <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
+                                <div class="cui-data">
+                                    <div class="cui-value">
+                                        Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis. Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id. End of the value.
+                                    </div>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -568,21 +613,23 @@
                     <h3>Long data with paragraphs</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Description:</div>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-value">
-                                    <p>Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis.</p>
-                                    <p>Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id. End of the value.</p>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Description:</div>
                                 </div>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                                <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
+                                <div class="cui-data">
+                                    <div class="cui-value">
+                                        <p>Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis.</p>
+                                        <p>Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id. End of the value.</p>
+                                    </div>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -597,18 +644,20 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis. End of the label:</div>
-                            </div>
-                            <div class="cui-data">
-                                <span class="cui-value">This is the value</span>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                                <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis. End of the label:</div>
+                                </div>
+                                <div class="cui-data">
+                                    <span class="cui-value">This is the value</span>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -620,18 +669,20 @@
                     </div>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">This is the label. Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis. End of the label:</div>
-                            </div>
-                            <div class="cui-data">
-                                <span class="cui-value">This is the value. Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id. End of the value.</span>
-                            </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                                <button type="button" class="cui-icon demo-button-info" title="More information">Info</button>
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">This is the label. Vestibulum sit amet justo venenatis, imperdiet lorem gravida, maximus quam. In quis lacus posuere, vestibulum urna nec, viverra mauris. Integer hendrerit odio vitae neque porta, ac consectetur mi malesuada. In molestie elit a interdum fringilla. Mauris venenatis fermentum magna vel facilisis. End of the label:</div>
+                                </div>
+                                <div class="cui-data">
+                                    <span class="cui-value">This is the value. Suspendisse quis feugiat augue. Nunc semper, ante et dictum viverra, dui leo consectetur elit, a malesuada nisl tellus ac orci. Nunc eget ipsum eget sem viverra rutrum at in lorem. Praesent efficitur volutpat elit, non commodo diam pulvinar id. End of the value.</span>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -655,15 +706,17 @@
                     <h3>Input prefix</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="twitter" class="cui-desc">Twitter screen name:</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <span class="cui-input-prepend">@</span>
-                                    <input type="text" class="cui-value" id="twitter" value="511nyAlbany" pattern="\w{0,20}" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="twitter" class="cui-desc">Twitter screen name:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <span class="cui-input-prepend">@</span>
+                                        <input type="text" class="cui-value" id="twitter" value="511nyAlbany" pattern="\w{0,20}" tabindex="1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -674,15 +727,17 @@
                     <h3>Input suffix</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-input-align-right">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="agencyDomain" class="cui-desc">Agency domain name:</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <input type="text" class="cui-value" id="agencyDomain" value="tax.ny" tabindex="1">
-                                    <span class="cui-input-append">.gov</span>
+                    <div class="cui-col">
+                        <div class="cui-field cui-input-align-right">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="agencyDomain" class="cui-desc">Agency domain name:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <input type="text" class="cui-value" id="agencyDomain" value="tax.ny" tabindex="1">
+                                        <span class="cui-input-append">.gov</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -693,16 +748,18 @@
                     <h3>Input prefix and suffix</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-input-align-right">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="agencyURL" class="cui-desc">Agency URL:</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <span class="cui-input-prepend">https://</span>
-                                    <input type="text" class="cui-value" id="agencyURL" value="ny" tabindex="1">
-                                    <span class="cui-input-append">.gov</span>
+                    <div class="cui-col">
+                        <div class="cui-field cui-input-align-right">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="agencyURL" class="cui-desc">Agency URL:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <span class="cui-input-prepend">https://</span>
+                                        <input type="text" class="cui-value" id="agencyURL" value="ny" tabindex="1">
+                                        <span class="cui-input-append">.gov</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -713,13 +770,15 @@
                     <h3>Read-only currency</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-currency">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <div class="cui-desc">Amount ($):</div>
-                            </div>
-                            <div class="cui-data">
-                                <span class="cui-value">1,908.23</span>
+                    <div class="cui-col">
+                        <div class="cui-field cui-currency">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <div class="cui-desc">Amount ($):</div>
+                                </div>
+                                <div class="cui-data">
+                                    <span class="cui-value">1,908.23</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -729,14 +788,16 @@
                     <h3>Updatable currency</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-currency cui-required">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="amount1" class="cui-desc">Amount ($):</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <input type="text" class="cui-value" id="amount1" value="1,908.23" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field cui-currency cui-required">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="amount1" class="cui-desc">Amount ($):</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <input type="text" class="cui-value" id="amount1" value="1,908.23" tabindex="1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -747,15 +808,17 @@
                     <h3>Currency data with prefix</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-currency">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="amount2" class="cui-desc">Amount:</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <span class="cui-input-prepend">$</span>
-                                    <input type="text" class="cui-value" id="amount2" value="1,908.23" tabindex="1">
+                    <div class="cui-col">
+                        <div class="cui-field cui-currency">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="amount2" class="cui-desc">Amount:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <span class="cui-input-prepend">$</span>
+                                        <input type="text" class="cui-value" id="amount2" value="1,908.23" tabindex="1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -766,15 +829,17 @@
                     <h3>Currency data with suffix</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-currency cui-input-align-right">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="amount3" class="cui-desc">Amount ($):</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <input type="text" class="cui-value" id="amount3" value="1,908" tabindex="1">
-                                    <span class="cui-input-append">.00</span>
+                    <div class="cui-col">
+                        <div class="cui-field cui-currency cui-input-align-right">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="amount3" class="cui-desc">Amount ($):</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <input type="text" class="cui-value" id="amount3" value="1,908" tabindex="1">
+                                        <span class="cui-input-append">.00</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -785,16 +850,18 @@
                     <h3>Currency data with prefix and suffix</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-currency cui-input-align-right">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="amount4" class="cui-desc">Amount:</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <span class="cui-input-prepend">$</span>
-                                    <input type="text" class="cui-value" id="amount4" value="1,908" tabindex="1">
-                                    <span class="cui-input-append">.00</span>
+                    <div class="cui-col">
+                        <div class="cui-field cui-currency cui-input-align-right">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="amount4" class="cui-desc">Amount:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <span class="cui-input-prepend">$</span>
+                                        <input type="text" class="cui-value" id="amount4" value="1,908" tabindex="1">
+                                        <span class="cui-input-append">.00</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -805,26 +872,29 @@
                     <h3>Currency data with prefix and suffix, controls, and field messages</h3>
                 </div>
                 <div class="cui-row demo-example">
-                    <div class="cui-field cui-currency cui-input-align-right">
-                        <div class="cui-field-main">
-                            <div class="cui-label">
-                                <label for="amount5" class="cui-desc">Amount:</label>
-                            </div>
-                            <div class="cui-data">
-                                <div class="cui-input-wrapper">
-                                    <span class="cui-input-prepend">$</span>
-                                    <input type="text" class="cui-value" id="amount5" value="1,908" tabindex="1">
-                                    <span class="cui-input-append">.00</span>
+                    <div class="cui-col">
+                        <div class="cui-field cui-currency cui-input-align-right">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="amount5" class="cui-desc">Amount:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <div class="cui-input-wrapper">
+                                        <span class="cui-input-prepend">$</span>
+                                        <input type="text" class="cui-value" id="amount5" value="1,908" tabindex="1">
+                                        <span class="cui-input-append">.00</span>
+                                    </div>
+                                </div>
+                                <div class="cui-controls">
+                                    <button type="button" class="cui-button-primary" tabindex="1">Save</button>
+                                    <button type="button" tabindex="1">Discard</button>
+                                    <button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>
                                 </div>
                             </div>
-                            <div class="cui-controls">
-                                <button type="button" class="cui-button-primary" value="abc" tabindex="1">Save</button>
-                                <button type="button" value="xyz" tabindex="1">Discard</button>
-                            </div>
-                        </div>
-                        <div class="cui-messages">
-                            <div class="cui-error">
-                                <p>This value must be less than 1,000</p>
+                            <div class="cui-messages">
+                                <div class="cui-error">
+                                    <p>This value must be less than 1,000</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -863,7 +933,7 @@
                 $newSection
                     .find('.demo-source-section-desc-replace')
                         .html(
-                            '<p>To make labels appear next to the data, add the class <code>cui-inline-field</code> to an ancestor of the <code>cui-field</code> element.</p>' +
+                            '<p>To make labels appear <strong>next to</strong> the data, add the class <code>cui-inline-field</code> to an ancestor of the <code>cui-field</code> element.</p>' +
                             '<p>The HTML for these fields is the same as the examples above.</p>'
                         );
 
@@ -933,12 +1003,12 @@
                     var code = '';
 
                     // Format source code
-                    code = $row.html()
+                    code = $row.find('.cui-col').html()
                                 // Convert HTML tags
                                 .replace(/</g, '&lt;')
                                 .replace(/>/g, '&gt;')
                                 // Remove leading spaces from each line
-                                .replace(/^\s{20}/mg, '')
+                                .replace(/^\s{24}/mg, '')
                                 // Remove space from the end of the block
                                 .replace(/[\s\n]+$/mg, '')
                                 .trim(); // Needed to prevent an extra space from sticking around on the first line for some reason...
@@ -1034,6 +1104,61 @@
                         .append($link)
                         .appendTo($list);
                 });
+
+                // Controls toggle
+                (function () {
+                    var $listItem = $('<li/>');
+                    var $link = $('<a/>');
+                    var insertControlsHasBeenClicked = false;
+                    var _onInsertControlsClick = function _onInsertControlsClick (evt) {
+                        evt.preventDefault();
+
+                        // First time it was clicked
+                        if (!insertControlsHasBeenClicked) {
+                            // Add field controls
+                            $('.cui-field-main').each(_insertControls);
+
+                            // Ignore further clicks since running the function twice wouldn't have any real effect
+                            insertControlsHasBeenClicked = true;
+
+                            $(this)
+                                .removeAttr('href')
+                                .css({
+                                    textDecoration: 'none',
+                                    color: '#333333',
+                                    fontStyle: 'italic',
+                                })
+                                .text('Controls have been added');
+                        }
+                    };
+
+                    var _insertControls = function _insertControls () {
+                        var $fieldMain = $(this);
+                        var $controls = $fieldMain.find('> .cui-controls');
+
+                        // Field does not have controls yet, so add some
+                        if ($controls.length === 0) {
+                            $fieldMain.append(
+                                '<div class="cui-controls">' +
+                                    '<button type="button" class="cui-icon demo-button-info" title="More information" tabindex="1">Info</button>' +
+                                    '<button type="button" tabindex="1">Save</button>' +
+                                '</div>'
+                            );
+                        }
+                    };
+
+                    $link
+                        .attr('href', '#')
+                        .css({
+                            fontWeight: 'normal',
+                        })
+                        .text('Add controls next to each field')
+                        .on('click', _onInsertControlsClick);
+
+                    $listItem
+                        .append($link)
+                        .appendTo($list);
+                }());
 
                 // Button to close the nav
                 $closeButton
