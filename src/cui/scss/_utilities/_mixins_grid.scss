@@ -38,11 +38,11 @@
 
 // Standard column
 // Note that the width must have units for IE11 support! Instead of `0`, use `0px` or `0%`, etc. You may also use `auto`.
-@mixin col($flexShorthandValue: 0 1 auto, $width: false) {
+@mixin col($flexShorthandValue: 0 1 auto, $width: false, $padding: $cui-grid-column-padding) {
     flex: $flexShorthandValue;
     position: relative;
     @include clearfix;
-    padding: $cui-grid-column-padding;
+    padding: $padding;
     min-height: $cui-grid-column-min-height;
 
     // Only apply these properties if a width was defined

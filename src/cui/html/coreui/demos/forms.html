@@ -47,6 +47,18 @@
             padding-bottom: 0;
         }
 
+        /* Space between label/data/controls (CUI default is zero) */
+        .cui-field .cui-data,
+        .cui-field .cui-controls,
+        .cui-inline-field .cui-field .cui-label {
+            margin-right: 16px;
+        }
+
+        /* Space between controls (CUI default is zero) */
+        .cui-field .cui-controls > *:not(:last-child) {
+            margin-right: 8px;
+        }
+
         .demo-example-header {
             border-top: 1px solid #efefef;
         }

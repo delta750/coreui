@@ -98,6 +98,9 @@ $cui-inputgroup-padding-bottom: (1.5 * $cui-input-padding-bottom) !default;
 $cui-inputgroup-padding-left:   (2 * $cui-input-padding-left) !default;
 $cui-inputgroup-padding:        $cui-inputgroup-padding-top $cui-inputgroup-padding-right $cui-inputgroup-padding-bottom $cui-inputgroup-padding-left !default;
 
+$cui-input-prepend-width: ($cui-input-padding-left + (0.25 * $cui-input-font-size)) !default;
+$cui-input-append-width:  ($cui-input-padding-left + (1 * $cui-input-font-size)) !default;
+
 $cui-textarea-resize: vertical !default;
 
 
@@ -106,7 +109,8 @@ $cui-textarea-resize: vertical !default;
 $cui-field-line-height:        1.4 !default; // This corresponds to `normal` for many browsers
 $cui-inline-field-line-height: (2 * $cui-field-line-height) !default;
 $cui-field-flex-order: 99999 !default;
-$cui-field-space-between-label-and-data: $cui-input-font-size !default;
+$cui-field-space-between-field-elements: 0 !default;
+$cui-field-space-between-controls: (0.5 * $cui-field-space-between-field-elements) !default;
 $cui-field-use-asterisk-for-required-fields: true !default;
 
 
