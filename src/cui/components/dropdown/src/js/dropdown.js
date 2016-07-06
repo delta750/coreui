@@ -119,7 +119,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             optionObj.value = optionElem.value;
             optionObj.label = optionElem.innerHTML.trim();
 
-            if (optionElem.getAttribute('selected')) {
+            if (optionElem.hasAttribute('selected')) {
                 settings.selectedIndex = i;
                 optionObj.selected = true;
             }
@@ -154,6 +154,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
         // Settings
         this.options = this.sourceElem.options || [];
+        this.optsArray = settings.options;
         this.selectedIndex = settings.selectedIndex || 0;
         this.widestOption = settings.widestOption || 0;
 
@@ -478,11 +479,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
     // Basically determines whether to center the list on the screen when opened
     Dropdown.isSmallScreen = function _isSmallScreen (DD) {
-        if (window.innerWidth <= DD.smallScreenWidth) {
-            return true;
-        }
-
-        return false;
+        return (window.innerWidth <= DD.smallScreenWidth);
     };
 
     Dropdown.determineTogglerWidth = function _determineTogglerWidth (DD) {
@@ -509,14 +506,15 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
     };
 
     Dropdown.setSelectedIndex = function _setSelectedIndex (DD, newIndex, doNotForcefullyHide) {
+        console.log(DD.optsArray);
         // Unselect the current selection
-        DD.options[DD.selectedIndex].element.classList.remove(CLASSES.selected);
+        DD.optsArray[DD.selectedIndex].element.classList.remove(CLASSES.selected);
 
         // Select the new item
-        DD.options[newIndex].element.classList.add(CLASSES.selected);
+        DD.optsArray[newIndex].element.classList.add(CLASSES.selected);
 
         // Update the toggler text
-        DD.elems.toggleLabel.innerHTML = DD.options[newIndex].label;
+        DD.elems.toggleLabel.innerHTML = DD.optsArray[newIndex].label;
 
         DD.elems.container.setAttribute('aria-valuenow', newIndex + 1);
 
@@ -532,7 +530,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         if (typeof DD.callback === 'function') {
             DD.callback({
                 value: DD.options[newIndex].value, // New value
-                element: DD.sourceElem // Reference to the original element for this Dropdown (usually a `<select>`)
+                element: DD.sourceElem, // Reference to the original element for this Dropdown (usually a `<select>`)
             });
         }
     };
@@ -546,7 +544,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         var moveFocusToIndex = -1;
 
         // Find an option that starts with this character
-        DD.options.some(function (opt) {
+        DD.optsArray.some(function (opt) {
             // Cache the first character of the option for future searches
             if (!opt.firstChar) {
                 opt.firstChar = opt.label.substr(0, 1).toLowerCase();
@@ -669,7 +667,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
             // Focus on the first item
             // if (DEBUG) { console.log('[Toggler] Setting focus to the first item'); }
-            DD.options[0].element.focus();
+            DD.optsArray[0].element.focus();
         }
         // Up arrow
         else if (code === 38) {
@@ -714,14 +712,14 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             itemIndex = parseInt(listItem.getAttribute(ATTRIBUTES.optionIndex), 10);
 
             // See if there is another item below this one
-            if (DD.options.length > itemIndex + 1) {
+            if (DD.optsArray.length > itemIndex + 1) {
                 // if (DEBUG) { console.log('Shifting focus down from item ' + itemIndex + ' to item ' + (itemIndex + 1)); }
-                DD.options[itemIndex + 1].element.focus();
+                DD.optsArray[itemIndex + 1].element.focus();
             }
             // No more items below this one, go back to the top
             else {
                 // if (DEBUG) { console.log('Shifting focus back to the top item'); }
-                DD.options[0].element.focus();
+                DD.optsArray[0].element.focus();
             }
         }
         // Shift-tab or up arrow
@@ -733,7 +731,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // See if there is another item above this one
             if (itemIndex > 0) {
                 // if (DEBUG) { console.log('Shifting focus to the previous item'); }
-                DD.options[itemIndex - 1].element.focus();
+                DD.optsArray[itemIndex - 1].element.focus();
             }
             // No more items above this one, close the list
             else {
