@@ -1,0 +1,132 @@
+// Core settings
+@import "../../../../../cui/scss/_settings";
+@import "../../../../../cui/scss/_utilities/_mixins";
+// Implementer settings
+@import "../../_settings";
+// Project settings
+@import "../../../../scss/_settings";
+@import "../../../../scss/_utilities/_mixins";
+
+// Component styles:
+$dd-toggler-padding: $cui-input-padding;
+
+$dd-thumb-width: $cui-input-font-size;
+$dd-item-padding-vertical: $cui-input-padding-top; // 4px;
+$dd-item-padding-horizontal: $cui-input-padding-right; // 6px;
+$dd-item-padding: 6px 6px 6px 6px; // $dd-item-padding-vertical $dd-item-padding-horizontal;
+
+$dd-item-bg-color-hover: $cui-input-bg-hover-color;
+
+$dd-thumb-color: $cui-input-color;
+
+$dd-list-border-color: $cui-input-border-color; // $frg-teal;
+
+$dd-shadow-color: $cui-input-border-color;
+$dd-border-radius: $cui-border-radius;
+
+// Outer container
+.cui-dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    @include user-select;
+    white-space: nowrap; // For `text-overflow`
+}
+
+// Toggle wrapper
+.cui-dropdown-toggler {
+    position: relative;
+    border: 1px solid $cui-input-border-color;
+    cursor: pointer;
+    border-radius: $dd-border-radius;
+
+    // Make it the same height as a standard text input
+    min-height: 24px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    .cui-dropdown-expanded & {
+        box-shadow: 0 0 2px $dd-shadow-color;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    // Label
+    & > div {
+        padding: $dd-toggler-padding;
+        line-height: normal;
+
+        // Truncated text
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        .cui-dropdown-expanded & {
+        }
+    }
+
+    // Thumb
+    & > i {
+        display: block;
+        position: absolute;
+        top: -3px;
+        right: 2px;
+        width: $dd-thumb-width;
+
+        &:after {
+            display: block;
+            position: absolute;
+            top: 10px;
+            right: 3px;
+            content: "";
+            @include triangle("down", 8px, $dd-thumb-color);
+
+            .cui-dropdown-expanded & {
+                @include triangle("up", 8px, $dd-thumb-color);
+            }
+        }
+
+        .cui-dropdown-expanded & {
+        }
+    }
+}
+
+// List `<ul>` element
+.cui-dropdown-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid $dd-list-border-color;
+    border-top: none;
+    background-color: white;
+    @include clearfix;
+    box-shadow: 0 0 2px $dd-shadow-color;
+    border-bottom-left-radius: $dd-border-radius;
+    border-bottom-right-radius: $dd-border-radius;
+}
+
+// Items
+.cui-dropdown-list > li {
+    padding: $dd-item-padding;
+    margin: 0; // Override default `li` style
+    cursor: pointer;
+    display: block;
+    @include clearfix;
+    @include user-select;
+    border-bottom: 1px solid #ddd;
+
+    font-size: $cui-input-font-size;
+    line-height: normal;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover,
+    &:focus {
+        background: $dd-item-bg-color-hover;
+    }
+}
+
+.cui-dropdown-selected {
+    font-weight: bold;
+}

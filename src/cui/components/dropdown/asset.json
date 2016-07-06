@@ -1,0 +1,5 @@
+{
+    "name": "dropdown",
+    "lazy": false,
+    "sources": ["script", "style"]
+}

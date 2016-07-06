@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dropdown Test - Core UI</title>
+    <link href="/dist/css/main.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+    <!-- Skip navigation for accessibility purposes -->
+    <div class="cui-hide-from-screen">
+        <a href="#nav">Go to navigation</a>
+        <a href="#main">Go to content</a>
+    </div>
+
+    <header class="cui-row">
+        <div class="cui-col-small-12">
+            <h1>Core UI</h1>
+        </div>
+        <div class="cui-col-small-12">
+            <h2>Dropdown Tests</h2>
+        </div>
+    </header>
+
+    <main role="main" id="main">
+        <form name="form_content" id="form_content" action="#" method="post">
+            <section>
+                <div class="cui-row">
+                    <h3>Dropdown</h3>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="taxType" class="cui-desc">Tax type:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <select class="cui-value" id="taxType" tabindex="1">
+                                        <option selected="selected" value="1">Personal income</option>
+                                        <option value="2">Sales</option>
+                                        <option value="3">Corporation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <script id="require" src="/dist/js/main.js"></script>
+    <script>
+        require(['jquery', 'cui', 'dropdown', 'domReady!'], function ($, cui, dropdown) {
+            $('select').dropdown();
+
+            // $('#test1').popover({
+            //     html: 'You clicked on the Test 1 button',
+            //     location: 'below-right',
+            //     display: {
+            //         className: 'cui-popover-demo',
+            //     },
+            //     isModal: true,
+            // });
+
+            // $('#test2').popover({
+            //     html: 'You clicked on the Test 2 button',
+            //     location: 'above-left',
+            //     display: {
+            //         className: 'cui-popover-demo',
+            //     },
+            //     isModal: true,
+            // });
+        });
+    </script>
+
+    <style>
+        /* Demo page styles */
+        /*.cui-popover-demo {
+            color: #fff;
+            border: 1px solid #777;
+            background-color: #444;
+            padding: 5px;
+        }
+
+        section > .cui-row {
+            margin-bottom: 2em;
+        }*/
+    </style>
+</body>
+</html>
