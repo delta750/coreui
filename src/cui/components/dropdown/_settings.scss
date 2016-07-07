@@ -1,1 +1,18 @@
-// Default style settings that a consumer of this component might change
+// Default styles
+// You may change these to fit your project
+
+$cui-dd-toggler-padding: $cui-input-padding;
+
+$cui-dd-thumb-width: $cui-input-font-size;
+$cui-dd-item-padding-vertical: $cui-input-padding-top;
+$cui-dd-item-padding-horizontal: $cui-input-padding-right;
+$cui-dd-item-padding: 6px 6px 6px 6px;
+
+$cui-dd-item-bg-color-hover: $cui-input-bg-hover-color;
+
+$cui-dd-thumb-color: $cui-input-color;
+
+$cui-dd-list-border-color: $cui-input-border-color;
+
+$cui-dd-shadow-color: $cui-input-border-color;
+$cui-dd-border-radius: $cui-border-radius;
