@@ -32,13 +32,34 @@
                         <div class="cui-field">
                             <div class="cui-field-main">
                                 <div class="cui-label">
-                                    <label for="taxType" class="cui-desc">Tax type:</label>
+                                    <label for="shortExample" class="cui-desc">Short:</label>
                                 </div>
                                 <div class="cui-data">
-                                    <select class="cui-value" id="taxType" tabindex="1">
-                                        <option selected="selected" value="1">Personal income</option>
-                                        <option value="2">Sales</option>
-                                        <option value="3">Corporation</option>
+                                    <select class="cui-value" id="shortExample" tabindex="1">
+                                        <option value="1" selected="selected">Alpha</option>
+                                        <option value="2">Bravo 1</option>
+                                        <option value="3">Charlie</option>
+                                        <option value="4">Bravo 2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col">
+                        <div class="cui-field">
+                            <div class="cui-field-main">
+                                <div class="cui-label">
+                                    <label for="longExample" class="cui-desc">Long:</label>
+                                </div>
+                                <div class="cui-data">
+                                    <select class="cui-value" id="longExample" tabindex="1">
+                                        <option value="1" selected="selected">Delta</option>
+                                        <option value="2">Echo 1</option>
+                                        <option value="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</option>
+                                        <option value="4">Echo 2</option>
+                                        <option value="5">Esed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,39 +74,17 @@
     <script>
         require(['jquery', 'cui', 'dropdown', 'domReady!'], function ($, cui, dropdown) {
             $('select').dropdown();
-
-            // $('#test1').popover({
-            //     html: 'You clicked on the Test 1 button',
-            //     location: 'below-right',
-            //     display: {
-            //         className: 'cui-popover-demo',
-            //     },
-            //     isModal: true,
-            // });
-
-            // $('#test2').popover({
-            //     html: 'You clicked on the Test 2 button',
-            //     location: 'above-left',
-            //     display: {
-            //         className: 'cui-popover-demo',
-            //     },
-            //     isModal: true,
-            // });
         });
     </script>
 
     <style>
         /* Demo page styles */
-        /*.cui-popover-demo {
-            color: #fff;
-            border: 1px solid #777;
-            background-color: #444;
-            padding: 5px;
-        }
 
+        /*
         section > .cui-row {
             margin-bottom: 2em;
-        }*/
+        }
+        */
     </style>
 </body>
 </html>

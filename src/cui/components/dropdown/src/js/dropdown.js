@@ -37,33 +37,33 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
     /////////////////
 
     var Dropdown = function _Dropdown (elem, opts) {
+        var self;
+        var dropdownWidth;
+        var isOneOptionSelected;
+
         // Make sure we're creating a new instance even if it wasn't called with `new`
         if (!(this instanceof Dropdown)) {
             return new Dropdown(opts);
         }
 
-        if (elem instanceof Node) {
-            // Store the element upon which the component was called
-            this.sourceElem = elem;
-            // Create a jQuery version of the element
-            // this.$self = $(elem);
+        if (!elem || !(elem instanceof Node) || elem.nodeName !== 'SELECT') {
+            console.error('Dropdown: Must be provided with a <select> element ', elem, opts, this);
 
-            this.$sourceSelect = $(elem);
-
-            // This next line takes advantage of HTML5 data attributes
-            // to support customization of the plugin on a per-element
-            // basis. For example,
-            // <div class="item" data-dropdown-options="{'message':'Goodbye World!'}"></div>
-            this.metadata = this.$sourceSelect.data('dropdown-options');
+            return null;
         }
-        else {
-            console.warn('[B] not given a node ', elem, opts);
-            this.metadata = {};
 
-            // this.$self = false;
+        // Store the element upon which the component was called
+        this.sourceElem = elem;
+        // Create a jQuery version of the element
+        // this.$self = $(elem);
 
-            opts = elem;
-        }
+        this.$sourceSelect = $(elem);
+
+        // This next line takes advantage of HTML5 data attributes
+        // to support customization of the plugin on a per-element
+        // basis. For example,
+        // <div class="item" data-dropdown-options="{'message':'Goodbye World!'}"></div>
+        this.metadata = this.$sourceSelect.data('dropdown-options');
 
         if (!opts || typeof opts !== 'object') {
             opts = {};
@@ -76,149 +76,129 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         // 1. A parent node for the target `<select>` (first condition) so we can mount the dropdown
         // 2. At least one `<option>` (second and third conditions)
         if (!this.sourceElem.parentNode || !this.sourceElem.options || !this.sourceElem.options.length) {
-            console.warn('Not enough info to proceed ', elem, opts, this);
+            console.error('Dropdown: Not enough info to proceed ', elem, opts, this);
+
             return null;
         }
 
-        // console.log(this);
+        // Now we begin actually setting up the dropdown
 
-        var settings = {
-                options: [],
-                selectedIndex: 0,
-                widestOption: 0,
-                callback: priv.onValueChange,
-                smallScreenWidth: 768, //TODO: Get this value from Sass?
-            };
-        var optionElem;
-        var optionObj;
-        var i;
-        var numOptions;
-        var widthTestSelect;
-        var widthTestOption;
-        var width;
+        self = this; // Reference to this instance that can be passed to event handlers and used within
+        dropdownWidth = 0;
 
-        // Gather list of options
+        self.optsArray = [];
+        self.selectedIndex = 0;
+        self.options = [];
+        self.widestOption = 0;
 
-        // To measure the width of an `<option>` we need to leverage a test element since we can't measure each `<option>` directly (unless we momentarily change the `<select>` to choose that option, but that would have many bad repercussions). This test element will be mounted to the same parent node as the `<select>` so that it will inherit the same styles. Then we measure the test element and use it to measure the individual option's true width.
-        widthTestSelect = document.createElement('select');
-        widthTestSelect.style.cssText = 'position: absolute; visibility: hidden;'; // Make sure it assumes its natural layout but remains hidden from the user
+        // Gather list of `<option>`s and derive some of the dropdown's settings
+        (function _Dropdown_getSettings () {
+            var optionObj;
+            var optionElem;
+            var widthTestSelect;
+            var widthTestOption;
+            var width;
+            var numOptions;
+            var i;
 
-        widthTestOption = document.createElement('option');
-        widthTestSelect.appendChild(widthTestOption);
-        this.sourceElem.parentNode.appendChild(widthTestSelect);
+            // To measure the width of an `<option>` we need to leverage a test element since we can't measure each `<option>` directly (unless we momentarily change the `<select>` to choose that option, but that would have many bad repercussions). This test element will be mounted to the same parent node as the `<select>` so that it will inherit the same styles. Then we measure the test element and use it to measure the individual option's true width.
+            widthTestSelect = document.createElement('select');
+            widthTestSelect.style.cssText = 'position: absolute; visibility: hidden;'; // Make sure it assumes its natural layout but remains hidden from the user
 
-        // Looping through the `<option>` elements
-        i = 0;
-        numOptions = this.sourceElem.options.length;
-        while (i < numOptions) {
-            optionElem = this.sourceElem.options[i];
-            width = 0;
+            widthTestOption = document.createElement('option');
+            widthTestSelect.appendChild(widthTestOption);
+            self.sourceElem.parentNode.appendChild(widthTestSelect);
 
-            // Create an Option object
-            optionObj = {};
-            optionObj.value = optionElem.value;
-            optionObj.label = optionElem.innerHTML.trim();
+            // Looping through the `<option>` elements
+            i = 0;
+            numOptions = self.sourceElem.options.length;
+            while (i < numOptions) {
+                optionElem = self.sourceElem.options[i];
+                width = 0;
 
-            if (optionElem.hasAttribute('selected')) {
-                settings.selectedIndex = i;
-                optionObj.selected = true;
+                // Create an Option object
+                optionObj = {};
+                optionObj.value = optionElem.value;
+                optionObj.label = optionElem.innerHTML.trim();
+
+                if (optionElem.hasAttribute('selected')) {
+                    self.selectedIndex = i;
+                    optionObj.selected = true;
+                }
+                else {
+                    optionObj.selected = false;
+                }
+
+                // Find the width
+                widthTestOption.innerHTML = optionObj.label;
+                width = parseInt(window.getComputedStyle(widthTestSelect).width, 10);
+
+                if (width > self.widestOption) {
+                    self.widestOption = width;
+                }
+
+                self.optsArray.push(optionObj);
+
+                i++;
             }
-            else {
-                optionObj.selected = false;
-            }
 
-            // Find the width
-            widthTestOption.innerHTML = optionObj.label;
-            width = parseInt(window.getComputedStyle(widthTestSelect).width, 10);
+            // Make sure big text (e.g. lots of capital letters and Ws) doesn't get truncated. This is a magic number and pretty iflow-specific. As an example, the string "AAAA" gets truncated unless at least 5px are added
+            self.widestOption += 5;
 
-            if (width > settings.widestOption) {
-                settings.widestOption = width;
-            }
-
-            settings.options.push(optionObj);
-
-            i++;
-        }
-
-        // Make sure big text (e.g. lots of capital letters and Ws) doesn't get truncated. This is a magic number and pretty iflow-specific. As an example, the string "AAAA" gets truncated unless at least 5px are added
-        settings.widestOption += 5;
-
-        // Cleanup the test element
-        this.sourceElem.parentNode.removeChild(widthTestSelect);
-
-
-        var self = this; // Reference to this instance that can be passed to event handlers
-        var selectedIndexText;
-        var dropdownWidth = 0;
-        var isOneOptionSelected = false; // Track whether an option is marked as selected by the caller
-
-        // Settings
-        this.options = this.sourceElem.options || [];
-        this.optsArray = settings.options;
-        this.selectedIndex = settings.selectedIndex || 0;
-        this.widestOption = settings.widestOption || 0;
+            // Cleanup the test element
+            self.sourceElem.parentNode.removeChild(widthTestSelect);
+        }());
 
         // Default properties
-        this.elems = {};
-        this.isCollapsed = true;
-        this.self = this;
-        this.callback = settings.callback; // Will be called when the dropdown's value changes
-        this.smallScreenWidth = !isNaN(settings.smallScreenWidth) ? settings.smallScreenWidth : 640;
+        self.elems = {};
+        self.isCollapsed = true;
+        self.callback = priv.onValueChange; // Will be called when the dropdown's value changes
+        self.smallScreenWidth = 768;
 
-        selectedIndexText = this.options[this.selectedIndex].label || 'Select one';
-
-        // // The maximum width of the dropdown is the narrower of these two items: the parent container of the `<select>`, and the widest `<option>`
-        // // In other words, don't let the dropdown get so wide that it will run off the screen and/or expand its container, but at the same time let it shrink down to its natural width if all the options are short
-        // dropdownWidth = Math.min(this.elem.parentNode.clientWidth - 10, this.widestOption);
-
-        // // Remove some width to account for help icons
-        // if (window.innerWidth < this.smallScreenWidth) {
-        //     // Trimming 7px is enough on desktop Chrome, but I didn't have a chance to test this on an actual iOS device with Avenir Next so I'm overcompensating a little
-        //     dropdownWidth -= 10;
-        // }
-        // else {
-        //     // Trimming 16px is enough on desktop Chrome, but I'm overcompensating to account for other browsers/fonts
-        //     dropdownWidth -= 20;
-        // }
-
-        this.elems.container = document.createElement('div');
-        this.elems.toggleWrap = document.createElement('div');
-        this.elems.toggleLabel = document.createElement('div');
-        this.elems.toggleThumb = document.createElement('i');
-        this.elems.optionsList = document.createElement('ul');
+        // Create dropdown UI elements
+        self.elems.container = document.createElement('div');
+        self.elems.toggleWrap = document.createElement('div');
+        self.elems.toggleLabel = document.createElement('div');
+        self.elems.toggleThumb = document.createElement('i');
+        self.elems.optionsList = document.createElement('ul');
 
         // Outer container
-        this.elems.container.className = CLASSES.container;
+        self.elems.container.className = CLASSES.container;
         dropdownWidth = Dropdown.determineTogglerWidth(self);
-        this.elems.container.style.width = dropdownWidth + 'px';
+        self.elems.container.style.width = dropdownWidth + 'px';
 
         // Accessibility attributes
-        this.elems.container.setAttribute('role', 'dropdown');
-        this.elems.container.setAttribute('aria-controls', guid(this.elems.optionsList)); // Note that this gives the `optionsList` element a (generated) ID
-        this.elems.container.setAttribute('aria-hidden', 'true');
-        this.elems.container.setAttribute('aria-expanded', 'false');
+        self.elems.container.setAttribute('role', 'dropdown');
+        self.elems.container.setAttribute('aria-controls', guid(self.elems.optionsList)); // Note that this gives the `optionsList` element a (generated) ID
+        self.elems.container.setAttribute('aria-hidden', 'true');
+        self.elems.container.setAttribute('aria-expanded', 'false');
 
         // Use a 1-based index for values used with ARIA
-        this.elems.container.setAttribute('aria-valuemin', 1);
-        this.elems.container.setAttribute('aria-valuenow', this.selectedIndex + 1);
-        this.elems.container.setAttribute('aria-valuemax', this.options.length);
+        self.elems.container.setAttribute('aria-valuemin', 1);
+        self.elems.container.setAttribute('aria-valuenow', self.selectedIndex + 1);
+        self.elems.container.setAttribute('aria-valuemax', self.options.length);
 
         // Toggle area
-        this.elems.toggleWrap.classList.add(CLASSES.toggler);
-        this.elems.toggleWrap.setAttribute('tabindex', '1');
+        self.elems.toggleWrap.classList.add(CLASSES.toggler);
+        self.elems.toggleWrap.setAttribute('tabindex', '1');
 
-        this.elems.toggleWrap.addEventListener('click', function (evt) {
+        self.elems.toggleWrap.addEventListener('click', function (evt) {
             Dropdown.onToggleClick(evt, self);
         }.bind(self), false);
 
-        this.elems.toggleWrap.addEventListener('keydown', function (evt) {
+        self.elems.toggleWrap.addEventListener('keydown', function (evt) {
             Dropdown.onToggleKeydown(evt, self);
         }.bind(self), false);
 
-        this.elems.toggleLabel.innerHTML = selectedIndexText;
+        self.elems.toggleLabel.innerHTML = self.optsArray[self.selectedIndex].label || 'Select one';
 
-        // Build options list
-        settings.options.forEach(function (opt, i) {
+        // Build options list:
+
+        // Track whether an option is marked as selected by the caller
+        isOneOptionSelected = false;
+
+        // Loop through option objects harvested from the `<select>` above
+        self.optsArray.forEach(function _Dropdown_optsArray_forEach (opt, i) {
             var listItem = document.createElement('li');
             var _self = this;
 
@@ -243,11 +223,11 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             listItem.setAttribute('tabindex', 1);
 
             // Event listeners
-            listItem.addEventListener('click', function (evt) {
+            listItem.addEventListener('click', function _Dropdown_listItem_onClick (evt) {
                 Dropdown.onItemClick(evt, _self);
             }.bind(_self), false);
 
-            listItem.addEventListener('keydown', function (evt) {
+            listItem.addEventListener('keydown', function _Dropdown_listItem_onKeydown (evt) {
                 Dropdown.onItemDown(evt, _self);
             }.bind(_self), false);
 
@@ -260,43 +240,43 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
         // Ensure some item is selected. If the caller didn't mark any, then just go with the first one
         if (!isOneOptionSelected) {
-            this.options[0].selected = true;
+            self.options[0].selected = true;
         }
 
-        this.elems.optionsList.className = CLASSES.hidden + ' ' + CLASSES.optionsList;
-        this.elems.optionsList.setAttribute('aria-hidden', 'true');
-        this.elems.optionsList.setAttribute('aria-expanded', 'false');
-        this.elems.optionsList.setAttribute('tabindex', '1');
-        this.elems.optionsList.style.width = dropdownWidth + 'px';
+        self.elems.optionsList.className = CLASSES.hidden + ' ' + CLASSES.optionsList;
+        self.elems.optionsList.setAttribute('aria-hidden', 'true');
+        self.elems.optionsList.setAttribute('aria-expanded', 'false');
+        self.elems.optionsList.setAttribute('tabindex', '1');
+        self.elems.optionsList.style.width = dropdownWidth + 'px';
 
         // Add everything to the DOM
 
         // Build toggler
-        this.elems.toggleWrap.appendChild(this.elems.toggleLabel);
-        this.elems.toggleWrap.appendChild(this.elems.toggleThumb);
+        self.elems.toggleWrap.appendChild(self.elems.toggleLabel);
+        self.elems.toggleWrap.appendChild(self.elems.toggleThumb);
 
         // Add toggler to container
-        this.elems.container.appendChild(this.elems.toggleWrap);
+        self.elems.container.appendChild(self.elems.toggleWrap);
 
         // Add the options list directly to the `<body>` so we can position it with respect to the entire page
-        document.body.appendChild(this.elems.optionsList);
+        document.body.appendChild(self.elems.optionsList);
 
         // Create reference to the container element so the caller can mount it to the DOM as necessary
-        this.element = this.elems.container;
+        self.element = self.elems.container;
 
         // Add window resize event listener
-        window.addEventListener('resize', function (evt) {
+        window.addEventListener('resize', function _Dropdown_window_onResize (evt) {
             Dropdown.onWindowResize(evt, self);
         }.bind(self), false);
 
         // Mount the dropdown element right after the `<select>` element so it appears in the same place on the page (i.e. their may be other siblings in the `<select>` container and we want the dropdown to be in the right order)
-        this.sourceElem.parentNode.insertBefore(this.element, this.sourceElem.nextSibling);
+        self.sourceElem.parentNode.insertBefore(self.element, self.sourceElem.nextSibling);
 
         // Hide original `<select>`
-        this.sourceElem.style.display = 'none';
+        self.sourceElem.style.display = 'none';
 
         // Store the Dropdown instance
-        dropdowns[guid(this.sourceElem)] = this;
+        dropdowns[guid(self.sourceElem)] = self;
 
         return this;
     };
@@ -312,19 +292,18 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
     Dropdown.prototype.init = function _init () {
         var dd = this;
-        var selectElem;
 
         // Extend the config options with the defaults
         dd.config = $.extend(true, {}, this.default, this.options);
 
-        // console.log(this);
-
         // Find the `<select>` element since the class we queried for is usually on the parent
         if (dd.sourceElem.nodeName !== 'SELECT') {
-            console.warn('durp ', dd);
+            console.warn('Dropdown: sourceElem is not a <select> element ', dd.sourceElem, dd);
             this.sourceElem = dd.sourceElem.getElementsByTagName('select');
 
             if (!this.sourceElem || !this.sourceElem.length) {
+                console.error('Dropdown: Could not find a <select> element ', dd);
+
                 return false;
             }
 
@@ -335,24 +314,12 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         }
 
         if (!this.sourceElem) {
-             return false;
+            console.error('Dropdown: No source element provided ', this);
+
+            return false;
         }
 
-        // priv.setup(this.sourceElem);
-
         return dd;
-    };
-
-    Dropdown.prototype.teardown = function _teardown () {
-        priv.teardown();
-
-        return true;
-    };
-
-    Dropdown.version = VERSION;
-
-    Dropdown.getVersion = function _getVersion () {
-        return VERSION;
     };
 
     /////////////////////
@@ -487,26 +454,25 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         // In other words, don't let the dropdown get so wide that it will run off the screen and/or expand its container, but at the same time let it shrink down to its natural width if all the options are short
         var dropdownWidth = Math.min(DD.sourceElem.parentNode.clientWidth - 10, DD.widestOption);
 
-        // Remove some width to account for help icons
+        // Remove some width to account for adjacent controls
         // Small screens
         if (window.innerWidth < DD.smallScreenWidth) {
             // Trimming 7px is enough on desktop Chrome, but I didn't have a chance to test this on an actual iOS device with Avenir Next so I'm overcompensating a little
             dropdownWidth -= 10;
         }
-        // Large screens, but only if the toggler is big enough to actually wrap a help icon, otherwise we risk truncating small dropdowns unnecessarily
+        // Large screens, but only if the toggler is big enough to actually wrap an adjacent control, otherwise we risk truncating small dropdowns unnecessarily
         else if (dropdownWidth > 300) { // 300px is semi-arbitrary
             // Trimming 16px is enough on desktop Chrome, but I'm overcompensating to account for other browsers/fonts
             dropdownWidth -= 20;
         }
 
-        // console.log('Source elem: ', DD.sourceElem.parentNode.clientWidth, DD.sourceElem.parentNode);
-        // console.log('widest Option: ', DD.widestOption);
+        //FIXME: Magic number. Without this, the triangle overlaps the selected option's text. But why do I need to add this? (CP 7/7/2016)
+        dropdownWidth += 8;
 
         return dropdownWidth;
     };
 
     Dropdown.setSelectedIndex = function _setSelectedIndex (DD, newIndex, doNotForcefullyHide) {
-        console.log(DD.optsArray);
         // Unselect the current selection
         DD.optsArray[DD.selectedIndex].element.classList.remove(CLASSES.selected);
 
@@ -529,7 +495,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         // Notify calling function about the new value
         if (typeof DD.callback === 'function') {
             DD.callback({
-                value: DD.options[newIndex].value, // New value
+                value: DD.optsArray[newIndex].value, // New value
                 element: DD.sourceElem, // Reference to the original element for this Dropdown (usually a `<select>`)
             });
         }
@@ -538,7 +504,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
     Dropdown.handleLetterKey = function _handleLetterKey (code, DD) {
         // Get the letter or number, but account for different codes like the number pad, capital letters, etc
         // See http://stackoverflow.com/a/5829387/348995
-        var letter = String.fromCharCode((96 <= code && code <= 105)? code - 48 : code).toLowerCase();
+        var letter = String.fromCharCode((96 <= code && code <= 105) ? code - 48 : code).toLowerCase();
         var foundItemBeforeCurrent = -1;
         var foundItemAfterCurrent = -1;
         var moveFocusToIndex = -1;
@@ -585,6 +551,24 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         // Focus on it, but don't force the popover to hide if it's already open
         if (moveFocusToIndex !== -1) {
             Dropdown.setSelectedIndex(DD, moveFocusToIndex, true);
+        }
+    };
+
+    priv.teardown = function _teardownPage () {
+        var id;
+
+        // Loop through all known Dropdown instances
+        for (id in dropdowns) {
+            if (dropdowns.hasOwnProperty(id) && dropdowns[id]) {
+                // Reveal the corresponding `<select>` element
+                document.getElementById(id).style.display = 'inline';
+
+                // Destroy component
+                dropdowns[id].destroy();
+
+                // Remove from list
+                delete dropdowns[id];
+            }
         }
     };
 
@@ -785,6 +769,11 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         }
     };
 
+    priv.onValueChange = function _onValueChange (obj) {
+        $(obj.element).val(obj.value);
+    };
+
+
     ////////////////////
     // Public methods //
     ////////////////////
@@ -805,59 +794,22 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         this.options = [];
     };
 
+    Dropdown.prototype.teardown = function _teardown () {
+        priv.teardown();
 
-
-
-
-
-    // **************************************************************
-    // **************************************************************
-    // **************************************************************
-    // **************************************************************
-    // **************************************************************
-    // **************************************************************
-    // **************************************************************
-
-
-
-
-    // This is a liaison between iflow and the Dropdown class. It finds applicable `<select>` elements, converts them to settings objects, and passes those settings to `Dropdown`. It also listens to changes that come back from `Dropdown` and updates the `<select>` to point to the correct option.
-
-    /////////////////////
-    // Private methods //
-    /////////////////////
-
-    priv.teardown = function _teardownPage () {
-        var id;
-
-        // Loop through all known Dropdown instances
-        for (id in dropdowns) {
-            if (dropdowns.hasOwnProperty(id) && dropdowns[id]) {
-                // Reveal the corresponding `<select>` element
-                document.getElementById(id).style.display = 'inline';
-                // document.getElementById(id).style.borderColor = 'black';
-                // document.getElementById(id).style.borderStyle = 'solid';
-                // document.getElementById(id).style.color = 'black';
-
-                // Destroy component
-                dropdowns[id].destroy();
-
-                // Remove from list
-                delete dropdowns[id];
-            }
-        }
+        return true;
     };
 
-    priv.onValueChange = function _onValueChange (obj) {
-        $(obj.element).val(obj.value);
+    Dropdown.version = VERSION;
+
+    Dropdown.prototype.getVersion = function _getVersion () {
+        return VERSION;
     };
 
 
     ///////////////////////////
     // Expose public methods //
     ///////////////////////////
-
-    Dropdown.version = VERSION;
 
     // Define and expose the component to jQuery
     $.fn.dropdown = function (options) {

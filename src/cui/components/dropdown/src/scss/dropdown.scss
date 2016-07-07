@@ -68,7 +68,7 @@ $dd-border-radius: $cui-border-radius;
     & > i {
         display: block;
         position: absolute;
-        top: -3px;
+        top: ($cui-input-font-size / 4);
         right: 2px;
         width: $dd-thumb-width;
 
