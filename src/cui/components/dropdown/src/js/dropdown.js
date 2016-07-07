@@ -38,8 +38,6 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
     var Dropdown = function _Dropdown (elem, opts) {
         var self;
-        var dropdownWidth;
-        var isOneOptionSelected;
 
         // Make sure we're creating a new instance even if it wasn't called with `new`
         if (!(this instanceof Dropdown)) {
@@ -81,18 +79,36 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             return null;
         }
 
-        // Now we begin actually setting up the dropdown
-
         self = this; // Reference to this instance that can be passed to event handlers and used within
-        dropdownWidth = 0;
 
-        self.optsArray = [];
-        self.selectedIndex = 0;
-        self.options = [];
-        self.widestOption = 0;
+        // Setup the dropdown
+        self = priv.setup(self);
+
+        return self;
+    };
+
+    /////////////////////
+    // Private methods //
+    /////////////////////
+
+    /**
+     * Creates the dropdown UI
+     *
+     * @param   {Object}  Instance of the plugin that needs to be setup
+     *
+     * @return  {Object}  Updated instance of the plugin
+     */
+    priv.setup = function _setup (dd) {
+        var dropdownWidth = 0;
+        var isOneOptionSelected;
+
+        dd.optsArray = [];
+        dd.selectedIndex = 0;
+        dd.options = [];
+        dd.widestOption = 0;
 
         // Gather list of `<option>`s and derive some of the dropdown's settings
-        (function _Dropdown_getSettings () {
+        (function _setup_getSettings () {
             var optionObj;
             var optionElem;
             var widthTestSelect;
@@ -107,13 +123,13 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
             widthTestOption = document.createElement('option');
             widthTestSelect.appendChild(widthTestOption);
-            self.sourceElem.parentNode.appendChild(widthTestSelect);
+            dd.sourceElem.parentNode.appendChild(widthTestSelect);
 
             // Looping through the `<option>` elements
             i = 0;
-            numOptions = self.sourceElem.options.length;
+            numOptions = dd.sourceElem.options.length;
             while (i < numOptions) {
-                optionElem = self.sourceElem.options[i];
+                optionElem = dd.sourceElem.options[i];
                 width = 0;
 
                 // Create an Option object
@@ -122,7 +138,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
                 optionObj.label = optionElem.innerHTML.trim();
 
                 if (optionElem.hasAttribute('selected')) {
-                    self.selectedIndex = i;
+                    dd.selectedIndex = i;
                     optionObj.selected = true;
                 }
                 else {
@@ -133,64 +149,64 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
                 widthTestOption.innerHTML = optionObj.label;
                 width = parseInt(window.getComputedStyle(widthTestSelect).width, 10);
 
-                if (width > self.widestOption) {
-                    self.widestOption = width;
+                if (width > dd.widestOption) {
+                    dd.widestOption = width;
                 }
 
-                self.optsArray.push(optionObj);
+                dd.optsArray.push(optionObj);
 
                 i++;
             }
 
             // Make sure big text (e.g. lots of capital letters and Ws) doesn't get truncated. This is a magic number and pretty iflow-specific. As an example, the string "AAAA" gets truncated unless at least 5px are added
-            self.widestOption += 5;
+            dd.widestOption += 5;
 
             // Cleanup the test element
-            self.sourceElem.parentNode.removeChild(widthTestSelect);
+            dd.sourceElem.parentNode.removeChild(widthTestSelect);
         }());
 
         // Default properties
-        self.elems = {};
-        self.isCollapsed = true;
-        self.callback = priv.onValueChange; // Will be called when the dropdown's value changes
-        self.smallScreenWidth = 768;
+        dd.elems = {};
+        dd.isCollapsed = true;
+        dd.callback = priv.onValueChange; // Will be called when the dropdown's value changes
+        dd.smallScreenWidth = 768;
 
         // Create dropdown UI elements
-        self.elems.container = document.createElement('div');
-        self.elems.toggleWrap = document.createElement('div');
-        self.elems.toggleLabel = document.createElement('div');
-        self.elems.toggleThumb = document.createElement('i');
-        self.elems.optionsList = document.createElement('ul');
+        dd.elems.container = document.createElement('div');
+        dd.elems.toggleWrap = document.createElement('div');
+        dd.elems.toggleLabel = document.createElement('div');
+        dd.elems.toggleThumb = document.createElement('i');
+        dd.elems.optionsList = document.createElement('ul');
 
         // Outer container
-        self.elems.container.className = CLASSES.container;
-        dropdownWidth = Dropdown.determineTogglerWidth(self);
-        self.elems.container.style.width = dropdownWidth + 'px';
+        dd.elems.container.className = CLASSES.container;
+        dropdownWidth = priv.determineTogglerWidth(dd);
+        dd.elems.container.style.width = dropdownWidth + 'px';
 
         // Accessibility attributes
-        self.elems.container.setAttribute('role', 'dropdown');
-        self.elems.container.setAttribute('aria-controls', guid(self.elems.optionsList)); // Note that this gives the `optionsList` element a (generated) ID
-        self.elems.container.setAttribute('aria-hidden', 'true');
-        self.elems.container.setAttribute('aria-expanded', 'false');
+        dd.elems.container.setAttribute('role', 'dropdown');
+        dd.elems.container.setAttribute('aria-controls', guid(dd.elems.optionsList)); // Note that this gives the `optionsList` element a (generated) ID
+        dd.elems.container.setAttribute('aria-hidden', 'true');
+        dd.elems.container.setAttribute('aria-expanded', 'false');
 
         // Use a 1-based index for values used with ARIA
-        self.elems.container.setAttribute('aria-valuemin', 1);
-        self.elems.container.setAttribute('aria-valuenow', self.selectedIndex + 1);
-        self.elems.container.setAttribute('aria-valuemax', self.options.length);
+        dd.elems.container.setAttribute('aria-valuemin', 1);
+        dd.elems.container.setAttribute('aria-valuenow', dd.selectedIndex + 1);
+        dd.elems.container.setAttribute('aria-valuemax', dd.options.length);
 
         // Toggle area
-        self.elems.toggleWrap.classList.add(CLASSES.toggler);
-        self.elems.toggleWrap.setAttribute('tabindex', '1');
+        dd.elems.toggleWrap.classList.add(CLASSES.toggler);
+        dd.elems.toggleWrap.setAttribute('tabindex', '1');
 
-        self.elems.toggleWrap.addEventListener('click', function (evt) {
-            Dropdown.onToggleClick(evt, self);
-        }.bind(self), false);
+        dd.elems.toggleWrap.addEventListener('click', function _setup_toggleWrap_onClick (evt) {
+            priv.onToggleClick(evt, dd);
+        }.bind(dd), false);
 
-        self.elems.toggleWrap.addEventListener('keydown', function (evt) {
-            Dropdown.onToggleKeydown(evt, self);
-        }.bind(self), false);
+        dd.elems.toggleWrap.addEventListener('keydown', function _setup_toggleWrap_onKeydown (evt) {
+            priv.onToggleKeydown(evt, dd);
+        }.bind(dd), false);
 
-        self.elems.toggleLabel.innerHTML = self.optsArray[self.selectedIndex].label || 'Select one';
+        dd.elems.toggleLabel.innerHTML = dd.optsArray[dd.selectedIndex].label || 'Select one';
 
         // Build options list:
 
@@ -198,7 +214,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         isOneOptionSelected = false;
 
         // Loop through option objects harvested from the `<select>` above
-        self.optsArray.forEach(function _Dropdown_optsArray_forEach (opt, i) {
+        dd.optsArray.forEach(function _setup_optsArray_forEach (opt, i) {
             var listItem = document.createElement('li');
             var _self = this;
 
@@ -223,131 +239,89 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             listItem.setAttribute('tabindex', 1);
 
             // Event listeners
-            listItem.addEventListener('click', function _Dropdown_listItem_onClick (evt) {
-                Dropdown.onItemClick(evt, _self);
+            listItem.addEventListener('click', function _setup_listItem_onClick (evt) {
+                priv.onItemClick(evt, _self);
             }.bind(_self), false);
 
-            listItem.addEventListener('keydown', function _Dropdown_listItem_onKeydown (evt) {
-                Dropdown.onItemDown(evt, _self);
+            listItem.addEventListener('keydown', function _setup_listItem_onKeydown (evt) {
+                priv.onItemDown(evt, _self);
             }.bind(_self), false);
 
             // Append to the DOM
-            self.elems.optionsList.appendChild(listItem);
+            dd.elems.optionsList.appendChild(listItem);
 
             // Store a reference to the `<li>` element
             opt.element = listItem;
-        }.bind(self));
+        }.bind(dd));
 
         // Ensure some item is selected. If the caller didn't mark any, then just go with the first one
         if (!isOneOptionSelected) {
-            self.options[0].selected = true;
+            dd.options[0].selected = true;
         }
 
-        self.elems.optionsList.className = CLASSES.hidden + ' ' + CLASSES.optionsList;
-        self.elems.optionsList.setAttribute('aria-hidden', 'true');
-        self.elems.optionsList.setAttribute('aria-expanded', 'false');
-        self.elems.optionsList.setAttribute('tabindex', '1');
-        self.elems.optionsList.style.width = dropdownWidth + 'px';
+        dd.elems.optionsList.className = CLASSES.hidden + ' ' + CLASSES.optionsList;
+        dd.elems.optionsList.setAttribute('aria-hidden', 'true');
+        dd.elems.optionsList.setAttribute('aria-expanded', 'false');
+        dd.elems.optionsList.setAttribute('tabindex', '1');
+        dd.elems.optionsList.style.width = dropdownWidth + 'px';
+
+        // Create a jQuery reference for use with animation
+        dd.elems.$optionsList = $(dd.elems.optionsList);
 
         // Add everything to the DOM
 
         // Build toggler
-        self.elems.toggleWrap.appendChild(self.elems.toggleLabel);
-        self.elems.toggleWrap.appendChild(self.elems.toggleThumb);
+        dd.elems.toggleWrap.appendChild(dd.elems.toggleLabel);
+        dd.elems.toggleWrap.appendChild(dd.elems.toggleThumb);
 
         // Add toggler to container
-        self.elems.container.appendChild(self.elems.toggleWrap);
+        dd.elems.container.appendChild(dd.elems.toggleWrap);
 
         // Add the options list directly to the `<body>` so we can position it with respect to the entire page
-        document.body.appendChild(self.elems.optionsList);
+        document.body.appendChild(dd.elems.optionsList);
 
         // Create reference to the container element so the caller can mount it to the DOM as necessary
-        self.element = self.elems.container;
+        dd.element = dd.elems.container;
 
         // Add window resize event listener
-        window.addEventListener('resize', function _Dropdown_window_onResize (evt) {
-            Dropdown.onWindowResize(evt, self);
-        }.bind(self), false);
+        window.addEventListener('resize', function _setup_window_onResize (evt) {
+            priv.onWindowResize(evt, dd);
+        }.bind(dd), false);
 
         // Mount the dropdown element right after the `<select>` element so it appears in the same place on the page (i.e. their may be other siblings in the `<select>` container and we want the dropdown to be in the right order)
-        self.sourceElem.parentNode.insertBefore(self.element, self.sourceElem.nextSibling);
+        dd.sourceElem.parentNode.insertBefore(dd.element, dd.sourceElem.nextSibling);
 
         // Hide original `<select>`
-        self.sourceElem.style.display = 'none';
+        dd.sourceElem.style.display = 'none';
 
         // Store the Dropdown instance
-        dropdowns[guid(self.sourceElem)] = self;
-
-        return this;
-    };
-
-    ////////////////////
-    // Public methods //
-    ////////////////////
-
-    Dropdown.prototype = {};
-
-    Dropdown.prototype.default = {
-    };
-
-    Dropdown.prototype.init = function _init () {
-        var dd = this;
-
-        // Extend the config options with the defaults
-        dd.config = $.extend(true, {}, this.default, this.options);
-
-        // Find the `<select>` element since the class we queried for is usually on the parent
-        if (dd.sourceElem.nodeName !== 'SELECT') {
-            console.warn('Dropdown: sourceElem is not a <select> element ', dd.sourceElem, dd);
-            this.sourceElem = dd.sourceElem.getElementsByTagName('select');
-
-            if (!this.sourceElem || !this.sourceElem.length) {
-                console.error('Dropdown: Could not find a <select> element ', dd);
-
-                return false;
-            }
-
-            this.sourceElem = this.sourceElem[0];
-        }
-        else {
-            this.sourceElem = dd.sourceElem;
-        }
-
-        if (!this.sourceElem) {
-            console.error('Dropdown: No source element provided ', this);
-
-            return false;
-        }
+        dropdowns[guid(dd.sourceElem)] = dd;
 
         return dd;
     };
 
-    /////////////////////
-    // Private methods //
-    /////////////////////
-
     /**
      * Display the popover
      */
-    Dropdown.show = function _show (DD) {
+    priv.show = function _show (DD) {
         DD.isCollapsed = false;
 
         // Position the popover before display
-        Dropdown.prePositionPopover(DD);
+        priv.prePositionPopover(DD);
 
         // Reveal the popover
         DD.elems.optionsList.style.height = '0px';
         DD.elems.optionsList.classList.remove(CLASSES.hidden);
 
         // Expansion animation
-        $(DD.elems.optionsList).animate(
+        DD.elems.$optionsList.animate(
                 {
                     height: DD.elems.optionsList.scrollHeight,
                 },
                 {
                     easing: ANIMATION.easing,
                     duration: ANIMATION.duration,
-                    done: function () {
+                    done: function _show_animation_done () {
                         this.style.height = 'auto';
                     },
                 }
@@ -359,26 +333,26 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         DD.elems.container.classList.add(CLASSES.expanded);
 
         // Watch for body clicks
-        document.body.addEventListener('click', function (evt) {
-            Dropdown.onBodyClick(evt, DD);
+        document.body.addEventListener('click', function _Dropdown_body_onClick (evt) {
+            priv.onBodyClick(evt, DD);
         }.bind(DD), false);
     };
 
     /**
      * Hide the popover
      */
-    Dropdown.hide = function _hide (DD) {
+    priv.hide = function _hide (DD) {
         DD.isCollapsed = true;
 
         // Collapse animation
-        $(DD.elems.optionsList).animate(
+        DD.elems.$optionsList.animate(
                 {
                     height: '0px',
                 },
                 {
                     easing: ANIMATION.easing,
                     duration: ANIMATION.duration,
-                    done: function () {
+                    done: function _hide_animation_done () {
                         // Hide the popover
                         // Even though the element is effectively invisible at this point, we use this class as a quick test of whether it's hidden or not
                         DD.elems.optionsList.classList.add(CLASSES.hidden);
@@ -392,22 +366,21 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         DD.elems.container.classList.remove(CLASSES.expanded);
 
         // Stop watching for body clicks
-        document.body.addEventListener('click', function (evt) {
-            Dropdown.onBodyClick(evt, DD);
+        document.body.removeEventListener('click', function _Dropdown_body_onClick (evt) {
+            priv.onBodyClick(evt, DD);
         }.bind(DD), false);
     };
 
     /**
      * Position the popover
      */
-    Dropdown.positionPopover = function _positionPopover (DD) {
-        // console.log('positionPopover ', DD.elems.toggleWrap);
+    priv.positionPopover = function _positionPopover (DD) {
         var popover = DD.elems.optionsList;
         var toggler = DD.elems.toggleWrap;
         var togglerOffset = $(toggler).offset();
 
         // Small screens
-        if (Dropdown.isSmallScreen(DD)) {
+        if (priv.isSmallScreen(DD)) {
             //FIXME: Center it on the viewport
             // For now we will do the same thing that we do on large screens. Mobile users may have to scroll the page down to select their item. This is so that we can ship a working version of this component now, when STMI is going to prod and CSTF is already in prod. Later we need to update this to display the dropdown list as a scrollable modal overlay on mobile.
             popover.style.top = (togglerOffset.top + toggler.clientHeight + 1) + 'px';
@@ -429,27 +402,27 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
      * Put the popover into place but keep it hidden from the user
      * @param   {Dropdown}  DD  Dropdown instance
      */
-    Dropdown.prePositionPopover = function _prePositionPopover (DD) {
+    priv.prePositionPopover = function _prePositionPopover (DD) {
         var popover = DD.elems.optionsList;
 
         popover.style.visibility = 'hidden';
         popover.classList.remove(CLASSES.hidden);
-        Dropdown.positionPopover(DD);
+        priv.positionPopover(DD);
         popover.classList.add(CLASSES.hidden);
         popover.style.visibility = 'visible';
     };
 
     // Adjust the width of the toggler to match the current viewport width (e.g. when resizing the browser with the dropdown closed)
-    Dropdown.fixTogglerWidth = function _fixTogglerWidth (DD) {
-        DD.elems.container.style.width = Dropdown.determineTogglerWidth(DD) + 'px';
+    priv.fixTogglerWidth = function _fixTogglerWidth (DD) {
+        DD.elems.container.style.width = priv.determineTogglerWidth(DD) + 'px';
     };
 
     // Basically determines whether to center the list on the screen when opened
-    Dropdown.isSmallScreen = function _isSmallScreen (DD) {
+    priv.isSmallScreen = function _isSmallScreen (DD) {
         return (window.innerWidth <= DD.smallScreenWidth);
     };
 
-    Dropdown.determineTogglerWidth = function _determineTogglerWidth (DD) {
+    priv.determineTogglerWidth = function _determineTogglerWidth (DD) {
         // The maximum width of the dropdown is the narrower of these two items: the parent container of the `<select>`, and the widest `<option>`
         // In other words, don't let the dropdown get so wide that it will run off the screen and/or expand its container, but at the same time let it shrink down to its natural width if all the options are short
         var dropdownWidth = Math.min(DD.sourceElem.parentNode.clientWidth - 10, DD.widestOption);
@@ -472,7 +445,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         return dropdownWidth;
     };
 
-    Dropdown.setSelectedIndex = function _setSelectedIndex (DD, newIndex, doNotForcefullyHide) {
+    priv.setSelectedIndex = function _setSelectedIndex (DD, newIndex, doNotForcefullyHide) {
         // Unselect the current selection
         DD.optsArray[DD.selectedIndex].element.classList.remove(CLASSES.selected);
 
@@ -489,7 +462,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
         // Hide popover, unless we were told to keep it open or it's already closed
         if (!doNotForcefullyHide && !DD.isCollapsed) {
-            Dropdown.hide(DD);
+            priv.hide(DD);
         }
 
         // Notify calling function about the new value
@@ -501,7 +474,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
         }
     };
 
-    Dropdown.handleLetterKey = function _handleLetterKey (code, DD) {
+    priv.handleLetterKey = function _handleLetterKey (code, DD) {
         // Get the letter or number, but account for different codes like the number pad, capital letters, etc
         // See http://stackoverflow.com/a/5829387/348995
         var letter = String.fromCharCode((96 <= code && code <= 105) ? code - 48 : code).toLowerCase();
@@ -550,7 +523,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
         // Focus on it, but don't force the popover to hide if it's already open
         if (moveFocusToIndex !== -1) {
-            Dropdown.setSelectedIndex(DD, moveFocusToIndex, true);
+            priv.setSelectedIndex(DD, moveFocusToIndex, true);
         }
     };
 
@@ -576,31 +549,31 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
     // Events //
     ////////////
 
-    Dropdown.onItemClick = function _onItemClick (evt, DD) {
+    priv.onItemClick = function _onItemClick (evt, DD) {
         // Read the index from the clicked element
         var listItem = evt.target;
         var newIndex = parseInt(listItem.getAttribute(ATTRIBUTES.optionIndex), 10);
 
         // Check if the clicked item is different than the previous selection
         if (newIndex !== DD.selectedIndex) {
-            Dropdown.setSelectedIndex(DD, newIndex);
+            priv.setSelectedIndex(DD, newIndex);
             DD.elems.toggleWrap.focus();
         }
     };
 
-    Dropdown.onToggleClick = function _onToggleClick (evt, DD) {
+    priv.onToggleClick = function _onToggleClick (evt, DD) {
         // Cancel event so it doesn't trigger `onBodyClick()`
         evt.preventDefault();
 
         if (DD.isCollapsed) {
-            Dropdown.show(DD);
+            priv.show(DD);
         }
         else {
-            Dropdown.hide(DD);
+            priv.hide(DD);
         }
     };
 
-    Dropdown.onToggleKeydown = function _onToggleKeydown (evt, DD) {
+    priv.onToggleKeydown = function _onToggleKeydown (evt, DD) {
         var code = evt.keyCode;
 
         // Enter or space
@@ -612,11 +585,11 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
 
             if (DD.isCollapsed) {
                 // if (DEBUG) { console.log('[Toggler] Toggling the list open'); }
-                Dropdown.show(DD);
+                priv.show(DD);
             }
             else {
                 // if (DEBUG) { console.log('[Toggler] Toggling the list closed'); }
-                Dropdown.hide(DD);
+                priv.hide(DD);
             }
         }
         // Tab
@@ -633,7 +606,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // if (DEBUG) { console.info('[Toggler] Escape'); }
             if (!DD.isCollapsed) {
                 // if (DEBUG) { console.log('[Toggler] Hiding the list since it was opened'); }
-                Dropdown.hide(DD);
+                priv.hide(DD);
             }
         }
         // Down arrow
@@ -646,7 +619,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // Not opened yet, so open it
             if (DD.isCollapsed) {
                 // if (DEBUG) { console.log('[Toggler] Opening the list since it was closed'); }
-                Dropdown.show(DD);
+                priv.show(DD);
             }
 
             // Focus on the first item
@@ -663,18 +636,18 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // List is opened, so hide it
             if (!DD.isCollapsed) {
                 // if (DEBUG) { console.log('[Toggler] Hiding the list since it was opened'); }
-                Dropdown.hide(DD);
+                priv.hide(DD);
             }
         }
         // Letters or numbers
         else if ((code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 96 && code <= 105)) {
-            Dropdown.handleLetterKey(code, DD);
+            priv.handleLetterKey(code, DD);
         }
         // else if (DEBUG) { console.info('[Toggler] Unrecognized key: ', code); }
     };
 
     // Need to use `keydown` instead of `keyup` so we can prevent the page from scrolling when the user presses an arrow key
-    Dropdown.onItemDown = function _onItemDown (evt, DD) {
+    priv.onItemDown = function _onItemDown (evt, DD) {
         var code = evt.keyCode;
         var listItem;
         var itemIndex;
@@ -687,7 +660,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // if (DEBUG) { console.info('[Item] Enter or space'); }
             // if (DEBUG) { console.log('Selecting item'); }
             // if (DEBUG) { console.log('Passing event: ', evt); }
-            Dropdown.onItemClick(evt, DD);
+            priv.onItemClick(evt, DD);
         }
         // Tab or down arrow
         else if ((!evt.shiftKey && code === 9) || code === 40) {
@@ -720,7 +693,7 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // No more items above this one, close the list
             else {
                 // if (DEBUG) { console.log('Shifting focus back to the toggler and closing the list'); }
-                Dropdown.hide(DD);
+                priv.hide(DD);
                 DD.elems.toggleWrap.focus();
             }
         }
@@ -729,17 +702,17 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // if (DEBUG) { console.info('[Item] Escape'); }
             // Hide the list (assume it was open — how else could a keystroke be fired on a list item?)
             // if (DEBUG) { console.log('Hiding the list since it was opened and setting focus back to the toggler'); }
-            Dropdown.hide(DD);
+            priv.hide(DD);
             DD.elems.toggleWrap.focus();
         }
         // Letters or numbers
         else if ((code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 96 && code <= 105)) {
-            Dropdown.handleLetterKey(code, DD);
+            priv.handleLetterKey(code, DD);
         }
         // else if (DEBUG) { console.info('[Item] Unrecognized key: ', code); }
     };
 
-    Dropdown.onBodyClick = function _onBodyClick (evt, DD) {
+    priv.onBodyClick = function _onBodyClick (evt, DD) {
         var target = evt.target;
 
         if (!$(target).closest('.' + CLASSES.container).length) {
@@ -748,24 +721,24 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
             // 2. If the user leaves the popover open and then scrolls down the page a bit, it will seem broken if they click on something and it doesn't appear to work until the second click
             evt.preventDefault();
 
-            Dropdown.hide(DD);
+            priv.hide(DD);
         }
     };
 
     /**
      * Adjusts the popover based on the current window size
      */
-    Dropdown.onWindowResize = function _onWindowResize (evt, DD) {
+    priv.onWindowResize = function _onWindowResize (evt, DD) {
         // console.clear(); console.info('resize');
         if (DD.isCollapsed) {
             // Adjust toggler width
             // console.log('Adjusting toggle widths');
-            Dropdown.fixTogglerWidth(DD);
+            priv.fixTogglerWidth(DD);
         }
         else {
             // Re-position popover
             // console.log('Repositioning popovers');
-            Dropdown.positionPopover(DD);
+            priv.positionPopover(DD);
         }
     };
 
@@ -778,10 +751,15 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
     // Public methods //
     ////////////////////
 
+    Dropdown.prototype = {};
+
+    Dropdown.prototype.default = {
+    };
+
     Dropdown.prototype.destroy = function _destroy () {
         // Remove event listeners
-        document.body.removeEventListener('click', Dropdown.onBodyClick);
-        window.removeEventListener('resize', Dropdown.onWindowResize);
+        document.body.removeEventListener('click', priv.onBodyClick);
+        window.removeEventListener('resize', priv.onWindowResize);
 
         this.elems.toggleWrap.removeEventListener('click', this.onToggleClick);
 
@@ -814,11 +792,11 @@ define(['jquery', 'kind', 'cui', 'guid'], function ($, kind, cui, guid) {
     // Define and expose the component to jQuery
     $.fn.dropdown = function (options) {
         return this.each(function () {
-            new Dropdown(this, options).init();
+            new Dropdown(this, options);
         });
     };
 
     $.dropdown = function (elem, options) {
-        return new Dropdown(elem, options).init();
+        return new Dropdown(elem, options);
     };
 });
