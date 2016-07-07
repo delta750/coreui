@@ -180,6 +180,14 @@ legend {
     }
 
     .cui-data {
+        // Prevent wide fields from stretching beyond the viewport
+        &,
+        select,
+        input,
+        textarea {
+            max-width: 100%;
+        }
+
         .cui-desc,
         label {
             display: inline-block;
