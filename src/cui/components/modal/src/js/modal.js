@@ -1,4 +1,4 @@
-define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
+define(['jquery', 'cui', 'guid', /*'css!modal'*/], function ($, cui, guid) {
     /////////////
     // Globals //
     /////////////
@@ -88,6 +88,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     // Function that displays a modal.
     _priv.showModal = function _showModal (modal) {
+
         // Check to see if a pre-display function needs to run i.e. table setup.
         if (typeof modal.config.beforeShowFunc === 'function') {
             modal.config.beforeShowFunc(modal);
@@ -100,7 +101,13 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         fastdom.mutate(function _showModal_fastdom1 () {
             if (modal.config.alwaysCenter) {
                 fastdom.mutate(function _showModal_fastdom2 () {
-                    modal.$self.removeClass(CLASSES.hidden);
+
+                    if (modal.config.buildInvisible) {
+                        modal.$self.removeClass(CLASSES.modalVisibility);
+                    }
+                    else {
+                        modal.$self.removeClass(CLASSES.hidden);
+                    }
 
                     // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
                     setTimeout(function _showModal_setTimeout3 () {
@@ -117,8 +124,15 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 });
             }
             else {
+
                 fastdom.mutate(function _showModal_fastdom4 () {
-                    modal.$self.removeClass(CLASSES.hidden);
+
+                    if (modal.config.buildInvisible) {
+                        modal.$self.removeClass(CLASSES.modalVisibility);
+                    }
+                    else {
+                        modal.$self.removeClass(CLASSES.hidden);
+                    }
 
                     // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
                     setTimeout(function _showModal_setTimeout4 () {
@@ -132,6 +146,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 });
             }
         });
+
+        modal.config.isOpen = true;
 
         modal.$self.trigger(EVENT_NAMES.show);
         $window.trigger(EVENT_NAMES.show);
@@ -172,6 +188,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 $window.trigger(EVENT_NAMES.hidden);
             });
         }
+
+        modal.config.isOpen = false;
     };
 
     // Function that will completely remove the modal elements from the DOM
@@ -382,6 +400,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         overlay: true,
         autoOpen: false,
         hideOnEscape: true,
+        buildInvisible: false,
         alwaysCenter: true,
         focusOnShow: false,
         eventHandlers: {
@@ -410,8 +429,16 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             modal.config = $.extend(true, {}, this.default, this.options);
         }
 
+        modal.config.isOpen = false;
+
         // Create a unique ID for the modal
         modal.config.id = guid();
+
+        var modalClasses = (modal.config.buildInvisible) ? CLASSES.modal + ' ' + CLASSES.modalVisibility : CLASSES.modal + ' ' + CLASSES.hidden;
+
+        if (modal.config.buildInvisible) {
+            modal.config.builtInvisible = true;
+        }
 
         // Check to see if a source element was provided
         // If not build our own
@@ -419,7 +446,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             // Create the modal
             modal.$self = $('<div/>', {
                                 'id': modal.config.id,
-                                'class': CLASSES.modal + ' ' + CLASSES.hidden,
+                                'class': modalClasses,
                                 'tabindex': 1,
                             })
                             .on('keydown', function (evt) {
@@ -447,6 +474,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
             // Add the container to the modal
             modal.$self.append(modal.$container);
+
 
             // Check to see if the instance requested an overlay
             if (modal.config.overlay) {
