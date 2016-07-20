@@ -396,6 +396,44 @@ module.exports = function (grunt) {
                 tasks: ['sass:main'],
             },
 
+            // Core component styles
+            styles: {
+                files: [
+                    'src/cui/components/**/*.scss',
+                ],
+                tasks: [
+                    'clean',
+                    // 'md2html',
+                    // 'componentFinder',
+                    // 'copy',
+                    // 'svgmin',
+                    'sass',
+                    // 'requirejs',
+                    'concat:css',
+                    // 'copy',
+                    'usebanner',
+                ],
+            },
+
+            // Core component scripts
+            styles: {
+                files: [
+                    'src/cui/components/**/*.scss',
+                ],
+                tasks: [
+                    'clean',
+                    // 'md2html',
+                    'componentFinder',
+                    // 'copy',
+                    // 'svgmin',
+                    // 'sass',
+                    'requirejs',
+                    'concat:js',
+                    // 'copy',
+                    'usebanner',
+                ],
+            },
+
             // Project HTML
             html: {
                 files: [

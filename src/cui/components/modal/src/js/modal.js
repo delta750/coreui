@@ -5,12 +5,19 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     var NAMESPACE = 'modal';
 
+    var VERSION = '2.0.6';
+
     var CLASSES = {
+        hidden: 'cui-hidden',
         modal: 'cui-' + NAMESPACE,
         modalContents: 'cui-' + NAMESPACE + '-content',
         modalVisibility: 'cui-' + NAMESPACE + '-inivisible',
         overlay: 'cui-' + NAMESPACE + '-overlay',
-        modalButton: 'cui-' + NAMESPACE + '-hide',
+        closeButton: 'cui-' + NAMESPACE + '-hide',
+    };
+
+    var SELECTORS = {
+        focusableElements: 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]',
     };
 
     var EVENT_NAMES = {
@@ -39,13 +46,13 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
             // Check to see if we are event adding a modal overlay first
             if (modal.$overlay) {
-                // Check the dom for an already created modal overlay
+                // Check the DOM for an already created overlay
                 if (!document.body.contains(modal.$overlay[0])) {
                     addOverlay = true;
                 }
             }
 
-            // check the dom for an already create modal
+            // Check the DOM for an already created modal
             if (!document.body.contains(modal.$self[0])) {
                 addModal = true;
             }
@@ -87,39 +94,31 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         }
 
         if (modal.$overlay) {
-            modal.$overlay.css({display: 'block'});
+            modal.$overlay.removeClass(CLASSES.hidden);
         }
 
         fastdom.mutate(function _showModal_fastdom1 () {
-            modal.$self.css({'z-index': 1100});
-
             if (modal.config.alwaysCenter) {
                 fastdom.mutate(function _showModal_fastdom2 () {
-                    _priv.center(modal);
+                    modal.$self.removeClass(CLASSES.hidden);
 
-                    fastdom.mutate(function _showModal_fastdom3 () {
-                        modal.$self
-                            .css({'visibility': 'visible'});
+                    // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
+                    setTimeout(function _showModal_setTimeout3 () {
+                        if (modal.config.focusOnShow) {
+                            modal.config.focusOnShow.focus();
+                        }
+                        else {
+                            modal.$self.focus();
+                        }
+                    }, 100);
 
-                        // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
-                        setTimeout(function _showModal_setTimeout3 () {
-                            if (modal.config.focusOnShow) {
-                                modal.config.focusOnShow.focus();
-                            }
-                            else {
-                                modal.$self.focus();
-                            }
-                        }, 100);
-
-                        modal.$self.trigger(EVENT_NAMES.shown);
-                        $window.trigger(EVENT_NAMES.shown);
-                    });
+                    modal.$self.trigger(EVENT_NAMES.shown);
+                    $window.trigger(EVENT_NAMES.shown);
                 });
             }
             else {
                 fastdom.mutate(function _showModal_fastdom4 () {
-                    modal.$self
-                        .css({'visibility': 'visible'});
+                    modal.$self.removeClass(CLASSES.hidden);
 
                     // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
                     setTimeout(function _showModal_setTimeout4 () {
@@ -161,14 +160,10 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
             fastdom.mutate(function _hideModal_fastdom () {
                 if (modal.$overlay) {
-                    modal.$overlay.css({display: 'none'});
+                    modal.$overlay.addClass(CLASSES.hidden);
                 }
 
-                modal.$self
-                    .css({
-                        'z-index': -1,
-                        'visibility': 'hidden',
-                    });
+                modal.$self.addClass(CLASSES.hidden);
 
                 $window.off('keyup.cui.modal.escape');
                 $window.off('resize', _events.resize);
@@ -193,6 +188,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             }
 
             modal.$self.remove();
+            modal.$focusableElems = null;
 
             if (modal.$overlay) {
                 modal.$overlay.remove();
@@ -207,21 +203,106 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     };
 
     /**
-     * Centers a modal on the viewport
+     * Sets focus to somewhere on the page (not in the modal) when a modal is closed
      *
-     * @param   {Object}  modal  Modal instance
+     * @param   {Object}  modal  Instance of a modal
      */
-    _priv.center = function _center (modal) {
-        fastdom.measure(function () {
-            var css = {
-                top: (($window.height() - modal.$self.outerHeight()) / 2),
-                left: (($window.width() - modal.$self.outerWidth()) / 2),
-            };
+    _priv.setFocusOnClose = function _setFocusOnClose (modal) {
+        // Set focus to a specific element
+        if (modal.config.focusOnHide) {
+            focusElem = modal.config.focusOnHide;
 
-            fastdom.mutate(function _modal_center_fastdom () {
-                modal.$self.css(css);
-            });
-        });
+            // Extract the actual DOM element from the jQuery collection
+            if (focusElem instanceof $) {
+                focusElem = focusElem.get(0);
+            }
+
+            setTimeout(function _setFocusOnClose_setTimeout () {
+                focusElem.focus();
+            }, 100);
+        }
+        // Set focus to the modal's toggler
+        else if (modal.$button) {
+            modal.$button.focus();
+        }
+    };
+
+    /**
+     * Handles tab key presses within the modal and prevents the focus from moving outside
+     *
+     * Adapted from https://github.com/gdkraus/accessible-modal-dialog/blob/master/modal-window.js#L87
+     *
+     * @param   {jQuery}  modal   Instance of the modal
+     * @param   {Event}   evt     Keydown event
+     */
+    _priv.handleTabKey = function _handleTabKey (modal, evt) {
+        var $focusedItem;
+        var numberOfFocusableElems;
+        var focusedItemIndex;
+        var isModalFocused = false;
+        var isCloseButtonFocused = false;
+
+        // If tab or shift-tab pressed
+        if (evt.which === 9) {
+            // Get list of focusable items, if we haven't done so already
+            // This should be done each time the modal's contents are changed, but only once (i.e. not on every keypress) to avoid unnecessary DOM crawls
+            if (!modal.$focusableElems) {
+                modal.$focusableElems = modal.$self.find(SELECTORS.focusableElements).filter(':visible');
+            }
+
+            // Get currently focused item
+            $focusedItem = $(':focus');
+
+            // Check if the modal has focus
+            if ($focusedItem.hasClass(CLASSES.modal)) {
+                isModalFocused = true;
+            }
+            // Check if the close button has focus
+            else if ($focusedItem.hasClass(CLASSES.closeButton)) {
+                isCloseButtonFocused = true;
+            }
+
+            // Get the number of focusable items
+            numberOfFocusableElems = modal.$focusableElems.length;
+
+            // Get the index of the currently focused item
+            focusedItemIndex = modal.$focusableElems.index($focusedItem);
+
+            // Tab backward
+            if (evt.shiftKey) {
+                // Focus is on the modal, its close button, or the first focusable item, so jump to the last focusable item
+                if (isModalFocused || isCloseButtonFocused || focusedItemIndex === 0) {
+                    modal.$focusableElems.get(numberOfFocusableElems - 1).focus();
+                    evt.preventDefault();
+                }
+                // Otherwise, let the browser handle it (e.g. the user is probably just moving between multiple fields within the modal)
+            }
+            // Tab forward
+            else {
+                if (isModalFocused) {
+                    // The next item to gain focus would be the close button, but there is another element to focus on besides the button, so set the focus to that element instead
+                    if (modal.$focusableElems.eq(0).hasClass(CLASSES.closeButton) && numberOfFocusableElems > 1) {
+                        modal.$focusableElems.get(1).focus();
+                    }
+                    // Setting focus to the only element available to focus on
+                    else {
+                        modal.$focusableElems.get(0).focus();
+                    }
+
+                    evt.preventDefault();
+                }
+                // Close button is focused and there's another element we can move focus to (e.g. an input)
+                else if (isCloseButtonFocused && numberOfFocusableElems > 1) {
+                    modal.$focusableElems.get(1).focus();
+                    evt.preventDefault();
+                }
+                // If focused on the last item and user presses tab, go to the first focusable item
+                else if (focusedItemIndex === numberOfFocusableElems - 1) {
+                    modal.$focusableElems.get(0).focus();
+                    evt.preventDefault();
+                }
+            }
+        }
     };
 
     ////////////
@@ -241,9 +322,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         if (modal.config.eventHandlers.resize) {
             modal.config.eventHandlers.resize(evt, modal);
         }
-        else {
-            _priv.center(evt.data.modal);
-        }
     };
 
     /**
@@ -260,19 +338,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
             _priv.hideModal(modal);
 
-            // Set focus to a specific element
-            if (modal.config.focusOnHide) {
-                focusElem = modal.config.focusOnHide;
-
-                // Extract the actual DOM element from the jQuery collection
-                if (focusElem instanceof $) {
-                    focusElem = focusElem.get(0);
-                }
-
-                setTimeout(function _hideOnEscape_setTimeout () {
-                    focusElem.focus();
-                }, 100);
-            }
+            // Set focus
+            _priv.setFocusOnClose(modal);
         }
     };
 
@@ -352,14 +419,18 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             // Create the modal
             modal.$self = $('<div/>', {
                                 'id': modal.config.id,
-                                'class': CLASSES.modal,
+                                'class': CLASSES.modal + ' ' + CLASSES.hidden,
                                 'tabindex': 1,
+                            })
+                            .on('keydown', function (evt) {
+                                _priv.handleTabKey(modal, evt);
                             });
 
             modal.$self
                 .append(
                     $('<button/>', {
-                            'class': CLASSES.modalButton,
+                            'class': CLASSES.closeButton,
+                            'tabindex': '1',
                         })
                         .text('Close Modal')
                         .on('click', function (evt) {
@@ -381,7 +452,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             if (modal.config.overlay) {
                 modal.$overlay = $('<div/>', {
                                         'id': 'overlay-' + modal.config.id,
-                                        'class': CLASSES.overlay,
+                                        'class': CLASSES.overlay + ' ' + CLASSES.hidden,
                                         'data-modal': modal.config.id,
                                     })
                                     .on('click', function (evt) {
@@ -397,9 +468,10 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 modal.$overlay = false;
             }
 
-            // Now add the modals contents (contents should be pre-formatted);
-            modal.$container.append(modal.config.html);
+            modal.$focusableElems = null;
 
+            // Now add the modals contents (contents should be pre-formatted)
+            modal.$container.append(modal.config.html);
         }
         // To do: Take an existing container created by something else, wrapping it and turning it into a modal
         // else { }
@@ -473,12 +545,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         _priv.destroyModal(this);
     };
 
-    Modal.prototype.center = function _center () {
-        _priv.center(this);
-    };
-
     // Set the version number
-    Modal.version = '2.0.5';
+    Modal.version = VERSION;
 
     // Define jQuery plugin with a source element
     $.fn.modal = function (options) {
