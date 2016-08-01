@@ -2,7 +2,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '1.0.0';
+    var VERSION = '1.0.1';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -29,6 +29,8 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     /////////////////
 
     var Popover = function _Popover (elem, options) {
+        this.button = elem;
+
         // Create a jQuery version of the element
         this.$button = $(elem);
 
@@ -73,6 +75,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
      */
     Popover.prototype.init = function _Popover_init () {
         var popover;
+        var isInPageLink = (this.button.hasAttribute('href') && /^\#/.test(this.button.getAttribute('href')));
 
         // Introduce defaults that can be extended either globally or using an object literal
         if (typeof this.options === 'string') {
@@ -103,6 +106,11 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
 
         // Show/hide the popover when its button is clicked
         popover.$button.on('click', function _popover_onClick (evt) {
+            // Prevent the page from jumping when the button links to another element
+            if (isInPageLink) {
+                evt.preventDefault();
+            }
+
             if (popover.isShown === false) {
                 priv.showPopover(popover);
             }
@@ -139,10 +147,11 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     /**
      * Hides the popover
      *
-     * @param   {Function}  callback  Optional function to run after closing the popover. It will receive the Popover instance as an argument.
+     * @param   {Function}  callback         Optional function to run after closing the popover. It will receive the Popover instance as an argument.
+     * @param   {Boolean}   hideImmediately  Set to `true` to skip animation and event triggering
      */
-    Popover.prototype.hide = function _Popover_hide (callback) {
-        priv.hidePopover(this);
+    Popover.prototype.hide = function _Popover_hide (callback, hideImmediately) {
+        priv.hidePopover(this, hideImmediately);
 
         // Check to see if the caller included a callback function
         if (typeof callback === 'function') {
@@ -232,7 +241,7 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     // Opens a new popover window
     priv.showPopover = function _showPopover (popover) {
         // Hide other popovers
-        if (popover.isModal) {
+        if (popover.config.isModal) {
             priv.hideAllPopovers();
         }
 

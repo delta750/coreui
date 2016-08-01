@@ -32,15 +32,20 @@ var myPopover = $.popover($('.my-button'), options);
 
 The above example will 'link' the popover to the element described by `$('.my-button')`.
 
-To show, hide, or (re)position a popover programmatically in this case, use these methods:
+To show, hide, (re)position, or destroy a popover programmatically in this case, use these methods:
 
 ```js
 myPopover.show();
 myPopover.hide();
 myPopover.position();
+myPopover.destroy();
 ```
 
-You may also refer to additional properties and elements:
+All of those methods take an optional callback function as an argument. The function will be called when the task successfully completes and will be provided with the instance of the popover as an argument.
+
+The `.hide()` method also takes an optional second argument, a boolean, which denotes whether to close the popover immediately without animation.
+
+You may also refer to additional properties and elements of the popover instance:
 
 ```js
 myPopover.$popover // The popover container element, as a jQuery collection
