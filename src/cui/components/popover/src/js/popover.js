@@ -1,8 +1,8 @@
-define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) {
+define(['jquery', 'cui', 'guid'], function ($, cui, guid) {
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '1.0.1';
+    var VERSION = '1.0.2';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -29,10 +29,15 @@ define(['jquery', 'cui', 'guid', 'css!popover-styles'], function ($, cui, guid) 
     /////////////////
 
     var Popover = function _Popover (elem, options) {
-        this.button = elem;
-
-        // Create a jQuery version of the element
-        this.$button = $(elem);
+        // Create both a jQuery copy and a regular DOM copy of the element
+        if (elem instanceof $) {
+            this.$button = elem;
+            this.button = elem.get(0);
+        }
+        else if (elem instanceof HTMLElement) {
+            this.button = elem;
+            this.$button = $(elem);
+        }
 
         // Store the options
         this.options = options;
