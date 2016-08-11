@@ -5,7 +5,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     var NAMESPACE = 'modal';
 
-    var VERSION = '2.0.6';
+    var VERSION = '2.0.7';
 
     var CLASSES = {
         hidden: 'cui-hidden',
@@ -88,7 +88,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
     // Function that displays a modal.
     _priv.showModal = function _showModal (modal) {
-
         // Check to see if a pre-display function needs to run i.e. table setup.
         if (typeof modal.config.beforeShowFunc === 'function') {
             modal.config.beforeShowFunc(modal);
@@ -501,7 +500,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             // Now add the modals contents (contents should be pre-formatted)
             modal.$container.append(modal.config.html);
         }
-        // To do: Take an existing container created by something else, wrapping it and turning it into a modal
+        //TODO: Take an existing container created by something else, wrapping it and turning it into a modal
         // else { }
 
         // ===================
