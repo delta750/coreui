@@ -90,6 +90,24 @@ Property | Type | Description
 `opacity` | Number | Optional opacity for the overlay element, between `0` (completely transparent) and `1` (completely opaque)
 `className` | String | Optional class name(s) to add to the overlay DOM element
 
+### Header options
+
+Property | Type | Description
+--- | --- | ---
+`html` | Sting | Contents to be displayed (required)
+`height` | String | The min-height of the header (must be a CSS-friendly value). The header will expand as needed based on content.
+`className` | String | Optional class name(s) to add to the overlay DOM element
+`css` | Object | Optional inline CSS to be added to the header element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
+
+### Footer options
+
+Property | Type | Description
+--- | --- | ---
+`html` | Sting | Contents to be displayed (required)
+`height` | String | The min-height of the footer (must be a CSS-friendly value). The footer will expand as needed based on content.
+`className` | String | Optional class name(s) to add to the overlay DOM element
+`css` | Object | Optional inline CSS to be added to the footer element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
+
 ## Example with default values
 
 ```js
@@ -102,7 +120,7 @@ $('.my-button').modal({
         className: '',
         css: {}
     },
-    shield: {
+    overlay: {
         suppress: false,
         opacity: 0.1,
         className: ''
@@ -125,7 +143,7 @@ All events are fired on both `myModal.$modal` and `window`.
 
 ## Specifications
 
-If a shield is rendered, clicking on the shield (outside of the modal) will hide the modal and the shield.
+If an overlay is rendered, clicking on the overlay (outside of the modal) will hide the modal and the overlay.
 
 Only one modal may be open at a time. If a modal is open when a second modal is triggered, the first modal is hidden before opening the second modal.
 
