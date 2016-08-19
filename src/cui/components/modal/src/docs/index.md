@@ -28,8 +28,11 @@ var $myModal = $(window).modal(options);
 
 There are two ways to hide a modal depending on whether you stored a reference to it.
 
-With a stored reference, call `$myModal.hide()`.
+To store a reference to the modal retreive the data from the trigger object
+`var myModal = $('#trigger').data('modal');`
 
+With the stored reference, call `myModal.hideModal()`.
+___
 Without a stored reference, call `$('.my-button').modal().hide()` where `.my-button` is an element that has a modal associated with it.
 
 ## Options
@@ -90,7 +93,7 @@ Property | Type | Description
 --- | --- | ---
 `opacity` | Number | Optional opacity for the overlay element, between `0` (completely transparent) and `1` (completely opaque)
 `className` | String | Optional class name(s) to add to the overlay DOM element
-`closeOnClick` | Boolean | Close the modal when clicking the overlay. Default `true`.
+`closeOnClick` | Boolean | Close the modal when clicking the overlay. Default `true`
 
 ### Header options
 

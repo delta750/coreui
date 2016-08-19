@@ -431,6 +431,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     ////////////
 
     var Modal = function (elem, options) {
+
         if (elem instanceof Node) {
             // Store the element upon which the component was called
             this.elem = elem;
@@ -715,12 +716,12 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
         if (modal.$button) {
             modal.$button.on('click.modal.' + modal.config.id, function (evt) {
-                
                 _priv.showModal(modal);
             }.bind(modal));
         }
 
-        return modal.$self;
+        // return modal.$self;
+        return modal;
     };
 
     // Public function to hide a modal
@@ -749,9 +750,18 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     Modal.version = VERSION;
 
     // Define jQuery plugin with a source element
-    $.fn.modal = function (options) {
+    // $.fn.modal = function (options, elem) {
+    //     return this.each(function () {
+    //         new Modal(this, options).init();
+    //     });
+    // };
+
+     $.fn.modal = function (options, elem) {
         return this.each(function () {
-            new Modal(this, options).init();
+            if ( ! $.data(this, NAMESPACE) ) {
+                // $.data(this, 'modal', new Modal(this, options).init());
+                $.data(this, NAMESPACE, new Modal(this,options).init());
+            }            
         });
     };
 
