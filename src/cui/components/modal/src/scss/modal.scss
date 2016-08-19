@@ -31,7 +31,33 @@
     max-width: 95%;
     height: 95%; 
     max-height: 95%;
+
+    &.cui-modal-use-close{
+        padding-top:36px;
+
+        .cui-modal-content{
+            padding-top:10px;
+        }
+    }
+
+    &.cui-modal-use-header{
+        padding-top:$cui-modal-header-height;
+    }
+
+
+    &.cui-modal-use-footer{
+        padding-bottom:$cui-modal-footer-height;
+    }
 } 
+
+.cui-modal-use-close{
+    .cui-modal-header{
+        padding-top:36px;
+    }
+    .cui-modal-header-content{
+        padding-top:0;
+    }
+}
 
 .cui-modal *,
 .cui-modal *:focus {
@@ -41,7 +67,7 @@
 // Content wrapper
 .cui-modal-content {
     border-radius: $cui-border-radius - 1px;
-    background: #fff;
+    // background: #fff;
     padding: 20px;
 
     // Cover the modal
@@ -56,17 +82,18 @@
     overflow: auto;
 } 
 
-.cui-modal.cui-modal-header{
-    padding-top:$cui-modal-header-height;
-}
-.cui-modal.cui-modal-footer{
-    padding-bottom:$cui-modal-footer-height;
+
+.cui-modal-use-header{
+    .cui-modal-header{
+        // unable to use a darken function if user will be passing in custom styles Using an opacity instead.
+        background: rgba( 150, 150, 150, 0.15);    
+    }
 }
  
-.cui-modal-header-content{
+.cui-modal-header{
     display:block;
-    background: #DAEBEC;
-    padding:10px 35px 10px 10px;
+    
+    
     border-radius: $cui-border-radius - 1px $cui-border-radius - 1px 0 0;
     min-height:$cui-modal-header-height;
 
@@ -75,15 +102,22 @@
     left:0;
     right:0;
 
-    .cui-modal-hide {
-        top:10px;
-        right:10px;
+}
+
+.cui-modal-header-content{
+    padding:15px;
+}
+
+.cui-modal-use-footer{
+    .cui-modal-footer{
+        // unable to use a darken function if user will be passing in custom styles Using an opacity instead.
+        background: rgba( 150, 150, 150, 0.15);    
     }
 }
 
-.cui-modal-footer-content{
+.cui-modal-footer{
     display:block;
-    background:#eeeeee;
+    // background:#eeeeee;
     padding:10px;
     border-radius: 0 0 $cui-border-radius - 1px $cui-border-radius - 1px;
     min-height:$cui-modal-footer-height;
@@ -98,34 +132,32 @@
 .cui-modal-hide {
     border: 0;
     position: absolute;
-    top: -7px;
-    right: -7px;
+    top: 0px;
+    right: 0px;
     display: block;
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     text-indent: -9999px;
-    border-radius: 50%;
-    color: white;
-    background: black;
-    border: 1px solid black;
+    color: #666666;
     z-index: 1110;
+    background:none;
 
     .cui-modal &:hover {
-        border: 1px solid lighten(black, 0%);
-        background: lighten(black, 50%); // Override standard `button:hover` style
+        // border: 1px solid lighten(black, 0%);
+        // background: lighten(black, 50%); // Override standard `button:hover` style
+        color: #000000;
+        background:none;
     }
 
     &:after {
         content: "\00D7";
         position: absolute;
-        top: -0.5px;
-        left: 0.5px;
+        top: 4px;
+        right: 10px;
         text-indent: 0;
-        height: 24px;
-        width: 24px;
         font-weight: bold;
-        font-size: 22px;
-        line-height: 22px;
+        font-size: 28px;
+        line-height: 28px;
     }
 }
 

@@ -74,6 +74,7 @@ Property | Type | Description
 `id` | String | Optional ID to be added to the modal element
 `className` | String | Optional class name(s) to be added to the modal element
 `css` | Object | Optional inline CSS to be added to the modal element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
+`closeButton` | Boolean | Display the close button on the modal. Default `true`
 
 ### Event handler options
 
@@ -89,12 +90,13 @@ Property | Type | Description
 --- | --- | ---
 `opacity` | Number | Optional opacity for the overlay element, between `0` (completely transparent) and `1` (completely opaque)
 `className` | String | Optional class name(s) to add to the overlay DOM element
+`closeOnClick` | Boolean | Close the modal when clicking the overlay. Default `true`.
 
 ### Header options
 
 Property | Type | Description
 --- | --- | ---
-`html` | Sting | Contents to be displayed (required)
+`html` | String | Contents to be displayed (required)
 `height` | String | The min-height of the header (must be a CSS-friendly value). The header will expand as needed based on content.
 `className` | String | Optional class name(s) to add to the overlay DOM element
 `css` | Object | Optional inline CSS to be added to the header element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
@@ -103,7 +105,7 @@ Property | Type | Description
 
 Property | Type | Description
 --- | --- | ---
-`html` | Sting | Contents to be displayed (required)
+`html` | String | Contents to be displayed (required)
 `height` | String | The min-height of the footer (must be a CSS-friendly value). The footer will expand as needed based on content.
 `className` | String | Optional class name(s) to add to the overlay DOM element
 `css` | Object | Optional inline CSS to be added to the footer element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
