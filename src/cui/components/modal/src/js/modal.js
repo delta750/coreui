@@ -37,6 +37,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         hidden: 'hidden.cui.' + NAMESPACE,
     };
 
+    var DEFAULTS = {
+        marginX : 10,
+        marginY : 10
+    };
+
     var modals = {}; // List of existing modals
     var $window = null; // jQuery cache
 
@@ -78,6 +83,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     // Add the missing modal
                     if (addModal) {
                         document.body.appendChild(modal.$self[0]);
+                        $.data(modal.$self[0], NAMESPACE, modal);
                     }
 
                     fastdom.measure(function _buildModal_fastdom3 () {
@@ -99,6 +105,9 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
       // Function that displays a modal.
     _priv.showModal = function _showModal (modal) {
 
+        // Since only one modal can be active at a time, hide all other active modals
+        _priv.hideAllModals(modal);
+
         // Check to see if a pre-display function needs to run i.e. table setup.
         if (typeof modal.config.beforeShowFunc === 'function') {
             modal.config.beforeShowFunc(modal);
@@ -118,21 +127,17 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     else {
                         modal.$self.removeClass(CLASSES.hidden);
                     }
-
-                    // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
-                    // setTimeout(function _showModal_setTimeout3 () {
                    
+                    modal.adjustModalCSS(modal);
+                    modal.adjustContentHeight(modal);
                     modal.centerModal(modal);
-                    modal.adjustWrapperPadding(modal);
-                    
 
                     if (modal.config.focusOnShow) {
                         modal.config.focusOnShow.focus();
                     }
                     else {
                         modal.$self.focus();
-                        }
-                    // }, 100);
+                    }
 
                     modal.$self.trigger(EVENT_NAMES.shown);
                     $window.trigger(EVENT_NAMES.shown);
@@ -149,11 +154,11 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                         modal.$self.removeClass(CLASSES.hidden);
                     }
 
-                    // Use a delay so the page doesn't scroll down (why does that happen? CP 5/2/16)
-                    // setTimeout(function _showModal_setTimeout4 () {
-                   
-                    modal.centerModal(modal);
-                    modal.adjustWrapperPadding(modal);
+                    // Add default margin to non-centered modal
+                    modal.$self.css('margin', DEFAULTS.marginY+'px '+ DEFAULTS.marginX+'px');
+                    
+                    modal.adjustModalCSS(modal);
+                    modal.adjustContentHeight(modal);
                     
                     if (modal.config.focusOnShow) {
                         modal.config.focusOnShow.focus();
@@ -161,7 +166,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     else {
                         modal.$self.focus();
                     }
-                    // }, 100);
+                   
                 });
             }
         });
@@ -209,6 +214,21 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         }
 
         modal.config.isOpen = false;
+    };
+
+    // Function that will close all open modal objects
+    _priv.hideAllModals = function _hideAllModals(modal){
+        
+        var openModals = $("."+CLASSES.modal).not("."+CLASSES.hidden);
+        
+        $.each(openModals, function(){
+            var thisModal = $('#'+this.id);            
+            var thisModalData = thisModal.data('modal');
+        
+            if(thisModalData){
+                thisModalData.hideModal();
+            }
+        });
     };
 
     // Function that will completely remove the modal elements from the DOM
@@ -289,11 +309,13 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
             // Get currently focused item
             $focusedItem = $(':focus');
-
-            // Check if the modal has focus
-            if ($focusedItem.hasClass(CLASSES.modal)) {
+        
+            // Check if the modal or content area has focus.
+            // IE returns modalContents class when tabbing from the modal copy where Chrome and FF return the modal class.
+            if ( ($focusedItem.hasClass(CLASSES.modal)) || ($focusedItem.hasClass(CLASSES.modalContents)) ){
                 isModalFocused = true;
             }
+
             // Check if the close button has focus
             else if ($focusedItem.hasClass(CLASSES.closeButton)) {
                 isCloseButtonFocused = true;
@@ -343,45 +365,59 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     };
 
     // Function will hide the passes modal.
-    _priv.adjustWrapperPadding = function _adjustWrapperPadding (modal) {
+    _priv.adjustModalCSS = function _adjustModalCSS (modal) {
         var modalID = '#'+modal.$self[0].id;
 
+        // Enforce default padding around the modal. 
+        var adjustedWindowWidth = $(window).width() - DEFAULTS.marginX * 2;
+        var adjustedWindowHeight = $(window).height() - DEFAULTS.marginY * 2;
+
+        $(modalID).css('max-width', adjustedWindowWidth + "px");
+        $(modalID).css('max-height', adjustedWindowHeight + "px");
+
         // If there is a header present, set top padding of modal to the header height
-        var headerHeight = $(modalID + " ."+CLASSES.modalHeader).outerHeight();
-        // console.log("Header Height:"+headerHeight);
+        var headerHeight = $(modalID + " ." + CLASSES.modalHeader).outerHeight();
+        
         if(headerHeight){
             $(modalID).css("padding-top", headerHeight);
         }
+
         // If there is a footer present, set bottom padding of modal to the footer height
-        var footerHeight = $(modalID + " ."+CLASSES.modalFooter).outerHeight();
-        // console.log("Footer Height:"+footerHeight);
+        var footerHeight = $(modalID + " ." + CLASSES.modalFooter).outerHeight();
+        
         if(footerHeight){
             $(modalID).css("padding-bottom", footerHeight);    
         }
-
-        // Add 2 to the total height due to possibility of both elements rounding down per pixel. 
-        if( (headerHeight+footerHeight)+2 >= $(modalID).outerHeight() ){
-            console.log('CONVERT TO USE JOURNAL - Height of header and footer take up the set modal size.');
-            // journal.log({type: 'error', owner: 'UI', module: 'modal'}, 'Height of header and footer take up the set modal size.');
-        }
-
         
+        //Add 2 to account for css rounding
+        if( (headerHeight+footerHeight+2) >= $(modalID).outerHeight() ){
+            console.log('CONVERT TO USE JOURNAL - Combined height of header and footer take up the set modal size.');
+            // journal.log({type: 'error', owner: 'UI', module: 'modal'}, 'Height of header and footer take up the set modal size.');
+        }        
+    };
+
+    _priv.adjustContentHeight = function _adjustContentHeight (modal){
+        var modalID = '#' + modal.$self[0].id;
+        
+        // Reset size of contents to allow for proper inner height calculation based on content
+        $(modalID + " ." + CLASSES.modalContents).css('height', 'auto');   
+
+        //Set content outer height to height of modal.
+        $(modalID + " ." + CLASSES.modalContents).outerHeight(Math.floor($(modalID).height() + 1));        
     };
 
     _priv.centerModal = function _centerModal(modal){
         var modalID = '#'+modal.$self[0].id;
-
-        var modalWidth = $(modalID).outerWidth();
-        var modalHeight = $(modalID).outerHeight();
-        // console.log("Modal Width:"+modalWidth);
-        // console.log("Modal Height:"+modalHeight);
-
-        $(modalID).css({'left':'50%',
-                        'top': '50%',
-                        'margin-left': -modalWidth / 2 + 'px',
-                        'margin-top': -modalHeight / 2 + 'px'});
+        var modalOuterWidth = $(modalID).outerWidth();
+        var modalOuterHeight = $(modalID).outerHeight();
+       
+       if(modalOuterWidth && modalOuterHeight){
+            $(modalID).css({'left':'50%',
+                            'top': '50%',
+                            'margin-left': -modalOuterWidth / 2 + 'px',
+                            'margin-top': -modalOuterHeight / 2 + 'px'});
+        }   
     };
-
     
 
     ////////////
@@ -398,9 +434,13 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     _events.resize = function _resize (evt) {
         var modal = evt.data.modal;
         
-        modal.adjustWrapperPadding(modal);
-        modal.centerModal(modal);
+        modal.adjustModalCSS(modal);
+        modal.adjustContentHeight(modal);
 
+        if(modal.options.alwaysCenter !== false){
+            modal.centerModal(modal);    
+        }
+        
         if (modal.config.eventHandlers.resize) {
             modal.config.eventHandlers.resize(evt, modal);
         }
@@ -521,18 +561,20 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                                 _priv.handleTabKey(modal, evt);
                             });
 
-            if(modal.config.display && (modal.config.display.closeButton !== false) ){
-                modal.$close = 
-                    $('<button/>', {
-                            'class': CLASSES.closeButton,
-                            'tabindex': '1',
-                        })
-                        .text('Close Modal')
-                        .on('click', function (evt) {
-                            evt.preventDefault();
+            //Build the close button as long as it is not being suppressed by the closeButton option. 
+            if( (!modal.config.display) || (modal.config.display && (modal.config.display.closeButton !== false) )){
+                modal.$close = $('<button/>', {
+                                    'class': CLASSES.closeButton,
+                                    'tabindex': '1',
+                                })
+                                .text('Close Modal')
+                                .on('click', function (evt) {
+                                    evt.preventDefault();
 
-                            _priv.hideModal(modal);
-                        });
+                                    _priv.hideModal(modal);
+                                     // Set focus
+                                    _priv.setFocusOnClose(modal);
+                                });
 
             }
             //Create modal close button
@@ -574,10 +616,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
                     modal.$self.addClass(CLASSES.modalUseHeader);    
                 }
-                else{
-
-                }           
-
+          
                 modal.$self.append(modal.$header);
                 
             }
@@ -640,6 +679,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                                         .on('click', function (evt) {
                                             evt.preventDefault();
                                             _priv.hideModal(modal);
+                                             // Set focus
+                                            _priv.setFocusOnClose(modal);
                                         });
                 }
                 else{
@@ -658,7 +699,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             }
             else {
                 modal.$overlay = false;
-            }
+            }          
 
             modal.$focusableElems = null;
 
@@ -699,9 +740,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             if (modal.config.display.css) {
                 modal.$self.css(modal.config.display.css);
             }
-        }
-
-        
+        }        
 
         // =====================
         // OVERLAY DISPLAY ITEMS
@@ -720,6 +759,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             }.bind(modal));
         }
 
+        // $.data(modal.$self, NAMESPACE, modal);
+        
         // return modal.$self;
         return modal;
     };
@@ -727,6 +768,8 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     // Public function to hide a modal
     Modal.prototype.hideModal = function _hideModal () {
         _priv.hideModal(this);
+         // Set focus back to page element where modal was triggered
+        _priv.setFocusOnClose(this);
     };
 
     // Public function to show a modal
@@ -738,8 +781,12 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         _priv.destroyModal(this);
     };
 
-    Modal.prototype.adjustWrapperPadding = function _adjustWrapperPadding () {
-        _priv.adjustWrapperPadding(this);
+    Modal.prototype.adjustModalCSS = function _adjustModalCSS () {
+        _priv.adjustModalCSS(this);
+    };
+
+    Modal.prototype.adjustContentHeight = function _adjustContentHeight () {
+        _priv.adjustContentHeight(this);
     };
 
     Modal.prototype.centerModal = function _centerModal (){
@@ -750,12 +797,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
     Modal.version = VERSION;
 
     // Define jQuery plugin with a source element
-    // $.fn.modal = function (options, elem) {
-    //     return this.each(function () {
-    //         new Modal(this, options).init();
-    //     });
-    // };
-
      $.fn.modal = function (options, elem) {
         return this.each(function () {
             if ( ! $.data(this, NAMESPACE) ) {

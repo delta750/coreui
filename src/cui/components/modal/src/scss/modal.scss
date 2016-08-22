@@ -9,14 +9,13 @@
 @import "_utilities/_variables";
 
 
-
 // Component styles: 
 
 // Outer modal wrapper
 .cui-modal {
     border-radius: $cui-border-radius;
     border: solid 1px #808589;
-    background: #FFF;
+    background: $cui-modal-background-color;
     padding: 1px; // This is the visual border of the outer container
     z-index: 1100;
 
@@ -27,9 +26,8 @@
     top:0;
     
     // Height & width
-    width: $cui-modal-width;
+    // Base default overwritten by javascript with a hard px value. 
     max-width: 95%;
-    height: 95%; 
     max-height: 95%;
 
     &.cui-modal-use-close{
@@ -38,15 +36,6 @@
         .cui-modal-content{
             padding-top:10px;
         }
-    }
-
-    &.cui-modal-use-header{
-        padding-top:$cui-modal-header-height;
-    }
-
-
-    &.cui-modal-use-footer{
-        padding-bottom:$cui-modal-footer-height;
     }
 } 
 
@@ -82,45 +71,40 @@
     overflow: auto;
 } 
 
-
 .cui-modal-use-header{
     .cui-modal-header{
-        // unable to use a darken function if user will be passing in custom styles Using an opacity instead.
-        background: rgba( 150, 150, 150, 0.15);    
+        background: darken($cui-modal-background-color, 5);  
     }
 }
  
 .cui-modal-header{
-    display:block;
-    
+    display:block;    
     
     border-radius: $cui-border-radius - 1px $cui-border-radius - 1px 0 0;
-    min-height:$cui-modal-header-height;
+    // min-height:$cui-modal-header-height;
 
     position:absolute;
     top:0;
     left:0;
     right:0;
-
 }
 
 .cui-modal-header-content{
-    padding:15px;
+    padding:10px;
 }
 
 .cui-modal-use-footer{
     .cui-modal-footer{
-        // unable to use a darken function if user will be passing in custom styles Using an opacity instead.
-        background: rgba( 150, 150, 150, 0.15);    
+        background: darken($cui-modal-background-color, 5);    
     }
 }
 
 .cui-modal-footer{
     display:block;
-    // background:#eeeeee;
+    
     padding:10px;
     border-radius: 0 0 $cui-border-radius - 1px $cui-border-radius - 1px;
-    min-height:$cui-modal-footer-height;
+    // min-height:$cui-modal-footer-height;
 
     position:absolute;
     bottom:0;
@@ -143,8 +127,6 @@
     background:none;
 
     .cui-modal &:hover {
-        // border: 1px solid lighten(black, 0%);
-        // background: lighten(black, 50%); // Override standard `button:hover` style
         color: #000000;
         background:none;
     }
@@ -160,8 +142,6 @@
         line-height: 28px;
     }
 }
-
-
 
 // Shield that blocks the underlying page
 .cui-modal-overlay {
