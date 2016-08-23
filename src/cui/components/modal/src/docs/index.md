@@ -28,9 +28,12 @@ var $myModal = $(window).modal(options);
 
 There are two ways to hide a modal depending on whether you stored a reference to it.
 
-With a stored reference, call `$myModal.hide()`.
+To store a reference to the modal retreive the data from the button
+`var myModal = $('#button').data('modal');`
 
-Without a stored reference, call `$('.my-button').modal().hide()` where `.my-button` is an element that has a modal associated with it.
+With the stored reference, call `myModal.hideModal()`.
+___
+**Without a stored reference, call `$('.my-button').modal().hide()` where `.my-button` is an element that has a modal associated with it.
 
 ## Options
 
@@ -74,6 +77,7 @@ Property | Type | Description
 `id` | String | Optional ID to be added to the modal element
 `className` | String | Optional class name(s) to be added to the modal element
 `css` | Object | Optional inline CSS to be added to the modal element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
+`closeButton` | Boolean | Display the close button on the modal. Default `true`
 
 ### Event handler options
 
@@ -89,6 +93,25 @@ Property | Type | Description
 --- | --- | ---
 `opacity` | Number | Optional opacity for the overlay element, between `0` (completely transparent) and `1` (completely opaque)
 `className` | String | Optional class name(s) to add to the overlay DOM element
+`closeOnClick` | Boolean | Close the modal when clicking the overlay. Default `true`
+
+### Header options
+
+Property | Type | Description
+--- | --- | ---
+`html` | String | Contents to be displayed (required)
+`height` | String | The min-height of the header (must be a CSS-friendly value). The header will expand as needed based on content.
+`className` | String | Optional class name(s) to add to the overlay DOM element
+`css` | Object | Optional inline CSS to be added to the header element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
+
+### Footer options
+
+Property | Type | Description
+--- | --- | ---
+`html` | String | Contents to be displayed (required)
+`height` | String | The min-height of the footer (must be a CSS-friendly value). The footer will expand as needed based on content.
+`className` | String | Optional class name(s) to add to the overlay DOM element
+`css` | Object | Optional inline CSS to be added to the footer element. Should be in a jQuery-ready format (e.g. `{color: 'red', maxWidth: '40%'}`).
 
 ## Example with default values
 
@@ -102,7 +125,7 @@ $('.my-button').modal({
         className: '',
         css: {}
     },
-    shield: {
+    overlay: {
         suppress: false,
         opacity: 0.1,
         className: ''
@@ -125,7 +148,7 @@ All events are fired on both `myModal.$modal` and `window`.
 
 ## Specifications
 
-If a shield is rendered, clicking on the shield (outside of the modal) will hide the modal and the shield.
+If an overlay is rendered, clicking on the overlay (outside of the modal) will hide the modal and the overlay.
 
 Only one modal may be open at a time. If a modal is open when a second modal is triggered, the first modal is hidden before opening the second modal.
 
