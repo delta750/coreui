@@ -372,8 +372,28 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
         var adjustedWindowWidth = $(window).width() - DEFAULTS.marginX * 2;
         var adjustedWindowHeight = $(window).height() - DEFAULTS.marginY * 2;
 
-        $(modalID).css('max-width', adjustedWindowWidth + "px");
-        $(modalID).css('max-height', adjustedWindowHeight + "px");
+
+        if(modal.config.display && modal.config.display.css && modal.config.display.css.maxWidth){
+            $(modalID).css('max-width', modal.config.display.css.maxWidth);
+            
+            if($(modalID).outerWidth() > adjustedWindowWidth){
+                $(modalID).css('max-width', adjustedWindowWidth + "px");
+            }
+        }
+        else{
+            $(modalID).css('max-width', adjustedWindowWidth + "px");
+        }
+
+        if(modal.config.display && modal.config.display.css && modal.config.display.css.maxHeight){
+            $(modalID).css('max-height', modal.config.display.css.maxHeight);
+            
+            if($(modalID).outerWidth() > adjustedWindowHeight){
+                $(modalID).css('max-height', adjustedWindowHeight + "px");
+            }
+        }
+        else{
+            $(modalID).css('max-height', adjustedWindowHeight + "px");
+        }
 
         // If there is a header present, set top padding of modal to the header height
         var headerHeight = $(modalID + " ." + CLASSES.modalHeader).outerHeight();
