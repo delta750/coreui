@@ -60,10 +60,10 @@
 }
 
 // Content wrapper
-.cui-modal-content {
+.cui-modal-body {
     border-radius: $cui-border-radius - 1px;
     // background: #fff;
-    padding: 20px;
+    
 
     // Cover the modal
     position: relative;
@@ -77,9 +77,16 @@
     overflow: auto;
 } 
 
+.cui-modal-body-content{
+    padding:10px;
+}
+
 .cui-modal-use-header{
     .cui-modal-header{
         background: darken($cui-modal-background-color, 5);  
+    }
+    .cui-modal-header-content{
+        padding:10px;
     }
 }
  
@@ -95,9 +102,7 @@
     right:0;
 }
 
-.cui-modal-header-content{
-    padding:10px;
-}
+
 
 .cui-modal-use-footer{
     .cui-modal-footer{
