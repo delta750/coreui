@@ -1,8 +1,8 @@
-define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
+define(['jquery', 'cui', 'guid', 'uiBox', 'css!modal'], function ($, cui, guid, uiBox) {
     /////////////
     // Globals //
     /////////////
-
+    
     var NAMESPACE = 'modal';
 
     var VERSION = '2.0.7';
@@ -88,10 +88,6 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                     if (addModal) {
                         document.body.appendChild(modal.$self[0]);
                         $.data(modal.$self[0], NAMESPACE, modal);
-
-                        _priv.adjustModalCSS(modal);
-                        _priv.adjustContentHeight(modal);
-                        _priv.centerModal(modal); 
                     }
 
                     fastdom.measure(function _buildModal_fastdom3 () {
@@ -402,21 +398,21 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
 
         // If there is a header present, set top padding of modal to the header height
         var headerHeight = $(modalID + " ." + CLASSES.modalHeader).outerHeight();
-
+        
         if(headerHeight){
             $(modalID).css("padding-top", headerHeight);
         }
 
         // If there is a footer present, set bottom padding of modal to the footer height
         var footerHeight = $(modalID + " ." + CLASSES.modalFooter).outerHeight();
-
+        
         if(footerHeight){
             $(modalID).css("padding-bottom", footerHeight);
         }
 
         //Add 2 to account for css rounding
         if( (headerHeight+footerHeight+2) >= $(modalID).outerHeight() ){
-            // console.log('CONVERT TO USE JOURNAL - Combined height of header and footer take up the set modal size.');
+            console.log('CONVERT TO USE JOURNAL - Combined height of header and footer take up the set modal size.');
             journal.log({type: 'warning', owner: 'UI', module: 'modal'}, 'Combined height of header and footer take up the set modal size.');
 
         }
@@ -591,6 +587,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
             modal.config.builtInvisible = true;
         }
 
+        //Build the close button as long as it is not being suppressed by the closeButton option.
         if( (!modal.config.display) || (modal.config.display && (modal.config.display.closeButton !== false) )){
             modal.$close = $('<button/>', {
                                 'class': CLASSES.closeButton,
@@ -680,7 +677,7 @@ define(['jquery', 'cui', 'guid', 'css!modal'], function ($, cui, guid) {
                 var footerContent = $('<div/>', {
                                     'class': CLASSES.modalFooterContent
                                 });
-                
+
                 footerContent.append(modal.config.footer.html);
 
                 if(modal.config.footer.height){

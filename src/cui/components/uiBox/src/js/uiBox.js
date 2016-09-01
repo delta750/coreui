@@ -3,7 +3,6 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
     /////////////
     // Globals //
     /////////////
-    
     var NAMESPACE = 'uiBox';
 
     var VERSION = '';

@@ -337,23 +337,36 @@ define(['jquery', 'cui', 'guid'], function ($, cui, guid) {
     // Create the popover container element
     priv.createPopover = function _createPopover (popover) {
         // Defines the popover window div and makes it fade in
-        var $popover = $('<div/>')
-                            .addClass(CLASSES.popover)
-                            .addClass(popover.config.display.className)
-                            .attr('tabindex', '1')
-                            .css(popover.config.display.css)
-                            .css('opacity', '0') // Keep it hidden for now
-                            .appendTo(document.body);
+        // var $popover = $('<div/>')
+        //                     .addClass(CLASSES.popover)
+        //                     .addClass(popover.config.display.className)
+        //                     .attr('tabindex', '1')
+        //                     .css(popover.config.display.css)
+        //                     .css('opacity', '0') // Keep it hidden for now
+        //                     .appendTo(document.body);
 
-        // Add content
-        if (popover.config.html instanceof $) {
-            $popover.append(popover.config.html);
-        }
-        else {
-            $popover.html(popover.config.html);
+        // // Add content
+        // if (popover.config.html instanceof $) {
+        //     $popover.append(popover.config.html);
+        // }
+        // else {
+        //     $popover.html(popover.config.html);
+        // }
+
+        var boxOptions = [];
+        
+        boxOptions.class = CLASSES.popover + " " + popover.config.display.className;
+        boxOptions.css = {'opacity':'0'};
+        if(popover.config.display.css){
+            $.extend(boxOptions.css, popover.config.display.css);  
         }
 
-        return $popover;
+        boxOptions.html = popover.config.html;
+
+        var $popoverBox = $.uiBox(boxOptions);
+        $popoverBox.appendTo(document.body);
+        
+        return $popoverBox;
     };
 
     // Function that will position the popover on the page - Aligned to right side of Notifications button
