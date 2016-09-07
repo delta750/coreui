@@ -1,0 +1,5 @@
+{
+    "name": "uiPosition",
+    "lazy": true,
+    "sources": [ "style", "script"]
+}

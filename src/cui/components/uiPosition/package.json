@@ -1,5 +1,5 @@
 {
-    "name": "coreui-uiBox",
+    "name": "coreui-uiPosition",
     "version": "0.0.1",
     "devDependencies": {
         "grunt": "^1.0.1",

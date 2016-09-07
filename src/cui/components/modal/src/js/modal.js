@@ -1,4 +1,4 @@
-define(['jquery', 'cui', 'guid', 'uiBox', 'css!modal'], function ($, cui, guid, uiBox) {
+define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function ($, cui, guid, uiBox) {
     /////////////
     // Globals //
     /////////////
@@ -208,6 +208,13 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'css!modal'], function ($, cui, guid, 
 
                 modal.$self.addClass(CLASSES.hidden);
 
+                //Reset styles used for positioning. Resolves any display issues if viewport is resized between shows
+                modal.$self.css({"margin":"auto", 
+                                "top":"auto",
+                                "left":"auto",
+                                "right":"auto",
+                                "bottom":"auto"});
+
                 $window.off('keyup.cui.modal.escape');
                 $window.off('resize', _events.resize);
 
@@ -412,9 +419,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'css!modal'], function ($, cui, guid, 
 
         //Add 2 to account for css rounding
         if( (headerHeight+footerHeight+2) >= $(modalID).outerHeight() ){
-            console.log('CONVERT TO USE JOURNAL - Combined height of header and footer take up the set modal size.');
             journal.log({type: 'warning', owner: 'UI', module: 'modal'}, 'Combined height of header and footer take up the set modal size.');
-
         }
     };
 
@@ -429,16 +434,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'css!modal'], function ($, cui, guid, 
     };
 
     _priv.centerModal = function _centerModal(modal){
-        var modalID = '#'+modal.$self[0].id;
-        var modalOuterWidth = $(modalID).outerWidth();
-        var modalOuterHeight = $(modalID).outerHeight();
-
-       if(modalOuterWidth && modalOuterHeight){
-            $(modalID).css({'left':'50%',
-                            'top': '50%',
-                            'margin-left': -modalOuterWidth / 2 + 'px',
-                            'margin-top': -modalOuterHeight / 2 + 'px'});
-        }
+        $('#'+modal.$self[0].id).uiPosition({positionType:"center-center"});
     };
 
     _priv.maxContentAreaHeight = function _maxContentAreaHeight(modal){
