@@ -15,9 +15,6 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
     
         uiBoxFooter: 'cui-' + NAMESPACE + '-footer',
     };
-    var SELECTORS = {};
-    var EVENT_NAMES = {};
-    var DEFAULTS = {};
 
     ////////////
     // Public //
@@ -56,7 +53,7 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
     UIBox.prototype.default = {
         id:null,
         css:null,
-        class:null,
+        className:null,
         html:null,
         header: null,
         body: null,
@@ -87,8 +84,8 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
         ///////////////////
 
         var uiBoxClasses = CLASSES.uiBox;
-        if (uiBox.config.class && typeof uiBox.config.class === "string") {
-            uiBoxClasses += " " + uiBox.config.class;
+        if (uiBox.config.className && typeof uiBox.config.className === "string") {
+            uiBoxClasses += " " + uiBox.config.className;
         }
 
         // Create the uiBox
@@ -114,11 +111,11 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
         // BUILD HEADER //
         //////////////////
 
-        if(uiBox.config.header && uiBox.config.header.html) {
+        if(uiBox.config.header && uiBox.config.header.html && uiBox.config.header.html !== "") {
 
             var uiBoxHeaderClasses = CLASSES.uiBoxHeader;
-            if(uiBox.config.header && uiBox.config.header.class && typeof uiBox.config.header.class === "string") {
-                uiBoxHeaderClasses += " " + uiBox.config.header.class;
+            if(uiBox.config.header && uiBox.config.header.className && typeof uiBox.config.header.className === "string") {
+                uiBoxHeaderClasses += " " + uiBox.config.header.className;
             }
 
             uiBox.$header = $('<header/>', {
@@ -138,11 +135,11 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
         // BUILD BODY //
         ////////////////      
         
-        if(uiBox.config.body && uiBox.config.body.html) {
+        if(uiBox.config.body && uiBox.config.body.html && uiBox.config.body.html !== "") {
 
             var uiBoxBodyClasses = CLASSES.uiBoxBody;
-            if(uiBox.config.body && uiBox.config.body.class && typeof uiBox.config.body.class === "string") {
-                uiBoxBodyClasses += " " + uiBox.config.body.class;
+            if(uiBox.config.body && uiBox.config.body.className && typeof uiBox.config.body.className === "string") {
+                uiBoxBodyClasses += " " + uiBox.config.body.className;
             }
             
             uiBox.$body = $('<div/>', {
@@ -162,11 +159,11 @@ define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid)
         // BUILD FOOTER //
         //////////////////
 
-        if(uiBox.config.footer && uiBox.config.footer.html) {
+        if(uiBox.config.footer && uiBox.config.footer.html && uiBox.config.footer.html !== "") {
 
             var uiBoxFooterClasses = CLASSES.uiBoxFooter;
-            if(uiBox.config.footer.class && typeof uiBox.config.footer.class === "string") {
-                uiBoxFooterClasses += " " + uiBox.config.footer.class;
+            if(uiBox.config.footer.className && typeof uiBox.config.footer.className === "string") {
+                uiBoxFooterClasses += " " + uiBox.config.footer.className;
             }
 
             uiBox.$footer = $('<footer/>', {

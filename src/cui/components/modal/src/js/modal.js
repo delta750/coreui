@@ -208,13 +208,6 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
                 modal.$self.addClass(CLASSES.hidden);
 
-                //Reset styles used for positioning. Resolves any display issues if viewport is resized between shows
-                modal.$self.css({"margin":"auto", 
-                                "top":"auto",
-                                "left":"auto",
-                                "right":"auto",
-                                "bottom":"auto"});
-
                 $window.off('keyup.cui.modal.escape');
                 $window.off('resize', _events.resize);
 
@@ -434,7 +427,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
     };
 
     _priv.centerModal = function _centerModal(modal){
-        $('#'+modal.$self[0].id).uiPosition({positionType:"center-center"});
+        $('#'+modal.$self[0].id).uiPosition({positionType:"center-center", overrideMaxDimensions:false});
     };
 
     _priv.maxContentAreaHeight = function _maxContentAreaHeight(modal){
@@ -614,7 +607,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
             /////////////////////////
 
             boxOptions.id = modal.config.id;
-            boxOptions.class = modalClasses;            
+            boxOptions.className = modalClasses;            
             boxOptions.css = modal.config.css;            
 
             ////////////////////////////////
@@ -631,7 +624,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
                 bodyContent.append(modal.config.html);
 
                 boxOptions.body.html = bodyContent;
-                boxOptions.body.class = CLASSES.modalBody;
+                boxOptions.body.className = CLASSES.modalBody;
             }
 
             ////////////////////////////////////////////
@@ -647,12 +640,12 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
                 if(modal.config.header && modal.config.header.html){
                     headerContent.append(modal.config.header.html);
-                    boxOptions.class += " " + CLASSES.modalUseHeader;
+                    boxOptions.className += " " + CLASSES.modalUseHeader;
                 }
 
                 if(modal.$close){
                     headerContent.append(modal.$close);
-                    boxOptions.class += " " + CLASSES.modalUseClose;
+                    boxOptions.className += " " + CLASSES.modalUseClose;
                 }
 
                 if(modal.config.header && modal.config.header.height){
@@ -660,7 +653,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
                 }
 
                 boxOptions.header.html = headerContent;
-                boxOptions.header.class = CLASSES.modalHeader;                
+                boxOptions.header.className = CLASSES.modalHeader;                
             }            
 
             //////////////////////////////////
@@ -681,8 +674,8 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
                 }
 
                 boxOptions.footer.html = footerContent;
-                boxOptions.footer.class = CLASSES.modalFooter;
-                boxOptions.class += " " + CLASSES.modalUseFooter;
+                boxOptions.footer.className = CLASSES.modalFooter;
+                boxOptions.className += " " + CLASSES.modalUseFooter;
             }         
 
             /////////////////

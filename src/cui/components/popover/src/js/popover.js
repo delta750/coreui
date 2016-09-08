@@ -17,7 +17,7 @@ define(['jquery', 'cui', 'guid'], function ($, cui, guid) {
         toggle: 'cui-' + NAMESPACE + '-toggle',
     };
 
-    var PADDING = 6;
+    // var PADDING = 6;
 
     var priv = {};
     var popoverList = {};
@@ -338,7 +338,7 @@ define(['jquery', 'cui', 'guid'], function ($, cui, guid) {
     priv.createPopover = function _createPopover (popover) {
         var boxOptions = [];
         
-        boxOptions.class = CLASSES.popover + " " + popover.config.display.className;
+        boxOptions.className = CLASSES.popover + " " + popover.config.display.className;
         boxOptions.css = {'opacity':'0'};
         if(popover.config.display.css){
             $.extend(boxOptions.css, popover.config.display.css);  
@@ -366,8 +366,16 @@ define(['jquery', 'cui', 'guid'], function ($, cui, guid) {
                 popoverOffset.offsetX = popover.config.display.offset.left;
             }
         }
-        
-        $(popover.$popover).uiPosition({positionType:popover.config.location, respectTo:popover.$button, offset:popoverOffset});
+        if(window.innerWidth >= 400){
+            $(popover.$popover).uiPosition({
+                positionType:popover.config.location, 
+                respectTo:popover.$button, 
+                offset:popoverOffset
+            });
+        }
+        else{
+            $(popover.$popover).uiPosition("center-center");   
+        }
     };
 
     ////////////
