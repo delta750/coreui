@@ -42,12 +42,17 @@
 
     <script id="require" src="/dist/js/main.js"></script>
     <script>
-        require(['jquery', 'cui', 'popover', 'domReady!'], function ($, cui, popover) {
+        require(['jquery', 'cui', 'popover', 'domReady!'], function ($, cui) {
             $('#test1').popover({
                 html: 'You clicked on the Test 1 button',
                 location: 'below-right',
                 display: {
                     className: 'cui-popover-demo',
+                    css:{
+                        width:'100px',
+                        color:'red',
+                        'max-width': '400px'
+                    }
                 },
                 isModal: true,
             });

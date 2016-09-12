@@ -1,4 +1,4 @@
-define(['jquery', 'cui', 'guid'], function ($, cui, guid) {
+define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid) {
     ///////////////
     // Constants //
     ///////////////

@@ -1,5 +1,5 @@
 {
     "name": "uiBox",
-    "lazy": true,
+    "lazy": false,
     "sources": [ "style", "script"]
 }

@@ -1,4 +1,4 @@
-define(['jquery', 'cui', 'guid', 'journal','css!uiBox'], function ($, cui, guid) {
+define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
     
     /////////////
     // Globals //

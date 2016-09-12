@@ -1,5 +1,5 @@
 {
     "name": "uiPosition",
-    "lazy": true,
+    "lazy": false,
     "sources": ["script"]
 }
