@@ -17,7 +17,11 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         toggle: 'cui-' + NAMESPACE + '-toggle',
     };
 
+    var MOBILE_BREAKPOINT = 600;
+
     // var PADDING = 6;
+
+
 
     var priv = {};
     var popoverList = {};
@@ -130,6 +134,10 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             priv.onBodyClick(evt, popover);
         }.bind(popover);
 
+        popover.onWindowScroll = function _popover_onWindowScroll (evt) {
+            priv.onWindowScroll(evt, popover);
+        }.bind(popover);
+
         // Hide the popover when the Escape key is pressed
         if (popover.config.hideOnEscape) {
             $window.on('keyup', function _popover_onKeyup (evt) {
@@ -228,6 +236,8 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         $body.off('click', popover.onBodyClick);
         popover.onBodyClick = null;
 
+        $(window).off('scroll', popover.onWindowScroll);
+
         // Remove this Popover instance from our list
         delete popoverList[popover.id];
 
@@ -272,6 +282,8 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
         // Add event listeners
         $body.on('click', popover.onBodyClick);
+        
+        $(window).scroll(popover.onWindowScroll);
 
         popover.$popover.trigger(EVENT_NAMES.show);
         $window.trigger(EVENT_NAMES.show);
@@ -332,6 +344,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         popover.isShown = false;
 
         $body.off('click', popover.onBodyClick);
+        $(window).off('scroll', popover.onWindowScroll);
     };
 
     // Create the popover container element
@@ -355,6 +368,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     // Function that will position the popover on the page using uiPosition
     priv.positionPopover = function _positionPopover (popover) {
         var popoverOffset = {};
+        var popoverDefaultCSS = {};
 
         // Convert popover offset call into uiPosition config call
         if (popover.config.display.offset) {
@@ -366,16 +380,43 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
                 popoverOffset.offsetX = popover.config.display.offset.left;
             }
         }
-        if(window.innerWidth >= 400){
+
+        if(popover.config.display && popover.config.display.css){
+            popoverDefaultCSS = popover.config.display.css;
+        }
+        
+        // $(popover.$popover).uiPosition({
+        //     positionType:popover.config.location, 
+        //     respectTo:popover.$button, 
+        //     offset:popoverOffset,
+        //     defaultCSS:popoverDefaultCSS
+        // });
+
+
+        // Handle mobile sizes when positioning the popover. 
+        // •   "small" is defined by anything less than the $cui-bp-medium Sass variable 
+        // o   at the moment we'll just have to hard-code this because currently we don't have a way for Sass and JS to communicate with each other 
+        // •   the popover will consume the full height and width of the viewport, minus the minimum margins imposed by modal (e.g. there should be a gap all the way around so it's clear to the user they haven't navigated to another page) 
+        // •   the popover will display the header bar used by modal that contains a Close button (otherwise there will be no way to close the popover) 
+        // •   the popover will use overflow-y: auto so that all contents are accessible 
+
+        if(window.innerWidth > MOBILE_BREAKPOINT){
             $(popover.$popover).uiPosition({
                 positionType:popover.config.location, 
                 respectTo:popover.$button, 
-                offset:popoverOffset
-            });
+                offset:popoverOffset,
+                defaultCSS:popoverDefaultCSS
+            });    
         }
         else{
-            $(popover.$popover).uiPosition("center-center");   
+            $(popover.$popover).uiPosition({
+                positionType:"center-center",
+            });   
         }
+    };
+
+    priv.createMobile = function _createMobile () {
+
     };
 
     ////////////
@@ -410,6 +451,12 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     priv.onWindowKeyup = function _onWindowKeyup (evt, popover) {
         // Escape key was pressed
         if (popover.isShown && evt.keyCode === 27) {
+            priv.hidePopover(popover);
+        }
+    };
+
+    priv.onWindowScroll = function _onWindowScroll(evt, popover){
+        if (popover.isShown) {
             priv.hidePopover(popover);
         }
     };

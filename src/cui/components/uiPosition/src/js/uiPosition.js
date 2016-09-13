@@ -23,31 +23,67 @@ define(['jquery', 'cui'], function ($, cui) {
     var _priv = {};
 
     _priv.resetPositioningStyles = function resetPositioningStyles(element, config){
+        var maxWidth = "";
+        var maxHeight = "";
+
+        if(config.defaultCSS && config.defaultCSS["max-width"]){
+            maxWidth = config.defaultCSS["max-width"];
+        }
+        if(config.defaultCSS && config.defaultCSS["max-height"]){
+            maxHeight = config.defaultCSS["max-height"];
+        }
+
         //Reset styles used for positioning. Resolves any display issues if viewport is resized between shows
         $(element).css({"margin":"auto", 
                         "top":"auto",
                         "left":"auto",
                         "right":"auto",
                         "bottom":"auto",
-                        "position" : ""});
-        
+                        "position" : ""
+                    });
+
         if(config.overrideMaxDimensions){
-            $(element).css({"max-height": "",
-                        "max-width":""});
+            $(element).css({"max-height": maxHeight,
+                        "max-width":maxWidth
+                    });
         }
     };
 
     _priv.adjustMaxHeight = function adjustMaxHeight(element, config){
         if(config.overrideMaxDimensions){
-            var maxHeight = $(window).height() - 2 * CENTER_PADDING;
+            var maxHeight = "";
+            var windowMaxHeight = "";
+
+            if(config.defaultCSS && config.defaultCSS["max-height"]){
+                maxHeight = parseInt(config.defaultCSS["max-height"]);
+            }
+                 
+            windowMaxHeight = $(window).height() - 2 * CENTER_PADDING;
+
+            if((typeof maxHeight !== 'number') || (windowMaxHeight<maxHeight)){
+                maxHeight = windowMaxHeight;
+            }
+
             $(element).css({"max-height":maxHeight});
         }        
     };
 
     _priv.adjustMaxWidth = function adjustMaxWidth(element, config){
         if(config.overrideMaxDimensions){
-            var maxWidth = $(window).width() - 2 *  CENTER_PADDING;
-            $(element).css({"max-width":maxWidth});    
+            var maxWidth = "";
+            var windowMaxWidth = "";
+
+            if(config.defaultCSS && config.defaultCSS["max-width"]){
+                maxWidth = parseInt(config.defaultCSS["max-width"]);
+            }
+
+            windowMaxWidth = $(window).width() - 2 *  CENTER_PADDING;
+
+            if((typeof maxWidth !== 'number') || (windowMaxWidth<maxWidth)){
+                maxWidth = windowMaxWidth;
+            }
+            
+            $(element).css({"max-width":maxWidth+'px'});    
         }
     };
 
@@ -170,8 +206,7 @@ define(['jquery', 'cui'], function ($, cui) {
                         'position' : "fixed"});
     };
 
-    _priv.positionRespectTo = function _positionRespectTo (element, positioningElement, config) {
-        
+    _priv.positionRespectTo = function _positionRespectTo (element, positioningElement, config) {        
         var location = config.positionType;
         var position = {
             top: 0,
@@ -313,13 +348,14 @@ define(['jquery', 'cui'], function ($, cui) {
             // Safe (no recursive fallback)
             else if (location === 'below-right') {
                 // Determine how far it is from the right edge (a negative value means it's being clipped)
-                difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
+                // difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
+                difference = windowWidth - (position.left + popoverWidth);
 
                 // Clipped by the right edge
                 if (difference < 0) {
                     // Shift the popover to the right just enough to fit on-screen
                     position.left += difference;
-                    position.left -= REL_PADDING;
+                    // position.left -= REL_PADDING;
 
                     // But make sure we didn't just push it off the left edge of the screen
                     if (position.left < 0) {
@@ -336,7 +372,8 @@ define(['jquery', 'cui'], function ($, cui) {
                 // We need to verify two things inconjunction: that it's not clipped by the top of the window, and that it's not running off the left edge of the screen
 
                 // Determine how far it is from the right edge (a negative value means it's being clipped)
-                difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
+                // difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
+                difference = windowWidth - (position.left + popoverWidth);
 
                 // Condition: clipped by the top of the window
                 if (position.top < 0) {
@@ -347,7 +384,7 @@ define(['jquery', 'cui'], function ($, cui) {
                 else if (difference < 0) {
                     // Shift the popover to the right just enough to fit on-screen
                     position.left += difference;
-                    position.left -= REL_PADDING;
+                    // position.left -= REL_PADDING;
 
                     // But make sure we didn't just push it off the left edge of the screen
                     if (position.left < 0) {
@@ -417,11 +454,12 @@ define(['jquery', 'cui'], function ($, cui) {
                 // 3. Clipped by the right edge, but not the top
                 else if (position.left + popoverWidth > windowWidth) {
                     // Determine how far it is from the left edge (a negative value means it's being clipped)
-                    difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
+                    // difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
+                    difference = windowWidth - (position.left + popoverWidth);
 
                     // Shift the popover to the right just enough to fit on-screen
                     position.left += difference;
-                    position.left -= REL_PADDING;
+                    // position.left -= REL_PADDING;
 
                     // But make sure we didn't just push it off the left edge of the screen
                     if (position.left < 0) {
@@ -434,7 +472,7 @@ define(['jquery', 'cui'], function ($, cui) {
                 }
             }
             else {
-                
+
                 journal.log({type: 'error', owner: 'UI', module: 'uiPosition', submodule: 'positionRespectTo', func: '__determinePosition'}, 'Unsupported location "', location, '" ', element);
 
                 return null;
@@ -456,7 +494,7 @@ define(['jquery', 'cui'], function ($, cui) {
         popoverWidth = $(element).outerWidth() + (REL_PADDING / 2);
         popoverHeightActual = $(element).outerHeight(); // For inline positioning we want the actual height of the popover
         popoverHeightWithPadding = popoverHeightActual + (REL_PADDING / 2); // Above and below the button we want to account for padding, but only half of it because the button already has some visual padding built in
-
+        
         windowWidth = window.innerWidth;
 
         // Get the positioning values for the requested location
@@ -473,31 +511,39 @@ define(['jquery', 'cui'], function ($, cui) {
             $(element).get(0).style.removeProperty('margin-right');
         }        
         
-        // Apply user-specified offsets. Need to update to either add or subtract offset based on the position to the
-        if (config.offset) {
-            if (config.offset.offsetY) {
-                position.top += config.offset.offsetY;
-                
-                // avoid negative margins
-                if(position.top < 0){
-                    position.top = 0;
-                }
-            }
-
-            if (config.offset.offsetX) {
-                position.left += config.offset.offsetX;
-                
-                // avoid negative margins
-                if(position.left < 0){
-                    position.left = 0;
-                }
+        // Apply user-specified offsets. Need to update to either add or subtract offset based on the position to the element
+        if (offsetY > 0) {
+            // if(location.toLowerCase().indexOf("below") >= 0){
+            //     position.top -= offsetY;
+            // }
+            // else{
+                position.top += offsetY;
+            // }   
+                       
+            // avoid negative margins
+            if(position.top < 0){
+                position.top = 0;
             }
         }
 
+       if (offsetX > 0) {
+            // if(location.toLowerCase().indexOf("right") >= 0){
+            //     position.left -= offsetY;
+            // }
+            // else{
+                position.left += offsetX;   
+            // }
+
+            // avoid negative margins
+            if(position.left < 0){
+                position.left = 0;
+            }
+        }
+     
         // Apply the positioning styles
         $(element).css({
-                    left: position.left,
-                    top: position.top,
+                    left: Math.floor(position.left),
+                    top: Math.floor(position.top),
                 });       
     };
 
@@ -522,7 +568,8 @@ define(['jquery', 'cui'], function ($, cui) {
             offsetY:0
         },       
         respectTo : null,
-        overrideMaxDimensions: true
+        overrideMaxDimensions: true,
+        defaultCSS : null
     };
 
     // Init function

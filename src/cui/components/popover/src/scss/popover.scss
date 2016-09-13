@@ -2,4 +2,22 @@
     position: absolute;
     background: #fff;
     top: -9999em; // We have to declare this so that the element does not take up any space when it is first created, before it is displayed. Otherwise there will be a white gap at the bottom of the page equal to the height of the tallest popover.
+
+    //Allows content to scroll if it would break out of the popover.
+    overflow:auto;
+}
+
+.arrow_up:after{
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #88b7d5;
+	border-width: 16px;
+	margin-left: -16px;
 }
