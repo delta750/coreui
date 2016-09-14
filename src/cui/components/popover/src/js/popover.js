@@ -361,21 +361,21 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             $.extend(boxOptions.css, popover.config.display.css);  
         }
 
-        popover.$close = $('<button/>', {
-                                'class': CLASSES.closeButton,
-                                'tabindex': '1',
-                            })
-                            .text('Close Popover')
-                            .on('click', function (evt) {
-                                evt.preventDefault();
-                               priv.hidePopover(popover);
-                            });
+        // popover.$close = $('<button/>', {
+        //                         'class': CLASSES.closeButton,
+        //                         'tabindex': '1',
+        //                     })
+        //                     .text('Close Popover')
+        //                     .on('click', function (evt) {
+        //                         evt.preventDefault();
+        //                        priv.hidePopover(popover);
+        //                     });
 
         boxOptions.html = popover.config.html;
 
         var $popoverBox = $.uiBox(boxOptions);
 
-        $popoverBox.append(popover.$close);
+        // $popoverBox.append(popover.$close);
         $popoverBox.appendTo(document.body);
         
         return $popoverBox;
@@ -406,10 +406,10 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             popoverDefaultCSS = popover.config.display.css;
         }
 
-        if(window.innerWidth > MOBILE_BREAKPOINT){
+        // if(window.innerWidth > MOBILE_BREAKPOINT){
             
             //remove mobile class
-            popover.$popover.removeClass('mobile-breakpoint');
+            // popover.$popover.removeClass('mobile-breakpoint');
 
             $(popover.$popover).uiPosition({
                 positionType:popover.config.location, 
@@ -422,17 +422,17 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             //     priv.setInnerContentHeight(popover);
             // }
            
-        }
-        else{
-            //add mobile class
+        // }
+        // else{
+        //     //add mobile class
 
-            popover.$popover.addClass('mobile-breakpoint');
+        //     popover.$popover.addClass('mobile-breakpoint');
 
-            $(popover.$popover).uiPosition({
-                positionType:"center-center",
-            });   
+        //     $(popover.$popover).uiPosition({
+        //         positionType:"center-center",
+        //     });   
 
-        }
+        // }
         
 
     };
