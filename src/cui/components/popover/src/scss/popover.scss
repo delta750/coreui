@@ -7,17 +7,63 @@
     overflow:auto;
 }
 
-.arrow_up:after{
-	bottom: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #88b7d5;
-	border-width: 16px;
-	margin-left: -16px;
+.cui-popover.mobile-breakpoint{
+	padding-top:34px;
 }
+
+
+// Close button
+.cui-popover-hide {
+    display:none;
+}
+
+.mobile-breakpoint .cui-popover-hide{
+	border: 0;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: block;
+    width: 36px;
+    height: 36px;
+    text-indent: -9999px;
+    color: #666666;
+    z-index: 1110;
+    background:none;
+    
+    .cui-popover &:hover {
+        color: #000000;
+        background:none;
+    }
+
+    &:after {
+        content: "\00D7";
+        position: absolute;
+        top: 4px;
+        right: 10px;
+        text-indent: 0;
+        font-weight: bold;
+        font-size: 28px;
+        line-height: 28px;
+    }
+}
+
+
+// .cui-popover.cui-popover-use-arrow {
+// 	overflow:visible;
+// }
+
+// .cui-popover.cui-popover-use-arrow .cui-uiBox-body{
+// 	height:100%;
+// 	overflow:auto;
+// }
+
+// .cui-popover-arrow{
+// 	content: " ";
+//     position: absolute;
+//     bottom: 100%;  /* At the top of the tooltip */
+//     left: 50%;
+//     margin-left: -7px;
+//     border-width: 7px;
+//     border-style: solid;
+//     border-color: transparent transparent black transparent;
+// }

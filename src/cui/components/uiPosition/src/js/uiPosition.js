@@ -14,7 +14,7 @@ define(['jquery', 'cui'], function ($, cui) {
     var DEFAULTS = {};
 
     var REL_PADDING = 6;
-    var CENTER_PADDING = 10;
+    var CENTER_PADDING = 10; 
 
     /////////////
     // Private //
@@ -222,10 +222,20 @@ define(['jquery', 'cui'], function ($, cui) {
         var buttonWidth;
         var buttonHeight;
         var difference;
+        var relativeMaxHeight;
+
+        var availableSpaceAbove;
+        var availableSpaceBelow;
 
         var offsetX = config.offset.offsetX;
         var offsetY = config.offset.offsetY;        
-        
+    
+        var __getRelativeMaxHeight = function _getRelativeMaxHeight(top, windowHeight, offset){
+            var maxHeight = windowHeight - top - offset + $(window).scrollTop();
+            return maxHeight;
+        };
+
+
         /**
          * Determines the position based on the requested location, detects boundary collisions, and falls back to other locations if necessary
          *
@@ -325,13 +335,16 @@ define(['jquery', 'cui'], function ($, cui) {
                     $(element).css('margin-right', REL_PADDING + 'px');
                     addedRightMargin = true;
                 }
+                //Check and set max height
+
+                relativeMaxHeight = __getRelativeMaxHeight(position.top, windowHeight, 2 * REL_PADDING);
             }
             // Not safe (includes recursive fallback)
             else if (location === 'above-left') {
                 // We need to verify two things in conjunction: that it's not clipped by the top of the window, and that it's not running off the left edge of the screen
 
                 // Condition: clipped by the top edge of the window
-                if (position.top < 0) {
+                if (position.top < $(window).scrollTop()) {
                     // It does not matter whether the popover is also clipped by the left edge. While we can fix the `left` value easily (see next condition), our only recourse for `top` is to fallback to a safe location
                     position = __determinePosition('below-left', position);
                 }
@@ -348,9 +361,9 @@ define(['jquery', 'cui'], function ($, cui) {
             // Safe (no recursive fallback)
             else if (location === 'below-right') {
                 // Determine how far it is from the right edge (a negative value means it's being clipped)
-                // difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
-                difference = windowWidth - (position.left + popoverWidth);
-
+                difference = windowWidth - (Math.ceil(position.left) + Math.ceil(popoverWidth) + (2 * REL_PADDING) + 2);
+                // difference = windowWidth - (position.left + popoverWidth);
+                
                 // Clipped by the right edge
                 if (difference < 0) {
                     // Shift the popover to the right just enough to fit on-screen
@@ -366,6 +379,10 @@ define(['jquery', 'cui'], function ($, cui) {
                         addedRightMargin = true;
                     }
                 }
+
+                //Check and set max height
+                relativeMaxHeight = __getRelativeMaxHeight(position.top, windowHeight, 2 * REL_PADDING);
+
             }
             // Not safe (includes recursive fallback)
             else if (location === 'above-right') {
@@ -373,7 +390,7 @@ define(['jquery', 'cui'], function ($, cui) {
 
                 // Determine how far it is from the right edge (a negative value means it's being clipped)
                 // difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
-                difference = windowWidth - (position.left + popoverWidth);
+                difference = windowWidth - (Math.ceil(position.left) + Math.ceil(popoverWidth) + (2 * REL_PADDING) + 2);
 
                 // Condition: clipped by the top of the window
                 if (position.top < 0) {
@@ -455,7 +472,7 @@ define(['jquery', 'cui'], function ($, cui) {
                 else if (position.left + popoverWidth > windowWidth) {
                     // Determine how far it is from the left edge (a negative value means it's being clipped)
                     // difference = windowWidth - (position.left + popoverWidth + REL_PADDING);
-                    difference = windowWidth - (position.left + popoverWidth);
+                    difference = windowWidth - (Math.ceil(position.left) + Math.ceil(popoverWidth) + (2 * REL_PADDING) + 2);
 
                     // Shift the popover to the right just enough to fit on-screen
                     position.left += difference;
@@ -481,13 +498,10 @@ define(['jquery', 'cui'], function ($, cui) {
             return position;
         };
 
-        // Reset top and left styles to provide accurate placement measurements for first run of positionRespectTo, otherwise running function twice will yield correct results.
-       
-        // _priv.resetPositioningStyles(element, config);
-        
-
         // Gather measurements about key elements
         buttonOffset = $(positioningElement).offset();
+        // buttonOffset.top = buttonOffset.top - $(window).scrollTop();
+
         buttonWidth = $(positioningElement).outerWidth();
         buttonHeight = $(positioningElement).outerHeight();
 
@@ -496,9 +510,11 @@ define(['jquery', 'cui'], function ($, cui) {
         popoverHeightWithPadding = popoverHeightActual + (REL_PADDING / 2); // Above and below the button we want to account for padding, but only half of it because the button already has some visual padding built in
         
         windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
 
         // Get the positioning values for the requested location
         // Hint: this is the "main" operation of this function and a good place to start for debugging. Most of the real work is done in `__determinePosition()`.
+        
         position = __determinePosition(location, position);
         
         // No position found (e.g. the location was invalid)
@@ -506,13 +522,24 @@ define(['jquery', 'cui'], function ($, cui) {
             return false;
         }
 
+        if(relativeMaxHeight){
+            if((config.defaultCSS && config.defaultCSS["max-height"])){
+                if(parseInt(config.defaultCSS["max-height"]>relativeMaxHeight)){
+                    $(element).css('max-height', relativeMaxHeight);    
+                }
+            }
+            else{
+                $(element).css('max-height', relativeMaxHeight);    
+            }
+        }        
+
         // Remove the margin that may have been added earlier in the page's lifecycle (e.g. before the window was resized)
         if (!addedRightMargin) {
             $(element).get(0).style.removeProperty('margin-right');
         }        
         
         // Apply user-specified offsets. Need to update to either add or subtract offset based on the position to the element
-        if (offsetY > 0) {
+        // if (offsetY > 0) {
             // if(location.toLowerCase().indexOf("below") >= 0){
             //     position.top -= offsetY;
             // }
@@ -524,9 +551,9 @@ define(['jquery', 'cui'], function ($, cui) {
             if(position.top < 0){
                 position.top = 0;
             }
-        }
+        // }
 
-       if (offsetX > 0) {
+       // if (offsetX > 0) {
             // if(location.toLowerCase().indexOf("right") >= 0){
             //     position.left -= offsetY;
             // }
@@ -538,7 +565,7 @@ define(['jquery', 'cui'], function ($, cui) {
             if(position.left < 0){
                 position.left = 0;
             }
-        }
+        // }
      
         // Apply the positioning styles
         $(element).css({
@@ -598,7 +625,7 @@ define(['jquery', 'cui'], function ($, cui) {
             _priv.positionRespectTo(uiPosition.elem, uiPosition.config.respectTo, uiPosition.config);
         }
         else {
-            // Since no reference object was proviced, position absolutly.
+            // Since no reference object was provided, position absolutely.
             if(uiPosition.config.positionType) {
                 switch(uiPosition.config.positionType) {
                     case "top-left":
