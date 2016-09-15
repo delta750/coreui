@@ -16,194 +16,218 @@ define(['jquery', 'cui'], function ($, cui) {
     var REL_PADDING = 6;
     var CENTER_PADDING = 10;
 
-    /////////////
-    // Private //
-    /////////////
+    /////////////////////
+    // Private methods //
+    /////////////////////
 
     var _priv = {};
 
-    _priv.resetPositioningStyles = function resetPositioningStyles(element, config){
-        var maxWidth = "";
-        var maxHeight = "";
+    _priv.resetPositioningStyles = function resetPositioningStyles(element, config) {
+        var maxWidth = '';
+        var maxHeight = '';
 
-        if(config.defaultCSS && config.defaultCSS["max-width"]){
-            maxWidth = config.defaultCSS["max-width"];
+        if (config.defaultCSS && config.defaultCSS['max-width']) {
+            maxWidth = config.defaultCSS['max-width'];
         }
-        if(config.defaultCSS && config.defaultCSS["max-height"]){
-            maxHeight = config.defaultCSS["max-height"];
+        if (config.defaultCSS && config.defaultCSS['max-height']) {
+            maxHeight = config.defaultCSS['max-height'];
         }
 
         //Reset styles used for positioning. Resolves any display issues if viewport is resized between shows
-        $(element).css({"margin":"auto",
-                        "top":"auto",
-                        "left":"auto",
-                        "right":"auto",
-                        "bottom":"auto",
-                        "position" : ""
+        $(element).css({
+                        'margin':'auto',
+                        'top':'auto',
+                        'left':'auto',
+                        'right':'auto',
+                        'bottom':'auto',
+                        'position': '',
                     });
 
-        if(config.overrideMaxDimensions){
-            $(element).css({"max-height": maxHeight,
-                        "max-width":maxWidth
+        if (config.overrideMaxDimensions) {
+            $(element).css({
+                        'max-height': maxHeight,
+                        'max-width': maxWidth,
                     });
         }
     };
 
-    _priv.adjustMaxHeight = function adjustMaxHeight(element, config){
-        if(config.overrideMaxDimensions){
-            var maxHeight = "";
-            var windowMaxHeight = "";
+    _priv.adjustMaxHeight = function adjustMaxHeight(element, config) {
+        if (config.overrideMaxDimensions) {
+            var maxHeight = '';
+            var windowMaxHeight = '';
 
-            if(config.defaultCSS && config.defaultCSS["max-height"]){
-                maxHeight = parseInt(config.defaultCSS["max-height"]);
+            if (config.defaultCSS && config.defaultCSS['max-height']) {
+                maxHeight = parseInt(config.defaultCSS['max-height']);
             }
 
             windowMaxHeight = $(window).height() - 2 * CENTER_PADDING;
 
-            if((typeof maxHeight !== 'number') || (windowMaxHeight<maxHeight)){
+            if ((typeof maxHeight !== 'number') || (windowMaxHeight<maxHeight)) {
                 maxHeight = windowMaxHeight;
             }
 
-            $(element).css({"max-height":maxHeight});
+            $(element).css({
+                            'max-height': maxHeight,
+                        });
         }
     };
 
-    _priv.adjustMaxWidth = function adjustMaxWidth(element, config){
-        if(config.overrideMaxDimensions){
-            var maxWidth = "";
-            var windowMaxWidth = "";
+    _priv.adjustMaxWidth = function adjustMaxWidth(element, config) {
+        if (config.overrideMaxDimensions) {
+            var maxWidth = '';
+            var windowMaxWidth = '';
 
-            if(config.defaultCSS && config.defaultCSS["max-width"]){
-                maxWidth = parseInt(config.defaultCSS["max-width"]);
+            if (config.defaultCSS && config.defaultCSS['max-width']) {
+                maxWidth = parseInt(config.defaultCSS['max-width']);
             }
 
             windowMaxWidth = $(window).width() - 2 *  CENTER_PADDING;
 
-            if((typeof maxWidth !== 'number') || (windowMaxWidth<maxWidth)){
+            if ((typeof maxWidth !== 'number') || (windowMaxWidth<maxWidth)) {
                 maxWidth = windowMaxWidth;
             }
 
-            $(element).css({"max-width":maxWidth+'px'});
+            $(element).css({
+                            'max-width': maxWidth + 'px',
+                        });
         }
     };
 
     _priv.positionTopLeft = function positionTopLeft(element, config) {
-        $(element).css({'top': config.offset.offsetY,
-                        'left':  config.offset.offsetX,
-                        "bottom": 'auto',
-                        "right": 'auto',
+        $(element).css({
+                        'top': config.offset.offsetY,
+                        'left': config.offset.offsetX,
+                        'bottom': 'auto',
+                        'right': 'auto',
                         'margin-top': 'auto',
                         'margin-left': 'auto',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionTopCenter = function positionTopCenter(element, config) {
         _priv.adjustMaxWidth(element, config);
 
-        $(element).css({'top': config.offset.offsetY,
+        $(element).css({
+                        'top': config.offset.offsetY,
                         'left': '50%',
-                        "bottom": 'auto',
-                        "right": 'auto',
+                        'bottom': 'auto',
+                        'right': 'auto',
                         'margin-top': 'auto',
-                        'margin-left': -$(element).outerWidth() / 2 + 'px',
+                        'margin-left': ((-1 * $(element).outerWidth()) / 2) + 'px',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionTopRight = function _positionTopRight(element, config) {
-        $(element).css({'top': config.offset.offsetY,
+        $(element).css({
+                        'top': config.offset.offsetY,
                         'left': 'auto',
-                        "bottom": 'auto',
-                        "right": config.offset.offsetX,
+                        'bottom': 'auto',
+                        'right': config.offset.offsetX,
                         'margin-top': 'auto',
                         'margin-left': 'auto',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
      _priv.positionCenterLeft = function _positionCenterLeft(element, config) {
         _priv.adjustMaxHeight(element, config);
 
-        $(element).css({'top':'50%',
+        $(element).css({
+                        'top':'50%',
                         'left': config.offset.offsetX,
-                        "bottom": 'auto',
-                        "right": 'auto',
-                        'margin-top': -$(element).outerHeight() / 2 + 'px',
+                        'bottom': 'auto',
+                        'right': 'auto',
+                        'margin-top': ((-1 * $(element).outerHeight()) / 2) + 'px',
                         'margin-left': 'auto',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionCenterCenter = function _positionCenterCenter(element, config) {
         _priv.adjustMaxHeight(element, config);
         _priv.adjustMaxWidth(element, config);
 
-        $(element).css({'top':'50%',
+        $(element).css({
+                        'top':'50%',
                         'left': '50%',
-                        "bottom": 'auto',
-                        "right": 'auto',
-                        'margin-top': -$(element).outerHeight() / 2 + 'px',
-                        'margin-left': -$(element).outerWidth() / 2 + 'px',
+                        'bottom': 'auto',
+                        'right': 'auto',
+                        'margin-top': ((-1 * $(element).outerHeight()) / 2) + 'px',
+                        'margin-left': ((-1 * $(element).outerWidth()) / 2) + 'px',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionCenterRight = function _positionCenterRight(element, config) {
         _priv.adjustMaxHeight(element, config);
 
-        $(element).css({'top':'50%',
+        $(element).css({
+                        'top':'50%',
                         'left': 'auto',
-                        "bottom": 'auto',
-                        "right": config.offset.offsetX,
-                        'margin-top': -$(element).outerHeight() / 2 + 'px',
+                        'bottom': 'auto',
+                        'right': config.offset.offsetX,
+                        'margin-top': ((-1 * $(element).outerHeight()) / 2) + 'px',
                         'margin-left': 'auto',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionBottomLeft = function positionBottomLeft(element, config) {
-        $(element).css({'top':'auto',
+        $(element).css({
+                        'top':'auto',
                         'left': config.offset.offsetX,
-                        "bottom":  config.offset.offsetY,
-                        "right": 'auto',
+                        'bottom':  config.offset.offsetY,
+                        'right': 'auto',
                         'margin-top': 'auto',
                         'margin-left': 'auto',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionBottomCenter = function positionBottomCenter(element, config) {
         _priv.adjustMaxWidth(element, config);
 
-        $(element).css({'top':'auto',
+        $(element).css({
+                        'top':'auto',
                         'left': '50%',
-                        "bottom":  config.offset.offsetY,
-                        "right": 'auto',
+                        'bottom':  config.offset.offsetY,
+                        'right': 'auto',
                         'margin-top': 'auto',
-                        'margin-left': -$(element).outerWidth() / 2 + 'px',
+                        'margin-left': ((-1 * $(element).outerWidth()) / 2) + 'px',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionBottomRight = function positionBottomRight(element, config) {
-        $(element).css({'top':'auto',
+        $(element).css({
+                        'top':'auto',
                         'left': 'auto',
-                        "bottom":  config.offset.offsetY,
-                        "right": config.offset.offsetX,
+                        'bottom':  config.offset.offsetY,
+                        'right': config.offset.offsetX,
                         'margin-top': 'auto',
                         'margin-left': 'auto',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});
+                        'position': 'fixed',
+                    });
     };
 
     _priv.positionRespectTo = function _positionRespectTo (element, positioningElement, config) {
@@ -230,7 +254,7 @@ define(['jquery', 'cui'], function ($, cui) {
         var offsetX = config.offset.offsetX;
         var offsetY = config.offset.offsetY;
 
-        var __getRelativeMaxHeight = function _getRelativeMaxHeight(top, windowHeight, offset){
+        var __getRelativeMaxHeight = function _getRelativeMaxHeight(top, windowHeight, offset) {
             var maxHeight = windowHeight - top - offset + $(window).scrollTop();
             return maxHeight;
         };
@@ -513,7 +537,7 @@ define(['jquery', 'cui'], function ($, cui) {
         windowHeight = window.innerHeight;
 
         // Get the positioning values for the requested location
-        // Hint: this is the "main" operation of this function and a good place to start for debugging. Most of the real work is done in `__determinePosition()`.
+        // Hint: this is the 'main' operation of this function and a good place to start for debugging. Most of the real work is done in `__determinePosition()`.
 
         position = __determinePosition(location, position);
 
@@ -522,9 +546,9 @@ define(['jquery', 'cui'], function ($, cui) {
             return false;
         }
 
-        if(relativeMaxHeight){
-            if((config.defaultCSS && config.defaultCSS["max-height"])){
-                if(parseInt(config.defaultCSS["max-height"]>relativeMaxHeight)){
+        if (relativeMaxHeight) {
+            if ((config.defaultCSS && config.defaultCSS['max-height'])) {
+                if (parseInt(config.defaultCSS['max-height']>relativeMaxHeight)) {
                     $(element).css('max-height', relativeMaxHeight);
                 }
             }
@@ -540,7 +564,7 @@ define(['jquery', 'cui'], function ($, cui) {
 
         // Apply user-specified offsets. Need to update to either add or subtract offset based on the position to the element
         // if (offsetY > 0) {
-            // if(location.toLowerCase().indexOf("below") >= 0){
+            // if (location.toLowerCase().indexOf('below') >= 0) {
             //     position.top -= offsetY;
             // }
             // else{
@@ -548,13 +572,13 @@ define(['jquery', 'cui'], function ($, cui) {
             // }
 
             // avoid negative margins
-            if(position.top < 0){
+            if (position.top < 0) {
                 position.top = 0;
             }
         // }
 
        // if (offsetX > 0) {
-            // if(location.toLowerCase().indexOf("right") >= 0){
+            // if (location.toLowerCase().indexOf('right') >= 0) {
             //     position.left -= offsetY;
             // }
             // else{
@@ -562,7 +586,7 @@ define(['jquery', 'cui'], function ($, cui) {
             // }
 
             // avoid negative margins
-            if(position.left < 0){
+            if (position.left < 0) {
                 position.left = 0;
             }
         // }
@@ -574,9 +598,10 @@ define(['jquery', 'cui'], function ($, cui) {
                 });
     };
 
-    ////////////
-    // Public //
-    ////////////
+
+    ////////////////////
+    // Public methods //
+    ////////////////////
 
     var UIPosition = function (elem, options) {
         // Store the element to be positioned
@@ -589,14 +614,14 @@ define(['jquery', 'cui'], function ($, cui) {
     UIPosition.prototype = {};
 
     UIPosition.prototype.default = {
-        positionType : null,
+        positionType: null,
         offset:{
-            offsetX:0,
-            offsetY:0
+            offsetX: 0,
+            offsetY: 0,
         },
-        respectTo : null,
+        respectTo: null,
         overrideMaxDimensions: true,
-        defaultCSS : null
+        defaultCSS: null,
     };
 
     // Init function
@@ -613,51 +638,61 @@ define(['jquery', 'cui'], function ($, cui) {
         }
 
         // Update offset if shortcut declaration used
-        if(typeof uiPosition.config.offset === 'string' || typeof uiPosition.config.offset === 'number') {
-            uiPosition.config.offset = {offsetX:this.options.offset,
-                offsetY:this.options.offset};
+        if (typeof uiPosition.config.offset === 'string' || typeof uiPosition.config.offset === 'number') {
+            uiPosition.config.offset = {
+                offsetX: this.options.offset,
+                offsetY: this.options.offset,
+            };
         }
 
         _priv.resetPositioningStyles(uiPosition.elem, uiPosition.config);
 
         // parse options and determine what process to return
-        if(uiPosition.config.respectTo instanceof $) {
+        if (uiPosition.config.respectTo instanceof $) {
             _priv.positionRespectTo(uiPosition.elem, uiPosition.config.respectTo, uiPosition.config);
         }
         else {
             // Since no reference object was provided, position absolutely.
-            if(uiPosition.config.positionType) {
+            if (uiPosition.config.positionType) {
                 switch(uiPosition.config.positionType) {
-                    case "top-left":
+                    case 'top-left':
                         _priv.positionTopLeft(uiPosition.elem, uiPosition.config);
-                    break;
-                    case "top-center":
+                        break;
+
+                    case 'top-center':
                         _priv.positionTopCenter(uiPosition.elem, uiPosition.config);
-                    break;
-                    case "top-right":
+                        break;
+
+                    case 'top-right':
                         _priv.positionTopRight(uiPosition.elem, uiPosition.config);
-                    break;
+                        break;
 
-                    case "center-left":
+                    case 'center-left':
                         _priv.positionCenterLeft(uiPosition.elem, uiPosition.config);
-                    break;
-                    case "center-center":
-                        _priv.positionCenterCenter(uiPosition.elem, uiPosition.config);
-                    break;
-                    case "center-right":
-                        _priv.positionCenterRight(uiPosition.elem, uiPosition.config);
-                    break;
+                        break;
 
-                    case "bottom-left":
+                    case 'center-center':
+                        _priv.positionCenterCenter(uiPosition.elem, uiPosition.config);
+                        break;
+
+                    case 'center-right':
+                        _priv.positionCenterRight(uiPosition.elem, uiPosition.config);
+                        break;
+
+                    case 'bottom-left':
                         _priv.positionBottomLeft(uiPosition.elem, uiPosition.config);
-                    break;
-                    case "bottom-center":
+                        break;
+
+                    case 'bottom-center':
                         _priv.positionBottomCenter(uiPosition.elem, uiPosition.config);
-                    break;
-                    case "bottom-right":
+                        break;
+
+                    case 'bottom-right':
                         _priv.positionBottomRight(uiPosition.elem, uiPosition.config);
-                    break;
+                        break;
+
                     default:
+                        break;
                 }
             }
         }
@@ -672,5 +707,4 @@ define(['jquery', 'cui'], function ($, cui) {
             return new UIPosition(this, options).init();
         });
     };
-
 });
