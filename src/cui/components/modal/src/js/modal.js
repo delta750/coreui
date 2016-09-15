@@ -308,7 +308,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
             // Check if the modal or content area has focus.
             // IE returns modalContents class when tabbing from the modal copy where Chrome and FF return the modal class.
-            if ( ($focusedItem.hasClass(CLASSES.modal)) || ($focusedItem.hasClass(CLASSES.modalContents)) ){
+            if ( ($focusedItem.hasClass(CLASSES.modal)) || ($focusedItem.hasClass(CLASSES.modalContents)) ) {
                 isModalFocused = true;
             }
 
@@ -362,78 +362,71 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
     // Function will hide the passes modal.
     _priv.adjustModalCSS = function _adjustModalCSS (modal) {
-        var modalID = '#' + modal.$self[0].id;
+        // Enforce default padding around the modal
+        var adjustedWindowWidth = $window.width() - DEFAULTS.marginX * 2;
+        var adjustedWindowHeight = $window.height() - DEFAULTS.marginY * 2;
 
-        // Enforce default padding around the modal.
-        var adjustedWindowWidth = $(window).width() - DEFAULTS.marginX * 2;
-        var adjustedWindowHeight = $(window).height() - DEFAULTS.marginY * 2;
+        if (modal.config.display && modal.config.display.css && modal.config.display.css.maxWidth) {
+            modal.$self.css('max-width', modal.config.display.css.maxWidth);
 
-
-        if(modal.config.display && modal.config.display.css && modal.config.display.css.maxWidth){
-            $(modalID).css('max-width', modal.config.display.css.maxWidth);
-
-            if($(modalID).outerWidth() > adjustedWindowWidth){
-                $(modalID).css('max-width', adjustedWindowWidth + 'px');
+            if (modal.$self.outerWidth() > adjustedWindowWidth) {
+                modal.$self.css('max-width', adjustedWindowWidth + 'px');
             }
         }
         else{
-            $(modalID).css('max-width', adjustedWindowWidth + 'px');
+            modal.$self.css('max-width', adjustedWindowWidth + 'px');
         }
 
-        if(modal.config.display && modal.config.display.css && modal.config.display.css.maxHeight){
-            $(modalID).css('max-height', modal.config.display.css.maxHeight);
+        if (modal.config.display && modal.config.display.css && modal.config.display.css.maxHeight) {
+            modal.$self.css('max-height', modal.config.display.css.maxHeight);
 
-            if($(modalID).outerWidth() > adjustedWindowHeight){
-                $(modalID).css('max-height', adjustedWindowHeight + 'px');
+            if (modal.$self.outerWidth() > adjustedWindowHeight) {
+                modal.$self.css('max-height', adjustedWindowHeight + 'px');
             }
         }
         else{
-            $(modalID).css('max-height', adjustedWindowHeight + 'px');
+            modal.$self.css('max-height', adjustedWindowHeight + 'px');
         }
 
         // If there is a header present, set top padding of modal to the header height
-        var headerHeight = $(modalID + ' .' + CLASSES.modalHeader).outerHeight();
+        var headerHeight = modal.$self.find('.' + CLASSES.modalHeader).outerHeight();
 
-        if(headerHeight){
-            $(modalID).css('padding-top', headerHeight);
+        if (headerHeight) {
+            modal.$self.css('padding-top', headerHeight);
         }
 
         // If there is a footer present, set bottom padding of modal to the footer height
-        var footerHeight = $(modalID + ' .' + CLASSES.modalFooter).outerHeight();
+        var footerHeight = modal.$self.find('.' + CLASSES.modalFooter).outerHeight();
 
-        if(footerHeight){
-            $(modalID).css('padding-bottom', footerHeight);
+        if (footerHeight) {
+            modal.$self.css('padding-bottom', footerHeight);
         }
 
-        //Add 2 to account for css rounding
-        if( (headerHeight+footerHeight+2) >= $(modalID).outerHeight() ){
+        // Add 2 to account for css rounding
+        if ( (headerHeight + footerHeight + 2) >= modal.$self.outerHeight() ) {
             journal.log({type: 'warning', owner: 'UI', module: 'modal'}, 'Combined height of header and footer take up the set modal size.');
         }
     };
 
-    _priv.adjustContentHeight = function _adjustContentHeight (modal){
-        var modalID = '#' + modal.$self[0].id;
-
-        // Reset size of contents to allow for proper inner height calculation based on content
-        $(modalID + ' .' + CLASSES.modalBody).css('height', 'auto');
-
-        //Set content outer height to height of modal.
-        $(modalID + ' .' + CLASSES.modalBody).outerHeight(Math.floor($(modalID).height() + 1));
+    _priv.adjustContentHeight = function _adjustContentHeight (modal) {
+        modal.$self.find('.' + CLASSES.modalBody)
+            // Reset size of contents to allow for proper inner height calculation based on content
+            .css('height', 'auto')
+            // Set content outer height to height of modal
+            .outerHeight(Math.floor(modal.$self.height() + 1));
     };
 
-    _priv.centerModal = function _centerModal(modal){
+    _priv.centerModal = function _centerModal(modal) {
         $('#' + modal.$self[0].id).uiPosition({positionType:'center-center', overrideMaxDimensions:false});
     };
 
-    _priv.maxContentAreaHeight = function _maxContentAreaHeight(modal){
-        var modalID = '#' + modal.$self[0].id;
-        var adjustedWindowHeight = $(window).height() - DEFAULTS.marginY * 2;
-        var modalSpacing = $(modalID).outerHeight() - $(modalID).height();
-        var modalContainerSpacing = $(modalID + ' .' + CLASSES.modalContents).outerHeight() - $(modalID + ' .' + CLASSES.modalContents).height();
+    _priv.maxContentAreaHeight = function _maxContentAreaHeight(modal) {
+        var adjustedWindowHeight = $window.height() - DEFAULTS.marginY * 2;
+        var modalSpacing = modal.$self.outerHeight() - modal.$self.height();
+        var modalContents = modal.$self.find('.' + CLASSES.modalContents);
+        var modalContainerSpacing = modalContents.outerHeight() - modalContents.height();
 
-        var maxContentHeight = adjustedWindowHeight - modalSpacing - modalContainerSpacing;
-
-        return maxContentHeight;
+        return adjustedWindowHeight - modalSpacing - modalContainerSpacing;
     };
 
     /**
@@ -471,7 +464,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
         _priv.adjustModalCSS(modal);
         _priv.adjustContentHeight(modal);
 
-        if(modal.options.alwaysCenter !== false){
+        if (modal.options.alwaysCenter !== false) {
             _priv.centerModal(modal);
         }
 
@@ -589,7 +582,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
         }
 
         //Build the close button as long as it is not being suppressed by the closeButton option.
-        if( (!modal.config.display) || (modal.config.display && (modal.config.display.closeButton !== false) )){
+        if ( (!modal.config.display) || (modal.config.display && (modal.config.display.closeButton !== false) )) {
             modal.$close = $('<button/>', {
                                 'class': CLASSES.closeButton,
                                 'tabindex': '1',
@@ -626,7 +619,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
             // Set Options for Modal body //
             ////////////////////////////////
 
-            if(modal.config.html){
+            if (modal.config.html) {
                 boxOptions.body = [];
 
                 var bodyContent = $('<div/>', {
@@ -643,24 +636,24 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
             // Set options for Modal Header and Close //
             ////////////////////////////////////////////
 
-            if(modal.config.header || modal.$close){
+            if (modal.config.header || modal.$close) {
                 boxOptions.header = [];
 
                 var headerContent = $('<div/>', {
                                     'class': CLASSES.modalHeaderContent
                                 });
 
-                if(modal.config.header && modal.config.header.html){
+                if (modal.config.header && modal.config.header.html) {
                     headerContent.append(modal.config.header.html);
                     boxOptions.className += ' ' + CLASSES.modalUseHeader;
                 }
 
-                if(modal.$close){
+                if (modal.$close) {
                     headerContent.append(modal.$close);
                     boxOptions.className += ' ' + CLASSES.modalUseClose;
                 }
 
-                if(modal.config.header && modal.config.header.height){
+                if (modal.config.header && modal.config.header.height) {
                     boxOptions.header.css = {'min-height': modal.config.header.height};
                 }
 
@@ -672,7 +665,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
             // Set options for Modal Footer //
             //////////////////////////////////
 
-            if(modal.config.footer && modal.config.footer.html){
+            if (modal.config.footer && modal.config.footer.html) {
                 boxOptions.footer = [];
 
                 var footerContent = $('<div/>', {
@@ -681,7 +674,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
                 footerContent.append(modal.config.footer.html);
 
-                if(modal.config.footer.height){
+                if (modal.config.footer.height) {
                     boxOptions.footer.css = {'min-height': modal.config.footer.height};
                 }
 
@@ -708,7 +701,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
             if (modal.config.overlay) {
 
-                if(modal.config.overlay.closeOnClick !== false){
+                if (modal.config.overlay.closeOnClick !== false) {
                     modal.$overlay = $('<div/>', {
                                             'id': 'overlay-' + modal.config.id,
                                             'class': CLASSES.overlay + ' ' + CLASSES.hidden,
@@ -826,11 +819,11 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
         _priv.adjustContentHeight(this);
     };
 
-    Modal.prototype.center = function _centerModal (){
+    Modal.prototype.center = function _centerModal () {
         _priv.centerModal(this);
     };
 
-    Modal.prototype.getMaxContentAreaHeight = function _maxContentAreaHeight(){
+    Modal.prototype.getMaxContentAreaHeight = function _maxContentAreaHeight() {
         return _priv.maxContentAreaHeight(this);
     };
 
