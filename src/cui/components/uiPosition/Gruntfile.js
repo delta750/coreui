@@ -43,21 +43,8 @@ module.exports = function (grunt) {
                         '**/*.*',
                         '!**/*.md',
                      ],
-                dest: '../../../../docs/components/modal',
+                dest: '../../../../docs/components/uiPosition',
                 filter: 'isFile',
-            },
-        },
-
-        sass: {
-            options: {
-                sourceMap: true,
-                outputStyle: 'nested', // Options: nested, compressed
-            },
-
-            styles: {
-                files: {
-                    'dist/css/modal.css': ['src/scss/modal.scss']
-                },
             },
         },
 
@@ -102,17 +89,6 @@ module.exports = function (grunt) {
                 interrupt: true,
             },
 
-            styles: {
-                files: [
-                    '*.scss', // Settings file
-                    'src/**/*.scss',
-                ],
-                tasks: [
-                    'sass',
-                    'copy',
-                ],
-            },
-
             scripts: {
                 files: [
                     'src/**/*.js',
@@ -140,7 +116,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task
-    grunt.registerTask('default', ['jshint', 'clean', 'sass', 'md2html', 'copy']);
+    grunt.registerTask('default', ['jshint', 'clean', 'md2html', 'copy']);
 
     // Development task
     grunt.registerTask('dev', ['default', 'watch']);

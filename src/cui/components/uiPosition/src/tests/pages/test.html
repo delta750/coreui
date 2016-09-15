@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title>Modal Test - Core UI</title>
+    <title>UIBox Test - Core UI</title>
     <link href="/dist/css/main.css" rel="stylesheet" type="text/css" media="all">
 <style>
 body{
@@ -26,7 +26,7 @@ body{
             <h1>Core UI</h1>
         </div>
         <div class="cui-col-small-12">
-            <h2>Modal Tests</h2>
+            <h2>UI Position Tests</h2>
         </div>
     </header>
     <main role="main" id="main">
@@ -235,24 +235,102 @@ body{
                     </div>
                 </div>
             </section>
+            <hr/>
+            <section>
+                <div class="cui-row">
+                    <div class="cui-col-small-12">
+                        <div class="cui-field-header">Position:</div>
+                        <div class="cui-field-body" style="text-align:center;"><button type="button" class="cui-button" id="popoverTest1" tabindex="1">Below right</button></div>
+                    </div>
+                </div>
+                <div class="cui-row">
+                    <div class="cui-col-small-12">
+                        <div class="cui-field-header">Position:</div>
+                        <div class="cui-field-body" style="text-align:center;"><button type="button" class="cui-button" id="popoverTest2" tabindex="1">Above left</button></div>
+                    </div>
+                </div>
+            </section>
         </form>
+        <hr>
     </main>
     <script id="require" src="/dist/js/main.js"></script>
     <script>
     var mydata = {};
-        require(['jquery', 'cui', 'domReady!', 'modal'], function($, cui) {
+        require(['jquery', 'cui','modal', 'popover', 'domReady!',  ], function($, cui, modal, popover) {
+        // require(['jquery', 'cui','modal', 'popover','uiBox', 'uiPosition', 'domReady!',  ], function($, cui, modal, popover) {
+
+
+            // mydata.boxTest0 = $.uiBox({body:{html:"test"}});
+            // console.log(mydata.boxTest0);
+            // mydata.boxTest0 = $.uiBox({
+                // css:{"border":"solid 2px red"},
+                // html:"Super Simple Box"});
+            // $('body').append(mydata.boxTest0);
+
+            // $(mydata.boxTest0).uiPosition({
+            //     positionType:'top-left',
+            // });
+
+            // var boxTest = $.uiBox({
+            //     //Wrapper options
+            //     class:"myWrapperClass",
+            //     css:{"color":"red"},
+
+            //     // Basic HTML option to allow content directly within wrapper element
+            //     html : "This is test HTML that should be directly inside the main wrapper",
+
+            //     //Header Options. Content will appear within the header element
+            //     header:{
+            //         html:"Header Content",
+            //         class:"myHeaderClass",
+            //         css:{"color":"orange"},
+            //     },
+
+            //     //Body Options. Content will appear within the body element
+            //     body:{
+            //         html:"Body Content",
+            //         class:"myBodyClass",
+            //         css:{"background":"green"},
+            //     },
+
+            //     //Footer Options. Content will appear within the footer element
+            //     footer:{
+            //         html:"Footer Content",
+            //         class:"myFooterClass",
+            //         css:{"background":"blue"},
+            //     },
+
+            // });
+
+            // var boxTest2 = $.uiBox({
+            //     //Wrapper options
+            //     class:"myWrapperClass",
+            //     // css:{"color":"red"},
+            //     html:"Simple Popover Text",
+            // });
+
+            // $('body').append(boxTest0);
+            // $('body').append('<hr/>');
+            // $('body').append(boxTest);
+            // $('body').append('<hr/>');
+            // $('body').append(boxTest2);
+
+            // Modal Tests
 
             // Inline Tests
             $('#testi1').modal('Inline Modal #1<br/>Basic modal , inline call with text. Aperiam perferendis tortor beatae maecenas senectus lacinia luctus ab proin assumenda occaecati dictumst, quam natoque nesciunt diamlorem, architecto cupiditate. Aliqua dictumst cupiditate magna nunc consequatur aute quod. Iaculis maecenas deleniti, beatae dolorum! Odio explicabo, venenatis odit orci iure vivamus euismod senectus eu. Nullam? Aliquam? Libero veritatis massa ac habitasse feugiat laoreet quos nihil varius.'
             );
 
-            // Basic Tests
+            // // Basic Tests
             $('#test1').modal({
                 html: 'Basic Modal #1<br/>Basic modal with html. Aperiam perferendis tortor beatae maecenas senectus lacinia luctus ab proin assumenda occaecati dictumst, quam natoque nesciunt diamlorem, architecto cupiditate. Aliqua dictumst cupiditate magna nunc consequatur aute quod. Iaculis maecenas deleniti, beatae dolorum! Odio explicabo, venenatis odit orci iure vivamus euismod senectus eu. Nullam? Aliquam? Libero veritatis massa ac habitasse feugiat laoreet quos nihil varius.'
             });
 
             $('#test2').modal({
                 html: '<p>Modal #2</p><p>You should only be able to tab between the elements in this modal. You should not be able to tab outside of it until it has been closed.</p><p><label for="modal2-field1">Field 1:</label> <input type="text" id="modal2-field1" tabindex="1"></p><p><label for="modal2-field2">Field 2:</label> <input type="text" id="modal2-field2" tabindex="1"></p><p><label for="modal2-field3">Field 3:</label> <input type="text" id="modal2-field3" tabindex="1"></p>',
+                display:{
+                    css:{"color":'red'},
+                }
 
             });
 
@@ -261,7 +339,7 @@ body{
             });
 
            $('#test4').modal({
-                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#test4\').data(\'modal\').hideModal();">Close Popup</button>',
+                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#test4\').data(\'modal\').hide();">Close Popup</button>',
                 display: {
                     closeButton: false
                 },
@@ -312,7 +390,7 @@ body{
             });
 
             $('#testh4').modal({
-                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#testh4\').data(\'modal\').hideModal();">Close Popup</button>',
+                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#testh4\').data(\'modal\').hide();">Close Popup</button>',
                 display: {
                     closeButton: false
                 },
@@ -369,7 +447,7 @@ body{
             });
 
             $('#testf4').modal({
-                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#testf4\').data(\'modal\').hideModal();">Close Popup</button>',
+                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#testf4\').data(\'modal\').hide();">Close Popup</button>',
                 display: {
                     closeButton: false
                 },
@@ -432,11 +510,14 @@ body{
                 footer: {
                     html: "<h3>HTML footer. Height option set at 100px.</h3>",
                     height: '100px'
+                },
+                display:{
+                    height:"200px"
                 }
             });
 
             $('#testc4').modal({
-                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#testc4\').data(\'modal\').hideModal();">Close Popup</button>',
+                html: '<p>Modal #4</p><p>This will close only when you click the \'Close\' button.</p><button onClick="$(\'#testc4\').data(\'modal\').hide();">Close Popup</button>',
                 display: {
                     closeButton: false
                 },
@@ -468,7 +549,7 @@ body{
             $('#testc6').modal({
                 html: 'Modal #5 <p>This modal has a fixed width of 300px. This has lots of text and should scroll.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p><p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p><p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, conisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p><p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nullasectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>',
                 display:{
-                    height:'300px',
+                    height:'50px',
                     css:{maxHeight:'400px',
                     maxWidth:"500px"}
                 },
@@ -479,17 +560,63 @@ body{
                     html:"<h3>HTML footer</h3>",
                 }
             });
+
+             $('#popoverTest1').popover({
+                html: 'You clicked on the Test 1 button',
+                location: 'below-left',
+                display: {
+                    className: 'cui-popover-demo',
+                    css: {'color':'cyan'},
+                    offset:{
+
+                    }
+                },
+                isModal: true,
+
+            });
+
+
+            // Simple case of using popover on desktop and modal on mobile.
+
+            $('#popoverTest2').popover({
+                html: 'You clicked on the Test 2 button. Lots of text... Minim nihil animi magni impedit? Repellendus malesuada fringilla lorem vel laudantium, soluta excepteur hendrerit. Commodo natus. Dicta earum! Nibh iusto dictumst in nonummy',
+                location: 'above-left',
+                display: {
+                    className: 'cui-popover-demo',
+                    offset:{
+
+                    }
+                },
+                isModal: true,
+
+            });
+
+
+
         });
     </script>
     <style>
     /* Demo page styles */
 
-    .cui-modal-demo {
+   /* .cui-modal-demo {
+        color: #fff;
+        border: 1px solid #777;
+        background-color: #444;
+        padding: 5px;
+    }*/
+
+
+    .cui-popover-demo {
         color: #fff;
         border: 1px solid #777;
         background-color: #444;
         padding: 5px;
     }
+
+    .cui-uiBox{
+        /*display:inline;*/
+    }
+
 
     section > .cui-row {
         margin-bottom: 2em;

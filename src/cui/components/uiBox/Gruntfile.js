@@ -43,7 +43,7 @@ module.exports = function (grunt) {
                         '**/*.*',
                         '!**/*.md',
                      ],
-                dest: '../../../../docs/components/modal',
+                dest: '../../../../docs/components/uiBox',
                 filter: 'isFile',
             },
         },
@@ -54,9 +54,9 @@ module.exports = function (grunt) {
                 outputStyle: 'nested', // Options: nested, compressed
             },
 
-            styles: {
+            cui: {
                 files: {
-                    'dist/css/modal.css': ['src/scss/modal.scss']
+                    'dist/css/uiBox.css': ['src/scss/uiBox.scss']
                 },
             },
         },

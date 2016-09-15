@@ -54,9 +54,9 @@ module.exports = function (grunt) {
                 outputStyle: 'nested', // Options: nested, compressed
             },
 
-            cui: {
+            styles: {
                 files: {
-                    'dist/css/popover.css': ['src/scss/popover.scss']
+                    'dist/scss/popover.scss': ['src/scss/popover.scss']
                 },
             },
         },
