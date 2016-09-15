@@ -308,7 +308,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
 
             // Check if the modal or content area has focus.
             // IE returns modalContents class when tabbing from the modal copy where Chrome and FF return the modal class.
-            if ( ($focusedItem.hasClass(CLASSES.modal)) || ($focusedItem.hasClass(CLASSES.modalContents)) ) {
+            if ( ($focusedItem.hasClass(CLASSES.modal)) || ($focusedItem.hasClass(CLASSES.modalBodyContent)) ) {
                 isModalFocused = true;
             }
 
@@ -423,7 +423,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
     _priv.maxContentAreaHeight = function _maxContentAreaHeight(modal) {
         var adjustedWindowHeight = $window.height() - DEFAULTS.marginY * 2;
         var modalSpacing = modal.$self.outerHeight() - modal.$self.height();
-        var modalContents = modal.$self.find('.' + CLASSES.modalContents);
+        var modalContents = modal.$self.find('.' + CLASSES.modalBodyContent);
         var modalContainerSpacing = modalContents.outerHeight() - modalContents.height();
 
         return adjustedWindowHeight - modalSpacing - modalContainerSpacing;
