@@ -2,7 +2,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '1.0.2';
+    var VERSION = '2.0.0';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -286,7 +286,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
         // Add event listeners
         $body.on('click', popover.onBodyClick);
-        
+
         $(window).scroll(popover.onWindowScroll);
 
         popover.$popover.trigger(EVENT_NAMES.show);
@@ -358,7 +358,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         boxOptions.className = CLASSES.popover + " " + popover.config.display.className;
         boxOptions.css = {'opacity':'0'};
         if(popover.config.display.css){
-            $.extend(boxOptions.css, popover.config.display.css);  
+            $.extend(boxOptions.css, popover.config.display.css);
         }
 
         // popover.$close = $('<button/>', {
@@ -377,7 +377,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
         // $popoverBox.append(popover.$close);
         $popoverBox.appendTo(document.body);
-        
+
         return $popoverBox;
     };
 
@@ -407,21 +407,21 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         }
 
         // if(window.innerWidth > MOBILE_BREAKPOINT){
-            
+
             //remove mobile class
             // popover.$popover.removeClass('mobile-breakpoint');
 
             $(popover.$popover).uiPosition({
-                positionType:popover.config.location, 
-                respectTo:popover.$button, 
+                positionType:popover.config.location,
+                respectTo:popover.$button,
                 offset:popoverOffset,
                 defaultCSS:popoverDefaultCSS
-            });   
+            });
             // if(popover.config.useArrow){
             //     priv.positionArrow(popover);
             //     priv.setInnerContentHeight(popover);
             // }
-           
+
         // }
         // else{
         //     //add mobile class
@@ -430,10 +430,10 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
         //     $(popover.$popover).uiPosition({
         //         positionType:"center-center",
-        //     });   
+        //     });
 
         // }
-        
+
 
     };
 
@@ -452,7 +452,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     //     var buttonCenterY = buttonOffset.top + buttonHeight / 2;
 
     //     var popoverLeft = parseInt(popover.$popover.css('left'));
-        
+
     //     var arrowLeft = buttonCenterX - popoverLeft;
 
     //     popover.$arrow = $('<div/>', {
@@ -475,7 +475,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     //         popover.$popover.css({'top': adjustedTop+'px'});
     //     }
     //     else if(arrowPosition == 'left'){
-            
+
     //     }
     //     else if(arrowPosition == 'right'){
 
@@ -492,15 +492,15 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     //     }
     // };
 
-    // priv.resetInnerContentHeight = function _resetInnerContentHeight(popover){       
+    // priv.resetInnerContentHeight = function _resetInnerContentHeight(popover){
     //     var popoverBody = popover.$popover.find('.cui-uiBox-body');
     //     popoverBody.css({'max-height':""});
     // };
 
-    // priv.setInnerContentHeight = function _setInnerContentHeight(popover){       
+    // priv.setInnerContentHeight = function _setInnerContentHeight(popover){
     //     var popoverBody = popover.$popover.find('.cui-uiBox-body');
 
-    //     var popoverHeight = popover.$popover.height();        
+    //     var popoverHeight = popover.$popover.height();
     //     popoverBody.css({'max-height':popoverHeight+"px"});
     // };
 

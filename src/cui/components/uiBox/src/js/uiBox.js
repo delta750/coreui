@@ -1,26 +1,27 @@
 define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
-    
+
     /////////////
     // Globals //
     /////////////
     var NAMESPACE = 'uiBox';
 
-    var VERSION = '';
+    var VERSION = '1.0.0';
+
     var CLASSES = {
         uiBox: 'cui-' + NAMESPACE,
-        
+
         uiBoxHeader: 'cui-' + NAMESPACE + '-header',
-    
+
         uiBoxBody: 'cui-' + NAMESPACE + '-body',
-    
+
         uiBoxFooter: 'cui-' + NAMESPACE + '-footer',
     };
 
     ////////////
     // Public //
     ////////////
-    
-    var UIBox = function (elem, options) { 
+
+    var UIBox = function (elem, options) {
         // should never be an instance of node
         if (elem instanceof Node) {
             // Store the element upon which the component was called
@@ -57,7 +58,7 @@ define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
         html:null,
         header: null,
         body: null,
-        footer: null,        
+        footer: null,
     };
 
     // Init function
@@ -105,8 +106,8 @@ define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
 
         if(uiBox.config.html) {
             uiBox.$self.append(uiBox.config.html);
-        }        
-     
+        }
+
         //////////////////
         // BUILD HEADER //
         //////////////////
@@ -121,7 +122,7 @@ define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
             uiBox.$header = $('<header/>', {
                                 'class': uiBoxHeaderClasses
                             });
-            
+
             uiBox.$header.append(uiBox.config.header.html);
 
             if (uiBox.config.header.css) {
@@ -133,27 +134,27 @@ define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
 
         ////////////////
         // BUILD BODY //
-        ////////////////      
-        
+        ////////////////
+
         if(uiBox.config.body && uiBox.config.body.html && uiBox.config.body.html !== "") {
 
             var uiBoxBodyClasses = CLASSES.uiBoxBody;
             if(uiBox.config.body && uiBox.config.body.className && typeof uiBox.config.body.className === "string") {
                 uiBoxBodyClasses += " " + uiBox.config.body.className;
             }
-            
+
             uiBox.$body = $('<div/>', {
                                 'class': uiBoxBodyClasses,
                             });
-            
+
             uiBox.$body.append(uiBox.config.body.html);
-        
+
             if (uiBox.config.body.css) {
                 uiBox.$body.css(uiBox.config.body.css);
             }
 
             uiBox.$self.append(uiBox.$body);
-        }              
+        }
 
         //////////////////
         // BUILD FOOTER //
@@ -173,12 +174,12 @@ define(['jquery', 'cui', 'guid', 'journal'], function ($, cui, guid) {
             uiBox.$footer.append(uiBox.config.footer.html);
 
             if (uiBox.config.footer.css) {
-                uiBox.$footer.css(uiBox.config.footer.css); 
+                uiBox.$footer.css(uiBox.config.footer.css);
             }
 
             uiBox.$self.append(uiBox.$footer);
         }
-    
+
         // return the assembled uiBox
         return uiBox.$self;
     };

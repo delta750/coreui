@@ -1,11 +1,11 @@
 define(['jquery', 'cui'], function ($, cui) {
-    
+
     /////////////
     // Globals //
     /////////////
     var NAMESPACE = 'uiPosition';
 
-    var VERSION = '0.0.1';
+    var VERSION = '1.0.0';
     var CLASSES = {
         uiPosition: 'cui-' + NAMESPACE,
     };
@@ -14,7 +14,7 @@ define(['jquery', 'cui'], function ($, cui) {
     var DEFAULTS = {};
 
     var REL_PADDING = 6;
-    var CENTER_PADDING = 10; 
+    var CENTER_PADDING = 10;
 
     /////////////
     // Private //
@@ -34,7 +34,7 @@ define(['jquery', 'cui'], function ($, cui) {
         }
 
         //Reset styles used for positioning. Resolves any display issues if viewport is resized between shows
-        $(element).css({"margin":"auto", 
+        $(element).css({"margin":"auto",
                         "top":"auto",
                         "left":"auto",
                         "right":"auto",
@@ -57,7 +57,7 @@ define(['jquery', 'cui'], function ($, cui) {
             if(config.defaultCSS && config.defaultCSS["max-height"]){
                 maxHeight = parseInt(config.defaultCSS["max-height"]);
             }
-                 
+
             windowMaxHeight = $(window).height() - 2 * CENTER_PADDING;
 
             if((typeof maxHeight !== 'number') || (windowMaxHeight<maxHeight)){
@@ -65,7 +65,7 @@ define(['jquery', 'cui'], function ($, cui) {
             }
 
             $(element).css({"max-height":maxHeight});
-        }        
+        }
     };
 
     _priv.adjustMaxWidth = function adjustMaxWidth(element, config){
@@ -82,8 +82,8 @@ define(['jquery', 'cui'], function ($, cui) {
             if((typeof maxWidth !== 'number') || (windowMaxWidth<maxWidth)){
                 maxWidth = windowMaxWidth;
             }
-            
-            $(element).css({"max-width":maxWidth+'px'});    
+
+            $(element).css({"max-width":maxWidth+'px'});
         }
     };
 
@@ -99,8 +99,8 @@ define(['jquery', 'cui'], function ($, cui) {
                         'position' : "fixed"});
     };
 
-    _priv.positionTopCenter = function positionTopCenter(element, config) {    
-        _priv.adjustMaxWidth(element, config);  
+    _priv.positionTopCenter = function positionTopCenter(element, config) {
+        _priv.adjustMaxWidth(element, config);
 
         $(element).css({'top': config.offset.offsetY,
                         'left': '50%',
@@ -110,7 +110,7 @@ define(['jquery', 'cui'], function ($, cui) {
                         'margin-left': -$(element).outerWidth() / 2 + 'px',
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
-                        'position' : "fixed"});       
+                        'position' : "fixed"});
     };
 
     _priv.positionTopRight = function _positionTopRight(element, config) {
@@ -125,7 +125,7 @@ define(['jquery', 'cui'], function ($, cui) {
                         'position' : "fixed"});
     };
 
-     _priv.positionCenterLeft = function _positionCenterLeft(element, config) {     
+     _priv.positionCenterLeft = function _positionCenterLeft(element, config) {
         _priv.adjustMaxHeight(element, config);
 
         $(element).css({'top':'50%',
@@ -152,9 +152,9 @@ define(['jquery', 'cui'], function ($, cui) {
                         'margin-bottom': 'auto',
                         'margin-right': 'auto',
                         'position' : "fixed"});
-    };   
+    };
 
-    _priv.positionCenterRight = function _positionCenterRight(element, config) {        
+    _priv.positionCenterRight = function _positionCenterRight(element, config) {
         _priv.adjustMaxHeight(element, config);
 
         $(element).css({'top':'50%',
@@ -181,7 +181,7 @@ define(['jquery', 'cui'], function ($, cui) {
     };
 
     _priv.positionBottomCenter = function positionBottomCenter(element, config) {
-        _priv.adjustMaxWidth(element, config); 
+        _priv.adjustMaxWidth(element, config);
 
         $(element).css({'top':'auto',
                         'left': '50%',
@@ -194,7 +194,7 @@ define(['jquery', 'cui'], function ($, cui) {
                         'position' : "fixed"});
     };
 
-    _priv.positionBottomRight = function positionBottomRight(element, config) {        
+    _priv.positionBottomRight = function positionBottomRight(element, config) {
         $(element).css({'top':'auto',
                         'left': 'auto',
                         "bottom":  config.offset.offsetY,
@@ -206,13 +206,13 @@ define(['jquery', 'cui'], function ($, cui) {
                         'position' : "fixed"});
     };
 
-    _priv.positionRespectTo = function _positionRespectTo (element, positioningElement, config) {        
+    _priv.positionRespectTo = function _positionRespectTo (element, positioningElement, config) {
         var location = config.positionType;
         var position = {
             top: 0,
             left: 0,
         };
-        
+
         var addedRightMargin = false;
         var windowWidth;
         var popoverWidth;
@@ -228,8 +228,8 @@ define(['jquery', 'cui'], function ($, cui) {
         var availableSpaceBelow;
 
         var offsetX = config.offset.offsetX;
-        var offsetY = config.offset.offsetY;        
-    
+        var offsetY = config.offset.offsetY;
+
         var __getRelativeMaxHeight = function _getRelativeMaxHeight(top, windowHeight, offset){
             var maxHeight = windowHeight - top - offset + $(window).scrollTop();
             return maxHeight;
@@ -245,7 +245,7 @@ define(['jquery', 'cui'], function ($, cui) {
          * @return  {Object}            Updated position definition
          */
         var __determinePosition = function __determinePosition (location, position) {
-            
+
             /**
              * Determines the top and left positioning for the popover
              * This is a very simple, nearly logic-less function that does not do boundary testing or fallbacks
@@ -363,7 +363,7 @@ define(['jquery', 'cui'], function ($, cui) {
                 // Determine how far it is from the right edge (a negative value means it's being clipped)
                 difference = windowWidth - (Math.ceil(position.left) + Math.ceil(popoverWidth) + (2 * REL_PADDING) + 2);
                 // difference = windowWidth - (position.left + popoverWidth);
-                
+
                 // Clipped by the right edge
                 if (difference < 0) {
                     // Shift the popover to the right just enough to fit on-screen
@@ -508,15 +508,15 @@ define(['jquery', 'cui'], function ($, cui) {
         popoverWidth = $(element).outerWidth() + (REL_PADDING / 2);
         popoverHeightActual = $(element).outerHeight(); // For inline positioning we want the actual height of the popover
         popoverHeightWithPadding = popoverHeightActual + (REL_PADDING / 2); // Above and below the button we want to account for padding, but only half of it because the button already has some visual padding built in
-        
+
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
 
         // Get the positioning values for the requested location
         // Hint: this is the "main" operation of this function and a good place to start for debugging. Most of the real work is done in `__determinePosition()`.
-        
+
         position = __determinePosition(location, position);
-        
+
         // No position found (e.g. the location was invalid)
         if (position === null) {
             return false;
@@ -525,19 +525,19 @@ define(['jquery', 'cui'], function ($, cui) {
         if(relativeMaxHeight){
             if((config.defaultCSS && config.defaultCSS["max-height"])){
                 if(parseInt(config.defaultCSS["max-height"]>relativeMaxHeight)){
-                    $(element).css('max-height', relativeMaxHeight);    
+                    $(element).css('max-height', relativeMaxHeight);
                 }
             }
             else{
-                $(element).css('max-height', relativeMaxHeight);    
+                $(element).css('max-height', relativeMaxHeight);
             }
-        }        
+        }
 
         // Remove the margin that may have been added earlier in the page's lifecycle (e.g. before the window was resized)
         if (!addedRightMargin) {
             $(element).get(0).style.removeProperty('margin-right');
-        }        
-        
+        }
+
         // Apply user-specified offsets. Need to update to either add or subtract offset based on the position to the element
         // if (offsetY > 0) {
             // if(location.toLowerCase().indexOf("below") >= 0){
@@ -545,8 +545,8 @@ define(['jquery', 'cui'], function ($, cui) {
             // }
             // else{
                 position.top += offsetY;
-            // }   
-                       
+            // }
+
             // avoid negative margins
             if(position.top < 0){
                 position.top = 0;
@@ -558,7 +558,7 @@ define(['jquery', 'cui'], function ($, cui) {
             //     position.left -= offsetY;
             // }
             // else{
-                position.left += offsetX;   
+                position.left += offsetX;
             // }
 
             // avoid negative margins
@@ -566,19 +566,19 @@ define(['jquery', 'cui'], function ($, cui) {
                 position.left = 0;
             }
         // }
-     
+
         // Apply the positioning styles
         $(element).css({
                     left: Math.floor(position.left),
                     top: Math.floor(position.top),
-                });       
+                });
     };
 
     ////////////
     // Public //
     ////////////
-    
-    var UIPosition = function (elem, options) { 
+
+    var UIPosition = function (elem, options) {
         // Store the element to be positioned
         this.elem = elem;
 
@@ -593,7 +593,7 @@ define(['jquery', 'cui'], function ($, cui) {
         offset:{
             offsetX:0,
             offsetY:0
-        },       
+        },
         respectTo : null,
         overrideMaxDimensions: true,
         defaultCSS : null
@@ -637,7 +637,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     case "top-right":
                         _priv.positionTopRight(uiPosition.elem, uiPosition.config);
                     break;
-                    
+
                     case "center-left":
                         _priv.positionCenterLeft(uiPosition.elem, uiPosition.config);
                     break;
