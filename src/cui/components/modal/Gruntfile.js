@@ -54,7 +54,7 @@ module.exports = function (grunt) {
                 outputStyle: 'nested', // Options: nested, compressed
             },
 
-            cui: {
+            styles: {
                 files: {
                     'dist/css/modal.css': ['src/scss/modal.scss']
                 },
