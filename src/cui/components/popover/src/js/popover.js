@@ -2,7 +2,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '2.0.0';
+    var VERSION = '2.0.1';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -16,15 +16,14 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         popover: 'cui-' + NAMESPACE,
         toggle: 'cui-' + NAMESPACE + '-toggle',
         closeButton: 'cui-' + NAMESPACE + '-hide',
-        // useArrow: 'cui-' + NAMESPACE + '-use-arrow',
-        // arrow: 'cui-' + NAMESPACE + '-arrow',
+        useArrow: 'cui-' + NAMESPACE + '-use-arrow',
+        arrow: 'cui-' + NAMESPACE + '-arrow',
+        popoverBody: 'cui-' + NAMESPACE + '-body',
+        mobileBreakpoint: 'cui-breakpoint-mobile'
     };
 
     var MOBILE_BREAKPOINT = 600;
-
-    // var PADDING = 6;
-
-
+    var MOBILE_PADDING = 6;
 
     var priv = {};
     var popoverList = {};
@@ -79,7 +78,8 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         hideOnEscape: true,
         gainFocus: false,
         isModal: true,
-        // useArrow:false,
+        useArrow: true,
+        resizeMobile: true,
     };
 
     /**
@@ -349,33 +349,48 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
         $body.off('click', popover.onBodyClick);
         $(window).off('scroll', popover.onWindowScroll);
+        priv.enablePageScrolling();
     };
 
     // Create the popover container element
     priv.createPopover = function _createPopover (popover) {
-        var boxOptions = [];
+        var boxOptions = {};
 
-        boxOptions.className = CLASSES.popover + " " + popover.config.display.className;
+        boxOptions.className = CLASSES.popover + ' ' + popover.config.display.className;
         boxOptions.css = {'opacity':'0'};
-        if(popover.config.display.css){
+
+        if (popover.config.display.css) {
             $.extend(boxOptions.css, popover.config.display.css);
         }
 
-        // popover.$close = $('<button/>', {
-        //                         'class': CLASSES.closeButton,
-        //                         'tabindex': '1',
-        //                     })
-        //                     .text('Close Popover')
-        //                     .on('click', function (evt) {
-        //                         evt.preventDefault();
-        //                        priv.hidePopover(popover);
-        //                     });
+        if (popover.config.useArrow) {
+            boxOptions.body = {};
+            boxOptions.body.html = popover.config.html;
+            boxOptions.body.className = CLASSES.popoverBody;
 
-        boxOptions.html = popover.config.html;
+            boxOptions.className += ' ' + CLASSES.useArrow;
+        }
+        else {
+            boxOptions.html = popover.config.html;
+        }
 
         var $popoverBox = $.uiBox(boxOptions);
 
-        // $popoverBox.append(popover.$close);
+        // Used on mobile sizes
+        if (popover.config.resizeMobile) {
+            popover.$close = $('<button/>', {
+                                'class': CLASSES.closeButton,
+                                'tabindex': '1',
+                            })
+                            .text('Close Popover')
+                            .on('click', function (evt) {
+                                evt.preventDefault();
+                                priv.hidePopover(popover);
+                            });
+
+            $popoverBox.append(popover.$close);
+        }
+
         $popoverBox.appendTo(document.body);
 
         return $popoverBox;
@@ -383,10 +398,10 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
     // Function that will position the popover on the page using uiPosition
     priv.positionPopover = function _positionPopover (popover) {
-        // if(popover.config.useArrow){
-        //     priv.removeArrow(popover);
-        //     priv.resetInnerContentHeight(popover);
-        // }
+        if (popover.config.useArrow) {
+            priv.removeArrow(popover);
+            priv.resetInnerContentHeight(popover);
+        }
 
         var popoverOffset = {};
         var popoverDefaultCSS = {};
@@ -402,107 +417,204 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             }
         }
 
-        if(popover.config.display && popover.config.display.css){
+        if (popover.config.display && popover.config.display.css) {
             popoverDefaultCSS = popover.config.display.css;
         }
 
-        // if(window.innerWidth > MOBILE_BREAKPOINT){
+        if (!popover.config.resizeMobile || (popover.config.resizeMobile && (window.innerWidth > MOBILE_BREAKPOINT))) {
+            // Remove mobile class
+            popover.$popover.removeClass(CLASSES.mobileBreakpoint);
+            priv.resetSize(popover);
 
-            //remove mobile class
-            // popover.$popover.removeClass('mobile-breakpoint');
+            priv.enablePageScrolling();
 
-            $(popover.$popover).uiPosition({
-                positionType:popover.config.location,
-                respectTo:popover.$button,
-                offset:popoverOffset,
-                defaultCSS:popoverDefaultCSS
+            var positionOptions = {
+                positionType: popover.config.location,
+                respectTo: popover.$button,
+                offset: popoverOffset,
+                defaultCSS: popoverDefaultCSS,
+            };
+
+            popover.$popover.uiPosition(positionOptions);
+
+            if (popover.config.useArrow) {
+                priv.positionArrow(popover);
+                priv.setInnerContentHeight(popover);
+            }
+        }
+        else {
+            // Add mobile class
+            popover.$popover.addClass(CLASSES.mobileBreakpoint);
+            priv.setFullSize(popover);
+
+            priv.disablePageScrolling();
+
+            popover.$popover.uiPosition({
+                positionType: 'center-center',
             });
-            // if(popover.config.useArrow){
-            //     priv.positionArrow(popover);
-            //     priv.setInnerContentHeight(popover);
-            // }
-
-        // }
-        // else{
-        //     //add mobile class
-
-        //     popover.$popover.addClass('mobile-breakpoint');
-
-        //     $(popover.$popover).uiPosition({
-        //         positionType:"center-center",
-        //     });
-
-        // }
-
-
+        }
     };
 
-    // priv.positionArrow = function _positionArrow(popover){
+    priv.positionArrow = function _positionArrow (popover) {
+        var positionData = popover.$popover.data('uiPosition');
+        var currentPosition = '';
+        var validPosition = false;
 
-    //     var arrowPosition = 'below';
-    //     var adjustedTop;
+        if (positionData) {
+            currentPosition = positionData.currentPosition;
+        }
 
-    //     var arrowHeight = 7;
+        if (currentPosition) {
+            var adjustedTop;
+            var arrowHeight = 7;
+            var adjustedHeight;
 
-    //     var buttonOffset = popover.$button.offset();
-    //     var buttonWidth = popover.$button.outerWidth();
-    //     var buttonHeight = popover.$button.outerHeight();
+            var buttonOffset = popover.$button.offset();
+            var buttonWidth = popover.$button.outerWidth();
+            var buttonHeight = popover.$button.outerHeight();
 
-    //     var buttonCenterX = buttonOffset.left + buttonWidth / 2;
-    //     var buttonCenterY = buttonOffset.top + buttonHeight / 2;
+            var buttonCenterX = buttonOffset.left + buttonWidth / 2;
+            var buttonCenterY = buttonOffset.top + buttonHeight / 2;
 
-    //     var popoverLeft = parseInt(popover.$popover.css('left'));
+            var popoverLeft = parseInt(popover.$popover.css('left'));
 
-    //     var arrowLeft = buttonCenterX - popoverLeft;
+            var arrowLeft = buttonCenterX - popoverLeft;
 
-    //     popover.$arrow = $('<div/>', {
-    //                         'class': CLASSES.arrow,
-    //                     });
+            popover.$arrow = $('<div/>', {
+                                'class': CLASSES.arrow,
+                            });
 
-    //     if(arrowPosition == 'above'){
-    //         popover.$arrow.css({'left':arrowLeft});
-    //         popover.$arrow.css({'bottom':"100%"});
+            var popoverBackground = popover.$popover.css('background-color');
 
-    //         adjustedTop = parseInt(popover.$popover.css('top')) + arrowHeight;
-    //         popover.$popover.css({'top': adjustedTop+'px'});
-    //     }
-    //     else if(arrowPosition == 'below'){
-    //         popover.$arrow.css({'left':arrowLeft});
-    //         popover.$arrow.css({'bottom': (2*-arrowHeight)+'px'});
-    //         popover.$arrow.css({'border-color':'black transparent transparent transparent'});
+            if ( (currentPosition === 'below-left') || (currentPosition === 'below-center') || (currentPosition === 'below-right') ) {
+                popover.$arrow.css({
+                                    'left': arrowLeft+'px',
+                                    'bottom': '100%',
+                                    'border-color': 'transparent transparent ' + popoverBackground + ' transparent',
+                                });
 
-    //         adjustedTop = parseInt(popover.$popover.css('top')) - arrowHeight;
-    //         popover.$popover.css({'top': adjustedTop+'px'});
-    //     }
-    //     else if(arrowPosition == 'left'){
+                adjustedTop = parseInt(popover.$popover.css('top')) + arrowHeight;
+                popover.$popover.css({'top': adjustedTop+'px'});
 
-    //     }
-    //     else if(arrowPosition == 'right'){
+                validPosition = true;
+            }
+            else if ( (currentPosition === 'above-left') || (currentPosition === 'above-center') || (currentPosition === 'above-right') ) {
+                popover.$arrow.css({
+                                    'left': arrowLeft + 'px',
+                                    'bottom': (2*-arrowHeight) + 'px',
+                                    'border-color': popoverBackground + ' transparent transparent transparent',
+                                });
 
-    //     }
-    //     popover.$popover.append(popover.$arrow);
+                adjustedTop = parseInt(popover.$popover.css('top')) - arrowHeight;
+                popover.$popover.css({'top': adjustedTop+'px'});
 
-    //     var adjustedHeight = parseInt(popover.$popover.css('max-height')) - 5;
-    //     popover.$popover.css({'max-height':adjustedHeight+'px'});
-    // };
+                validPosition = true;
+            }
+            else if (currentPosition === 'inline-left') {
+                popover.$arrow.css({
+                                    'left': 'auto',
+                                    'right': (2*-arrowHeight)+'px',
+                                    'bottom': '50%',
+                                    'transform': 'translate(0, 50%)',
+                                    'border-color':'transparent transparent transparent ' + popoverBackground,
+                                });
 
-    // priv.removeArrow = function _removeArrow(popover){
-    //     if(popover.$arrow){
-    //         popover.$arrow.remove();
-    //     }
-    // };
+                adjustedLeft = parseInt(popover.$popover.css('left')) - arrowHeight;
+                popover.$popover.css({'left': adjustedLeft+'px'});
 
-    // priv.resetInnerContentHeight = function _resetInnerContentHeight(popover){
-    //     var popoverBody = popover.$popover.find('.cui-uiBox-body');
-    //     popoverBody.css({'max-height':""});
-    // };
+                validPosition = true;
+            }
+            else if (currentPosition === 'inline-right') {
+                popover.$arrow.css({
+                                    'left': -arrowHeight+'px',
+                                    'bottom': '50%',
+                                    'transform': 'translate(0, 50%)',
+                                    'border-color':'transparent ' +popoverBackground+ ' transparent transparent',
+                                });
 
-    // priv.setInnerContentHeight = function _setInnerContentHeight(popover){
-    //     var popoverBody = popover.$popover.find('.cui-uiBox-body');
+                adjustedLeft = parseInt(popover.$popover.css('left'), 10) + arrowHeight;
+                popover.$popover.css({'left': adjustedLeft+'px'});
 
-    //     var popoverHeight = popover.$popover.height();
-    //     popoverBody.css({'max-height':popoverHeight+"px"});
-    // };
+                validPosition = true;
+            }
+
+            if (validPosition) {
+                popover.$popover.append(popover.$arrow);
+
+                adjustedHeight = parseInt(popover.$popover.css('max-height'), 10) - 5;
+
+                popover.$popover.css({'max-height': adjustedHeight + 'px'});
+            }
+        }
+    };
+
+    priv.removeArrow = function _removeArrow(popover) {
+        if (popover.$arrow) {
+            popover.$arrow.remove();
+        }
+    };
+
+    priv.resetInnerContentHeight = function _resetInnerContentHeight(popover) {
+        var popoverBody = popover.$popover.find('.'+CLASSES.popoverBody);
+
+        popoverBody.css({
+                        'max-height': '',
+                        'height': '',
+                    });
+    };
+
+    priv.setInnerContentHeight = function _setInnerContentHeight(popover) {
+        var popoverBody = popover.$popover.find('.'+CLASSES.popoverBody);
+        var popoverHeight = popover.$popover.height();
+
+        popoverBody.css({
+                        'max-height': popoverHeight + 'px',
+                        'height': popoverHeight + 'px',
+                    });
+    };
+
+    priv.setFullSize = function _setFullSize(popover) {
+        var maxWidth = $(window).width() - MOBILE_PADDING * 2;
+        var maxHeight = $(window).height() - MOBILE_PADDING * 2;
+
+        popover.$popover.css({'height':maxHeight, 'width':maxWidth});
+    };
+
+    priv.resetSize = function _resetSize(popover) {
+        var defaultWidth = 'auto';
+        var defaultHeight = 'auto';
+
+        if (popover.config.display.css.width) {
+            defaultWidth = popover.config.display.css.width;
+        }
+
+        if (popover.config.display.css.height) {
+            defaultHeight = popover.config.display.css.height;
+        }
+
+        popover.$popover.css({
+                            'height': defaultWidth,
+                            'width': defaultHeight,
+                        });
+    };
+
+    /**
+     * Disables scrolling on the page
+     *
+     * If the modal has scrollable content, when you reach the bottom or top of the modal's content and keep scrolling the body itself will begin scrolling. These styles will prevent that from happening which means the user won't lose their place.
+     */
+    priv.disablePageScrolling = function _disablePageScrolling () {
+        document.body.style.height = '100%';
+        document.body.style.overflow = 'hidden';
+    };
+
+    /**
+     * Allows the page body to scroll
+     */
+    priv.enablePageScrolling = function _enablePageScrolling () {
+        document.body.style.removeProperty('height');
+        document.body.style.removeProperty('overflow');
+    };
 
     ////////////
     // Events //
@@ -540,7 +652,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         }
     };
 
-    priv.onWindowScroll = function _onWindowScroll(evt, popover){
+    priv.onWindowScroll = function _onWindowScroll(evt, popover) {
         if (popover.isShown) {
             priv.hidePopover(popover);
         }

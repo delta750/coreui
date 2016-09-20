@@ -198,12 +198,13 @@
             // Position Group - Below Center
             // =================================================================
             var options_BC = {
-                html: 'You clicked on the BC button. Eros senectus taciti pede.',
+                html: 'You clicked on the BC button. This will not resize on small screens. Eros senectus taciti pede.',
                 location: 'below-center',
                 display: {
                     className: 'cui-popover-demo',
                 },
                 isModal: true,
+                resizeMobile: false,
             };
 
             $('#test_BC_1').popover(options_BC);
@@ -219,6 +220,11 @@
                 location: 'below-right',
                 display: {
                     className: 'cui-popover-demo',
+                    css:{
+                        width:"200px;",
+                        height:"300px",
+                        color:'red'
+                    }
                 },
                 isModal: true,
             };
@@ -232,7 +238,8 @@
             // Position Group - Above Left
             // =================================================================
             var options_AL = {
-                html: 'You clicked on the AL button. Eros senectus taciti pede.',
+                // html: 'You clicked on the AL button. Eros senectus taciti pede.',
+                html: "Praesentium accusantium quasi totam mattis? Necessitatibus sagittis, cillum consequat omnis! Ante quas. Consequuntur quas corporis, maiores ultrices quia iure, officiis quasi, commodi blandit deleniti faucibus, natoque netus tenetur ultricies augue eros perferendis amet imperdiet tempus nisi cumque, beatae praesent deserunt nulla excepturi tristique esse curabitur. Iaculis justo ullamcorper risus tempore facere, nobis expedita! Voluptatem nihil. blandit cursus animi feugiat, magnam, eos occaecat sapien mi maecenas, vivamus? Praesentium accusantium quasi totam mattis? Necessitatibus sagittis, cillum consequat omnis! Ante quas. Consequuntur quas corporis, maiores ultrices quia iure, officiis quasi, commodi blandit deleniti faucibus, natoque netus tenetur ultricies augue eros perferendis amet imperdiet tempus nisi cumque, beatae praesent deserunt nulla excepturi tristique esse curabitur. Iaculis justo ullamcorper risus tempore facere, nobis expedita! Voluptatem nihil. nisi cumque, beatae pra",
                 location: 'above-left',
                 display: {
                     className: 'cui-popover-demo',

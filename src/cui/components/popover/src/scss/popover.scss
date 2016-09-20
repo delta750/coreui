@@ -7,63 +7,65 @@
     overflow:auto;
 }
 
-// .cui-popover.mobile-breakpoint{
-// 	padding-top:34px;
-// }
+.cui-popover.cui-breakpoint-mobile{
+	padding-top:34px;
+}
 
 
-// // Close button
-// .cui-popover-hide {
-//     display:none;
-// }
+// Close button
+.cui-popover-hide {
+    display:none;
+}
 
-// .mobile-breakpoint .cui-popover-hide{
-// 	border: 0;
-//     position: absolute;
-//     top: 0px;
-//     right: 0px;
-//     display: block;
-//     width: 36px;
-//     height: 36px;
-//     text-indent: -9999px;
-//     color: #666666;
-//     z-index: 1110;
-//     background:none;
+.cui-breakpoint-mobile .cui-popover-hide{
+	border: 0;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: block;
+    width: 36px;
+    height: 36px;
+    text-indent: -9999px;
+    color: #666666;
+    z-index: 1110;
+    background:none;
     
-//     .cui-popover &:hover {
-//         color: #000000;
-//         background:none;
-//     }
+    .cui-popover &:hover {
+        color: #000000;
+        background:none;
+    }
 
-//     &:after {
-//         content: "\00D7";
-//         position: absolute;
-//         top: 4px;
-//         right: 10px;
-//         text-indent: 0;
-//         font-weight: bold;
-//         font-size: 28px;
-//         line-height: 28px;
-//     }
-// }
+    &:after {
+        content: "\00D7";
+        position: absolute;
+        top: 4px;
+        right: 10px;
+        text-indent: 0;
+        font-weight: bold;
+        font-size: 28px;
+        line-height: 28px;
+    }
+}
 
+.cui-popover.cui-popover-use-arrow {
+	overflow:visible;
+}
 
-// .cui-popover.cui-popover-use-arrow {
-// 	overflow:visible;
-// }
+.cui-popover.cui-popover-use-arrow.cui-breakpoint-mobile {
+    overflow:auto;
+}
 
-// .cui-popover.cui-popover-use-arrow .cui-uiBox-body{
-// 	height:100%;
-// 	overflow:auto;
-// }
+.cui-popover.cui-popover-use-arrow .cui-uiBox-body{
+	height:100%;
+	overflow:auto;
+}
 
-// .cui-popover-arrow{
-// 	content: " ";
-//     position: absolute;
-//     bottom: 100%;  /* At the top of the tooltip */
-//     left: 50%;
-//     margin-left: -7px;
-//     border-width: 7px;
-//     border-style: solid;
-//     border-color: transparent transparent black transparent;
-// }
+.cui-popover-arrow{
+	content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -7px;
+    border-width: 7px;
+    border-style: solid;
+}

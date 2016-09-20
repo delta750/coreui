@@ -93,7 +93,7 @@ define(['jquery', 'cui'], function ($, cui) {
         }
     };
 
-    _priv.positionTopLeft = function positionTopLeft(element, config) {
+    _priv.positionTopLeft = function positionTopLeft (element, config) {
         $(element).css({
                         'top': config.offset.offsetY,
                         'left': config.offset.offsetX,
@@ -107,7 +107,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionTopCenter = function positionTopCenter(element, config) {
+    _priv.positionTopCenter = function positionTopCenter (element, config) {
         _priv.adjustMaxWidth(element, config);
 
         $(element).css({
@@ -123,7 +123,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionTopRight = function _positionTopRight(element, config) {
+    _priv.positionTopRight = function _positionTopRight (element, config) {
         $(element).css({
                         'top': config.offset.offsetY,
                         'left': 'auto',
@@ -137,7 +137,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-     _priv.positionCenterLeft = function _positionCenterLeft(element, config) {
+     _priv.positionCenterLeft = function _positionCenterLeft (element, config) {
         _priv.adjustMaxHeight(element, config);
 
         $(element).css({
@@ -153,7 +153,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionCenterCenter = function _positionCenterCenter(element, config) {
+    _priv.positionCenterCenter = function _positionCenterCenter (element, config) {
         _priv.adjustMaxHeight(element, config);
         _priv.adjustMaxWidth(element, config);
 
@@ -170,7 +170,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionCenterRight = function _positionCenterRight(element, config) {
+    _priv.positionCenterRight = function _positionCenterRight (element, config) {
         _priv.adjustMaxHeight(element, config);
 
         $(element).css({
@@ -186,7 +186,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionBottomLeft = function positionBottomLeft(element, config) {
+    _priv.positionBottomLeft = function positionBottomLeft (element, config) {
         $(element).css({
                         'top':'auto',
                         'left': config.offset.offsetX,
@@ -200,7 +200,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionBottomCenter = function positionBottomCenter(element, config) {
+    _priv.positionBottomCenter = function positionBottomCenter (element, config) {
         _priv.adjustMaxWidth(element, config);
 
         $(element).css({
@@ -216,7 +216,7 @@ define(['jquery', 'cui'], function ($, cui) {
                     });
     };
 
-    _priv.positionBottomRight = function positionBottomRight(element, config) {
+    _priv.positionBottomRight = function positionBottomRight (element, config) {
         $(element).css({
                         'top':'auto',
                         'left': 'auto',
@@ -254,9 +254,14 @@ define(['jquery', 'cui'], function ($, cui) {
         var offsetX = config.offset.offsetX;
         var offsetY = config.offset.offsetY;
 
-        var __getRelativeMaxHeight = function _getRelativeMaxHeight(top, windowHeight, offset) {
+        var __getRelativeMaxHeight = function _getRelativeMaxHeight (top, windowHeight, offset) {
             var maxHeight = windowHeight - top - offset + $(window).scrollTop();
+
             return maxHeight;
+        };
+
+        var __setCurrentPositionData = function __setCurrentPositionData (element, position) {
+            $(element).data(NAMESPACE, {currentPosition: position});
         };
 
 
@@ -362,6 +367,7 @@ define(['jquery', 'cui'], function ($, cui) {
                 //Check and set max height
 
                 relativeMaxHeight = __getRelativeMaxHeight(position.top, windowHeight, 2 * REL_PADDING);
+                __setCurrentPositionData(element, 'below-left');
             }
             // Not safe (includes recursive fallback)
             else if (location === 'above-left') {
@@ -380,6 +386,11 @@ define(['jquery', 'cui'], function ($, cui) {
                     // Add a margin to prevent the popover from butting up against the edge of the screen. We cannot simply change the `left` value to create this gap because if the popover contains wrapping text the text will simply reflow and keep using as much width as possible.
                     $(element).css('margin-right', REL_PADDING + 'px');
                     addedRightMargin = true;
+
+                    __setCurrentPositionData(element, 'above-left');
+                }
+                else{
+                    __setCurrentPositionData(element, 'above-left');
                 }
             }
             // Safe (no recursive fallback)
@@ -406,6 +417,7 @@ define(['jquery', 'cui'], function ($, cui) {
 
                 //Check and set max height
                 relativeMaxHeight = __getRelativeMaxHeight(position.top, windowHeight, 2 * REL_PADDING);
+                __setCurrentPositionData(element, 'below-right');
 
             }
             // Not safe (includes recursive fallback)
@@ -435,6 +447,10 @@ define(['jquery', 'cui'], function ($, cui) {
                         $(element).css('margin-right', REL_PADDING + 'px');
                         addedRightMargin = true;
                     }
+                    __setCurrentPositionData(element, 'above-right');
+                }
+                else{
+                    __setCurrentPositionData(element, 'above-right');
                 }
             }
             // Not safe (includes recursive fallback)
@@ -443,12 +459,18 @@ define(['jquery', 'cui'], function ($, cui) {
                 if (position.left < 0) {
                     position = __determinePosition('below-left', position);
                 }
+                else{
+                    __setCurrentPositionData(element, 'inline-left');
+                }
             }
             // Not safe (includes recursive fallback)
             else if (location === 'inline-right') {
                 // Condition: clipped by the right edge of the screen
                 if (position.left + popoverWidth > windowWidth) {
                    __determinePosition('below-right', position);
+                }
+                else{
+                    __setCurrentPositionData(element, 'inline-right');
                 }
             }
             // Not safe (includes recursive fallback) unless only the `top` is broken
@@ -463,10 +485,16 @@ define(['jquery', 'cui'], function ($, cui) {
                     // Add a margin to prevent the popover from butting up against the edge of the screen. We cannot simply change the `left` value to create this gap because if the popover contains wrapping text the text will simply reflow and keep using as much width as possible.
                     $(element).css('margin-right', REL_PADDING + 'px');
                     addedRightMargin = true;
+
+                    __setCurrentPositionData(element, 'below-center');
+
                 }
                 // Clipped by the right edge
                 else if (position.left + popoverWidth > windowWidth) {
                    __determinePosition('below-right', position);
+                }
+                else{
+                    __setCurrentPositionData(element, 'below-center');
                 }
             }
             // Not safe (includes recursive fallback) when the `top` is broken
@@ -491,6 +519,8 @@ define(['jquery', 'cui'], function ($, cui) {
                     // Add a margin to prevent the popover from butting up against the edge of the screen. We cannot simply change the `left` value to create this gap because if the popover contains wrapping text the text will simply reflow and keep using as much width as possible.
                     $(element).css('margin-right', REL_PADDING + 'px');
                     addedRightMargin = true;
+                    __setCurrentPositionData(element, 'above-center');
+
                 }
                 // 3. Clipped by the right edge, but not the top
                 else if (position.left + popoverWidth > windowWidth) {
@@ -510,6 +540,10 @@ define(['jquery', 'cui'], function ($, cui) {
                         $(element).css('margin-right', REL_PADDING + 'px');
                         addedRightMargin = true;
                     }
+                    __setCurrentPositionData(element, 'above-center');
+                }
+                else{
+                    __setCurrentPositionData(element, 'above-center');
                 }
             }
             else {
@@ -593,9 +627,9 @@ define(['jquery', 'cui'], function ($, cui) {
 
         // Apply the positioning styles
         $(element).css({
-                    left: Math.floor(position.left),
-                    top: Math.floor(position.top),
-                });
+                        left: Math.floor(position.left),
+                        top: Math.floor(position.top),
+                    });
     };
 
 
@@ -615,7 +649,7 @@ define(['jquery', 'cui'], function ($, cui) {
 
     UIPosition.prototype.default = {
         positionType: null,
-        offset:{
+        offset: {
             offsetX: 0,
             offsetY: 0,
         },
