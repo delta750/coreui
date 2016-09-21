@@ -289,6 +289,14 @@
     }
 }
 
+// Alias for `pointbreak` with `$max:true` (i.e. for use with `max-width` media queries)
+// This makes it easier to notice `max-width` media queries when reading code. It's also easier to perform a find/replace than just plain `pointbreak` with multiple arguments
+@mixin pointbreak-max($size: $cui-bp-medium, $media: "") {
+    @include pointbreak($size, true, $media) {
+        @content;
+    }
+}
+
 
 // * @section    Pixel-em conversion
 // * --------------------------------------------------------
