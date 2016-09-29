@@ -247,6 +247,10 @@ legend {
                 line-height: normal;
             }
 
+            .cui-controls {
+                flex-wrap: wrap; // This is typically needed on small/medium screens when there are multiple controls next to a fixed-width field such as currency input. Without this style, the `cui-controls` element would spill outside of the field and likely give the page a horizontal scrollbar.
+            }
+
             .cui-label + .cui-controls {
                 padding-left: 0; // Removes the space between label & controls when there is no data. Without this, the controls won't vertically align with the data in other fields that have labels of the same length.
             }
@@ -315,8 +319,9 @@ legend {
                 border-right: $cui-input-border; // Color matches buttons styles
             }
 
+            &:focus,
             &:hover {
-                background-color: $cui-button-bg-color; // Color matches buttons
+                background-color: $cui-color-white; // Color matches buttons
             }
 
             &:active {
