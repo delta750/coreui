@@ -251,6 +251,8 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition', 'css!modal'], function (
             }
 
             $window.off('resize', _events.resize);
+
+            _priv.enablePageScrolling();
         });
     };
 
