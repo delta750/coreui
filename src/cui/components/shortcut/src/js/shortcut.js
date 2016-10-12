@@ -50,6 +50,8 @@ define(['jquery', 'cui'], function ($, cui) {
     var hasBeenInitialized = false;
     var ua = navigator.userAgent;
 
+    var legendVisible = false;
+
     ////////////////////
     // Public methods //
     ////////////////////
@@ -479,104 +481,115 @@ define(['jquery', 'cui'], function ($, cui) {
     ////////////////////
 
     priv.showLegend = function _showLegend () {
-        var __createLegend = function __createLegend () {
-            var $header;
-            var $table;
+        
+        if(!legendVisible){
+            var __createLegend = function __createLegend () {
+                var $header;
+                var $table;
 
-            $legend = $('<div/>');
+                $legend = $('<div/>');
 
-            // Header
-            $header = $('<div/>')
-                        .append(
-                            $('<h1/>')
-                                .text('Keyboard Shortcuts')
-                        );
+                // Header
+                $header = $('<div/>')
+                            .append(
+                                $('<h1/>')
+                                    .text('Keyboard Shortcuts')
+                            );
 
-            $legend.append($header);
+                $legend.append($header);
 
-            // Table and header
-            $table = $('<table/>')
-                        .append(
-                            $('<tr/>')
-                                .append(
-                                    $('<th/>')
-                                        .text('Key Combination')
-                                )
-                                .append(
-                                    $('<th/>')
-                                        .text('Description')
-                                )
-                        );
+                // Table and header
+                $table = $('<table/>')
+                            .append(
+                                $('<tr/>')
+                                    .append(
+                                        $('<th/>')
+                                            .text('Key Combination')
+                                    )
+                                    .append(
+                                        $('<th/>')
+                                            .text('Description')
+                                    )
+                            );
 
-            // Table body
-            $legendTbody = $('<tbody/>');
-            $table.append($legendTbody);
+                // Table body
+                $legendTbody = $('<tbody/>');
+                $table.append($legendTbody);
 
-            $legend.append($table);
-        };
+                $legend.append($table);
+            };
 
-        // Create legend if it doesn't already exist
-        if (!$legend) {
-            __createLegend();
-        }
-        else {
-            // Empty the existing table so we can display a fresh set of shortcuts
-            $legendTbody.empty();
-        }
-
-        // Populate table body with all shortcuts
-        Object.keys(dataStore).forEach(function (keys) {
-            var shortcut = dataStore[keys];
-
-            // Skip the shortcut that shows the legend since that goes at the bottom
-            if (shortcut.keys === '?') {
-                return false;
+            // Create legend if it doesn't already exist
+            if (!$legend) {
+                __createLegend();
+            }
+            else {
+                // Empty the existing table so we can display a fresh set of shortcuts
+                $legendTbody.empty();
             }
 
+            // Populate table body with all shortcuts
+            Object.keys(dataStore).forEach(function (keys) {
+                var shortcut = dataStore[keys];
+
+                // Skip the shortcut that shows the legend since that goes at the bottom
+                if (shortcut.keys === '?') {
+                    return false;
+                }
+
+                $legendTbody
+                    .append(
+                        $('<tr/>')
+                            .append(
+                                $('<td/>')
+                                    .text(
+                                        // Capitalize meta keys
+                                        priv.normalizeKeyName(shortcut.keys, true)
+                                    )
+                            )
+                            .append(
+                                $('<td/>')
+                                    .html(shortcut.description)
+                            )
+                    );
+            });
+
+            // Display the shortcut for this legend
             $legendTbody
                 .append(
                     $('<tr/>')
                         .append(
                             $('<td/>')
-                                .text(
-                                    // Capitalize meta keys
-                                    priv.normalizeKeyName(shortcut.keys, true)
-                                )
+                                .text('?')
                         )
                         .append(
                             $('<td/>')
-                                .html(shortcut.description)
+                                .text('Display this legend')
                         )
                 );
-        });
 
-        // Display the shortcut for this legend
-        $legendTbody
-            .append(
-                $('<tr/>')
-                    .append(
-                        $('<td/>')
-                            .text('?')
-                    )
-                    .append(
-                        $('<td/>')
-                            .text('Display this legend')
-                    )
-            );
+            // Create and display modal
+            $.modal({
+                html: $legend,
+                display: {
+                    width: '75%',
+                },
+                overlay: {
+                    opacity: 0.25,
+                },
+                closeDestroy: true,
+                hideDestroy:true,
+                closeOnEscape: true,
+                focusOnClose: $body,
+                onDestroy: priv.hideLegend
+            }).show();
 
-        // Create and display modal
-        $.modal({
-            html: $legend,
-            display: {
-                width: '75%',
-            },
-            overlay: {
-                opacity: 0.25,
-            },
-            closeDestroy: true,
-            closeOnEscape: true,
-            focusOnClose: $body,
-        }).show();
+            legendVisible = true;
+        }
+    };
+
+    priv.hideLegend = function _hideLegend(){
+        legendVisible = false;
     };
 
     //////////////////////////////////////////
