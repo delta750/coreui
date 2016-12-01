@@ -1,8 +1,9 @@
-define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid) {
+define(['jquery', 'cui', 'guid', 'withinviewport', 'uiBox', 'uiPosition'], function ($, cui, guid, withinviewport) {
     ///////////////
     // Constants //
     ///////////////
-    var VERSION = '2.0.1';
+
+    var VERSION = '2.0.2';
     var NAMESPACE = 'popover';
 
     var EVENT_NAMES = {
@@ -19,7 +20,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         useArrow: 'cui-' + NAMESPACE + '-use-arrow',
         arrow: 'cui-' + NAMESPACE + '-arrow',
         popoverBody: 'cui-' + NAMESPACE + '-body',
-        mobileBreakpoint: 'cui-breakpoint-mobile'
+        mobileBreakpoint: 'cui-breakpoint-mobile',
     };
 
     var MOBILE_BREAKPOINT = 600;
@@ -80,6 +81,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         isModal: true,
         useArrow: true,
         resizeMobile: true,
+        hideOnScroll: true,
     };
 
     /**
@@ -138,9 +140,28 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             priv.onBodyClick(evt, popover);
         }.bind(popover);
 
-        popover.onWindowScroll = function _popover_onWindowScroll (evt) {
-            priv.onWindowScroll(evt, popover);
-        }.bind(popover);
+        // Find the scrollable parent of the button
+        popover.$scrollableContainer = popover.$button.closest(':scrollable');
+
+        if (popover.$scrollableContainer.length) {
+            // If the container happens to be the root, watch for `window` scrolling instead
+            if (popover.$scrollableContainer.is('html')) {
+                popover.$scrollableContainer = $window;
+            }
+            // Otherwise, scrolling parent is some other element
+            else {
+                // Unless `hideOnScroll` was explicitly set, force it to `always`. This is due to a limitation in `withinviewport` where it can only use the window as the viewport
+                //TODO: Update the `withinviewport` lib to allow for any element to be considered the viewport, not just `window`
+                if (typeof this.options !== 'object' || !this.options.hasOwnProperty('hideOnScroll')) {
+                    popover.config.hideOnScroll = 'always';
+                }
+            }
+
+            // Define `scroll` event handler for this popover, which will only be in effect while the popover is open
+            popover.onParentScroll = function _popover_onParentScroll (evt) {
+                priv.onParentScroll(evt, popover);
+            }.bind(popover);
+        }
 
         // Hide the popover when the Escape key is pressed
         if (popover.config.hideOnEscape) {
@@ -150,9 +171,11 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         }
 
         // Keep the popover aligned properly when window is resized
-        $window.on('resize', function _popover_onResize (evt) {
+        popover.onWindowResize = function _popover_onResize (evt) {
             priv.onWindowResize(evt, popover);
-        }.bind(popover));
+        }.bind(popover);
+
+        $window.on('resize', popover.onResize);
 
         // Adds this Popover instance to our list so we can track all of them
         popoverList[popover.id] = popover;
@@ -235,12 +258,14 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             $window.off('keyup');
         }
 
-        $window.off('resize');
+        $window.off('resize', popover.onWindowResize);
 
         $body.off('click', popover.onBodyClick);
         popover.onBodyClick = null;
 
-        $(window).off('scroll', popover.onWindowScroll);
+        if (popover.onParentScroll) {
+            popover.$scrollableContainer.off('scroll', popover.onParentScroll);
+        }
 
         // Remove this Popover instance from our list
         delete popoverList[popover.id];
@@ -287,7 +312,9 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         // Add event listeners
         $body.on('click', popover.onBodyClick);
 
-        $(window).scroll(popover.onWindowScroll);
+        if (popover.onParentScroll) {
+            popover.$scrollableContainer.on('scroll', popover.onParentScroll);
+        }
 
         popover.$popover.trigger(EVENT_NAMES.show);
         $window.trigger(EVENT_NAMES.show);
@@ -348,7 +375,11 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         popover.isShown = false;
 
         $body.off('click', popover.onBodyClick);
-        $(window).off('scroll', popover.onWindowScroll);
+
+        if (popover.onParentScroll) {
+            popover.$scrollableContainer.off('scroll', popover.onParentScroll);
+        }
+
         priv.enablePageScrolling();
     };
 
@@ -357,7 +388,7 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         var boxOptions = {};
 
         boxOptions.className = CLASSES.popover + ' ' + popover.config.display.className;
-        boxOptions.css = {'opacity':'0'};
+        boxOptions.css = {opacity: '0'};
 
         if (popover.config.display.css) {
             $.extend(boxOptions.css, popover.config.display.css);
@@ -488,52 +519,52 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
 
             if ( (currentPosition === 'below-left') || (currentPosition === 'below-center') || (currentPosition === 'below-right') ) {
                 popover.$arrow.css({
-                                    'left': arrowLeft+'px',
-                                    'bottom': '100%',
-                                    'border-color': 'transparent transparent ' + popoverBackground + ' transparent',
+                                    left: arrowLeft + 'px',
+                                    bottom: '100%',
+                                    borderColor: 'transparent transparent ' + popoverBackground + ' transparent',
                                 });
 
                 adjustedTop = parseInt(popover.$popover.css('top')) + arrowHeight;
-                popover.$popover.css({'top': adjustedTop+'px'});
+                popover.$popover.css({top: adjustedTop+'px'});
 
                 validPosition = true;
             }
             else if ( (currentPosition === 'above-left') || (currentPosition === 'above-center') || (currentPosition === 'above-right') ) {
                 popover.$arrow.css({
-                                    'left': arrowLeft + 'px',
-                                    'bottom': (2*-arrowHeight) + 'px',
-                                    'border-color': popoverBackground + ' transparent transparent transparent',
+                                    left: arrowLeft + 'px',
+                                    bottom: (2*-arrowHeight) + 'px',
+                                    borderColor: popoverBackground + ' transparent transparent transparent',
                                 });
 
                 adjustedTop = parseInt(popover.$popover.css('top')) - arrowHeight;
-                popover.$popover.css({'top': adjustedTop+'px'});
+                popover.$popover.css({top: adjustedTop + 'px'});
 
                 validPosition = true;
             }
             else if (currentPosition === 'inline-left') {
                 popover.$arrow.css({
-                                    'left': 'auto',
-                                    'right': (2*-arrowHeight)+'px',
-                                    'bottom': '50%',
-                                    'transform': 'translate(0, 50%)',
-                                    'border-color':'transparent transparent transparent ' + popoverBackground,
+                                    left: 'auto',
+                                    right: (2*-arrowHeight) + 'px',
+                                    bottom: '50%',
+                                    transform: 'translate(0, 50%)',
+                                    borderColor: 'transparent transparent transparent ' + popoverBackground,
                                 });
 
                 adjustedLeft = parseInt(popover.$popover.css('left')) - arrowHeight;
-                popover.$popover.css({'left': adjustedLeft+'px'});
+                popover.$popover.css({left: adjustedLeft + 'px'});
 
                 validPosition = true;
             }
             else if (currentPosition === 'inline-right') {
                 popover.$arrow.css({
-                                    'left': -arrowHeight+'px',
-                                    'bottom': '50%',
-                                    'transform': 'translate(0, 50%)',
-                                    'border-color':'transparent ' +popoverBackground+ ' transparent transparent',
+                                    left: -arrowHeight + 'px',
+                                    bottom: '50%',
+                                    transform: 'translate(0, 50%)',
+                                    borderColor: 'transparent ' + popoverBackground + ' transparent transparent',
                                 });
 
                 adjustedLeft = parseInt(popover.$popover.css('left'), 10) + arrowHeight;
-                popover.$popover.css({'left': adjustedLeft+'px'});
+                popover.$popover.css({left: adjustedLeft + 'px'});
 
                 validPosition = true;
             }
@@ -548,39 +579,39 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         }
     };
 
-    priv.removeArrow = function _removeArrow(popover) {
+    priv.removeArrow = function _removeArrow (popover) {
         if (popover.$arrow) {
             popover.$arrow.remove();
         }
     };
 
-    priv.resetInnerContentHeight = function _resetInnerContentHeight(popover) {
+    priv.resetInnerContentHeight = function _resetInnerContentHeight (popover) {
         var popoverBody = popover.$popover.find('.'+CLASSES.popoverBody);
 
         popoverBody.css({
-                        'max-height': '',
-                        'height': '',
+                        maxHeight: '',
+                        height: '',
                     });
     };
 
-    priv.setInnerContentHeight = function _setInnerContentHeight(popover) {
+    priv.setInnerContentHeight = function _setInnerContentHeight (popover) {
         var popoverBody = popover.$popover.find('.'+CLASSES.popoverBody);
         var popoverHeight = popover.$popover.height();
 
         popoverBody.css({
-                        'max-height': popoverHeight + 'px',
-                        'height': popoverHeight + 'px',
+                        maxHeight: popoverHeight + 'px',
+                        height: popoverHeight + 'px',
                     });
     };
 
-    priv.setFullSize = function _setFullSize(popover) {
+    priv.setFullSize = function _setFullSize (popover) {
         var maxWidth = $(window).width() - MOBILE_PADDING * 2;
         var maxHeight = $(window).height() - MOBILE_PADDING * 2;
 
-        popover.$popover.css({'height':maxHeight, 'width':maxWidth});
+        popover.$popover.css({height: maxHeight, width: maxWidth});
     };
 
-    priv.resetSize = function _resetSize(popover) {
+    priv.resetSize = function _resetSize (popover) {
         var defaultWidth = 'auto';
         var defaultHeight = 'auto';
 
@@ -593,15 +624,15 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         }
 
         popover.$popover.css({
-                            'height': defaultWidth,
-                            'width': defaultHeight,
+                            height: defaultWidth,
+                            width: defaultHeight,
                         });
     };
 
     /**
      * Disables scrolling on the page
      *
-     * If the modal has scrollable content, when you reach the bottom or top of the modal's content and keep scrolling the body itself will begin scrolling. These styles will prevent that from happening which means the user won't lose their place.
+     * If the popover has scrollable content, when you reach the bottom or top of the popover's content and keep scrolling the body itself will begin scrolling. These styles will prevent that from happening which means the user won't lose their place.
      */
     priv.disablePageScrolling = function _disablePageScrolling () {
         document.body.style.height = '100%';
@@ -638,6 +669,10 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
             if (popover.config.hideOnResize) {
                 priv.hidePopover(popover);
             }
+            // Check if the popover is now outside the viewport and was configured to hide in this scenario
+            else if (popover.config.hideOnScroll === true && !withinviewport(popover.$popover.get(0))) {
+                priv.hidePopover(popover);
+            }
             else {
                 priv.positionPopover(popover);
             }
@@ -652,9 +687,17 @@ define(['jquery', 'cui', 'guid', 'uiBox', 'uiPosition'], function ($, cui, guid)
         }
     };
 
-    priv.onWindowScroll = function _onWindowScroll(evt, popover) {
-        if (popover.isShown) {
-            priv.hidePopover(popover);
+    priv.onParentScroll = function _onParentScroll (evt, popover) {
+        // Popover is currently visible and it's supposed to hide when scrolling
+        if (popover.isShown && popover.config.hideOnScroll) {
+            // Hide popover upon any scroll event
+            if (popover.config.hideOnScroll === 'always') {
+                priv.hidePopover(popover);
+            }
+            // Hide popover only if it's (at least partially) outside the viewport
+            else if (!withinviewport(popover.$popover.get(0))) {
+                priv.hidePopover(popover);
+            }
         }
     };
 
